@@ -51,6 +51,7 @@ require('jg.layers.file-tree')
 require('jg.layers.file-pairs')
 require('jg.layers.fuzzy-finder--telescope')
 -- require('jg.layers.fuzzy-finder--fzf')
+require('jg.layers.search')
 
 require('jg.layers.config')
 
