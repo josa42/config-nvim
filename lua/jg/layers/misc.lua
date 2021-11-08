@@ -11,7 +11,8 @@ plug.require(
   'tpope/vim-repeat',
   'phaazon/hop.nvim',
   -- Files
-  'tpope/vim-eunuch'
+  'tpope/vim-eunuch',
+  'jghauser/mkdir.nvim'
 )
 
 plug.after(function()
