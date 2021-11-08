@@ -1,0 +1,28 @@
+local M = {}
+
+function M.switch_to(filepath)
+  local file = vim.loop.fs_realpath(filepath)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if file == vim.api.nvim_buf_get_name(buf) then
+      vim.api.nvim_set_current_win(win)
+      return true
+    end
+  end
+
+  return false
+end
+
+function M.edit(command, filename)
+  vim.cmd(string.format("%s %s", command, vim.fn.fnameescape(filename)))
+end
+
+function M.buf_is_empty()
+  if vim.api.nvim_buf_get_name(0) ~= '' or vim.api.nvim_buf_line_count(0) > 1 then
+    return false
+  end
+
+  return vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] == ""
+end
+
+return M

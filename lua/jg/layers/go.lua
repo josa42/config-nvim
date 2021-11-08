@@ -1,0 +1,19 @@
+vim.g.go_highlight_array_whitespace_error    = true
+vim.g.go_highlight_build_constraints         = true
+vim.g.go_highlight_chan_whitespace_error     = true
+vim.g.go_highlight_debug                     = true
+vim.g.go_highlight_extra_types               = true
+vim.g.go_highlight_fields                    = true
+vim.g.go_highlight_format_strings            = true
+vim.g.go_highlight_function_calls            = true
+vim.g.go_highlight_function_parameters       = true
+vim.g.go_highlight_functions                 = true
+vim.g.go_highlight_generate_tags             = true
+vim.g.go_highlight_operators                 = true
+vim.g.go_highlight_space_tab_error           = true
+vim.g.go_highlight_string_spellcheck         = true
+vim.g.go_highlight_trailing_whitespace_error = true
+vim.g.go_highlight_types                     = true
+vim.g.go_highlight_variable_assignments      = true
+vim.g.go_highlight_variable_declarations     = true
+
