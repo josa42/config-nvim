@@ -25,8 +25,8 @@ require('jg.layers.syntax--treesitter')
 require('jg.layers.tabline')
 require('jg.layers.statusline')
 require('jg.layers.indent-line')
+require('jg.layers.scrolling')
 -- require('jg.layers.scrollbar')
--- require('jg.layers.scrolling')
 
 -- Version Control
 require('jg.layers.git')
@@ -44,14 +44,14 @@ require('jg.layers.comments')
 require('jg.layers.textobjects')
 require('jg.layers.snippets')
 require('jg.layers.colors')
+require('jg.layers.file-pairs')
 -- require('jg.layers.copilot')
 
 -- File Navigations
 require('jg.layers.file-tree')
-require('jg.layers.file-pairs')
 require('jg.layers.fuzzy-finder--telescope')
--- require('jg.layers.fuzzy-finder--fzf')
 require('jg.layers.search')
+-- require('jg.layers.fuzzy-finder--fzf')
 
 require('jg.layers.config')
 
