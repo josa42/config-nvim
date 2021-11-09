@@ -9,7 +9,13 @@ layer.use({
     'tpope/vim-git',
     'rhysd/conflict-marker.vim',
     'sindrets/diffview.nvim',
-    'mhinz/vim-signify',
+    'nvim-lua/plenary.nvim',
+    'lewis6991/gitsigns.nvim',
+  },
+
+  map = {
+    { 'n', '<leader>bt', '<cmd>Gitsigns toggle_current_line_blame<cr>' },
+    { 'n', '<leader>bb', '<cmd>lua require"gitsigns".blame_line(true)<CR>' },
   },
 
   before = function()
@@ -27,19 +33,11 @@ layer.use({
     hi.set('ConflictMarkerTheirs', { bg = '#344f69' })
     hi.set('ConflictMarkerEnd', { bg = '#2f628e' })
     hi.set('ConflictMarkerCommonAncestorsHunk', { bg = '#754a81' })
+  end,
 
-    -- Git gutter
-    vim.g.signify_realtime = 1
-    vim.g.signify_sign_show_count = 0
-    vim.g.signify_priority = 8
-
-    vim.g.signify_sign_add = _G.__icons.vcs.add
-    vim.g.signify_sign_delete = _G.__icons.vcs.delete_top
-    vim.g.signify_sign_delete_first_line = _G.__icons.vcs.delete
-    vim.g.signify_sign_change = _G.__icons.vcs.change
-    vim.g.signify_sign_changedelete = _G.__icons.vcs.change_delete
-
-    vim.cmd([[ nmap <leader>gj <plug>(signify-next-hunk) ]])
-    vim.cmd([[ nmap <leader>gk <plug>(signify-prev-hunk) ]])
+  after = function()
+    require('gitsigns').setup({
+      yadm = { enable = true },
+    })
   end,
 })
