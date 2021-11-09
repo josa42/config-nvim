@@ -5,6 +5,8 @@ end
 local fs = require('jg.lib.fs')
 local layer = require('jg.lib.layer')
 
+local ts = {}
+
 layer.use({
   require = {
     'nvim-lua/plenary.nvim',
@@ -13,15 +15,17 @@ layer.use({
     'itchyny/vim-gitbranch',
   },
 
-  map = {
-    { 'n', __keymaps.find_file, '<cmd>lua _G.__ts.find_files()<cr>' },
-    { 'n', __keymaps.find_string, '<cmd>lua _G.__ts.find_string()<cr>' },
-    { 'n', __keymaps.find_config, '<cmd>lua _G.__ts.find_config()<cr>' },
-    { 'n', '<leader>d', '<cmd>lua _G.__ts.find_docs()<cr>' },
-    { 'n', __keymaps.find_help, '<cmd>lua _G.__ts.find_help()<cr>' },
-    { 'n', '<leader>g', '<cmd>lua _G.__ts.git_status_files()<cr>' },
-    { 'n', '<leader>p', '<cmd>lua _G.__ts.find_in_workspace()<cr>' },
-  },
+  map = function()
+    return {
+      { 'n', __keymaps.find_file, ts.find_files },
+      { 'n', __keymaps.find_string, ts.find_string },
+      { 'n', __keymaps.find_config, ts.find_config },
+      { 'n', '<leader>d', ts.find_docs },
+      { 'n', __keymaps.find_help, ts.find_help },
+      { 'n', '<leader>g', ts.git_status_files },
+      { 'n', '<leader>p', ts.find_in_workspace },
+    }
+  end,
 
   after = function()
     local actions = require('telescope.actions')
@@ -162,9 +166,6 @@ layer.use({
         find_command = get_find_command(),
       })
     end
-
-    local ts = {}
-    _G.__ts = ts
 
     function ts.find_files()
       require('telescope.builtin').find_files(default_opts({ hidden = true }))
