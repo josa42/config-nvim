@@ -33,7 +33,7 @@ function M.setup(setup)
     settings = {
       packageManager = 'yarn',
       quiet = true,
-    }
+    },
   })
 end
 

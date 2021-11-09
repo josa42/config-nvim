@@ -3,32 +3,32 @@ local au = require('jg.lib.autocmd')
 local paths = require('jg.lib.paths')
 
 local filetypes = {
-  { '~/.ssh/config*',                'sshconfig'    },
-  { '~/.ssh/config*',                'sshconfig'    },
-  { '~/.config/git/*',               'gitconfig'    },
-  { '*.tmux',                        'sh'           },
-  { '*.conf',                        'conf'         },
-  { 'Vagrantfile',                   'ruby'         },
-  { '.eslintrc',                     'json'         },
-  { '*/inventory/*.yml',             'yaml.ansible' },
-  { '*/playbooks/*.yml',             'yaml.ansible' },
-  { 'Brewfile',                      'ruby'         },
-  { 'Dockerfile.*',                  'dockerfile'   },
-  { '*.template',                    'mustache'     },
-  { 'go.mod',                        'gomod'        },
-  { '$HOME/.config/direnv/direnvrc', 'sh'           },
-  { '$HOME/.direnvrc',               'sh'           },
-  { '.parcelrc',                     'json'         },
-  { '.terserrc',                     'json'         },
+  { '~/.ssh/config*', 'sshconfig' },
+  { '~/.ssh/config*', 'sshconfig' },
+  { '~/.config/git/*', 'gitconfig' },
+  { '*.tmux', 'sh' },
+  { '*.conf', 'conf' },
+  { 'Vagrantfile', 'ruby' },
+  { '.eslintrc', 'json' },
+  { '*/inventory/*.yml', 'yaml.ansible' },
+  { '*/playbooks/*.yml', 'yaml.ansible' },
+  { 'Brewfile', 'ruby' },
+  { 'Dockerfile.*', 'dockerfile' },
+  { '*.template', 'mustache' },
+  { 'go.mod', 'gomod' },
+  { '$HOME/.config/direnv/direnvrc', 'sh' },
+  { '$HOME/.direnvrc', 'sh' },
+  { '.parcelrc', 'json' },
+  { '.terserrc', 'json' },
 }
 
-layer.use {
+layer.use({
   require = {
     'sheerun/vim-polyglot',
     'zhaozg/vim-diagram',
     'rhysd/vim-syntax-codeowners',
     'darfink/vim-plist',
-    'josa42/vim-monkey-c'
+    'josa42/vim-monkey-c',
   },
 
   before = function()
@@ -45,6 +45,4 @@ layer.use {
       end
     end)
   end,
-}
-
-
+})

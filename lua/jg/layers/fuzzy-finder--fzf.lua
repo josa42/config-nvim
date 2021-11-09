@@ -1,17 +1,15 @@
-if __flags.fuzzy_finder ~= 'fzf' then return end
+if __flags.fuzzy_finder ~= 'fzf' then
+  return
+end
 
 local plug = require('jg.lib.plug')
 local paths = require('jg.lib.paths')
 local map = vim.api.nvim_set_keymap
 
-plug.require(
-  { 'junegunn/fzf', { ['do'] = vim.fn['fzf#install'] } },
-  'junegunn/fzf.vim'
-)
+plug.require({ 'junegunn/fzf', { ['do'] = vim.fn['fzf#install'] } }, 'junegunn/fzf.vim')
 
 -- use fd to find files
 vim.cmd('let $FZF_DEFAULT_COMMAND = "fd --type f --hidden --exclude .git --exclude .DS_Store"')
-
 
 vim.cmd('let $FZF_DEFAULT_OPTS = "' .. vim.fn.join({
   -- prompt on top
@@ -63,7 +61,7 @@ vim.cmd('let $FZF_DEFAULT_OPTS = "' .. vim.fn.join({
   '--color=header:#e06c75',
 }, ' ') .. '"')
 
-  -- "--layout=reverse --bind ctrl-a:select-all"')
+-- "--layout=reverse --bind ctrl-a:select-all"')
 
 vim.g.fzf_layout = { window = { width = 0.9, height = 0.8 } }
 vim.g.fzf_preview_window = { 'right:50%', '?' }
@@ -85,35 +83,33 @@ function _G.__open_file(file)
   vim.cmd('tabedit ' .. vim.fn.escape(file, ' '))
 end
 
-vim.cmd [[command! -nargs=* -bang FzfActionOpenFile lua _G.__open_file(<q-args>, <bang>0)]]
+vim.cmd([[command! -nargs=* -bang FzfActionOpenFile lua _G.__open_file(<q-args>, <bang>0)]])
 
 vim.g.fzf_action = {
   ['ctrl-t'] = 'tab split',
   ['ctrl-x'] = 'split',
   ['ctrl-v'] = 'vsplit',
   ['ctrl-e'] = 'edit',
-  ['enter']  = 'FzfActionOpenFile',
+  ['enter'] = 'FzfActionOpenFile',
 }
 
 function _G.__fzf_rg(query, fullscreen)
   local command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- {q} || true'
   local command = command_fmt:gsub('{q}', vim.fn.shellescape(query))
   local preview = vim.fn['fzf#vim#with_preview']({
-    options = { '--phony', '--layout=reverse', '--query', query, '--bind', 'change:reload:' .. command_fmt }
+    options = { '--phony', '--layout=reverse', '--query', query, '--bind', 'change:reload:' .. command_fmt },
   })
 
   vim.fn['fzf#vim#grep'](command, true, preview, fullscreen)
 end
 
-vim.cmd [[command! -nargs=* -bang Find lua __fzf_rg(<q-args>, <bang>0)]]
+vim.cmd([[command! -nargs=* -bang Find lua __fzf_rg(<q-args>, <bang>0)]])
 
 -- Config
-vim.cmd [[command! -bang FindConfig call fzf#vim#files('~/.config/nvim', fzf#vim#with_preview())]]
-
+vim.cmd([[command! -bang FindConfig call fzf#vim#files('~/.config/nvim', fzf#vim#with_preview())]])
 
 map('n', __keymaps.find_file, '<cmd>Files<cr>', { noremap = true })
 map('n', __keymaps.find_string, '<cmd>Find<cr>', { noremap = true })
 -- TODO find selection
 -- map('v', __keymaps.find_string, '<cmd>Find<cr>', { noremap = true })
 map('n', __keymaps.find_config, '<cmd>FindConfig<cr>', { noremap = true })
-

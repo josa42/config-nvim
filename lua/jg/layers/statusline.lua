@@ -1,8 +1,8 @@
-local layer = require("jg.lib.layer")
+local layer = require('jg.lib.layer')
 
 local M = {}
 
-layer.use {
+layer.use({
   require = {
     'nvim-lualine/lualine.nvim',
     'arkav/lualine-lsp-progress',
@@ -13,46 +13,46 @@ layer.use {
       options = {
         theme = 'auto',
         icons_enabled = true,
-        section_separators = { left = '', right = ''},
-        component_separators = { left = '⏐', right = '⏐'},
-        disabled_filetypes = {'tree'},
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '⏐', right = '⏐' },
+        disabled_filetypes = { 'tree' },
         always_divide_middle = true,
       },
       sections = {
-        lualine_a = {'mode'},
+        lualine_a = { 'mode' },
         lualine_b = {
-          {'filename', path = 1 },
+          { 'filename', path = 1 },
           'require("jg.layers.statusline").client_names()',
           -- 'require("jg.lualine-lsp").messages()',
           'lsp_progress',
         },
-        lualine_c = {'branch', {'diagnostics', sources={'nvim_lsp'}}},
+        lualine_c = { 'branch', { 'diagnostics', sources = { 'nvim_lsp' } } },
         lualine_x = {},
         lualine_y = {},
-        lualine_z = {'filetype'}
+        lualine_z = { 'filetype' },
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {
-          {'filename', path = 1 },
+          { 'filename', path = 1 },
         },
         lualine_x = {},
         lualine_y = {},
-        lualine_z = {'filetype'}
+        lualine_z = { 'filetype' },
       },
       tabline = {},
-      extensions = {}
+      extensions = {},
     })
   end,
-}
+})
 
 function M.client_names()
   local clients = {}
   local icon = ' '
 
   for _, client in pairs(vim.lsp.buf_get_clients()) do
-    clients[#clients+1] = icon .. client.name
+    clients[#clients + 1] = icon .. client.name
   end
 
   return table.concat(clients, ' ')
@@ -69,8 +69,7 @@ function M.messages()
     end
   end
 
-  return table.concat(messages, " | ")
+  return table.concat(messages, ' | ')
 end
 
 return M
-

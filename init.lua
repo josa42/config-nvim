@@ -60,4 +60,3 @@ require('jg.layers.misc')
 
 -- install plugins
 require('jg.lib.layer').load()
-

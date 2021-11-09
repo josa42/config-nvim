@@ -15,4 +15,3 @@ function M.smart_open(file)
 end
 
 return M
-

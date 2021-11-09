@@ -6,7 +6,7 @@ local function get_on_read(results)
       print(err)
     end
     if chunk then
-      for line in chunk:gmatch("[^\r\n]+") do
+      for line in chunk:gmatch('[^\r\n]+') do
         table.insert(results, line)
       end
     end
@@ -66,7 +66,5 @@ function M.fd(pattern, dir)
     return line .. ':' .. 1 .. ': ' -- line .. line:gsub('^.*/', '')
   end)
 end
-
-
 
 return M

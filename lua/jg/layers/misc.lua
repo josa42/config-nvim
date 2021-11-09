@@ -16,16 +16,16 @@ plug.require(
 )
 
 plug.after(function()
-  require('diffview').setup ({
+  require('diffview').setup({
     use_icons = false,
   })
-  require('indent-o-matic').setup {
+  require('indent-o-matic').setup({
     standard_widths = { 2, 4, 8 },
-  }
+  })
   require('hop').setup()
-  vim.cmd("hi! link HopNextKey Special")
-  vim.cmd("hi! link HopNextKey1 Special")
-  vim.cmd("hi! link HopNextKey2 Special")
+  vim.cmd('hi! link HopNextKey Special')
+  vim.cmd('hi! link HopNextKey1 Special')
+  vim.cmd('hi! link HopNextKey2 Special')
 
   vim.api.nvim_set_keymap('n', '<leader>f', ':HopWord<cr>', { noremap = true })
 end)

@@ -1,6 +1,6 @@
 local M = {}
 
-  local utils = require('jg.lib.utils')
+local utils = require('jg.lib.utils')
 
 -- Usage:
 --   au.group('tekkan', function(cmd)
@@ -29,10 +29,18 @@ function M.cmd(options, listener)
     return
   end
 
-  if type(options) == 'string' then options = { on = options } end
-  if type(options.on) == 'string' then options.on = { options.on } end
-  if type(options.pattern) == 'table' then options.pattern = table.concat(options.pattern, ',') end
-  if type(options.pattern) ~= 'string' then options.pattern = '*' end
+  if type(options) == 'string' then
+    options = { on = options }
+  end
+  if type(options.on) == 'string' then
+    options.on = { options.on }
+  end
+  if type(options.pattern) == 'table' then
+    options.pattern = table.concat(options.pattern, ',')
+  end
+  if type(options.pattern) ~= 'string' then
+    options.pattern = '*'
+  end
 
   if type(listener) ~= 'string' and type(listener) ~= 'function' then
     print('error: Invalid listener type: ' .. type(listener))

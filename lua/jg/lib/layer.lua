@@ -17,19 +17,19 @@ function M.use(opts)
   end
 
   if opts.map ~= nil then
-    for _,map_args in ipairs(opts.map) do
+    for _, map_args in ipairs(opts.map) do
       vim.api.nvim_set_keymap(map_args[1], map_args[2], map_args[3], map_args[4] or l.defaultMapOpts(map_args[3]))
     end
   end
 end
 
 function M.load()
-    plug.run()
+  plug.run()
 end
 
 function l.defaultMapOpts(cmd)
-  local noremap = string.sub(cmd, 1, string.len("<Plug>")) ~= "<Plug>"
-  return { noremap=noremap, silent=true }
+  local noremap = string.sub(cmd, 1, string.len('<Plug>')) ~= '<Plug>'
+  return { noremap = noremap, silent = true }
 end
 
 return M

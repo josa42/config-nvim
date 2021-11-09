@@ -7,4 +7,3 @@ function M.setup(setup)
 end
 
 return M
-

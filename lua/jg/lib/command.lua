@@ -6,7 +6,7 @@ function M.define(name, options, cmd)
   local args = {}
 
   local flags = { 'bang', 'bar', 'buffer' }
-  for _,flag in pairs(flags) do
+  for _, flag in pairs(flags) do
     if options[flag] then
       table.insert(args, '-' .. flag)
     end

@@ -1,9 +1,6 @@
 local M = {}
 
-function branch_name()
-
-end
-
+function branch_name() end
 
 -- function branch_name()
 -- --   if get(b:, 'gitbranch_pwd', '') !=# expand('%:p:h') || !has_key(b:, 'gitbranch_path')
@@ -57,4 +54,3 @@ end
 -- end
 
 return M
-

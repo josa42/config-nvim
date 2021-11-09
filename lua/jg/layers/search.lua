@@ -1,5 +1,5 @@
 local layer = require('jg.lib.layer')
 
-layer.use {
+layer.use({
   require = { 'rktjmp/highlight-current-n.nvim' },
-}
+})

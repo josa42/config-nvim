@@ -3,7 +3,7 @@ local layer = require('jg.lib.layer')
 local cmd = require('jg.lib.command')
 local open = require('jg.lib.open')
 
-layer.use {
+layer.use({
   require = {
     'editorconfig/editorconfig-vim',
     'josa42/nvim-project-config',
@@ -29,11 +29,8 @@ layer.use {
 
         vim.fn.system('mv ' .. dir .. '/.vim ' .. gdir)
 
-        vim.cmd [[ ProjectConfig ]]
+        vim.cmd([[ ProjectConfig ]])
       end
     end)
   end,
-}
-
-
-
+})

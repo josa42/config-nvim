@@ -1,7 +1,7 @@
 local layer = require('jg.lib.plug')
 local au = require('jg.lib.autocmd')
 
-layer.use {
+layer.use({
   require = { 'Xuyuanp/scrollbar.nvim' },
 
   before = function()
@@ -28,7 +28,10 @@ layer.use {
     au.group('scrollbar', function(cmd)
       cmd({ on = { 'CursorMoved', 'VimResized', 'QuitPre' }, silent = true }, scrollbar.show)
       cmd({ on = { 'WinEnter', 'FocusGained' }, silent = true }, scrollbar.show)
-      cmd({ on = { 'WinLeave', 'FocusLost', 'BufLeave','FocusLost', 'VimResized', 'QuitPre' }, silent = true }, scrollbar.clear)
+      cmd(
+        { on = { 'WinLeave', 'FocusLost', 'BufLeave', 'FocusLost', 'VimResized', 'QuitPre' }, silent = true },
+        scrollbar.clear
+      )
     end)
   end,
-}
+})

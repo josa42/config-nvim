@@ -7,25 +7,25 @@ local settings = {
     disableAdditionalProperties = false,
     schemas = {
       ['file://' .. paths.configHome .. '/json-schema/tmuxinator.schema.json'] = {
-        '/Users/josa/.tmuxinator/*.yml'
+        '/Users/josa/.tmuxinator/*.yml',
       },
       ['file://' .. paths.configHome .. '/json-schema/bitbucket-pipeline.schema.json'] = {
-        'bitbucket-pipelines.yml'
+        'bitbucket-pipelines.yml',
       },
       ['file://' .. paths.configHome .. '/json-schema/alacritty.schema.json'] = {
-        'alacritty.yml'
+        'alacritty.yml',
       },
       ['http://json.schemastore.org/github-workflow'] = {
-        '.github/workflows/*.yml'
+        '.github/workflows/*.yml',
       },
       ['http://json.schemastore.org/github-action'] = {
-        '.github/actions/*/actions.yml'
+        '.github/actions/*/actions.yml',
       },
       -- ['https://raw.githubusercontent.com/josa42/run/master/schema/tasks.json'] = {
       --   'tasks.yml'
       -- },
       ['file:///Users/josa/github/josa42/run/schema/tasks.json'] = {
-        'tasks.yml'
+        'tasks.yml',
       },
 
       -- ['https://goreleaser.com/schema.json'] = {
@@ -34,7 +34,6 @@ local settings = {
     },
   },
 }
-
 
 local M = {}
 
@@ -48,4 +47,3 @@ function M.setup(setup)
 end
 
 return M
-

@@ -1,5 +1,5 @@
-local layer = require('jg.lib.layer');
+local layer = require('jg.lib.layer')
 
-layer.use {
+layer.use({
   require = { 'josa42/nvim-tabline' },
-}
+})

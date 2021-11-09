@@ -1,7 +1,7 @@
 local M = {}
 
-local home = os.getenv("HOME")
-local dataDir = os.getenv("XDG_DATA_HOME") or home .. '/.local/share'
+local home = os.getenv('HOME')
+local dataDir = os.getenv('XDG_DATA_HOME') or home .. '/.local/share'
 local toolsDir = dataDir .. '/nvim/tools'
 
 local npmDir = toolsDir .. '/npm'
@@ -19,8 +19,13 @@ appendEnv('PATH', { npmBin, goBin, pipBin })
 appendEnv('PYTHONPATH', { pipDir })
 
 function file_exists(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
+  local f = io.open(name, 'r')
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
 end
 
 local npm = {}
@@ -28,7 +33,9 @@ function npm.install(tool, recipe)
   local pkg = recipe.pkg or tool
 
   vim.fn.system('mkdir -p ' .. npmDir)
-  vim.fn.system('cd ' .. npmDir .. ' && ls package.json > /dev/null 2> /dev/null || ' .. 'npm init -y  > /dev/null 2> /dev/null')
+  vim.fn.system(
+    'cd ' .. npmDir .. ' && ls package.json > /dev/null 2> /dev/null || ' .. 'npm init -y  > /dev/null 2> /dev/null'
+  )
   vim.fn.system('cd ' .. npmDir .. ' && ' .. 'npm install ' .. pkg .. ' > /dev/null 2> /dev/null')
 end
 function npm.path(tool, recipe)
@@ -53,11 +60,11 @@ function pip.path(tool, recipe)
 end
 
 local recipes = {
-  autopep8 = { installer = pip  },
-  fixjson  = { installer = npm  },
-  luafmt   = { installer = npm, pkg = 'lua-fmt'               },
-  prettier = { installer = npm  },
-  shfmt    = { installer = go,  pkg = 'mvdan.cc/sh/cmd/shfmt' },
+  autopep8 = { installer = pip },
+  fixjson = { installer = npm },
+  luafmt = { installer = npm, pkg = 'lua-fmt' },
+  prettier = { installer = npm },
+  shfmt = { installer = go, pkg = 'mvdan.cc/sh/cmd/shfmt' },
 }
 
 function M.install(tool, force)
@@ -69,9 +76,9 @@ function M.install(tool, force)
 
   local i = recipe.installer
   if force or not file_exists(i.path(tool, recipe)) then
-    print("installing: " .. tool)
+    print('installing: ' .. tool)
     i.install(tool, recipe)
-    print("installed: " .. tool)
+    print('installed: ' .. tool)
   end
 end
 
@@ -85,7 +92,5 @@ function M.path(tool)
 
   return i.path(tool, recipe)
 end
-
-
 
 return M

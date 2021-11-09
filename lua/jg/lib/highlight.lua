@@ -8,10 +8,18 @@ end
 
 function M.set(group, color)
   local set = {}
-  if color.style then table.insert(set, 'gui='   .. color.style) end
-  if color.fg    then table.insert(set, 'guifg=' .. color.fg)    end
-  if color.bg    then table.insert(set, 'guibg=' .. color.bg)    end
-  if color.sp    then table.insert(set, 'guisp=' .. color.sp)    end
+  if color.style then
+    table.insert(set, 'gui=' .. color.style)
+  end
+  if color.fg then
+    table.insert(set, 'guifg=' .. color.fg)
+  end
+  if color.bg then
+    table.insert(set, 'guibg=' .. color.bg)
+  end
+  if color.sp then
+    table.insert(set, 'guisp=' .. color.sp)
+  end
 
   vim.cmd('highlight ' .. group .. ' ' .. table.concat(set, ' '))
 end

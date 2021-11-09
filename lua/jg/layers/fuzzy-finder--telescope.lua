@@ -1,9 +1,11 @@
-if __flags.fuzzy_finder ~= 'telescope' then return end
+if __flags.fuzzy_finder ~= 'telescope' then
+  return
+end
 
 local fs = require('jg.lib.fs')
 local layer = require('jg.lib.layer')
 
-layer.use {
+layer.use({
   require = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
@@ -12,13 +14,13 @@ layer.use {
   },
 
   map = {
-    { 'n', __keymaps.find_file,   '<cmd>lua _G.__ts.find_files()<cr>'        },
-    { 'n', __keymaps.find_string, '<cmd>lua _G.__ts.find_string()<cr>'       },
-    { 'n', __keymaps.find_config, '<cmd>lua _G.__ts.find_config()<cr>'       },
-    { 'n', '<leader>d',           '<cmd>lua _G.__ts.find_docs()<cr>'         },
-    { 'n', __keymaps.find_help,   '<cmd>lua _G.__ts.find_help()<cr>'         },
-    { 'n', '<leader>g',           '<cmd>lua _G.__ts.git_status_files()<cr>'  },
-    { 'n', '<leader>p',           "<cmd>lua _G.__ts.find_in_workspace()<cr>" },
+    { 'n', __keymaps.find_file, '<cmd>lua _G.__ts.find_files()<cr>' },
+    { 'n', __keymaps.find_string, '<cmd>lua _G.__ts.find_string()<cr>' },
+    { 'n', __keymaps.find_config, '<cmd>lua _G.__ts.find_config()<cr>' },
+    { 'n', '<leader>d', '<cmd>lua _G.__ts.find_docs()<cr>' },
+    { 'n', __keymaps.find_help, '<cmd>lua _G.__ts.find_help()<cr>' },
+    { 'n', '<leader>g', '<cmd>lua _G.__ts.git_status_files()<cr>' },
+    { 'n', '<leader>p', '<cmd>lua _G.__ts.find_in_workspace()<cr>' },
   },
 
   after = function()
@@ -28,7 +30,7 @@ layer.use {
 
     local edit = require('jg.lib.open').edit
     local switch_to = require('jg.lib.open').switch_to
-    local buf_is_empty  = require('jg.lib.open').buf_is_empty
+    local buf_is_empty = require('jg.lib.open').buf_is_empty
 
     local function select_edit(prompt_bufnr, type)
       action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key(type))
@@ -76,39 +78,39 @@ layer.use {
 
     require('telescope').setup({
       defaults = {
-        layout_strategy = "horizontal",
+        layout_strategy = 'horizontal',
         layout_config = {
           horizontal = { mirror = false, width = 0.8, preview_width = 0.5 },
-          vertical   = { mirror = true },
+          vertical = { mirror = true },
           prompt_position = 'top',
         },
-        sorting_strategy = "ascending",
-        prompt_prefix = "→ ",
-        selection_caret = "→ ",
-        entry_prefix = "  ",
+        sorting_strategy = 'ascending',
+        prompt_prefix = '→ ',
+        selection_caret = '→ ',
+        entry_prefix = '  ',
         default_mappings = {
           i = {
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
+            ['<C-j>'] = actions.move_selection_next,
+            ['<C-k>'] = actions.move_selection_previous,
 
-            ["<esc>"] = actions.close,
+            ['<esc>'] = actions.close,
 
-            ["<Down>"] = actions.move_selection_next,
-            ["<Up>"]  = actions.move_selection_previous,
+            ['<Down>'] = actions.move_selection_next,
+            ['<Up>'] = actions.move_selection_previous,
 
-            ["<CR>"]  = actions.select_default + actions.center,
+            ['<CR>'] = actions.select_default + actions.center,
             ['<C-e>'] = select_edit_action,
-            ["<C-x>"] = actions.select_horizontal,
-            ["<C-v>"] = actions.select_vertical,
-            ["<C-t>"] = actions.select_tab,
+            ['<C-x>'] = actions.select_horizontal,
+            ['<C-v>'] = actions.select_vertical,
+            ['<C-t>'] = actions.select_tab,
             ['<C-n>'] = create_action,
 
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
+            ['<C-u>'] = actions.preview_scrolling_up,
+            ['<C-d>'] = actions.preview_scrolling_down,
 
-            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-            ["<C-l>"] = actions.complete_tag,
+            ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
+            ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
+            ['<C-l>'] = actions.complete_tag,
 
             ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
             ['<C-a>'] = actions.add_selected_to_qflist + actions.open_qflist,
@@ -118,22 +120,22 @@ layer.use {
         prompt_title = false,
         results_title = false,
         borderchars = {
-          { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-          prompt = {"─", "│", "─", "│", '┌', '┐', "┤", "├"},
-          results = {" ", "│", "─", "│", "│", "│", "┘", "└"},
-          preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+          { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+          prompt = { '─', '│', '─', '│', '┌', '┐', '┤', '├' },
+          results = { ' ', '│', '─', '│', '│', '│', '┘', '└' },
+          preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
         },
-        file_ignore_patterns = { ".git/", ".DS_Store", 'node_modules/' },
+        file_ignore_patterns = { '.git/', '.DS_Store', 'node_modules/' },
       },
     })
     require('telescope').load_extension('fzy_native')
 
-    vim.cmd [[ highlight TelescopeNormal guibg=#2c323c ]]
-    vim.cmd [[ highlight TelescopeBorder guibg=#2c323c guifg=#5c6370 ]]
-    vim.cmd [[ highlight TelescopePreviewBorder guibg=#282c34 guifg=#5c6370 ]]
-    vim.cmd [[ highlight TelescopeSelection guifg=#ffffff ]]
-    vim.cmd [[ highlight TelescopeMultiSelection guifg=#61afef gui=bold ]]
-    vim.cmd [[ highlight TelescopeSelectionCaret guifg=#61afef ]]
+    vim.cmd([[ highlight TelescopeNormal guibg=#2c323c ]])
+    vim.cmd([[ highlight TelescopeBorder guibg=#2c323c guifg=#5c6370 ]])
+    vim.cmd([[ highlight TelescopePreviewBorder guibg=#282c34 guifg=#5c6370 ]])
+    vim.cmd([[ highlight TelescopeSelection guifg=#ffffff ]])
+    vim.cmd([[ highlight TelescopeMultiSelection guifg=#61afef gui=bold ]])
+    vim.cmd([[ highlight TelescopeSelectionCaret guifg=#61afef ]])
 
     local function get_find_command(...)
       if fs.binExist('fd') then
@@ -150,15 +152,15 @@ layer.use {
 
     local function default_opts(opts)
       return vim.tbl_extend('keep', opts or {}, {
-          prompt_title = false,
-          preview_title = false,
-          results_title = false,
-          attach_mappings = function(prompt_bufnr, map)
-            action_set.select:replace(select)
-            return true
-          end,
-          find_command = get_find_command(),
-        })
+        prompt_title = false,
+        preview_title = false,
+        results_title = false,
+        attach_mappings = function(prompt_bufnr, map)
+          action_set.select:replace(select)
+          return true
+        end,
+        find_command = get_find_command(),
+      })
     end
 
     local ts = {}
@@ -170,9 +172,9 @@ layer.use {
 
     function ts.find_files_in(path)
       require('telescope.builtin').find_files(default_opts({
-        cwd           = path,
-        prompt_prefix = "[" .. path .. "] → ",
-    }))
+        cwd = path,
+        prompt_prefix = '[' .. path .. '] → ',
+      }))
     end
 
     function ts.find_string()
@@ -211,7 +213,7 @@ layer.use {
           results = items,
           entry_maker = function(item)
             local text = format_item(item)
-            return { text = text, display = text, ordinal = text, value = item };
+            return { text = text, display = text, ordinal = text, value = item }
           end,
         }),
         sorter = conf.generic_sorter(opts),
@@ -227,4 +229,4 @@ layer.use {
       }):find()
     end
   end,
-}
+})

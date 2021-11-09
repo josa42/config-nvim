@@ -66,7 +66,6 @@ function M.current_workspace_files()
   M.files(workspace)
 end
 
-
 function M.workspace_files()
   select_workspace(M.files)
 end

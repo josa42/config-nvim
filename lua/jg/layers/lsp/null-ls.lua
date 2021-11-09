@@ -1,9 +1,8 @@
 -- stylelint-lsp
 local lsp = require('lspconfig')
 local paths = require('jg.lib.paths')
-local null_ls = require("null-ls")
-local helpers = require("null-ls.helpers")
-
+local null_ls = require('null-ls')
+local helpers = require('null-ls.helpers')
 
 local M = {}
 
@@ -20,19 +19,19 @@ local stylua_bin = paths.lspBin .. '/stylua'
 -- end
 
 local jsAndJson = {
-  "json",
-  "jsonc",
-  "javascript",
-  "javascriptreact",
-  "typescript",
-  "typescriptreact",
-  "vue",
-  "svelte",
+  'json',
+  'jsonc',
+  'javascript',
+  'javascriptreact',
+  'typescript',
+  'typescriptreact',
+  'vue',
+  'svelte',
 }
 
 local eslint_d = helpers.conditional(function(utils)
-  if (utils.root_has_file('node_modules/.bin/eslint')) then
-    if (utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')) then
+  if utils.root_has_file('node_modules/.bin/eslint') then
+    if utils.root_has_file('node_modules/jsonc-eslint-parser/package.json') then
       return null_ls.builtins.diagnostics.eslint_d.with({
         command = eslint_d_bin,
         filetypes = jsAndJson,
@@ -51,8 +50,8 @@ local eslint_d = helpers.conditional(function(utils)
 end)
 
 local eslint_d_formatter = helpers.conditional(function(utils)
-  if (utils.root_has_file('node_modules/.bin/eslint')) then
-    if (utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')) then
+  if utils.root_has_file('node_modules/.bin/eslint') then
+    if utils.root_has_file('node_modules/jsonc-eslint-parser/package.json') then
       return null_ls.builtins.formatting.eslint_d.with({
         command = eslint_d_bin,
         filetypes = jsAndJson,
@@ -63,7 +62,6 @@ local eslint_d_formatter = helpers.conditional(function(utils)
   end
 end)
 
-
 null_ls.config({
   debug = false, -- log: ~/.cache/nvim/null-ls.log
   sources = {
@@ -73,13 +71,13 @@ null_ls.config({
       command = fixjson_bin,
     }),
     null_ls.builtins.formatting.stylua.with({
-      command = stylua_bin
+      command = stylua_bin,
     }),
-  }
+  },
 })
 
 function M.setup(setup)
-  setup(lsp["null-ls"])
+  setup(lsp['null-ls'])
 end
 
 return M

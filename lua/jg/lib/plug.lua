@@ -7,7 +7,6 @@ local plugURL = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug
 local M = {}
 local plugins = {}
 
-
 function M.use(opts)
   for _, plugin in ipairs(opts.require or {}) do
     M.require(plugin)
@@ -53,11 +52,11 @@ local function exists(path)
 end
 
 local function startsWith(str, prefix)
-  return string.sub(str,1,string.len(prefix)) == prefix
+  return string.sub(str, 1, string.len(prefix)) == prefix
 end
 
 local function hasMissingPlugs()
-  for _,p in pairs(vim.g.plugs) do
+  for _, p in pairs(vim.g.plugs) do
     if type(p) ~= 'table' or startsWith(p.dir, plugDir) and not exists(p.dir) then
       return true
     end
@@ -94,7 +93,9 @@ function M.run()
     end
   end
   vim.call('plug#end')
-  if hasMissingPlugs() then plugInstall() end
+  if hasMissingPlugs() then
+    plugInstall()
+  end
 
   for _, plugin in pairs(plugins) do
     if plugin.after then
@@ -103,6 +104,4 @@ function M.run()
   end
 end
 
-
 return M
-

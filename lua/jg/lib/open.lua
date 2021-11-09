@@ -14,7 +14,7 @@ function M.switch_to(filepath)
 end
 
 function M.edit(command, filename)
-  vim.cmd(string.format("%s %s", command, vim.fn.fnameescape(filename)))
+  vim.cmd(string.format('%s %s', command, vim.fn.fnameescape(filename)))
 end
 
 function M.buf_is_empty()
@@ -22,7 +22,7 @@ function M.buf_is_empty()
     return false
   end
 
-  return vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] == ""
+  return vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] == ''
 end
 
 return M

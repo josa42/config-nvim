@@ -1,8 +1,3 @@
 local plug = require('jg.lib.plug')
 
-plug.require(
-  'jeanCarloMachado/vim-toop',
-  'kana/vim-textobj-user',
-  'sgur/vim-textobj-parameter'
-)
-
+plug.require('jeanCarloMachado/vim-toop', 'kana/vim-textobj-user', 'sgur/vim-textobj-parameter')

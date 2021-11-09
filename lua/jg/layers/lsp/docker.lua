@@ -3,7 +3,7 @@ local paths = require('jg.lib.paths')
 local au = require('jg.lib.autocmd')
 
 local settings = {
-  docker ={
+  docker = {
     languageserver = {
       -- diagnostics?: {
       --   // string values must be equal to "ignore", "warning", or "error"
@@ -16,8 +16,8 @@ local settings = {
       --   instructionHealthcheckMultiple?: string,
       --   instructionJSONInSingleQuotes?: string
       -- }
-    }
-  }
+    },
+  },
 }
 
 local M = {}
@@ -30,10 +30,9 @@ function M.setup(setup)
     settings = settings,
   })
 
-  au.group('jg.lsp.go', function (cmd)
+  au.group('jg.lsp.go', function(cmd)
     cmd({ on = { 'BufWritePre', 'InsertLeave' }, pattern = 'Dockerfile' }, vim.lsp.buf.formatting)
   end)
 end
 
 return M
-

@@ -1,4 +1,6 @@
-if __flags.snippets ~= 'vsnip' then return end
+if __flags.snippets ~= 'vsnip' then
+  return
+end
 
 local plug = require('jg.lib.plug')
 local paths = require('jg.lib.paths')
