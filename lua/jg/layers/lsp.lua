@@ -25,8 +25,8 @@ layer.use({
   },
 
   map = {
-    { 'n', 'gd', '<Cmd>lua require("jg.lib.lsp").buf_definition()<CR>' },
-    { 'n', 'gD', '<Cmd>lua require("jg.lib.lsp").buf_definition("tab")<CR>' },
+    { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
+    { 'n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>' },
     { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
     { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' },
     { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' },

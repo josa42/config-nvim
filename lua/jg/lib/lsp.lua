@@ -1,6 +1,4 @@
-local api = vim.api
 local util = vim.lsp.util
-local log = vim.lsp.log
 
 local M = {}
 
@@ -13,37 +11,6 @@ local formatting_clients_defaults = {
   css = { 'stylelint_lsp' },
   lua = { 'stylua' },
 }
-
-local location_callback_tab = function(_, method, result)
-  if result == nil or vim.tbl_isempty(result) then
-    local _ = log.info() and log.info(method, 'No location found')
-    return nil
-  end
-
-  api.nvim_command('tab split')
-
-  if vim.tbl_islist(result) then
-    util.jump_to_location(result[1])
-    if #result > 1 then
-      -- TODO use fuzzy finder
-      util.set_qflist(util.locations_to_items(result))
-      api.nvim_command('copen')
-      api.nvim_command('wincmd p')
-    end
-  else
-    util.jump_to_location(result)
-  end
-end
-
-function M.buf_definition(target)
-  local params = util.make_position_params()
-
-  if target == 'tab' then
-    vim.lsp.buf_request(0, 'textDocument/definition', params, location_callback_tab)
-  else
-    vim.lsp.buf.definition()
-  end
-end
 
 function M.make_client_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
