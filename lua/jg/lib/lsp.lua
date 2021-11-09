@@ -4,7 +4,6 @@ local log = vim.lsp.log
 
 local M = {}
 
-local auto_format_files_defaults = {'css', 'js', 'json', 'jsx', 'ts', 'tsx'}
 local formatting_clients_defaults = {
   js   = {'null-ls'},
   json = {'null-ls'},
@@ -12,6 +11,7 @@ local formatting_clients_defaults = {
   ts   = {'null-ls'},
   tsx  = {'null-ls'},
   css  = {'stylelint_lsp'},
+  lua  = {'stylua'},
 };
 
 local location_callback_tab = function(_, method, result)
@@ -73,8 +73,17 @@ local function select_client(method, client_names)
   return clients[1]
 end
 
+function M.auto_formatting_pattern()
+  local pattern = {}
+  for ext in pairs(vim.g.formatting_clients or formatting_clients_defaults) do
+    table.insert(pattern, '*.' .. ext)
+  end
+
+  return pattern
+end
+
 function M.auto_formatting_enabled(ext)
-  for _,v in ipairs(vim.g.auto_format_files or auto_format_files_defaults) do
+  for v in pairs(vim.g.formatting_clients or formatting_clients_defaults) do
     if v == ext then return true end
   end
 

@@ -81,7 +81,7 @@ layer.use {
 
     au.group('jg.layer.lsp', function (cmd)
       -- format on save
-      cmd({ on = {'BufWritePre'}, pattern = {'*.json', '*.js', '*.jsx', '*.ts', '*.tsx', '*.css'} }, function()
+      cmd({ on = {'BufWritePre'}, pattern = lsp.auto_formatting_pattern() }, function()
         if lsp.auto_formatting_enabled(vim.fn.expand('<afile>:e')) then
           lsp.buf_formatting()
         end

@@ -9,6 +9,7 @@ local M = {}
 
 local fixjson_bin = paths.lspBin .. '/fixjson'
 local eslint_d_bin = paths.lspBin .. '/eslint_d'
+local stylua_bin = paths.lspBin .. '/stylua'
 
 -- local if_root_has = function(filename, tool)
 --  return helpers.conditional(function(utils)
@@ -70,6 +71,9 @@ null_ls.config({
     eslint_d_formatter,
     null_ls.builtins.formatting.fixjson.with({
       command = fixjson_bin,
+    }),
+    null_ls.builtins.formatting.stylua.with({
+      command = stylua_bin
     }),
   }
 })
