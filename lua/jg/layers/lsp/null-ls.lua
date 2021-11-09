@@ -10,14 +10,6 @@ local fixjson_bin = paths.lspBin .. '/fixjson'
 local eslint_d_bin = paths.lspBin .. '/eslint_d'
 local stylua_bin = paths.lspBin .. '/stylua'
 
--- local if_root_has = function(filename, tool)
---  return helpers.conditional(function(utils)
---     if (utils.root_has_file(filename)) then
---       return tool
---     end
---   end)
--- end
-
 local jsAndJson = {
   'json',
   'jsonc',
@@ -36,15 +28,8 @@ local eslint_d = helpers.conditional(function(utils)
         command = eslint_d_bin,
         filetypes = jsAndJson,
       })
-      -- return null_ls.builtins.diagnostics.eslint.with({
-      --   command = 'node_modules/.bin/eslint',
-      --   filetypes = jsAndJson,
-      -- })
     else
       return null_ls.builtins.diagnostics.eslint_d.with({ command = eslint_d_bin })
-      -- return null_ls.builtins.diagnostics.eslint.with({
-      --   command = 'node_modules/.bin/eslint',
-      -- })
     end
   end
 end)
