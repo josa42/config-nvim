@@ -25,7 +25,7 @@ _G.__keymaps = {
   goto_diagnostics_list = 'gll',
   goto_diagnostics_next = 'glj',
   goto_diagnostics_prev = 'glk',
-  format_buffer = '<leader>f',
+  format_buffer = 'gf',
 }
 
 _G.__icons = {

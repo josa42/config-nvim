@@ -14,6 +14,7 @@ TOOLS=(
   "vscode-langservers-extracted"
   "yaml-language-server"
   "stylelint-lsp"
+  "shfmt"
 )
 
 tools="$1"

@@ -9,6 +9,7 @@ local M = {}
 local fixjson_bin = paths.lspBin .. '/fixjson'
 local eslint_d_bin = paths.lspBin .. '/eslint_d'
 local stylua_bin = paths.lspBin .. '/stylua'
+local shfmt_bin = paths.lspBin .. '/shfmt'
 
 local jsAndJson = {
   'json',
@@ -57,6 +58,16 @@ null_ls.config({
     }),
     null_ls.builtins.formatting.stylua.with({
       command = stylua_bin,
+    }),
+    null_ls.builtins.formatting.shfmt.with({
+      command = shfmt_bin,
+      extra_args = {
+        '-i=2', -- indent: 0 for tabs (default), >0 for number of spaces
+        '-bn', -- binary ops like && and | may start a line
+        '-ci', -- switch cases will be indented
+        '-sr', -- keep column alignment paddings
+        '-kp', -- function opening braces are placed on a separate line
+      },
     }),
     null_ls.builtins.code_actions.gitsigns,
   },

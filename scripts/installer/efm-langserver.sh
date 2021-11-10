@@ -1,6 +1,5 @@
 #!/bin/bash
 
-[[ "$NVIM_TOOLS_BIN" != "" ]] || exit 1
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
-GOBIN="$NVIM_TOOLS_BIN" GO111MODULE=on go get github.com/mattn/efm-langserver
-
+$DIR/lib/go-install.sh github.com/mattn/efm-langserver@latest
