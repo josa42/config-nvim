@@ -13,6 +13,7 @@ TOOLS=(
   "vim-language-server"
   "vscode-langservers-extracted"
   "yaml-language-server"
+  "stylelint-lsp"
 )
 
 tools="$1"
