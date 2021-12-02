@@ -148,3 +148,10 @@ layer.use({
     end)
   end,
 })
+
+layer.use({
+  require = { 'jghauser/mkdir.nvim' },
+  after = function()
+    require('mkdir')
+  end,
+})
