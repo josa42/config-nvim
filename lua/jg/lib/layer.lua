@@ -5,6 +5,10 @@ local M = {}
 local l = {}
 
 function M.use(opts)
+  if opts.enabled == false then
+    return
+  end
+
   for _, plugin in ipairs(opts.require or {}) do
     plug.require(plugin)
   end
