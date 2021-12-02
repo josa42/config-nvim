@@ -16,7 +16,7 @@ layer.use({
         icons_enabled = true,
         section_separators = { left = '', right = '' },
         component_separators = { left = '⏐', right = '⏐' },
-        disabled_filetypes = { 'tree' },
+        disabled_filetypes = { 'tree', 'NvimTree' },
         always_divide_middle = true,
       },
       sections = {
