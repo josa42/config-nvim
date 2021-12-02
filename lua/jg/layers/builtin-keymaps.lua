@@ -19,17 +19,6 @@ map('v', 'g<down>', ":m '>+1<CR>gv=gv", { noremap = true })
 -- redo
 map('n', '<S-U>', '<C-R>', { noremap = true })
 
--- TODO move to lsp?
--- Navigation completions with <s-tab>
-map(
-  'i',
-  '<S-TAB>',
-  [[
-  pumvisible() ? "\<C-p>" : "\<C-h>"
-]],
-  { silent = true, expr = true, noremap = true }
-)
-
 -- folds
 map(
   'n',
@@ -53,9 +42,6 @@ map('', '<Leader><Left>', '<C-W><C-H>', { noremap = true })
 map('n', '/', '/\\v', { noremap = true })
 map('v', '/', '/\\v', { noremap = true })
 map('c', '%s/', '%s/\\v', { noremap = true })
-
--- Map Ctrl+l to clear highlighted searches
-map('n', '<C-l>', ':<C-u>nohlsearch<CR><C-l>', { noremap = true, silent = true })
 
 -- Deleting without yanking
 map('n', 'c', '"_c', { noremap = true })
