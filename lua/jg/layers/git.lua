@@ -9,13 +9,6 @@ layer.use({
     'tpope/vim-git',
     'rhysd/conflict-marker.vim',
     'sindrets/diffview.nvim',
-    'nvim-lua/plenary.nvim',
-    'lewis6991/gitsigns.nvim',
-  },
-
-  map = {
-    { 'n', '<leader>bt', '<cmd>Gitsigns toggle_current_line_blame<cr>' },
-    { 'n', '<leader>bb', '<cmd>lua require"gitsigns".blame_line(true)<CR>' },
   },
 
   before = function()
@@ -34,10 +27,21 @@ layer.use({
     hi.set('ConflictMarkerEnd', { bg = '#2f628e' })
     hi.set('ConflictMarkerCommonAncestorsHunk', { bg = '#754a81' })
   end,
+})
+
+layer.use({
+  require = {
+    'nvim-lua/plenary.nvim',
+    'lewis6991/gitsigns.nvim',
+  },
 
   after = function()
     require('gitsigns').setup({
       yadm = { enable = true },
+      current_line_blame = false,
+      current_line_blame_opts = {
+        ignore_whitespace = true,
+      },
     })
   end,
 })
