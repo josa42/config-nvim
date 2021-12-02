@@ -47,6 +47,8 @@ require('jg.layers.colors')
 require('jg.layers.file-pairs')
 -- require('jg.layers.copilot')
 
+require('jg.layers.help')
+
 -- File Navigations
 require('jg.layers.file-tree')
 require('jg.layers.fuzzy-finder--telescope')
