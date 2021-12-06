@@ -26,6 +26,7 @@ require('jg.layers.tabline')
 require('jg.layers.statusline')
 require('jg.layers.indent-line')
 require('jg.layers.scrolling')
+require('jg.layers.ui')
 -- require('jg.layers.scrollbar')
 
 -- Version Control
