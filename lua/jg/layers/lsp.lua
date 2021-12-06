@@ -21,7 +21,6 @@ layer.use({
 
     -- UI
     'folke/lsp-trouble.nvim',
-    'glepnir/lspsaga.nvim',
     'onsails/lspkind-nvim',
     'ray-x/lsp_signature.nvim',
   },
@@ -53,7 +52,7 @@ layer.use({
       hint_enable = false,
       doc_lines = 0,
       handler_opts = {
-        border = 'none',   -- double, single, shadow, none
+        border = 'none', -- double, single, shadow, none
       },
     })
 

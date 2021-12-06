@@ -34,6 +34,7 @@ function M.on_location(_, result, _, _)
     util.jump_to_location(result[1])
   else
     vim.ui.select(result, {
+      kind = 'file',
       format_item = function(loc)
         return vim.fn.fnamemodify(vim.uri_to_fname(loc.uri), ':~:.')
       end,
