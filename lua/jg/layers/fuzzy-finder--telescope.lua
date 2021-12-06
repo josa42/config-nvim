@@ -95,6 +95,9 @@ layer.use({
         entry_prefix = '  ',
         default_mappings = {
           i = {
+            ['<C-Down>'] = actions.cycle_history_next,
+            ['<C-Up>'] = actions.cycle_history_prev,
+
             ['<C-j>'] = actions.move_selection_next,
             ['<C-k>'] = actions.move_selection_previous,
 
