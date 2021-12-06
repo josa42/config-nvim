@@ -4,7 +4,7 @@ local paths = require('jg.lib.paths')
 local M = {}
 
 local typescriptLS = paths.lspBin .. '/typescript-language-server'
-local tsserver = paths.lspBin .. '/tsserver'
+local tsserver = paths.lspBin .. '/typescript'
 
 local function organize_imports()
   local params = {
