@@ -101,6 +101,10 @@ layer.use({
     hi.link('LspCodeLensSeparator', 'Comment')
 
     vim.lsp.handlers['textDocument/publishDiagnostics'] = handler.on_publish_diagnostics
+    vim.lsp.handlers['textDocument/declaration'] = handler.on_location
+    vim.lsp.handlers['textDocument/definition'] = handler.on_location
+    vim.lsp.handlers['textDocument/typeDefinition'] = handler.on_location
+    vim.lsp.handlers['textDocument/implementation'] = handler.on_location
 
     require('trouble').setup({
       mode = 'lsp_document_diagnostics',

@@ -1,3 +1,5 @@
+local util = require('vim.lsp.util')
+
 local M = {}
 
 -- Filter diagnostics
@@ -18,3 +20,29 @@ function M.on_publish_diagnostics(_, result, ...)
 
   return require('vim.lsp.diagnostic').on_publish_diagnostics(nil, result, ...)
 end
+
+function M.on_location(_, result, _, _)
+  if result == nil or vim.tbl_isempty(result) then
+    return nil
+  end
+
+  if not vim.tbl_islist(result) then
+    result = { result }
+  end
+
+  if #result == 1 then
+    util.jump_to_location(result[1])
+  else
+    vim.ui.select(result, {
+      format_item = function(loc)
+        return vim.fn.fnamemodify(vim.uri_to_fname(loc.uri), ':~:.')
+      end,
+    }, function(loc)
+      if loc then
+        util.jump_to_location(loc)
+      end
+    end)
+  end
+end
+
+return M
