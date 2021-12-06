@@ -48,20 +48,22 @@ ENV XDG_CONFIG_HOME=/root/.config
 
 RUN \
   apt update && apt upgrade -y && \
-  apt install -y make golang
+  apt install -y make golang nodejs npm npm
 
 COPY . /root/.config/nvim
 RUN \
-  /usr/local/bin/nvim -c 'PlugInstall --sync | qa!'
+  /usr/local/bin/nvim +'PlugInstall' +qall
 
-
-FROM ubuntu:20.04
 RUN \
-  apt update && apt upgrade -y && \
-  apt install -y git golang && \
-  rm -rf /var/lib/apt/lists/*
-COPY --from=builder /usr/local /usr/local/
-COPY --from=builder /root/.local/share/nvim /root/.local/share/nvim
-COPY --from=builder /root/.config/nvim /root/.config/nvim
+  /root/.config/nvim/scripts/install-tools.sh
 
-CMD ["/usr/local/bin/nvim"]
+# FROM ubuntu:20.04
+# RUN \
+#   apt update && apt upgrade -y && \
+#   apt install -y git && \
+#   rm -rf /var/lib/apt/lists/*
+# COPY --from=builder /usr/local /usr/local/
+# COPY --from=builder /root/.local/share/nvim /root/.local/share/nvim
+# COPY --from=builder /root/.config/nvim /root/.config/nvim
+#
+# CMD ["/usr/local/bin/nvim"]

@@ -27,7 +27,7 @@ mkdir -p $NVIM_TOOLS_BIN
 
 DIR=$(cd $(dirname $BASH_SOURCE) && pwd)
 
-for f in $(find $DIR/installer -type f -depth 1); do
+for f in $(find $DIR/installer -maxdepth 1 -type f); do
   if [[ " ${tools} " == *" $(echo $f | sed 's#\.sh$##' | xargs basename) "* ]]; then
     export NVIM_TOOLS_TMP="$TMPDIR/nvim-tools_$(date +%s)"
     mkdir -p $NVIM_TOOLS_TMP
