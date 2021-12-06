@@ -29,6 +29,7 @@ layer.use({
 
   after = function()
     local actions = require('telescope.actions')
+    local action_layout = require('telescope.actions.layout')
     local action_set = require('telescope.actions.set')
     local action_state = require('telescope.actions.state')
 
@@ -84,7 +85,7 @@ layer.use({
       defaults = {
         layout_strategy = 'horizontal',
         layout_config = {
-          horizontal = { mirror = false, width = 0.8, preview_width = 0.5 },
+          horizontal = { mirror = false, width = 0.75, preview_width = 0.5 },
           vertical = { mirror = true },
           prompt_position = 'top',
         },
@@ -118,11 +119,16 @@ layer.use({
 
             ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
             ['<C-a>'] = actions.add_selected_to_qflist + actions.open_qflist,
+
+            ['<c-p>'] = action_layout.toggle_preview,
           },
         },
         preview_title = false,
         prompt_title = false,
         results_title = false,
+        preview = {
+          hide_on_startup = true,
+        },
         borderchars = {
           { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
           prompt = { '─', '│', '─', '│', '┌', '┐', '┤', '├' },
@@ -179,7 +185,12 @@ layer.use({
     end
 
     function ts.find_string()
-      require('telescope.builtin').live_grep(default_opts({ preview_title = false }))
+      require('telescope.builtin').live_grep(default_opts({
+        preview_title = false,
+        preview = {
+          hide_on_startup = false,
+        },
+      }))
     end
 
     function ts.find_config()
@@ -191,7 +202,11 @@ layer.use({
     end
 
     function ts.find_help()
-      require('telescope.builtin').help_tags(default_opts())
+      require('telescope.builtin').help_tags(default_opts({
+        preview = {
+          hide_on_startup = false,
+        },
+      }))
     end
 
     function ts.git_status_files()
