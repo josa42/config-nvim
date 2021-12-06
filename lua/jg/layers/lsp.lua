@@ -4,6 +4,8 @@ local lsp = require('jg.lib.lsp')
 local au = require('jg.lib.autocmd')
 local hi = require('jg.lib.highlight')
 
+local handler = require('jg.lib.lsp.handler')
+
 layer.use({
   require = {
     -- basic lsp config
@@ -98,24 +100,7 @@ layer.use({
     hi.link('LspCodeLens', 'Comment')
     hi.link('LspCodeLensSeparator', 'Comment')
 
-    -- Filter diagnostics
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, result, ...)
-      -- Hide some diagnostics
-      result.diagnostics = vim.tbl_filter(function(diagnostic)
-        if
-          -- File is a CommonJS module; it may be converted to an ES6 module.
-          diagnostic.code == 80001 and diagnostic.source == 'typescript'
-          -- Could not find a declaration file for module '<module>'.
-          or diagnostic.code == 7016 and diagnostic.source == 'typescript'
-        then
-          return false
-        end
-
-        return true
-      end, result.diagnostics or {})
-
-      return require('vim.lsp.diagnostic').on_publish_diagnostics(nil, result, ...)
-    end
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = handler.on_publish_diagnostics
 
     require('trouble').setup({
       mode = 'lsp_document_diagnostics',
