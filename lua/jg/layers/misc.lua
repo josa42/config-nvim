@@ -9,7 +9,7 @@ plug.require(
   'Darazaki/indent-o-matic',
   'josa42/vim-templates',
   'tpope/vim-repeat',
-  'phaazon/hop.nvim',
+  -- 'phaazon/hop.nvim',
   -- Files
   'tpope/vim-eunuch',
   'jghauser/mkdir.nvim'
@@ -22,10 +22,10 @@ plug.after(function()
   require('indent-o-matic').setup({
     standard_widths = { 2, 4, 8 },
   })
-  require('hop').setup()
-  vim.cmd('hi! link HopNextKey Special')
-  vim.cmd('hi! link HopNextKey1 Special')
-  vim.cmd('hi! link HopNextKey2 Special')
-
-  vim.api.nvim_set_keymap('n', '<leader>f', ':HopWord<cr>', { noremap = true })
+  -- require('hop').setup()
+  -- vim.cmd('hi! link HopNextKey Special')
+  -- vim.cmd('hi! link HopNextKey1 Special')
+  -- vim.cmd('hi! link HopNextKey2 Special')
+  --
+  -- vim.api.nvim_set_keymap('n', '<leader>f', ':HopWord<cr>', { noremap = true })
 end)
