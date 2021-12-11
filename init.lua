@@ -40,6 +40,7 @@ require('jg.layers.go')
 
 -- Editing
 require('jg.layers.lsp')
+require('jg.layers.diagnostics')
 require('jg.layers.editing')
 require('jg.layers.comments')
 require('jg.layers.textobjects')

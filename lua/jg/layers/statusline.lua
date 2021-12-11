@@ -23,7 +23,7 @@ layer.use({
         lualine_a = { 'mode' },
         lualine_b = {
           { 'filename', path = 1 },
-          { 'diagnostics', sources = { 'nvim_lsp' } },
+          { 'diagnostics', sources = { 'nvim_diagnostic' } },
         },
         lualine_c = {
           'branch',

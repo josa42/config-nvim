@@ -20,7 +20,6 @@ layer.use({
     'jose-elias-alvarez/null-ls.nvim',
 
     -- UI
-    'folke/lsp-trouble.nvim',
     'onsails/lspkind-nvim',
     'ray-x/lsp_signature.nvim',
   },
@@ -29,9 +28,6 @@ layer.use({
     { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
     { 'n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>' },
     { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_list, ':LspTroubleToggle lsp_document_diagnostics<cr>' },
     { 'n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
     { 'n', __keymaps.codeaction, '<cmd>lua vim.lsp.buf.code_action()<CR>' },
     { 'v', __keymaps.codeaction, "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>" },
@@ -104,23 +100,6 @@ layer.use({
     vim.lsp.handlers['textDocument/definition'] = handler.on_location
     vim.lsp.handlers['textDocument/typeDefinition'] = handler.on_location
     vim.lsp.handlers['textDocument/implementation'] = handler.on_location
-
-    require('trouble').setup({
-      mode = 'lsp_document_diagnostics',
-      signs = {
-        error = _G.__icons.diagnostic.error,
-        warning = _G.__icons.diagnostic.warning,
-        hint = _G.__icons.diagnostic.hint,
-        information = _G.__icons.diagnostic.info,
-      },
-      icons = false,
-      auto_close = true,
-    })
-
-    vim.fn.sign_define('DiagnosticSignError', { text = _G.__icons.diagnostic.error, texthl = 'DiagnosticSignError' })
-    vim.fn.sign_define('DiagnosticSignWarn', { text = _G.__icons.diagnostic.warning, texthl = 'DiagnosticSignWarn' })
-    vim.fn.sign_define('DiagnosticSignInfo', { text = _G.__icons.diagnostic.info, texthl = 'DiagnosticSignInfo' })
-    vim.fn.sign_define('DiagnosticSignHint', { text = _G.__icons.diagnostic.hint, texthl = 'DiagnosticSignHint' })
 
     vim.cmd('hi link CmpItemMenu Comment')
 
