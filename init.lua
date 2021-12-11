@@ -58,6 +58,9 @@ require('jg.layers.search')
 
 require('jg.layers.config')
 
+-- nvim dev stuff
+require('jg.layers.debug')
+
 -- Misc - TODO split these up
 require('jg.layers.misc')
 
