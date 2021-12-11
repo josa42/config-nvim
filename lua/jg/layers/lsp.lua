@@ -11,8 +11,7 @@ layer.use({
     -- basic lsp config
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
-
-    -- UI
+    'josa42/nvim-lsp-autoformat',
     'ray-x/lsp_signature.nvim',
   },
 
@@ -46,13 +45,6 @@ layer.use({
     })
 
     au.group('jg.layer.lsp', function(cmd)
-      -- format on save
-      cmd({ on = { 'BufWritePre' }, pattern = lsp.auto_formatting_pattern() }, function()
-        if lsp.auto_formatting_enabled(vim.fn.expand('<afile>:e')) then
-          lsp.buf_formatting()
-        end
-      end)
-
       -- Code lenses
       cmd({ on = { 'BufEnter', 'CursorHold', 'InsertLeave' }, pattern = '<buffer>' }, function()
         if lsp.anyClientSupports('textDocument/codeLens') then
@@ -72,6 +64,16 @@ layer.use({
       handler_opts = {
         border = 'none', -- double, single, shadow, none
       },
+    })
+
+    require('jg.lsp-autoformat').setup({
+      js = { 'null-ls' },
+      json = { 'null-ls' },
+      jsx = { 'null-ls' },
+      ts = { 'null-ls' },
+      tsx = { 'null-ls' },
+      css = { 'stylelint_lsp' },
+      lua = { 'stylua' },
     })
   end,
 })
