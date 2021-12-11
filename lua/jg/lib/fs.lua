@@ -16,7 +16,10 @@ function M.read(path)
 end
 
 function M.read_json(path)
-  return vim.fn.json_decode(M.read(path))
+  local content = M.read(path)
+  if content ~= nil then
+    return vim.fn.json_decode(content)
+  end
 end
 
 function M.binExist(...)

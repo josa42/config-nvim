@@ -23,7 +23,10 @@ layer.use({
       { 'n', '<leader>d', ts.find_docs },
       { 'n', __keymaps.find_help, ts.find_help },
       { 'n', '<leader>g', ts.git_status_files },
-      { 'n', '<leader>p', ts.find_in_workspace },
+      { 'n', '<leader><leader>', ts.find_file_in_workspace },
+      { 'n', '<leader>p', ts.find_file_in_workspace },
+      { 'n', '<leader>f', ts.find_string_in_workspace },
+      { 'n', '<leader>w', ts.select_workspace },
     }
   end,
 
@@ -176,24 +179,34 @@ layer.use({
       })
     end
 
-    function ts.find_files()
-      require('telescope.builtin').find_files(default_opts({ hidden = true }))
+    function ts.find_files(path)
+      local opts = {}
+      if path ~= nil and path ~= '.' then
+        opts = {
+          cwd = path,
+          prompt_prefix = '[' .. path .. '] → ',
+        }
+      end
+
+      require('telescope.builtin').find_files(default_opts(opts))
     end
 
-    function ts.find_files_in(path)
-      require('telescope.builtin').find_files(default_opts({
-        cwd = path,
-        prompt_prefix = '[' .. path .. '] → ',
-      }))
-    end
-
-    function ts.find_string()
-      require('telescope.builtin').live_grep(default_opts({
+    function ts.find_string(path)
+      local opts = {
         preview_title = false,
         preview = {
           hide_on_startup = false,
         },
-      }))
+      }
+
+      if path ~= nil and path ~= '.' then
+        opts = vim.tbl_extend('keep', opts, {
+          search_dirs = { path },
+          prompt_prefix = '[' .. path .. '] → ',
+        })
+      end
+
+      require('telescope.builtin').live_grep(default_opts(opts))
     end
 
     function ts.find_config()
@@ -216,8 +229,20 @@ layer.use({
       require('telescope.builtin').git_status(default_opts())
     end
 
-    function ts.find_in_workspace()
-      ts.find_files_in(require('jg.lib.workspaces').current_workspace_path())
+    function ts.find_file_in_workspace()
+      ts.find_files(require('jg.lib.workspaces').get_current_workspace_path())
+    end
+
+    function ts.find_string_in_workspace()
+      ts.find_string(require('jg.lib.workspaces').get_current_workspace_path())
+    end
+
+    function ts.select_workspace()
+      local ws = require('jg.lib.workspaces')
+
+      ts.select(ws.get_workspaces(), { title = 'Workspace' }, function(w)
+        ws.set_current_workspace(w)
+      end)
     end
 
     function ts.select(items, opts, on_choice)
