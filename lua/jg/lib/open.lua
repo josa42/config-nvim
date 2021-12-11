@@ -13,8 +13,11 @@ function M.switch_to(filepath)
   return false
 end
 
-function M.edit(command, filename)
+function M.edit(command, filename, pos)
   vim.cmd(string.format('%s %s', command, vim.fn.fnameescape(filename)))
+  if pos ~= nil then
+    pcall(vim.api.nvim_win_set_cursor, 0, pos)
+  end
 end
 
 function M.buf_is_empty()

@@ -57,10 +57,11 @@ layer.use({
           actions.close(bufnr)
 
           if not switch_to(filename) then
+            local pos = entry.lnum and { entry.lnum, entry.col or 0 } or nil
             if buf_is_empty() then
-              edit('edit', filename)
+              edit('edit', filename, pos)
             else
-              edit('tabedit', filename)
+              edit('tabedit', filename, pos)
             end
           end
         end
