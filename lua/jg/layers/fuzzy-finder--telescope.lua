@@ -219,5 +219,41 @@ layer.use({
     function ts.find_in_workspace()
       ts.find_files_in(require('jg.lib.workspaces').current_workspace_path())
     end
+
+    function ts.select(items, opts, on_choice)
+      local pickers = require('telescope.pickers')
+      local finders = require('telescope.finders')
+      local conf = require('telescope.config').values
+      local state = require('telescope.actions.state')
+
+      on_choice = on_choice or function() end
+
+      pickers.new({
+        prompt_title = opts.prompt or '',
+        finder = finders.new_table({
+          results = items,
+          entry_maker = function(item)
+            local text = (opts.format_item or tostring)(item)
+            return { text = text, display = text, ordinal = text, value = item }
+          end,
+        }),
+        sorter = conf.generic_sorter(),
+        layout_strategy = 'horizontal',
+        layout_config = {
+          horizontal = { width = 60, height = 16 },
+        },
+        results_title = false,
+        attach_mappings = function(prompt_bufnr)
+          actions.select_default:replace(function()
+            actions._close(prompt_bufnr, false)
+
+            local selected = state.get_selected_entry() or {}
+            on_choice(selected.value, selected.index)
+          end)
+
+          return true
+        end,
+      }):find()
+    end
   end,
 })
