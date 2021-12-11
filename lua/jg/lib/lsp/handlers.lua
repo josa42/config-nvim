@@ -46,4 +46,12 @@ function M.on_location(_, result, _, _)
   end
 end
 
+function M.setup()
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = M.on_publish_diagnostics
+  vim.lsp.handlers['textDocument/declaration'] = M.on_location
+  vim.lsp.handlers['textDocument/definition'] = M.on_location
+  vim.lsp.handlers['textDocument/typeDefinition'] = M.on_location
+  vim.lsp.handlers['textDocument/implementation'] = M.on_location
+end
+
 return M

@@ -4,7 +4,7 @@ local lsp = require('jg.lib.lsp')
 local au = require('jg.lib.autocmd')
 local hi = require('jg.lib.highlight')
 
-local handler = require('jg.lib.lsp.handler')
+local l = {}
 
 layer.use({
   require = {
@@ -28,39 +28,22 @@ layer.use({
   },
 
   after = function()
-    require('lsp_signature').setup({
-      use_lspsaga = false,
-      floating_window = true,
-      hint_enable = false,
-      doc_lines = 0,
-      handler_opts = {
-        border = 'none', -- double, single, shadow, none
-      },
+    require('jg.lib.lsp.handlers').setup()
+
+    l.setup_providers({
+      'css',
+      'docker',
+      'go',
+      'html',
+      'json',
+      'lua',
+      'sh',
+      'typescript',
+      'viml',
+      'yaml',
+      'stylelint',
+      'null-ls',
     })
-
-    local setup = function(config, opts)
-      config.setup(vim.tbl_extend('keep', opts or {}, {
-        capabilities = lsp.make_client_capabilities(),
-      }))
-    end
-
-    -- vim.lsp.set_log_level("debug")
-    -- require('jg.layers.lsp.bcr-ls').setup(setup)
-    -- require('jg.layers.lsp.emmet-ls').setup(setup)
-    -- require('jg.layers.lsp.sourcekit').setup(setup)
-    -- require('jg.layers.lsp.eslint').setup(setup)
-    require('jg.layers.lsp.css').setup(setup)
-    require('jg.layers.lsp.docker').setup(setup)
-    require('jg.layers.lsp.go').setup(setup)
-    require('jg.layers.lsp.html').setup(setup)
-    require('jg.layers.lsp.json').setup(setup)
-    require('jg.layers.lsp.lua').setup(setup)
-    require('jg.layers.lsp.sh').setup(setup)
-    require('jg.layers.lsp.typescript').setup(setup)
-    require('jg.layers.lsp.viml').setup(setup)
-    require('jg.layers.lsp.yaml').setup(setup)
-    require('jg.layers.lsp.stylelint').setup(setup)
-    require('jg.layers.lsp.null-ls').setup(setup)
 
     au.group('jg.layer.lsp', function(cmd)
       -- format on save
@@ -81,13 +64,24 @@ layer.use({
     hi.link('LspCodeLens', 'Comment')
     hi.link('LspCodeLensSeparator', 'Comment')
 
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = handler.on_publish_diagnostics
-    vim.lsp.handlers['textDocument/declaration'] = handler.on_location
-    vim.lsp.handlers['textDocument/definition'] = handler.on_location
-    vim.lsp.handlers['textDocument/typeDefinition'] = handler.on_location
-    vim.lsp.handlers['textDocument/implementation'] = handler.on_location
-
+    require('lsp_signature').setup({
+      use_lspsaga = false,
+      floating_window = true,
+      hint_enable = false,
+      doc_lines = 0,
+      handler_opts = {
+        border = 'none', -- double, single, shadow, none
       },
     })
   end,
 })
+
+function l.setup_providers(providers)
+  for _, name in ipairs(providers) do
+    require('jg.layers.lsp.' .. name).setup(function(config, opts)
+      config.setup(vim.tbl_extend('keep', opts or {}, {
+        capabilities = lsp.make_client_capabilities(),
+      }))
+    end)
+  end
+end
