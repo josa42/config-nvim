@@ -12,6 +12,7 @@ layer.use({
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
     'josa42/nvim-lsp-autoformat',
+    'josa42/nvim-lsp-codelens',
     'ray-x/lsp_signature.nvim',
   },
 
@@ -44,18 +45,6 @@ layer.use({
       'null-ls',
     })
 
-    au.group('jg.layer.lsp', function(cmd)
-      -- Code lenses
-      cmd({ on = { 'BufEnter', 'CursorHold', 'InsertLeave' }, pattern = '<buffer>' }, function()
-        if lsp.anyClientSupports('textDocument/codeLens') then
-          vim.lsp.codelens.refresh()
-        end
-      end)
-    end)
-
-    hi.link('LspCodeLens', 'Comment')
-    hi.link('LspCodeLensSeparator', 'Comment')
-
     require('lsp_signature').setup({
       use_lspsaga = false,
       floating_window = true,
@@ -66,6 +55,7 @@ layer.use({
       },
     })
 
+    require('jg.lsp-codelens').setup()
     require('jg.lsp-autoformat').setup({
       js = { 'null-ls' },
       json = { 'null-ls' },
