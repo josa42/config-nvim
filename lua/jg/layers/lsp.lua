@@ -10,17 +10,9 @@ layer.use({
   require = {
     -- basic lsp config
     'neovim/nvim-lspconfig',
-
-    -- nvim-cmp and sources
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/cmp-nvim-lua',
-    'hrsh7th/cmp-path',
     'jose-elias-alvarez/null-ls.nvim',
 
     -- UI
-    'onsails/lspkind-nvim',
     'ray-x/lsp_signature.nvim',
   },
 
@@ -34,12 +26,6 @@ layer.use({
     { 'n', __keymaps.format_buffer, '<cmd>lua vim.lsp.buf.formatting()<cr>' },
     { 'n', __keymaps.codelens_action, '<cmd>lua vim.lsp.codelens.run()<cr>' },
   },
-
-  before = function()
-    vim.cmd('set completeopt=menu,menuone,noselect') -- Set completeopt to have a better completion experience
-    vim.cmd('set shortmess+=c') -- Avoid showing message extra message when using completion
-    vim.cmd('set completeopt-=preview')
-  end,
 
   after = function()
     require('lsp_signature').setup({
@@ -101,52 +87,6 @@ layer.use({
     vim.lsp.handlers['textDocument/typeDefinition'] = handler.on_location
     vim.lsp.handlers['textDocument/implementation'] = handler.on_location
 
-    vim.cmd('hi link CmpItemMenu Comment')
-
-    local lspkind = require('lspkind')
-    local cmp = require('cmp')
-    cmp.setup({
-      sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
-        { name = 'vsnip' },
-        { name = 'path' },
-      }),
-      completion = {
-        completeopt = 'menu,menuone,noinsert',
-      },
-      snippet = {
-        expand = function(args)
-          vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
-        end,
-      },
-      formatting = {
-        format = lspkind.cmp_format({
-          with_text = true,
-          menu = {
-            buffer = '[buf]',
-            nvim_lsp = '[lsp]',
-            vsnip = '[snip]',
-            nvim_lua = '[lua]',
-            path = '[path]',
-          },
-        }),
-      },
-      mapping = {
-        ['<C-Space>'] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.close()
-          else
-            cmp.complete()
-          end
-        end, {
-          'i',
-          'c',
-        }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      },
-      experimental = {
-        ghost_text = true,
       },
     })
   end,
