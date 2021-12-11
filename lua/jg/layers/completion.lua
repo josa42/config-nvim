@@ -1,9 +1,4 @@
 local layer = require('jg.lib.layer')
-local lsp = require('jg.lib.lsp')
-local au = require('jg.lib.autocmd')
-local hi = require('jg.lib.highlight')
-
-local l = {}
 
 layer.use({
   require = {
@@ -18,7 +13,6 @@ layer.use({
   },
 
   after = function()
-
     vim.cmd('hi link CmpItemMenu Comment')
 
     local lspkind = require('lspkind')

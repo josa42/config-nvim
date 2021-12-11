@@ -1,6 +1,5 @@
 local lsp = require('lspconfig')
 local paths = require('jg.lib.paths')
-local lsp_utils = require('jg.lib.lsp')
 
 local settings = {
   yaml = {

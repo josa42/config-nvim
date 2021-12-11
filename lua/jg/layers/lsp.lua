@@ -1,14 +1,8 @@
--- local map = vim.api.nvim_set_keymap
 local layer = require('jg.lib.layer')
-local lsp = require('jg.lib.lsp')
-local au = require('jg.lib.autocmd')
-local hi = require('jg.lib.highlight')
-
 local l = {}
 
 layer.use({
   require = {
-    -- basic lsp config
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
     'josa42/nvim-lsp-autoformat',
@@ -72,8 +66,14 @@ function l.setup_providers(providers)
   for _, name in ipairs(providers) do
     require('jg.layers.lsp.' .. name).setup(function(config, opts)
       config.setup(vim.tbl_extend('keep', opts or {}, {
-        capabilities = lsp.make_client_capabilities(),
+        capabilities = l.make_client_capabilities(),
       }))
     end)
   end
+end
+
+function l.make_client_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+  return capabilities
 end
