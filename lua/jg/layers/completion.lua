@@ -24,9 +24,6 @@ layer.use({
         { name = 'vsnip' },
         { name = 'path' },
       }),
-      completion = {
-        completeopt = 'menu,menuone,noinsert',
-      },
       snippet = {
         expand = function(args)
           vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
@@ -61,5 +58,8 @@ layer.use({
         ghost_text = true,
       },
     })
+
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 })
