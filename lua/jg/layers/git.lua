@@ -42,6 +42,9 @@ layer.use({
       current_line_blame_opts = {
         ignore_whitespace = true,
       },
+      preview_config = {
+        border = 'rounded',
+      },
     })
   end,
 })
