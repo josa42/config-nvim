@@ -1,3 +1,12 @@
-local plug = require('jg.lib.plug')
+local layer = require('jg.lib.layer')
 
-plug.require('jeanCarloMachado/vim-toop', 'kana/vim-textobj-user', 'sgur/vim-textobj-parameter')
+layer.use({
+  require = {
+    'kana/vim-textobj-user',
+    'kana/vim-textobj-entire', --         ae | ie
+    'kana/vim-textobj-line', --           al | il
+    'kana/vim-textobj-indent', --         ai | ii
+    'sgur/vim-textobj-parameter', --      a, | i,
+    'whatyouhide/vim-textobj-xmlattr', -- ax | ix
+  },
+})
