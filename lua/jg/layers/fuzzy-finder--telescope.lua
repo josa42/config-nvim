@@ -17,12 +17,14 @@ layer.use({
 
   map = function()
     return {
-      { 'n', '<leader>g', ts.git_status_files },
       { 'n', __keymaps.find_file, ts.find_files, nil, 'Find files' },
       { 'n', __keymaps.find_string, ts.find_string, nil, 'Find string' },
       { 'n', __keymaps.find_config, ts.find_config, nil, 'Find config' },
       { 'n', '<leader>d', ts.find_docs, nil, 'Find docs' },
       { 'n', __keymaps.find_help, ts.find_help, nil, 'Find help' },
+      { 'n', '<leader>gs', ts.git_status_files, nil, 'Git status' },
+      { 'n', '<leader>gb', ts.git_buffer_commits, nil, 'Git buffer commits' },
+      { 'n', '<leader>gg', ts.git_commits, nil, 'Git commits' },
       { 'n', '<leader><leader>', ts.find_file_in_workspace },
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },
@@ -220,14 +222,26 @@ layer.use({
 
     function ts.find_help()
       require('telescope.builtin').help_tags(default_opts({
-        preview = {
-          hide_on_startup = false,
-        },
+        preview = { hide_on_startup = false },
       }))
     end
 
     function ts.git_status_files()
-      require('telescope.builtin').git_status(default_opts())
+      require('telescope.builtin').git_status(default_opts({
+        preview = { hide_on_startup = false },
+      }))
+    end
+
+    function ts.git_buffer_commits()
+      require('telescope.builtin').git_bcommits(default_opts({
+        preview = { hide_on_startup = false },
+      }))
+    end
+
+    function ts.git_commits()
+      require('telescope.builtin').git_commits(default_opts({
+        preview = { hide_on_startup = false },
+      }))
     end
 
     function ts.find_file_in_workspace()
