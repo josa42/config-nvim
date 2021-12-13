@@ -22,13 +22,15 @@ function M.use(opts)
   end
 
   if opts.map ~= nil then
-    if type(opts.map) == 'function' then
-      plug.after(function()
-        l.applyKeyMaps(opts.map())
-      end)
-    else
-      l.applyKeyMaps(opts.map)
-    end
+    plug.after(function()
+      if type(opts.map) == 'function' then
+        plug.after(function()
+          l.applyKeyMaps(opts.map())
+        end)
+      else
+        l.applyKeyMaps(opts.map)
+      end
+    end)
   end
 end
 
@@ -41,6 +43,7 @@ function l.applyKeyMaps(maps)
     local mode = map[1]
     local keymap = map[2]
     local cmd = map[3]
+
     if type(cmd) == 'function' then
       cmd = '<cmd>' .. utils.wrapFunction('keymap', cmd) .. '<cr>'
     end
@@ -49,6 +52,11 @@ function l.applyKeyMaps(maps)
     assert(cmd ~= nil, 'cmd must be set to set a key map')
 
     vim.api.nvim_set_keymap(mode, keymap, cmd, map_opts or l.defaultMapOpts(cmd))
+
+    local label = map[5]
+    if label ~= nil then
+      require('cheatsheet').add_cheat(label, '[' .. mode .. '] ' .. keymap, 'keymap')
+    end
   end
 end
 

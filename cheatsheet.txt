@@ -1,0 +1,13 @@
+# josa42/config-nvim
+## text-objects-user
+Around line (including whitespace)            | al
+Inside line                                   | iw
+Around entire buffer (including empty lines)  | ae
+Inside entire buffer                          | ie
+Around indent                                 | ai
+Inside indent                                 | ii
+Around parameter                              | a,
+Inside parameter                              | i,
+Around xml attribute                          | ax
+Inside xml attribute                          | ix
+

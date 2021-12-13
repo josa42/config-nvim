@@ -1,3 +1,4 @@
+local layer = require('jg.lib.layer')
 local plug = require('jg.lib.plug')
 local command = require('jg.lib.command')
 
@@ -29,3 +30,17 @@ plug.after(function()
   --
   -- vim.api.nvim_set_keymap('n', '<leader>f', ':HopWord<cr>', { noremap = true })
 end)
+
+layer.use({
+  require = {
+    'sudormrfbin/cheatsheet.nvim',
+  },
+
+  after = function()
+    require('cheatsheet').setup({
+      bundled_cheatsheets = {
+        disabled = { 'lua', 'markdown', 'nerd-fonts', 'netrw', 'regex', 'unicode' },
+      },
+    })
+  end,
+})

@@ -17,12 +17,12 @@ layer.use({
 
   map = function()
     return {
-      { 'n', __keymaps.find_file, ts.find_files },
-      { 'n', __keymaps.find_string, ts.find_string },
-      { 'n', __keymaps.find_config, ts.find_config },
-      { 'n', '<leader>d', ts.find_docs },
-      { 'n', __keymaps.find_help, ts.find_help },
       { 'n', '<leader>g', ts.git_status_files },
+      { 'n', __keymaps.find_file, ts.find_files, nil, 'Find files' },
+      { 'n', __keymaps.find_string, ts.find_string, nil, 'Find string' },
+      { 'n', __keymaps.find_config, ts.find_config, nil, 'Find config' },
+      { 'n', '<leader>d', ts.find_docs, nil, 'Find docs' },
+      { 'n', __keymaps.find_help, ts.find_help, nil, 'Find help' },
       { 'n', '<leader><leader>', ts.find_file_in_workspace },
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },
