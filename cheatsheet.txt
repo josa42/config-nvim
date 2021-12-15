@@ -1,5 +1,7 @@
 # josa42/config-nvim
+
 ## text-objects-user
+
 Around line (including whitespace)            | al
 Inside line                                   | iw
 Around entire buffer (including empty lines)  | ae
@@ -11,3 +13,20 @@ Inside parameter                              | i,
 Around xml attribute                          | ax
 Inside xml attribute                          | ix
 
+## text-actions
+
+Reverse sort                                  | gz<motion>
+Sort                                          | gs<motion>
+Change case to dot.case                       | gk.
+Change case to Title-Kebab-Case               | gkK
+Change case to dash-case                      | gk-
+Change case to kebab-case                     | gkk
+Change case to space case                     | gk<Space>
+Change case to Sentence case                  | gks
+Change case to Title Case                     | gkt
+Change case to Upper Case                     | gkU
+Change case to UPPER_CASE                     | gku
+Change case to snake_case                     | gk_
+Change case to camelCase                      | gkc
+Change case to PascalCase                     | gkp
+Change case to MixedCase                      | gkm

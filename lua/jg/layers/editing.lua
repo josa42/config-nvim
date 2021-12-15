@@ -1,7 +1,5 @@
 local plug = require('jg.lib.plug')
 local au = require('jg.lib.autocmd')
-local map = vim.api.nvim_set_keymap
-local bmap = vim.api.nvim_buf_set_keymap
 
 plug.require('tpope/vim-repeat')
 
@@ -67,7 +65,7 @@ layer.use({
 })
 --------------------------------------------------------------------------------
 layer.use({
-  require = { 'arthurxavierx/vim-caser' }, -- Change cases: gs
+  require = { 'arthurxavierx/vim-caser' }, -- Change cases: gk
   before = function()
     -- g prefix
     vim.g.caser_prefix = 'gk'
