@@ -75,11 +75,14 @@ layer.use({
 })
 
 --------------------------------------------------------------------------------
--- Sorting
-layer.use({
-  require = { 'christoomey/vim-sort-motion' },
-})
+-- Motion actions
 
+layer.use({
+  require = { 'josa42/nvim-actions' },
+  after = function()
+    require('jg.actions').setup()
+  end,
+})
 --------------------------------------------------------------------------------
 -- Surround
 layer.use({
