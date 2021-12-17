@@ -8,7 +8,7 @@ local settings = {
       path = vim.split(package.path, ';'),
     },
     diagnostics = {
-      globals = { 'vim' },
+      globals = { 'vim', 'describe', 'it' },
       workspaceDelay = -1,
     },
     workspace = {
