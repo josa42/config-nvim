@@ -1,5 +1,4 @@
 -- stylelint-lsp
-local lsp = require('lspconfig')
 local paths = require('jg.lib.paths')
 local null_ls = require('null-ls')
 local helpers = require('null-ls.helpers')
@@ -48,7 +47,7 @@ local eslint_d_formatter = helpers.conditional(function(utils)
   end
 end)
 
-null_ls.config({
+null_ls.setup({
   debug = false, -- log: ~/.cache/nvim/null-ls.log
   sources = {
     eslint_d,
@@ -73,8 +72,6 @@ null_ls.config({
   },
 })
 
-function M.setup(setup)
-  setup(lsp['null-ls'])
-end
+function M.setup(setup) end
 
 return M
