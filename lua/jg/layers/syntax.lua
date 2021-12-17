@@ -20,6 +20,7 @@ local filetypes = {
   { '$HOME/.direnvrc', 'sh' },
   { '.parcelrc', 'json' },
   { '.terserrc', 'json' },
+  { '.stylelintrc', 'json' },
 }
 
 layer.use({
