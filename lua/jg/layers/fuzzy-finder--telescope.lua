@@ -14,7 +14,7 @@ layer.use({
     'nvim-telescope/telescope-fzy-native.nvim',
     'itchyny/vim-gitbranch',
     'josa42/nvim-telescope-select',
-    'josa42/nvim-telescope-workspaces/',
+    'josa42/nvim-telescope-workspaces',
   },
 
   map = function()
@@ -246,17 +246,17 @@ layer.use({
       }))
     end
 
-    -- TODO extract into josa42/nvim-telesope-workspaces
+    -- TODO extract into josa42/nvim-telescope-workspaces
     function ts.find_file_in_workspace()
       ts.find_files(require('jg.telescope-workspaces').get_current_workspace_path())
     end
 
-    -- TODO extract into josa42/nvim-telesope-workspaces
+    -- TODO extract into josa42/nvim-telescope-workspaces
     function ts.find_string_in_workspace()
       ts.find_string(require('jg.telescope-workspaces').get_current_workspace_path())
     end
 
-    -- TODO extract into josa42/nvim-telesope-workspaces
+    -- TODO extract into josa42/nvim-telescope-workspaces
     function ts.select_workspace()
       local ws = require('jg.telescope-workspaces')
 
