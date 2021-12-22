@@ -15,6 +15,7 @@ TOOLS=(
   "yaml-language-server"
   "stylelint-lsp"
   "shfmt"
+  "stylua"
 )
 
 tools="$1"
