@@ -1,6 +1,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
+  enabled = false,
   require = { { 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } } },
 
   after = function()
