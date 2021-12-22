@@ -1,5 +1,7 @@
 local layer = require('jg.lib.layer')
 
+vim.g.indent_blankline_buftype_exclude = { 'nofile' }
+
 layer.use({
   require = {
     'lukas-reineke/indent-blankline.nvim',
