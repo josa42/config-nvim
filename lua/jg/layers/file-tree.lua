@@ -21,7 +21,7 @@ layer.use({
   },
 
   map = {
-    { 'n', '<leader>b', ':lua require("jg.file-tree").toggleSmart()<CR>' },
-    { 'n', '<leader>B', ':lua require("jg.file-tree").close()<CR>' },
+    { 'n', '<leader>b', ':lua require("file-tree").toggle_smart()<CR>' },
+    { 'n', '<leader>B', ':lua require("file-tree").close()<CR>' },
   },
 })
