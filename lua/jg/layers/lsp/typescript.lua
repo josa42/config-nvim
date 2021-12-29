@@ -1,10 +1,4 @@
-local lsp = require('lspconfig')
-local paths = require('jg.lib.paths')
-
 local M = {}
-
-local typescriptLS = paths.lspBin .. '/typescript-language-server'
-local tsserver = paths.lspBin .. '/typescript'
 
 local function organize_imports()
   local params = {
@@ -16,8 +10,7 @@ local function organize_imports()
 end
 
 function M.setup(setup)
-  setup(lsp.tsserver, {
-    cmd = { typescriptLS, '--tsserver-path', tsserver, '--stdio' },
+  setup('tsserver', {
     commands = {
       OrganizeImports = {
         organize_imports,

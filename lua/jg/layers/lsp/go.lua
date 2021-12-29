@@ -1,6 +1,4 @@
-local lsp = require('lspconfig')
 local au = require('jg.lib.autocmd')
-local paths = require('jg.lib.paths')
 
 local settings = {
   gopls = {
@@ -11,11 +9,8 @@ local settings = {
 
 local M = {}
 
-local gopls = paths.lspBin .. '/gopls'
-
 function M.setup(setup)
-  setup(lsp.gopls, {
-    cmd = { gopls },
+  setup('gopls', {
     settings = settings,
   })
 

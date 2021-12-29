@@ -1,6 +1,3 @@
-local lsp = require('lspconfig')
-local paths = require('jg.lib.paths')
-
 local settings = {
   Lua = {
     runtime = {
@@ -22,13 +19,8 @@ local settings = {
 
 local M = {}
 
-local root_path = paths.lspBin .. '/lua-language-server'
-local server_bin = root_path .. '/bin/macOS/lua-language-server'
-local main = root_path .. '/main.lua'
-
 function M.setup(setup)
-  setup(lsp.sumneko_lua, {
-    cmd = { server_bin, '-E', main },
+  setup('sumneko_lua', {
     settings = settings,
   })
 end

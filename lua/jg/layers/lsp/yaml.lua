@@ -1,4 +1,3 @@
-local lsp = require('lspconfig')
 local paths = require('jg.lib.paths')
 
 local settings = {
@@ -36,11 +35,8 @@ local settings = {
 
 local M = {}
 
-local yamlLS = paths.lspBin .. '/yaml-language-server'
-
 function M.setup(setup)
-  setup(lsp.yamlls, {
-    cmd = { yamlLS, '--stdio' },
+  setup('yamlls', {
     settings = settings,
   })
 end

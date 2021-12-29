@@ -1,6 +1,3 @@
-local lsp = require('lspconfig')
-local paths = require('jg.lib.paths')
-
 local settings = {
   json = {
     schemas = {
@@ -22,11 +19,8 @@ local settings = {
 
 local M = {}
 
-local jsonLS = paths.lspBin .. '/vscode-json-language-server'
-
 function M.setup(setup)
-  setup(lsp.jsonls, {
-    cmd = { jsonLS, '--stdio' },
+  setup('jsonls', {
     filetypes = { 'json', 'jsonc' },
     commands = {
       Format = {

@@ -3,6 +3,7 @@ local l = {}
 
 layer.use({
   require = {
+    'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
     'josa42/nvim-lsp-autoformat',
@@ -58,17 +59,39 @@ layer.use({
       tsx = { 'null-ls' },
       css = { 'stylelint_lsp' },
       lua = { 'stylua' },
+      -- Fix josa42/nvim-lsp-autoformat to handle this
+      -- Dockerfile = { 'dockerls' },
     })
   end,
 })
 
 function l.setup_providers(providers)
   for _, name in ipairs(providers) do
-    require('jg.layers.lsp.' .. name).setup(function(config, opts)
-      config.setup(vim.tbl_extend('keep', opts or {}, {
-        capabilities = l.make_client_capabilities(),
-      }))
+    require('jg.layers.lsp.' .. name).setup(function(server_name, opts)
+      opts = opts or {}
+      opts.cmd = nil
+      l.server_setup(
+        server_name,
+        vim.tbl_extend('keep', opts or {}, {
+          capabilities = l.make_client_capabilities(),
+        })
+      )
     end)
+  end
+end
+
+function l.server_setup(server_name, opts)
+  assert(type(server_name) == 'string', vim.inspect(server_name) .. ' should be a string!')
+
+  local available, server = require('nvim-lsp-installer.servers').get_server(server_name)
+  assert(available, 'Server ' .. server_name .. ' not found!')
+
+  server:on_ready(function()
+    server:setup(opts)
+  end)
+
+  if not server:is_installed() then
+    server:install()
   end
 end
 

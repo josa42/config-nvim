@@ -3,17 +3,8 @@
 set -e
 
 TOOLS=(
-  "bash-language-server"
-  "docker-langserver"
   "eslint_d"
   "fixjson"
-  "gopls"
-  "lua-language-server"
-  "tsserver"
-  "vim-language-server"
-  "vscode-langservers-extracted"
-  "yaml-language-server"
-  "stylelint-lsp"
   "shfmt"
   "stylua"
 )

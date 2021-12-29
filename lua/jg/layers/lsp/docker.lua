@@ -1,5 +1,3 @@
-local lsp = require('lspconfig')
-local paths = require('jg.lib.paths')
 local au = require('jg.lib.autocmd')
 
 local settings = {
@@ -22,15 +20,12 @@ local settings = {
 
 local M = {}
 
-local dockerLS = paths.lspBin .. '/docker-langserver'
-
 function M.setup(setup)
-  setup(lsp.dockerls, {
-    cmd = { dockerLS, '--stdio' },
+  setup('dockerls', {
     settings = settings,
   })
 
-  au.group('jg.lsp.go', function(cmd)
+  au.group('jg.lsp.docker.auto-format', function(cmd)
     cmd({ on = { 'BufWritePre', 'InsertLeave' }, pattern = 'Dockerfile' }, vim.lsp.buf.formatting)
   end)
 end
