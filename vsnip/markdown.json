@@ -1,0 +1,20 @@
+{
+  "v": {
+    "prefix": [
+      "v"
+    ],
+    "description": "Description",
+    "body": [
+      "v: ${VISUAL}"
+    ]
+  },
+  "badge": {
+    "prefix": [
+      "badge"
+    ],
+    "description": "Badge",
+    "body": [
+      "[![Test](https://github.com/josa42/${1:repo}/workflows/${2:Main}/badge.svg?branch=master)](https://github.com/josa42/${1}/actions?query=workflow%3A${2})"
+    ]
+  }
+}

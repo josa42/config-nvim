@@ -1,0 +1,28 @@
+{
+  "dump": {
+    "prefix": [
+      "dump"
+    ],
+    "description": "dump json formated",
+    "body": [
+      "func(v interface{}) {",
+      "\ts, _ := json.MarshalIndent(v, \"\", \"  \")",
+      "\tfmt.Printf(\"%s\\n\", s)",
+      "}(${1})$0"
+    ]
+  },
+  "recover": {
+    "prefix": [
+      "recover"
+    ],
+    "description": "Description",
+    "body": [
+      "defer func() {",
+      "\tif err := recover(); err != nil {",
+      "\t\tlog.Printf(\"error: %v\", err)",
+      "\t}",
+      "}()"
+    ]
+  }
+}
+

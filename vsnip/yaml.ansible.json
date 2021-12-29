@@ -1,0 +1,11 @@
+{
+  "'- debug'": {
+    "prefix": [
+      "'- debug'"
+    ],
+    "description": "Ansible debug message",
+    "body": [
+      "- debug: { msg: \"${1:var}: {{ ${1} }}\" }"
+    ]
+  }
+}

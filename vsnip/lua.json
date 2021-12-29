@@ -1,0 +1,55 @@
+{
+  "mod": {
+    "prefix": [
+      "mod"
+    ],
+    "description": "Module",
+    "body": [
+      "local M = {}",
+      "",
+      "return M"
+    ]
+  },
+  "rpaths": {
+    "prefix": [
+      "rpaths"
+    ],
+    "description": "require paths",
+    "body": [
+      "local plug = require('jg.paths')"
+    ]
+  },
+  "rplug": {
+    "prefix": [
+      "rplug"
+    ],
+    "description": "require plug",
+    "body": [
+      "local plug = require('jg.plug')"
+    ]
+  },
+  "dump": {
+    "prefix": [
+      "dump"
+    ],
+    "body": [
+      "print(vim.inspect($1))"
+    ]
+  },
+  "layer": {
+    "prefix": [
+      "layer"
+    ],
+    "body": [
+      "local layer = require('jg.lib.layer')",
+      "",
+      "layer.use {",
+      "  require = { '$1' },",
+      "",
+      "  after = function()",
+      "    $2",
+      "  end,",
+      "}"
+    ]
+  }
+}

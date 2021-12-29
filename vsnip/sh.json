@@ -1,0 +1,83 @@
+{
+  "!bash": {
+    "prefix": [
+      "!bash"
+    ],
+    "description": "#!/bin/bash",
+    "body": [
+      "#/bin/bash"
+    ]
+  },
+  "iffile": {
+    "prefix": [
+      "iffile"
+    ],
+    "description": "if [[ -f file.txt ]]",
+    "body": [
+      "if [[ -f ${1:file.txt} ]]; then",
+      "\t$2",
+      "fi"
+    ]
+  },
+  "DIR": {
+    "prefix": [
+      "DIR"
+    ],
+    "description": "DIR",
+    "body": [
+      "DIR=\"$( cd \"$( dirname \"${BASH_SOURCE[0]}\" )\" >/dev/null 2>&1 && pwd )\""
+    ]
+  },
+  "script": {
+    "prefix": [
+      "script"
+    ],
+    "description": "Script structure",
+    "body": [
+      "#!/bin/bash",
+      "",
+      "usage() {",
+      "\techo \"Usage: ${command}\"",
+      "}",
+      "",
+      "run() {",
+      "\techo \"run: $@\"",
+      "}",
+      "",
+      "run $@"
+    ]
+  },
+  "flags": {
+    "prefix": [
+      "flags"
+    ],
+    "description": "Flags",
+    "body": [
+      "while test \\$# -gt 0; do",
+      "\tcase \"\\$1\" in",
+      "\t\t-h|--help)",
+      "\t\t\techo \"Usage: ...\"",
+      "\t\t\techo \"\"",
+      "\t\t\techo \"Options\"",
+      "\t\t\techo \"  -h|--help    Show help\"",
+      "\t\t\t;;",
+      "\t\t*)",
+      "\t\t\techo \"[error] Unknown option: \\$1\" >&2",
+      "\t\t\texit 1",
+      "\t\t\t;;",
+      "\tesac",
+      "done"
+    ]
+  },
+  "case statement": {
+		"prefix": "case",
+		"body": [
+			"",
+			"case $1 in",
+			"\t*) ${0:    # ← put your command here} ;;",
+			"esac",
+			""
+		],
+		"description": "case statement. Use the switch statement snippet \"switch\" to add one or more switches to the case statement."
+	}
+}

@@ -26,12 +26,12 @@ layer.use({
       }),
       snippet = {
         expand = function(args)
-          vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
+          vim.fn['vsnip#anonymous'](args.body)
         end,
       },
       formatting = {
         format = lspkind.cmp_format({
-          with_text = true,
+          with_text = false,
           menu = {
             buffer = '[buf]',
             nvim_lsp = '[lsp]',
@@ -52,7 +52,8 @@ layer.use({
           'i',
           'c',
         }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<TAB>'] = cmp.mapping.confirm({ select = true }),
       },
       experimental = {
         ghost_text = true,

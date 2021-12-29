@@ -1,10 +1,17 @@
-if __flags.snippets ~= 'vsnip' then
-  return
-end
-
-local plug = require('jg.lib.plug')
+local layer = require('jg.lib.layer')
 local paths = require('jg.lib.paths')
 
-plug.require('hrsh7th/vim-vsnip')
+layer.use({
+  require = { 'hrsh7th/vim-vsnip' },
 
-vim.g.vsnip_snippet_dir = paths.configHome .. '/vsnip'
+  map = {
+    { 'i', '<Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'", { expr = true } },
+    { 's', '<Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'", { expr = true } },
+    { 'i', '<S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", { expr = true } },
+    { 's', '<S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", { expr = true } },
+  },
+
+  before = function()
+    vim.g.vsnip_snippet_dir = paths.configDir .. '/vsnip'
+  end,
+})

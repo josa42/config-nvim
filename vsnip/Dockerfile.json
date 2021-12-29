@@ -1,0 +1,14 @@
+{
+  "apt": {
+    "prefix": [
+      "apt"
+    ],
+    "description": "apt-get install",
+    "body": [
+      "apt-get update && \\",
+      "    apt-get install -y \\",
+      "      $1 && \\",
+      "    rm -rf /var/lib/apt/lists/*"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Component": {
+    "prefix": [
+      "Component"
+    ],
+    "description": "Description",
+    "body": [
+      "import React from \"react\";",
+      "",
+      "type Props = {};",
+      "",
+      "const ${1:Name} = ({}: Props) => {",
+      "\treturn <></>;",
+      "};",
+      "",
+      "export default ${1};"
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "Given": {
+    "prefix": [
+      "Given"
+    ],
+    "description": "Given",
+    "body": [
+      "Given ${1:[filetype]} (${2:Description}):",
+      "\t${3:input text}"
+    ]
+  },
+  "Do": {
+    "prefix": [
+      "Do"
+    ],
+    "description": "Do",
+    "body": [
+      "Do (${1:Description}):",
+      "\t${2:keystrokes}"
+    ]
+  },
+  "Execute": {
+    "prefix": [
+      "Execute"
+    ],
+    "description": "Execute",
+    "body": [
+      "Execute (${1:Description}):",
+      "\t${2:[vimscript]}"
+    ]
+  },
+  "Then": {
+    "prefix": [
+      "Then"
+    ],
+    "description": "Then",
+    "body": [
+      "Then (${1:Description}):",
+      "\t${2:[vimscript]}"
+    ]
+  },
+  "Expect": {
+    "prefix": [
+      "Expect"
+    ],
+    "description": "Expect",
+    "body": [
+      "Expect ${1:[filetype]} (${2:Description}):",
+      "\t${3:expected output}"
+    ]
+  },
+  "Before": {
+    "prefix": [
+      "Before"
+    ],
+    "description": "Before",
+    "body": [
+      "Before (${1:Description}):",
+      "\t${2:[vimscript]}"
+    ]
+  },
+  "After": {
+    "prefix": [
+      "After"
+    ],
+    "description": "After",
+    "body": [
+      "After (${1:Description}):",
+      "\t${2:[vimscript]}"
+    ]
+  },
+  "Assert": {
+    "prefix": [
+      "Assert"
+    ],
+    "description": "Assert",
+    "body": [
+      "Assert ${1:boolean expr}, \"${2:message}\""
+    ]
+  },
+  "AssertEqual": {
+    "prefix": [
+      "AssertEqual"
+    ],
+    "description": "AssertEqual",
+    "body": [
+      "AssertEqual ${1:expected}, ${2:got}, \"${3:message}\""
+    ]
+  },
+  "AssertNotEqual": {
+    "prefix": [
+      "AssertNotEqual"
+    ],
+    "description": "AssertNotEqual",
+    "body": [
+      "AssertNotEqual ${1:unexpected}, ${2:got}, \"${3:message}\""
+    ]
+  },
+  "AssertThrows": {
+    "prefix": [
+      "AssertThrows"
+    ],
+    "description": "AssertThrows",
+    "body": [
+      "AssertThrows ${1:command}"
+    ]
+  },
+  "Log": {
+    "prefix": [
+      "Log"
+    ],
+    "description": "Log",
+    "body": [
+      "Log \"${1:message}\""
+    ]
+  },
+  "Save": {
+    "prefix": [
+      "Save"
+    ],
+    "description": "Save",
+    "body": [
+      "Save ${1:name, ...}"
+    ]
+  },
+  "Restore": {
+    "prefix": [
+      "Restore"
+    ],
+    "description": "Restore",
+    "body": [
+      "Restore ${1:name, ...}"
+    ]
+  }
+}

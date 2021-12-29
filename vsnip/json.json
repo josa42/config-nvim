@@ -1,0 +1,134 @@
+{
+  "str": {
+    "prefix": [
+      "str"
+    ],
+    "description": "String",
+    "body": [
+      "{ \"type\": \"string\" }"
+    ]
+  },
+  "str-pattern": {
+    "prefix": [
+      "str-pattern"
+    ],
+    "description": "String Pattern",
+    "body": [
+      "{ \"type\": \"string\", \"pattern\": \"$1\" }"
+    ]
+  },
+  "str-enum": {
+    "prefix": [
+      "str-enum"
+    ],
+    "description": "String Enum",
+    "body": [
+      "{",
+      "\t\"type\": \"string\",",
+      "\t\"enum\": [",
+      "\t\t\"$1\"",
+      "\t]",
+      "}"
+    ]
+  },
+  "bool": {
+    "prefix": [
+      "bool"
+    ],
+    "description": "Boolean",
+    "body": [
+      "{ \"type\": \"boolean\" }"
+    ]
+  },
+  "num": {
+    "prefix": [
+      "num"
+    ],
+    "description": "Number",
+    "body": [
+      "{ \"type\": \"number\" }"
+    ]
+  },
+  "obj": {
+    "prefix": [
+      "obj"
+    ],
+    "description": "Object",
+    "body": [
+      "{",
+      "\t\"type\": \"object\",",
+      "\t\"required\": [],",
+      "\t\"additionalProperties\": false,",
+      "\t\"properties\": {",
+      "\t\t$1",
+      "\t}",
+      "}"
+    ]
+  },
+  "obj-pattern": {
+    "prefix": [
+      "obj-pattern"
+    ],
+    "description": "Object Pattern",
+    "body": [
+      "{",
+      "\t\"type\": \"object\",",
+      "\t\"required\": [],",
+      "\t\"additionalProperties\": false,",
+      "\t\"patternProperties\": {",
+      "\t\"${1:^.*$}\": $2",
+      "}"
+    ]
+  },
+  "arr": {
+    "prefix": [
+      "arr"
+    ],
+    "description": "Array",
+    "body": [
+      "{",
+      "\t\"type\": \"array\",",
+      "\t\"items\": $1",
+      "}"
+    ]
+  },
+  "eslint:typescript": {
+    "prefix": [
+      "eslint:typescript"
+    ],
+    "description": "Eslint config for typescript projects",
+    "body": [
+      "{",
+      "  \"parser\": \"@typescript-eslint/parser\",",
+      "  \"parserOptions\": {",
+      "    \"ecmaVersion\": 2018,",
+      "    \"sourceType\": \"module\"",
+      "  },",
+      "  \"plugins\": [\"@typescript-eslint\"],",
+      "  \"env\": {",
+      "    \"node\": true,",
+      "    \"es6\": true",
+      "  },",
+      "  \"extends\": [\"eslint:recommended\"],",
+      "  \"rules\": {",
+      "    \"semi\": [\"error\", \"never\"]",
+      "  },",
+      "  \"overrides\": [",
+      "    {",
+      "      \"files\": [\"**/*.ts\"],",
+      "      \"extends\": [\"plugin:@typescript-eslint/recommended\"],",
+      "      \"rules\": {",
+      "        \"@typescript-eslint/no-use-before-define\": \"off\",",
+      "        \"@typescript-eslint/semi\": [\"error\", \"never\"],",
+      "        \"@typescript-eslint/member-delimiter-style\": [",
+      "          \"error\",",
+      "          { \"multiline\": { \"delimiter\": \"none\" } }",
+      "        ]",
+      "      }",
+      "    }",
+      "  ]",
+      "}",
+      ""
+    ]
+  }
+}

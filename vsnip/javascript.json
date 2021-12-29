@@ -1,0 +1,138 @@
+{
+  "clog": {
+    "prefix": [
+      "clog"
+    ],
+    "description": "Colored log",
+    "body": [
+      "console.log(",
+      "\t'%c[        \\]%c ',",
+      "\t'font-family:mono-space; color:white; background:orange',",
+      "\t''",
+      ");"
+    ]
+  },
+  "its": {
+    "prefix": [
+      "its"
+    ],
+    "description": "it should",
+    "body": [
+      "it('should ${1}', () => {});"
+    ]
+  },
+  "desc": {
+    "prefix": [
+      "desc"
+    ],
+    "description": "describe",
+    "body": [
+      "describe('$1', () => {",
+      "\t$2",
+      "})"
+    ]
+  },
+  "Component": {
+    "prefix": [
+      "Component"
+    ],
+    "description": "React Component",
+    "body": [
+      "import React from 'react';",
+      "import PropTypes from 'prop-types';",
+      "",
+      "const ${1:Name} = () => {",
+      "\treturn <></>;",
+      "};",
+      "",
+      "${1}.propTypes = {}",
+      "",
+      "export default ${1};"
+    ]
+  },
+  "Test": {
+    "prefix": [
+      "Test"
+    ],
+    "description": "React Test",
+    "body": [
+      "import React from 'react';",
+      "import { render } from '@testing-library/react';",
+      "",
+      "import ${1:Component} from './${1}';",
+      "",
+      "describe('${1}', () => {",
+      "\tit('should render', () => {",
+      "\t\trender(<${1} />);",
+      "\t});",
+      "});"
+    ]
+  },
+  "tci": {
+    "prefix": [
+      "tci"
+    ],
+    "description": "Trans component import",
+    "body": [
+      "import { Trans } from 'react-i18next';"
+    ]
+  },
+  "thi": {
+    "prefix": [
+      "thi"
+    ],
+    "description": "useTranslate hook import",
+    "body": [
+      "import { useTranslation } from 'react-i18next';"
+    ]
+  },
+  "tc": {
+    "prefix": [
+      "tc"
+    ],
+    "description": "Trans component",
+    "body": [
+      "<Trans",
+      "\ti18nKey=\"$1\"",
+      "\tvalues={{ $2 }}",
+      "\tcomponents={{ Strong: <Strong /> }}",
+      "/>"
+    ]
+  },
+  "th": {
+    "prefix": [
+      "th"
+    ],
+    "description": "Trans hook",
+    "body": [
+      "const { t } = useTranslation();"
+    ]
+  },
+  "propid": {
+    "prefix": [
+      "propid"
+    ],
+    "description": "PropType id",
+    "body": [
+      "PropTypes.oneOfType([PropTypes.number, PropTypes.string])"
+    ]
+  },
+  "recon": {
+    "prefix": [
+      "recon"
+    ],
+    "description": "Restore console.error",
+    "body": [
+      "beforeAll(() => console.error.mockRestore());"
+    ]
+  },
+  "esm:dirname": {
+    "prefix": ["dirname"],
+    "body": [
+      "import { dirname } from 'path';",
+      "import { fileURLToPath } from 'url';",
+      "",
+      "const __dirname = dirname(fileURLToPath(import.meta.url));"
+    ]
+  }
+}
