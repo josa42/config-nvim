@@ -7,6 +7,7 @@ rm -rf $TMP/config
 mkdir -p $TMP/{share,state,cache,config}
 
 ln -s $DIR $TMP/config/nvim
+ln -s $HOME/.config/json-schema $TMP/config/json-schema 
 
 export XDG_CONFIG_HOME=$TMP/config
 export XDG_CACHE_HOME=$TMP/cache
