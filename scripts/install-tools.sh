@@ -23,7 +23,14 @@ if [[ "$tools" == "" ]]; then
   tools="${TOOLS[@]}"
 fi
 
+node_version="node16"
+node_arch="x64"
+if [[ "$(arch)" == "arm64" ]]; then
+  node_arch="arm64"
+fi
+
 export NVIM_TOOLS_BIN="${XDG_DATA_HOME:-$HOME/.local/share}/nvim-tools/bin"
+export NVIM_TOOLS_NODE_TARGET="${node_version}-macos-${node_arch}"
 
 mkdir -p $NVIM_TOOLS_BIN
 

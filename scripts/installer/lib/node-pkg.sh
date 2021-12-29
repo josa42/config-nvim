@@ -73,7 +73,7 @@ run() {
   jq . package.json
 
   ./node_modules/.bin/pkg . \
-    --targets node14-macos-x64 \
+    --targets "${NVIM_TOOLS_NODE_TARGET:-node14-macos-x64}" \
     --output $BIN_DIR/$name
 
   rm -rf $TMP_DIR
