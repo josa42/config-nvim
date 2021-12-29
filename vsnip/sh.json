@@ -25,7 +25,7 @@
     ],
     "description": "DIR",
     "body": [
-      "DIR=\"$( cd \"$( dirname \"${BASH_SOURCE[0]}\" )\" >/dev/null 2>&1 && pwd )\""
+      "DIR=\"\\$(cd \"\\$(dirname \"\\${BASH_SOURCE[0]}\")\" >/dev/null 2>&1 && pwd)\""
     ]
   },
   "script": {
@@ -70,14 +70,14 @@
     ]
   },
   "case statement": {
-		"prefix": "case",
-		"body": [
-			"",
-			"case $1 in",
-			"\t*) ${0:    # ← put your command here} ;;",
-			"esac",
-			""
-		],
-		"description": "case statement. Use the switch statement snippet \"switch\" to add one or more switches to the case statement."
-	}
+    "prefix": "case",
+    "body": [
+      "",
+      "case $1 in",
+      "\t*) ${0:    # ← put your command here} ;;",
+      "esac",
+      ""
+    ],
+    "description": "case statement. Use the switch statement snippet \"switch\" to add one or more switches to the case statement."
+  }
 }
