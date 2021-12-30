@@ -1,6 +1,21 @@
 local layer = require('jg.lib.layer')
 local l = {}
 
+l.servers = {
+  'cssls',
+  'html',
+  'bashls',
+  'vimls',
+  'dockerls',
+  'gopls',
+  'jsonls',
+  'sumneko_lua',
+  'tsserver',
+  'yamlls',
+  'stylelint_lsp',
+  'zk',
+}
+
 layer.use({
   require = {
     'williamboman/nvim-lsp-installer',
@@ -26,19 +41,25 @@ layer.use({
     require('jg.lib.lsp.handlers').setup()
     require('jg.layers.lsp.null-ls').setup()
 
-    l.setup_servers({
-      'cssls',
-      'html',
-      'bashls',
-      'vimls',
-      'dockerls',
-      'gopls',
-      'jsonls',
-      'sumneko_lua',
-      'tsserver',
-      'yamlls',
-      'stylelint_lsp',
-    })
+    -- init servers
+    local cmp = require('cmp_nvim_lsp')
+    local installer = require('nvim-lsp-installer')
+
+    installer.on_server_ready(function(server)
+      local ok, setup = pcall(require, 'jg.layers.lsp.' .. server.name)
+      server:setup(vim.tbl_extend('keep', ok and setup() or {}, {
+        capabilities = cmp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      }))
+    end)
+
+    -- install missing servers
+    local servers = require('nvim-lsp-installer.servers')
+    for _, name in ipairs(l.servers) do
+      local _, server = servers.get_server(name)
+      if not server:is_installed() then
+        server:install()
+      end
+    end
 
     require('lsp_signature').setup({
       use_lspsaga = false,
@@ -64,33 +85,3 @@ layer.use({
     })
   end,
 })
-
-function l.setup_servers(names)
-  for _, name in ipairs(names) do
-    l.setup_server(name, function()
-      local ok, setup = pcall(require, 'jg.layers.lsp.' .. name)
-      return vim.tbl_extend('keep', ok and setup() or {}, {
-        capabilities = l.make_client_capabilities(),
-      })
-    end)
-  end
-end
-
-function l.setup_server(name, setup_fn)
-  local available, server = require('nvim-lsp-installer.servers').get_server(name)
-  assert(available, 'Server ' .. name .. ' not found!')
-
-  server:on_ready(function()
-    server:setup(setup_fn())
-  end)
-
-  if not server:is_installed() then
-    server:install()
-  end
-end
-
-function l.make_client_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-  return capabilities
-end
