@@ -1,8 +1,5 @@
 -- local configs = require('lspconfig/configs')
-local lsp = require('lspconfig')
 -- local util = require 'lspconfig.util'
-local paths = require('jg.lib.paths')
-
 -- configs.eslint = {
 --   default_config = {
 --     cmd = { paths.lspBin .. '/eslint-ls', '--stdio' },
@@ -25,11 +22,8 @@ local paths = require('jg.lib.paths')
 
 local M = {}
 
-local eslintLS = paths.lspBin .. '/vscode-eslint-language-server'
-
 function M.setup(setup)
-  setup(lsp.eslint, {
-    cmd = { eslintLS, '--stdio', '--debug' },
+  setup('eslint', {
     settings = {
       packageManager = 'yarn',
       quiet = true,

@@ -25,19 +25,19 @@ layer.use({
   after = function()
     require('jg.lib.lsp.handlers').setup()
 
-    l.setup_providers({
-      'css',
-      'docker',
-      'go',
-      'html',
-      'json',
-      'lua',
-      'sh',
-      'typescript',
-      'viml',
-      'yaml',
-      'stylelint',
-      'null-ls',
+    l.setup_servers({
+      css = l.setup_server('cssls'),
+      docker = require('jg.layers.lsp.docker').setup,
+      go = require('jg.layers.lsp.go').setup,
+      html = l.setup_server('html'),
+      json = require('jg.layers.lsp.json').setup,
+      lua = require('jg.layers.lsp.lua').setup,
+      sh = l.setup_server('bashls'),
+      typescript = require('jg.layers.lsp.typescript').setup,
+      viml = l.setup_server('vimls'),
+      yaml = require('jg.layers.lsp.yaml').setup,
+      stylelint = require('jg.layers.lsp.stylelint').setup,
+      null_ls = require('jg.layers.lsp.null-ls').setup,
     })
 
     require('lsp_signature').setup({
@@ -65,9 +65,9 @@ layer.use({
   end,
 })
 
-function l.setup_providers(providers)
-  for _, name in ipairs(providers) do
-    require('jg.layers.lsp.' .. name).setup(function(server_name, opts)
+function l.setup_servers(providers)
+  for name, setup in pairs(providers) do
+    setup(function(server_name, opts)
       opts = opts or {}
       opts.cmd = nil
       l.server_setup(
@@ -77,6 +77,12 @@ function l.setup_providers(providers)
         })
       )
     end)
+  end
+end
+
+function l.setup_server(name)
+  return function(setup)
+    setup(name)
   end
 end
 

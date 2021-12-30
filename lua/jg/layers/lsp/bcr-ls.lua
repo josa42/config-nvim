@@ -16,7 +16,7 @@ configs.bcr_ls = {
 }
 
 function M.setup(setup)
-  setup(lsp.bcr_ls)
+  setup('bcr_ls')
 end
 
 return M
