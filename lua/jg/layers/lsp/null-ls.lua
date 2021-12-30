@@ -1,7 +1,6 @@
 -- stylelint-lsp
 local paths = require('jg.lib.paths')
 local null_ls = require('null-ls')
-local helpers = require('null-ls.helpers')
 
 local M = {}
 
@@ -21,46 +20,56 @@ local jsAndJson = {
   'svelte',
 }
 
-local eslint_d = helpers.conditional(function(utils)
-  if utils.root_has_file('node_modules/.bin/eslint') then
-    if utils.root_has_file('node_modules/jsonc-eslint-parser/package.json') then
-      return null_ls.builtins.diagnostics.eslint_d.with({
-        command = eslint_d_bin,
-        filetypes = jsAndJson,
-      })
-    else
-      return null_ls.builtins.diagnostics.eslint_d.with({ command = eslint_d_bin })
-    end
-  end
-end)
+local condition_eslint = function(utils)
+  return utils.root_has_file('node_modules/.bin/eslint')
+    and not utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')
+end
 
-local eslint_d_formatter = helpers.conditional(function(utils)
-  if utils.root_has_file('node_modules/.bin/eslint') then
-    if utils.root_has_file('node_modules/jsonc-eslint-parser/package.json') then
-      return null_ls.builtins.formatting.eslint_d.with({
-        command = eslint_d_bin,
-        filetypes = jsAndJson,
-      })
-    else
-      return null_ls.builtins.formatting.eslint_d.with({ command = eslint_d_bin })
-    end
-  end
-end)
+local condition_eslint_with_json = function(utils)
+  return utils.root_has_file('node_modules/.bin/eslint')
+    and utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')
+end
 
-local M = {}
+local condition_not_eslint_with_json = function(utils)
+  return not condition_eslint_with_json(utils)
+end
 
 function M.setup()
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
-      eslint_d,
-      eslint_d_formatter,
+      -- eslint -> js; without json
+      null_ls.builtins.diagnostics.eslint_d.with({
+        condition = condition_eslint,
+        command = eslint_d_bin,
+      }),
+      null_ls.builtins.formatting.eslint_d.with({
+        condition = condition_eslint,
+        command = eslint_d_bin,
+      }),
+
+      -- eslint -> js and json
+      null_ls.builtins.diagnostics.eslint_d.with({
+        condition = condition_eslint_with_json,
+        command = eslint_d_bin,
+        filetypes = jsAndJson,
+      }),
+      null_ls.builtins.formatting.eslint_d.with({
+        condition = condition_eslint_with_json,
+        command = eslint_d_bin,
+        filetypes = jsAndJson,
+      }),
+
+      -- fixjson
       null_ls.builtins.formatting.fixjson.with({
+        condition = condition_not_eslint_with_json,
         command = fixjson_bin,
       }),
+
       null_ls.builtins.formatting.stylua.with({
         command = stylua_bin,
       }),
+
       null_ls.builtins.formatting.shfmt.with({
         command = shfmt_bin,
         extra_args = {
@@ -71,7 +80,6 @@ function M.setup()
           '-kp', -- function opening braces are placed on a separate line
         },
       }),
-      null_ls.builtins.code_actions.gitsigns,
     },
   })
 end
