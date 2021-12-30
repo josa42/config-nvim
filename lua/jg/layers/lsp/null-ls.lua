@@ -46,30 +46,32 @@ local eslint_d_formatter = helpers.conditional(function(utils)
     end
   end
 end)
+local M = {}
+function M.setup()
+  null_ls.setup({
+    debug = false, -- log: ~/.cache/nvim/null-ls.log
+    sources = {
+      eslint_d,
+      eslint_d_formatter,
+      null_ls.builtins.formatting.fixjson.with({
+        command = fixjson_bin,
+      }),
+      null_ls.builtins.formatting.stylua.with({
+        command = stylua_bin,
+      }),
+      null_ls.builtins.formatting.shfmt.with({
+        command = shfmt_bin,
+        extra_args = {
+          '-i=2', -- indent: 0 for tabs (default), >0 for number of spaces
+          '-bn', -- binary ops like && and | may start a line
+          '-ci', -- switch cases will be indented
+          '-sr', -- keep column alignment paddings
+          '-kp', -- function opening braces are placed on a separate line
+        },
+      }),
+      null_ls.builtins.code_actions.gitsigns,
+    },
+  })
+end
 
-null_ls.setup({
-  debug = false, -- log: ~/.cache/nvim/null-ls.log
-  sources = {
-    eslint_d,
-    eslint_d_formatter,
-    null_ls.builtins.formatting.fixjson.with({
-      command = fixjson_bin,
-    }),
-    null_ls.builtins.formatting.stylua.with({
-      command = stylua_bin,
-    }),
-    null_ls.builtins.formatting.shfmt.with({
-      command = shfmt_bin,
-      extra_args = {
-        '-i=2', -- indent: 0 for tabs (default), >0 for number of spaces
-        '-bn', -- binary ops like && and | may start a line
-        '-ci', -- switch cases will be indented
-        '-sr', -- keep column alignment paddings
-        '-kp', -- function opening braces are placed on a separate line
-      },
-    }),
-    null_ls.builtins.code_actions.gitsigns,
-  },
-})
-
-return function() end
+return M

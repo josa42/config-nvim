@@ -24,21 +24,20 @@ layer.use({
 
   after = function()
     require('jg.lib.lsp.handlers').setup()
+    require('jg.layers.lsp.null-ls').setup()
 
     l.setup_servers({
       'cssls',
       'html',
       'bashls',
       'vimls',
-
-      dockerls = require('jg.layers.lsp.dockerls'),
-      gopls = require('jg.layers.lsp.gopls'),
-      jsonls = require('jg.layers.lsp.jsonls'),
-      sumneko_lua = require('jg.layers.lsp.sumneko_lua'),
-      tsserver = require('jg.layers.lsp.tsserver'),
-      yamlls = require('jg.layers.lsp.yamlls'),
-      stylelint_lsp = require('jg.layers.lsp.stylelint_lsp'),
-      null_ls = require('jg.layers.lsp.null-ls'),
+      'dockerls',
+      'gopls',
+      'jsonls',
+      'sumneko_lua',
+      'tsserver',
+      'yamlls',
+      'stylelint_lsp',
     })
 
     require('lsp_signature').setup({
@@ -66,18 +65,16 @@ layer.use({
   end,
 })
 
-function l.setup_servers(providers)
-  for i, name in ipairs(providers) do
-    providers[i] = nil
-    providers[name] = function(setup)
-      setup(name)
+function l.setup_servers(names)
+  for _, name in ipairs(names) do
+    local ok, setup = pcall(require, 'jg.layers.lsp.' .. name)
+    if not ok then
+      setup = function(fn)
+        fn(name)
+      end
     end
-  end
 
-  for name, setup in pairs(providers) do
     setup(function(name, opts)
-      opts = opts or {}
-      opts.cmd = nil
       l.setup_server(
         name,
         vim.tbl_extend('keep', opts or {}, {
