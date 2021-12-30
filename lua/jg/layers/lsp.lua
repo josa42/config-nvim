@@ -67,32 +67,21 @@ layer.use({
 
 function l.setup_servers(names)
   for _, name in ipairs(names) do
-    local ok, setup = pcall(require, 'jg.layers.lsp.' .. name)
-    if not ok then
-      setup = function(fn)
-        fn(name)
-      end
-    end
-
-    setup(function(name, opts)
-      l.setup_server(
-        name,
-        vim.tbl_extend('keep', opts or {}, {
-          capabilities = l.make_client_capabilities(),
-        })
-      )
+    l.setup_server(name, function()
+      local ok, setup = pcall(require, 'jg.layers.lsp.' .. name)
+      return vim.tbl_extend('keep', ok and setup() or {}, {
+        capabilities = l.make_client_capabilities(),
+      })
     end)
   end
 end
 
-function l.setup_server(name, opts)
-  assert(type(name) == 'string', vim.inspect(name) .. ' should be a string!')
-
+function l.setup_server(name, setup_fn)
   local available, server = require('nvim-lsp-installer.servers').get_server(name)
   assert(available, 'Server ' .. name .. ' not found!')
 
   server:on_ready(function()
-    server:setup(opts)
+    server:setup(setup_fn())
   end)
 
   if not server:is_installed() then

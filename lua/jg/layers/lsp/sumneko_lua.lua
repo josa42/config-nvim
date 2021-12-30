@@ -17,8 +17,8 @@ local settings = {
   },
 }
 
-return function(setup)
-  setup('sumneko_lua', {
+return function()
+  return {
     settings = settings,
-  })
+  }
 end

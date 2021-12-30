@@ -1,10 +1,10 @@
-return function(setup)
-  setup('stylelint_lsp', {
+return function()
+  return {
     filetypes = { 'css', 'less', 'scss' },
     settings = {
       stylelintplus = {
         autoFixOnFormat = true,
       },
     },
-  })
+  }
 end

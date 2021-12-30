@@ -20,15 +20,11 @@
 --
 -- return M
 
-local M = {}
-
-function M.setup(setup)
-  setup('eslint', {
+return function()
+  return {
     settings = {
       packageManager = 'yarn',
       quiet = true,
     },
-  })
+  }
 end
-
-return M

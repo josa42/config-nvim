@@ -18,12 +18,12 @@ local settings = {
   },
 }
 
-return function(setup)
-  setup('dockerls', {
-    settings = settings,
-  })
-
+return function()
   au.group('jg.lsp.docker.auto-format', function(cmd)
     cmd({ on = { 'BufWritePre', 'InsertLeave' }, pattern = 'Dockerfile' }, vim.lsp.buf.formatting)
   end)
+
+  return {
+    settings = settings,
+  }
 end

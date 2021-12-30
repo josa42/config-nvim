@@ -22,13 +22,13 @@ local function buf_formatting()
   vim.lsp.buf.formatting()
 end
 
-return function(setup)
-  setup('gopls', {
-    settings = settings,
-  })
-
+return function()
   au.group('jg.lsp.go.autoformat', function(cmd)
     cmd({ on = { 'BufWritePre' }, pattern = '*.go' }, buf_formatting)
     cmd({ on = { 'InsertLeave' }, pattern = '*.go' }, vim.lsp.buf.formatting)
   end)
+
+  return {
+    settings = settings,
+  }
 end

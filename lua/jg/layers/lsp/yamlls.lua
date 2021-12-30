@@ -33,8 +33,8 @@ local settings = {
   },
 }
 
-return function(setup)
-  setup('yamlls', {
+return function()
+  return {
     settings = settings,
-  })
+  }
 end

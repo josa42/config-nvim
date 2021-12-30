@@ -17,8 +17,8 @@ local settings = {
   },
 }
 
-return function(setup)
-  setup('jsonls', {
+return function()
+  return {
     filetypes = { 'json', 'jsonc' },
     commands = {
       Format = {
@@ -28,5 +28,5 @@ return function(setup)
       },
     },
     settings = settings,
-  })
+  }
 end

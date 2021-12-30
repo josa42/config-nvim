@@ -46,7 +46,9 @@ local eslint_d_formatter = helpers.conditional(function(utils)
     end
   end
 end)
+
 local M = {}
+
 function M.setup()
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
