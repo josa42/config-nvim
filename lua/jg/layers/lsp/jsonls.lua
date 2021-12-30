@@ -17,9 +17,7 @@ local settings = {
   },
 }
 
-local M = {}
-
-function M.setup(setup)
+return function(setup)
   setup('jsonls', {
     filetypes = { 'json', 'jsonc' },
     commands = {
@@ -32,5 +30,3 @@ function M.setup(setup)
     settings = settings,
   })
 end
-
-return M

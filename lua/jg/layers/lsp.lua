@@ -26,18 +26,19 @@ layer.use({
     require('jg.lib.lsp.handlers').setup()
 
     l.setup_servers({
-      css = l.setup_server('cssls'),
-      docker = require('jg.layers.lsp.docker').setup,
-      go = require('jg.layers.lsp.go').setup,
-      html = l.setup_server('html'),
-      json = require('jg.layers.lsp.json').setup,
-      lua = require('jg.layers.lsp.lua').setup,
-      sh = l.setup_server('bashls'),
-      typescript = require('jg.layers.lsp.typescript').setup,
-      viml = l.setup_server('vimls'),
-      yaml = require('jg.layers.lsp.yaml').setup,
-      stylelint = require('jg.layers.lsp.stylelint').setup,
-      null_ls = require('jg.layers.lsp.null-ls').setup,
+      'cssls',
+      'html',
+      'bashls',
+      'vimls',
+
+      dockerls = require('jg.layers.lsp.dockerls'),
+      gopls = require('jg.layers.lsp.gopls'),
+      jsonls = require('jg.layers.lsp.jsonls'),
+      sumneko_lua = require('jg.layers.lsp.sumneko_lua'),
+      tsserver = require('jg.layers.lsp.tsserver'),
+      yamlls = require('jg.layers.lsp.yamlls'),
+      stylelint_lsp = require('jg.layers.lsp.stylelint_lsp'),
+      null_ls = require('jg.layers.lsp.null-ls'),
     })
 
     require('lsp_signature').setup({
@@ -66,12 +67,19 @@ layer.use({
 })
 
 function l.setup_servers(providers)
+  for i, name in ipairs(providers) do
+    providers[i] = nil
+    providers[name] = function(setup)
+      setup(name)
+    end
+  end
+
   for name, setup in pairs(providers) do
-    setup(function(server_name, opts)
+    setup(function(name, opts)
       opts = opts or {}
       opts.cmd = nil
-      l.server_setup(
-        server_name,
+      l.setup_server(
+        name,
         vim.tbl_extend('keep', opts or {}, {
           capabilities = l.make_client_capabilities(),
         })
@@ -80,17 +88,11 @@ function l.setup_servers(providers)
   end
 end
 
-function l.setup_server(name)
-  return function(setup)
-    setup(name)
-  end
-end
+function l.setup_server(name, opts)
+  assert(type(name) == 'string', vim.inspect(name) .. ' should be a string!')
 
-function l.server_setup(server_name, opts)
-  assert(type(server_name) == 'string', vim.inspect(server_name) .. ' should be a string!')
-
-  local available, server = require('nvim-lsp-installer.servers').get_server(server_name)
-  assert(available, 'Server ' .. server_name .. ' not found!')
+  local available, server = require('nvim-lsp-installer.servers').get_server(name)
+  assert(available, 'Server ' .. name .. ' not found!')
 
   server:on_ready(function()
     server:setup(opts)

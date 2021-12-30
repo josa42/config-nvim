@@ -17,12 +17,8 @@ local settings = {
   },
 }
 
-local M = {}
-
-function M.setup(setup)
+return function(setup)
   setup('sumneko_lua', {
     settings = settings,
   })
 end
-
-return M

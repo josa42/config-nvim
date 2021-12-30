@@ -33,12 +33,8 @@ local settings = {
   },
 }
 
-local M = {}
-
-function M.setup(setup)
+return function(setup)
   setup('yamlls', {
     settings = settings,
   })
 end
-
-return M

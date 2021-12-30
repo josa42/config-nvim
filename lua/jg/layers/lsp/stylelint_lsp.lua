@@ -1,6 +1,4 @@
-local M = {}
-
-function M.setup(setup)
+return function(setup)
   setup('stylelint_lsp', {
     filetypes = { 'css', 'less', 'scss' },
     settings = {
@@ -10,5 +8,3 @@ function M.setup(setup)
     },
   })
 end
-
-return M

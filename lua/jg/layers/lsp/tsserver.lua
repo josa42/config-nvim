@@ -9,7 +9,7 @@ local function organize_imports()
   vim.lsp.buf.execute_command(params)
 end
 
-function M.setup(setup)
+return function(setup)
   setup('tsserver', {
     commands = {
       OrganizeImports = {
@@ -19,5 +19,3 @@ function M.setup(setup)
     },
   })
 end
-
-return M

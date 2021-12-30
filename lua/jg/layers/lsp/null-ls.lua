@@ -72,6 +72,4 @@ null_ls.setup({
   },
 })
 
-function M.setup(setup) end
-
-return M
+return function() end

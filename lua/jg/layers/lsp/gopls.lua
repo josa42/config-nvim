@@ -7,19 +7,6 @@ local settings = {
   },
 }
 
-local M = {}
-
-function M.setup(setup)
-  setup('gopls', {
-    settings = settings,
-  })
-
-  au.group('jg.lsp.go', function(cmd)
-    cmd({ on = { 'BufWritePre' }, pattern = '*.go' }, M.buf_formatting)
-    cmd({ on = { 'InsertLeave' }, pattern = '*.go' }, vim.lsp.buf.formatting)
-  end)
-end
-
 local function buf_organize_imports()
   local params = vim.lsp.util.make_range_params()
   params.context = { source = { organizeImports = true } }
@@ -30,9 +17,18 @@ local function buf_organize_imports()
   end
 end
 
-function M.buf_formatting()
+local function buf_formatting()
   buf_organize_imports()
   vim.lsp.buf.formatting()
 end
 
-return M
+return function(setup)
+  setup('gopls', {
+    settings = settings,
+  })
+
+  au.group('jg.lsp.go.autoformat', function(cmd)
+    cmd({ on = { 'BufWritePre' }, pattern = '*.go' }, buf_formatting)
+    cmd({ on = { 'InsertLeave' }, pattern = '*.go' }, vim.lsp.buf.formatting)
+  end)
+end

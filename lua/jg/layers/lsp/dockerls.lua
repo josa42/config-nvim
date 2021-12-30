@@ -18,9 +18,7 @@ local settings = {
   },
 }
 
-local M = {}
-
-function M.setup(setup)
+return function(setup)
   setup('dockerls', {
     settings = settings,
   })
@@ -29,5 +27,3 @@ function M.setup(setup)
     cmd({ on = { 'BufWritePre', 'InsertLeave' }, pattern = 'Dockerfile' }, vim.lsp.buf.formatting)
   end)
 end
-
-return M
