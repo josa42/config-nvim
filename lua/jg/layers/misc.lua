@@ -6,6 +6,10 @@ command.define('RG', { nargs = '+' }, "lua require('jg.lib.quickfix').rg(<f-args
 command.define('FD', { nargs = '+' }, "lua require('jg.lib.quickfix').fd(<f-args>)")
 
 plug.require(
+  -- fix performance of CursorHold and CursorHoldI events
+
+  'antoinemadec/FixCursorHold.nvim',
+
   -- Editing
   'Darazaki/indent-o-matic',
   'josa42/vim-templates',
