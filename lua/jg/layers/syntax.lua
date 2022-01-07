@@ -21,6 +21,7 @@ local filetypes = {
   { '.parcelrc', 'json' },
   { '.terserrc', 'json' },
   { '.stylelintrc', 'json' },
+  { '*.mc', 'monkeyc' },
 }
 
 layer.use({
@@ -29,7 +30,7 @@ layer.use({
     'zhaozg/vim-diagram',
     'rhysd/vim-syntax-codeowners',
     'darfink/vim-plist',
-    'josa42/vim-monkey-c',
+    -- 'josa42/vim-monkey-c',
   },
 
   before = function()
