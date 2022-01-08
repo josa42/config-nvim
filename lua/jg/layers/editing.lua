@@ -8,12 +8,12 @@ local layer = require('jg.lib.layer')
 --------------------------------------------------------------------------------
 
 layer.use({
-  require = { 'AndrewRadev/splitjoin.vim' },
+  requires = { 'AndrewRadev/splitjoin.vim' },
 })
 --------------------------------------------------------------------------------
 
 layer.use({
-  require = { 'AndrewRadev/sideways.vim' },
+  requires = { 'AndrewRadev/sideways.vim' },
   map = {
     { 'n', 'g<left>', ':SidewaysLeft<cr>' },
     { 'n', 'g<right>', ':SidewaysRight<cr>' },
@@ -22,8 +22,8 @@ layer.use({
 
 --------------------------------------------------------------------------------
 layer.use({
-  require = { 'windwp/nvim-autopairs' },
-  after = function()
+  requires = { 'windwp/nvim-autopairs' },
+  setup = function()
     require('nvim-autopairs').setup({
       html_break_line_filetype = {
         'html',
@@ -41,12 +41,12 @@ layer.use({
 --------------------------------------------------------------------------------
 
 layer.use({
-  require = {
+  requires = {
     'AndrewRadev/tagalong.vim', -- Keep html tags in sync
     'alvan/vim-closetag',
   },
 
-  before = function()
+  init = function()
     vim.g.tagalong_additional_filetypes = { 'javascript', 'template', 'html', 'js' }
     vim.g.closetag_filetypes = 'html,javascript,template'
   end,
@@ -55,7 +55,7 @@ layer.use({
 --------------------------------------------------------------------------------
 -- Aligning
 layer.use({
-  require = { 'junegunn/vim-easy-align' }, -- Column align: ga
+  requires = { 'junegunn/vim-easy-align' }, -- Column align: ga
   map = {
     -- Start interactive EasyAlign in visual mode (e.g. vipga)
     { 'x', 'ga', '<Plug>(EasyAlign)' },
@@ -65,8 +65,8 @@ layer.use({
 })
 --------------------------------------------------------------------------------
 layer.use({
-  require = { 'arthurxavierx/vim-caser' }, -- Change cases: gk
-  before = function()
+  requires = { 'arthurxavierx/vim-caser' }, -- Change cases: gk
+  init = function()
     -- g prefix
     vim.g.caser_prefix = 'gk'
   end,
@@ -76,16 +76,16 @@ layer.use({
 -- Motion actions
 
 layer.use({
-  require = { 'josa42/nvim-actions' },
-  after = function()
+  requires = { 'josa42/nvim-actions' },
+  setup = function()
     require('jg.actions').setup()
   end,
 })
 --------------------------------------------------------------------------------
 -- Surround
 layer.use({
-  require = { 'machakann/vim-sandwich' },
-  after = function()
+  requires = { 'machakann/vim-sandwich' },
+  setup = function()
     vim.cmd([[let sandwich#recipes = sandwich#default_recipes]])
     --
     vim.g['sandwich#recipes'] = vim.fn.extend(vim.fn.deepcopy(vim.g['sandwich#default_recipes'] or {}), {
@@ -121,9 +121,9 @@ layer.use({
 --------------------------------------------------------------------------------
 -- Toogle values
 layer.use({
-  require = { 'AndrewRadev/switch.vim' },
+  requires = { 'AndrewRadev/switch.vim' },
 
-  before = function()
+  init = function()
     vim.g.switch_mapping = '-'
 
     au.group('switch_custom_definitions', function(cmd)
@@ -151,8 +151,8 @@ layer.use({
 })
 
 layer.use({
-  require = { 'jghauser/mkdir.nvim' },
-  after = function()
+  requires = { 'jghauser/mkdir.nvim' },
+  setup = function()
     require('mkdir')
   end,
 })

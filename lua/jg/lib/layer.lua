@@ -9,16 +9,16 @@ function M.use(opts)
     return
   end
 
-  for _, plugin in ipairs(opts.require or {}) do
+  for _, plugin in ipairs(opts.requires or {}) do
     plug.require(plugin)
   end
 
-  if opts.before ~= nil then
-    plug.before(opts.before)
+  if opts.init ~= nil then
+    plug.before(opts.init)
   end
 
-  if opts.after ~= nil then
-    plug.after(opts.after)
+  if opts.setup ~= nil then
+    plug.after(opts.setup)
   end
 
   if opts.map ~= nil then
@@ -41,32 +41,19 @@ end
 function l.applyKeyMaps(maps)
   for _, map in ipairs(maps) do
     local mode = map[1]
-    local keymap = map[2]
-    local cmd = map[3]
+    local lhs = map[2]
+    local rhs = map[3]
+    local opts = map[4] or { silent = true }
 
-    if type(cmd) == 'function' then
-      cmd = '<cmd>' .. utils.wrapFunction('keymap', cmd) .. '<cr>'
-    end
-    local map_opts = map[4]
+    assert(rhs ~= nil, map[5])
 
-    assert(cmd ~= nil, 'cmd must be set to set a key map')
-
-    vim.api.nvim_set_keymap(mode, keymap, cmd, map_opts or l.defaultMapOpts(cmd))
+    vim.keymap.set(mode, lhs, rhs, opts)
 
     local label = map[5]
     if label ~= nil then
-      require('cheatsheet').add_cheat(label, '[' .. mode .. '] ' .. keymap, 'keymap')
+      require('cheatsheet').add_cheat(label, '[' .. mode .. '] ' .. lhs, 'keymap')
     end
   end
-end
-
-function l.defaultMapOpts(cmd)
-  if cmd ~= nil then
-    local noremap = string.sub(cmd, 1, string.len('<Plug>')) ~= '<Plug>'
-    return { noremap = noremap, silent = true }
-  end
-
-  return {}
 end
 
 return M

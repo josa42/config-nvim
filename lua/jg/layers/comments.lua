@@ -1,14 +1,14 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  require = { 'tomtom/tcomment_vim' },
+  requires = { 'tomtom/tcomment_vim' },
 
   map = {
     { 'n', '#', '<Plug>TComment_gcc' },
     { 'v', '#', '<Plug>TComment_gc' },
   },
 
-  before = function()
+  init = function()
     vim.g.tcomment_maps = 1
     vim.g.tcomment_mapleader1 = ''
     vim.g.tcomment_mapleader2 = ''
@@ -18,7 +18,7 @@ layer.use({
     vim.g.tcomment_textobject_inlinecomment = 'ic'
   end,
 
-  after = function()
+  setup = function()
     vim.fn['tcomment#type#Define']('jsonc', '// %s')
     vim.fn['tcomment#type#Define']('jsonc_block', vim.g['tcomment#block_fmt_c'])
     vim.fn['tcomment#type#Define']('jsonc_inline', vim.g['tcomment#inline_fmt_c'])

@@ -4,12 +4,12 @@ local cmd = require('jg.lib.command')
 local open = require('jg.lib.open')
 
 layer.use({
-  require = {
+  requires = {
     'editorconfig/editorconfig-vim',
     'josa42/nvim-project-config',
   },
 
-  after = function()
+  setup = function()
     local p = require('jg.project-config')
 
     cmd.define('Config', { bar = true, nargs = 0 }, 'silent! tabe $MYVIMRC')

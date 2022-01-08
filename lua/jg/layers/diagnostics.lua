@@ -1,7 +1,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  require = {
+  requires = {
     'folke/lsp-trouble.nvim',
   },
 
@@ -11,7 +11,7 @@ layer.use({
     { 'n', __keymaps.goto_diagnostics_list, ':TroubleToggle document_diagnostics<cr>' },
   },
 
-  after = function()
+  setup = function()
     require('trouble').setup({
       mode = 'document_diagnostics',
       signs = {

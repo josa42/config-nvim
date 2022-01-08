@@ -30,11 +30,11 @@ plug.after(function()
 end)
 
 layer.use({
-  require = {
+  requires = {
     'sudormrfbin/cheatsheet.nvim',
   },
 
-  after = function()
+  setup = function()
     require('cheatsheet').setup({
       bundled_cheatsheets = {
         disabled = { 'lua', 'markdown', 'nerd-fonts', 'netrw', 'regex', 'unicode' },

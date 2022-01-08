@@ -3,7 +3,7 @@ local layer = require('jg.lib.layer')
 layer.use({
   enabled = false,
 
-  require = {
+  requires = {
     { 'josa42/nvim-filetree', { tag = '*' } },
   },
 
@@ -16,7 +16,7 @@ layer.use({
 layer.use({
   enabled = true,
 
-  require = {
+  requires = {
     'josa42/nvim-file-tree',
   },
 

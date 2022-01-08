@@ -4,5 +4,5 @@ end
 
 local layer = require('jg.lib.layer')
 layer.use({
-  require = { 'nvim-lua/plenary.nvim' },
+  requires = { 'nvim-lua/plenary.nvim' },
 })

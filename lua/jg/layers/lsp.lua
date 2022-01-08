@@ -17,7 +17,7 @@ l.servers = {
 }
 
 layer.use({
-  require = {
+  requires = {
     'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
@@ -37,7 +37,7 @@ layer.use({
     { 'n', __keymaps.codelens_action, '<cmd>lua vim.lsp.codelens.run()<cr>' },
   },
 
-  after = function()
+  setup = function()
     require('jg.lib.lsp.handlers').setup()
     require('jg.layers.lsp.null-ls').setup()
 

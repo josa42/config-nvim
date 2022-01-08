@@ -24,7 +24,7 @@ local filetypes = {
 }
 
 layer.use({
-  require = {
+  requires = {
     'sheerun/vim-polyglot',
     'zhaozg/vim-diagram',
     'rhysd/vim-syntax-codeowners',
@@ -32,7 +32,7 @@ layer.use({
     'josa42/vim-monkey-c',
   },
 
-  before = function()
+  init = function()
     vim.g.polyglot_disabled = { 'sensible', 'vim-sleuth', 'autoindent' }
 
     au.group('jg.layers.syntax.detect', function(cmd)

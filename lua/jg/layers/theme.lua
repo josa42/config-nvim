@@ -4,11 +4,11 @@ local utils = require('jg.lib.utils')
 local l = {}
 
 layer.use({
-  require = {
+  requires = {
     { 'josa42/theme-theonedark', { rtp = 'dist/vim' } },
   },
 
-  after = function()
+  setup = function()
     vim.o.termguicolors = true
     l.setColorScheme('theonedark')
   end,

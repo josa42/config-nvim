@@ -1,7 +1,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  require = {
+  requires = {
     -- nvim-cmp and sources
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp',
@@ -12,7 +12,7 @@ layer.use({
     'onsails/lspkind-nvim',
   },
 
-  after = function()
+  setup = function()
     vim.cmd('hi link CmpItemMenu Comment')
 
     local lspkind = require('lspkind')

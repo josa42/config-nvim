@@ -4,12 +4,12 @@ local M = {}
 local l = {}
 
 layer.use({
-  require = {
+  requires = {
     'nvim-lualine/lualine.nvim',
     'arkav/lualine-lsp-progress',
   },
 
-  after = function()
+  setup = function()
     require('lualine').setup({
       options = {
         theme = 'auto',

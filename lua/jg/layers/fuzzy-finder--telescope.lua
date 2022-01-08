@@ -4,7 +4,7 @@ local paths = require('jg.lib.paths')
 local ts = {}
 
 layer.use({
-  require = {
+  requires = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
     'nvim-telescope/telescope-fzy-native.nvim',
@@ -32,7 +32,7 @@ layer.use({
     }
   end,
 
-  after = function()
+  setup = function()
     local telescope = require('telescope')
     local builtin = require('telescope.builtin')
     local actions = require('telescope.actions')

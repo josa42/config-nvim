@@ -7,7 +7,7 @@ local function map_tab(idx)
 end
 
 layer.use({
-  require = { 'josa42/nvim-tabline' },
+  requires = { 'josa42/nvim-tabline' },
 
   map = {
     { 'n', '<leader>1', map_tab(1) },

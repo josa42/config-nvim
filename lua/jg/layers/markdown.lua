@@ -3,7 +3,7 @@ local paths = require('jg.lib.paths')
 local layer = require('jg.lib.plug')
 
 layer.use({
-  require = {
+  requires = {
     {
       'euclio/vim-markdown-composer',
       {
@@ -17,7 +17,7 @@ layer.use({
     },
   },
 
-  before = function()
+  init = function()
     vim.g.markdown_composer_custom_css = {
       'file://' .. paths.configDir .. '/files/euclio--vim-markdown-composer.css',
     }

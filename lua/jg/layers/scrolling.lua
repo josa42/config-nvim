@@ -2,12 +2,12 @@ local layer = require('jg.lib.layer')
 
 layer.use({
   enabled = false,
-  require = { 'psliwka/vim-smoothie' },
+  requires = { 'psliwka/vim-smoothie' },
 })
 
 layer.use({
-  require = { 'karb94/neoscroll.nvim' },
-  after = function()
+  requires = { 'karb94/neoscroll.nvim' },
+  setup = function()
     require('neoscroll').setup()
   end,
 })

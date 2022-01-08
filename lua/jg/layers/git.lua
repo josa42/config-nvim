@@ -3,7 +3,7 @@ local hi = require('jg.lib.highlight')
 local command = require('jg.lib.command')
 
 layer.use({
-  require = {
+  requires = {
     'tpope/vim-fugitive', -- Git commands; mainly Gblame
     'tpope/vim-rhubarb',
     'tpope/vim-git',
@@ -11,7 +11,7 @@ layer.use({
     'sindrets/diffview.nvim',
   },
 
-  before = function()
+  init = function()
     -- reset file
     command.define('ResetFile', { nargs = 0 }, 'silent !git checkout HEAD -- %')
 
@@ -30,12 +30,12 @@ layer.use({
 })
 
 layer.use({
-  require = {
+  requires = {
     'nvim-lua/plenary.nvim',
     'lewis6991/gitsigns.nvim',
   },
 
-  after = function()
+  setup = function()
     require('gitsigns').setup({
       yadm = { enable = true },
       current_line_blame = false,

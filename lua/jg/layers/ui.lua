@@ -3,12 +3,12 @@ local layer = require('jg.lib.layer')
 layer.use({
   enabled = true,
 
-  require = {
+  requires = {
     'stevearc/dressing.nvim',
     'MunifTanjim/nui.nvim',
   },
 
-  after = function()
+  setup = function()
     require('dressing').setup({
       input = {
         anchor = 'NW',
