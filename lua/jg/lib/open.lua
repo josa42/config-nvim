@@ -1,11 +1,25 @@
 local M = {}
 
-function M.switch_to(filepath)
+function M.open(filepath, pos)
+  if not M.switch_to(filepath, pos) then
+    if M.buf_is_empty() then
+      M.edit('edit', filepath, pos)
+    else
+      M.edit('tabedit', filepath, pos)
+    end
+  end
+
+end
+
+function M.switch_to(filepath, pos)
   local file = vim.loop.fs_realpath(filepath)
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
     if file == vim.api.nvim_buf_get_name(buf) then
       vim.api.nvim_set_current_win(win)
+      if pos ~= nil then
+        pcall(vim.api.nvim_win_set_cursor, win, pos)
+      end
       return true
     end
   end

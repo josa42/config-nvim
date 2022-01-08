@@ -1,9 +1,5 @@
-if __flags.fuzzy_finder ~= 'telescope' then
-  return
-end
-
-local fs = require('jg.lib.fs')
 local layer = require('jg.lib.layer')
+local paths = require('jg.lib.paths')
 
 local ts = {}
 
@@ -18,15 +14,17 @@ layer.use({
   },
 
   map = function()
+    local builtin = require('telescope.builtin')
+
     return {
       { 'n', __keymaps.find_file, ts.find_files, nil, 'Find files' },
       { 'n', __keymaps.find_string, ts.find_string, nil, 'Find string' },
       { 'n', __keymaps.find_config, ts.find_config, nil, 'Find config' },
       { 'n', '<leader>d', ts.find_docs, nil, 'Find docs' },
-      { 'n', __keymaps.find_help, ts.find_help, nil, 'Find help' },
-      { 'n', '<leader>gs', ts.git_status_files, nil, 'Git status' },
-      { 'n', '<leader>gb', ts.git_buffer_commits, nil, 'Git buffer commits' },
-      { 'n', '<leader>gg', ts.git_commits, nil, 'Git commits' },
+      { 'n', __keymaps.find_help, builtin.help_tags, nil, 'Find help' },
+      { 'n', '<leader>gs', builtin.git_status, nil, 'Git status' },
+      { 'n', '<leader>gb', builtin.git_bcommits, nil, 'Git buffer commits' },
+      { 'n', '<leader>gg', builtin.git_commits, nil, 'Git commits' },
       { 'n', '<leader><leader>', ts.find_file_in_workspace },
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },
@@ -35,46 +33,35 @@ layer.use({
   end,
 
   after = function()
+    local telescope = require('telescope')
+    local builtin = require('telescope.builtin')
     local actions = require('telescope.actions')
     local action_layout = require('telescope.actions.layout')
     local action_set = require('telescope.actions.set')
     local action_state = require('telescope.actions.state')
+    local make_entry = require('telescope.make_entry')
 
+    local open = require('jg.lib.open').open
     local edit = require('jg.lib.open').edit
-    local switch_to = require('jg.lib.open').switch_to
-    local buf_is_empty = require('jg.lib.open').buf_is_empty
 
-    local function select_edit(prompt_bufnr, type)
-      action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key(type))
+    local function action_edit(prompt_bufnr)
+      action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key('default'))
     end
 
-    local select_edit_action = function(prompt_bufnr)
-      select_edit(prompt_bufnr, 'default')
-    end
-
-    local function select(bufnr, type)
+    local function action_select(bufnr, type)
       if type == 'default' then
         local entry = action_state.get_selected_entry()
-        if entry.filename then
-          local filename = entry.path or entry.filename
-
+        local filepath = entry.filename or entry.path
+        if filepath then
           actions.close(bufnr)
-
-          if not switch_to(filename) then
-            local pos = entry.lnum and { entry.lnum, entry.col or 0 } or nil
-            if buf_is_empty() then
-              edit('edit', filename, pos)
-            else
-              edit('tabedit', filename, pos)
-            end
-          end
+          open(filepath, entry.lnum and { entry.lnum, entry.col or 0 } or nil)
         end
       else
-        select_edit(bufnr, type)
+        action_set.edit(bufnr, action_state.select_key_to_edit_key(type))
       end
     end
 
-    local create_action = function(prompt_bufnr)
+    local function create_action(prompt_bufnr)
       local current_picker = action_state.get_current_picker(prompt_bufnr)
       local file = action_state.get_current_line()
       if file == '' then
@@ -89,7 +76,62 @@ layer.use({
       edit('tabe', file)
     end
 
-    require('telescope').setup({
+    local function make_gen_from_file(opts)
+      local m = make_entry.gen_from_file(opts)
+      return function(line)
+        -- remove "./" prefix for from relative paths
+        return m(line:gsub('^%./', ''))
+      end
+    end
+
+    local function get_prompt_prefix(path)
+      if path ~= nil and path ~= '.' then
+        return '[' .. path .. '] → '
+      end
+      return '→ '
+    end
+
+    local function default_opts(opts)
+      opts = opts or {}
+
+      return vim.tbl_extend('keep', opts, {
+        prompt_title = false,
+        preview_title = false,
+        results_title = false,
+        attach_mappings = function(prompt_bufnr, map)
+          action_set.select:replace(action_select)
+          return true
+        end,
+        preview = vim.tbl_extend('keep', opts.preview or {}, {
+          hide_on_startup = true
+        })
+      })
+    end
+
+    local function if_path(path, opts)
+      if path ~= nil and path ~= '.' then
+        return opts
+      end
+      return {}
+    end
+
+    local function picker_default_opts(pickers)
+      for key in pairs(builtin) do
+        pickers[key] = default_opts(pickers[key])
+      end
+      return pickers
+    end
+
+    telescope.setup({
+      pickers = picker_default_opts({
+        find_files = {
+          hidden = true,
+          entry_maker = make_gen_from_file(),
+        },
+        live_grep = {
+          preview = { hide_on_startup = false }
+        }
+      }),
       defaults = {
         layout_strategy = 'horizontal',
         layout_config = {
@@ -98,10 +140,10 @@ layer.use({
           prompt_position = 'top',
         },
         sorting_strategy = 'ascending',
-        prompt_prefix = '→ ',
+        prompt_prefix = get_prompt_prefix(),
         selection_caret = '→ ',
         entry_prefix = '  ',
-        default_mappings = {
+        mappings = {
           i = {
             ['<C-Down>'] = actions.cycle_history_next,
             ['<C-Up>'] = actions.cycle_history_prev,
@@ -115,7 +157,7 @@ layer.use({
             ['<Up>'] = actions.move_selection_previous,
 
             ['<CR>'] = actions.select_default + actions.center,
-            ['<C-e>'] = select_edit_action,
+            ['<C-e>'] = action_edit,
             ['<C-x>'] = actions.select_horizontal,
             ['<C-v>'] = actions.select_vertical,
             ['<C-t>'] = actions.select_tab,
@@ -134,116 +176,40 @@ layer.use({
             ['<c-p>'] = action_layout.toggle_preview,
           },
         },
-        preview_title = false,
-        prompt_title = false,
-        results_title = false,
-        preview = {
-          hide_on_startup = true,
-        },
         borderchars = {
           { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
           prompt = { '─', '│', '─', '│', '╭', '╮', '┤', '├' },
           results = { ' ', '│', '─', '│', '│', '│', '╯', '╰' },
           preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         },
-        file_ignore_patterns = { '.git/', '.DS_Store', 'node_modules/' },
+        file_ignore_patterns = { '.git', '.DS_Store', 'node_modules', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.pdf' },
       },
     })
-    require('telescope').load_extension('fzy_native')
 
-    vim.cmd([[ highlight TelescopeNormal guibg=#2c323c ]])
-    vim.cmd([[ highlight TelescopeBorder guibg=#2c323c guifg=#5c6370 ]])
-    vim.cmd([[ highlight TelescopePreviewBorder guibg=#282c34 guifg=#5c6370 ]])
-    vim.cmd([[ highlight TelescopeSelection guifg=#ffffff ]])
-    vim.cmd([[ highlight TelescopeMultiSelection guifg=#61afef gui=bold ]])
-    vim.cmd([[ highlight TelescopeSelectionCaret guifg=#61afef ]])
-
-    local function get_find_command(...)
-      if fs.binExist('fd') then
-        local cmd = { 'fd', '--hidden', '--type=f', ... }
-
-        local excludes = { '*.png', '*.jpg', '*.jpeg', '*.pdf' }
-        for _, ex in ipairs(excludes) do
-          table.insert(cmd, '--exclude=' .. ex)
-        end
-
-        return cmd
-      end
-    end
-
-    local function default_opts(opts)
-      return vim.tbl_extend('keep', opts or {}, {
-        prompt_title = false,
-        preview_title = false,
-        results_title = false,
-        attach_mappings = function(prompt_bufnr, map)
-          action_set.select:replace(select)
-          return true
-        end,
-        find_command = get_find_command(),
-      })
-    end
+    telescope.load_extension('fzy_native')
 
     function ts.find_files(path)
-      local opts = {}
-      if path ~= nil and path ~= '.' then
-        opts = {
-          cwd = path,
-          prompt_prefix = '[' .. path .. '] → ',
-        }
-      end
-
-      require('telescope.builtin').find_files(default_opts(opts))
+      builtin.find_files(if_path(path, {
+        cwd = path,
+        prompt_prefix = get_prompt_prefix(path),
+      }))
     end
 
     function ts.find_string(path)
-      local opts = {
-        preview_title = false,
-        preview = {
-          hide_on_startup = false,
-        },
-      }
-
-      if path ~= nil and path ~= '.' then
-        opts = vim.tbl_extend('keep', opts, {
-          search_dirs = { path },
-          prompt_prefix = '[' .. path .. '] → ',
-        })
-      end
-
-      require('telescope.builtin').live_grep(default_opts(opts))
+      builtin.live_grep(if_path(path, {
+        search_dirs = { path },
+        prompt_prefix = get_prompt_prefix(path),
+      }))
     end
 
     function ts.find_config()
-      require('telescope.builtin').find_files(default_opts({ cwd = '~/.config/nvim' }))
+      builtin.find_files({ cwd = paths.configHome })
     end
 
     function ts.find_docs()
-      require('telescope.builtin').find_files(default_opts({ find_command = get_find_command('--glob', '*.md', '.') }))
-    end
-
-    function ts.find_help()
-      require('telescope.builtin').help_tags(default_opts({
-        preview = { hide_on_startup = false },
-      }))
-    end
-
-    function ts.git_status_files()
-      require('telescope.builtin').git_status(default_opts({
-        preview = { hide_on_startup = false },
-      }))
-    end
-
-    function ts.git_buffer_commits()
-      require('telescope.builtin').git_bcommits(default_opts({
-        preview = { hide_on_startup = false },
-      }))
-    end
-
-    function ts.git_commits()
-      require('telescope.builtin').git_commits(default_opts({
-        preview = { hide_on_startup = false },
-      }))
+      builtin.find_files({
+        find_command = { 'fd', '--type=f', '--glob', '*.md' }
+      })
     end
 
     -- TODO extract into josa42/nvim-telescope-workspaces
