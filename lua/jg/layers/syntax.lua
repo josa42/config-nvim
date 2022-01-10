@@ -5,6 +5,7 @@ local filetypes = {
   { '~/.ssh/config*', 'sshconfig' },
   { '~/.ssh/config*', 'sshconfig' },
   { '~/.config/git/*', 'gitconfig' },
+  { '~/.config/git/hooks/*', 'sh' },
   { '*.tmux', 'sh' },
   { '*.conf', 'conf' },
   { '.tmux.conf', 'tmux' },
