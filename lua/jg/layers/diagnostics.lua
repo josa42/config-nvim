@@ -7,7 +7,7 @@ layer.use({
 
   map = {
     { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.diagnostic.goto_next()<CR>' },
+    { 'n', __keymaps.goto_diagnostics_next, '<cmd>lua vim.diagnostic.goto_next()<CR>' },
     { 'n', __keymaps.goto_diagnostics_list, ':TroubleToggle document_diagnostics<cr>' },
   },
 
