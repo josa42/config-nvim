@@ -80,8 +80,7 @@ layer.use({
       tsx = { 'null-ls' },
       css = { 'stylelint_lsp' },
       lua = { 'stylua' },
-      -- Fix josa42/nvim-lsp-autoformat to handle this
-      -- Dockerfile = { 'dockerls' },
+      Dockerfile = { 'dockerls' },
     })
   end,
 })
