@@ -15,7 +15,6 @@ layer.use({
         row = 1,
       },
       select = {
-        backend = { 'nui' },
         get_config = function(opts)
           if opts.kind == 'codeaction' or opts.kind == 'file' then
             return {
@@ -23,9 +22,25 @@ layer.use({
               nui = {
                 relative = 'cursor',
                 position = 1,
+                size = {
+                  width = opts.width,
+                },
               },
             }
           end
+
+          return {
+            backend = 'nui',
+            nui = {
+              relative = opts.relative,
+              position = opts.position,
+              size = {
+                width = opts.width,
+              },
+              max_width = opts.max_width,
+              max_height = opts.max_height,
+            },
+          }
         end,
       },
     })

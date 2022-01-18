@@ -42,3 +42,28 @@ layer.use({
     })
   end,
 })
+
+local l = {}
+layer.use({
+  map = function()
+    return {
+      { 'n', 'z=', l.spell_suggest }
+    }
+  end,
+  setup = function()
+    function l.spell_suggest()
+      vim.ui.select(
+        vim.fn.spellsuggest(vim.fn.expand "<cword>"),
+        { width = 40, max_height = 10, relative = "cursor", position = 1 }, 
+        function(word)
+          if word then
+            vim.cmd("normal! ciw" .. word)
+            vim.cmd("stopinsert")
+          end
+        end
+      )
+    end
+    return l
+  end
+})
+
