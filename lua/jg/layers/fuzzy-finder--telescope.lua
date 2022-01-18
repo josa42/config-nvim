@@ -108,9 +108,17 @@ layer.use({
       })
     end
 
-    local function if_path(path, opts)
+    local function set_path(path)
       if path ~= nil and path ~= '.' then
-        return opts
+        if string.sub(path, 1, paths.home:len()) == paths.home then
+          path = '~' .. string.sub(path, paths.home:len() + 1)
+        end
+
+        return {
+          search_dirs = { path },
+          prompt_prefix = get_prompt_prefix(path),
+          entry_maker = make_gen_from_file({ cwd = path }),
+        }
       end
       return {}
     end
@@ -130,7 +138,10 @@ layer.use({
         },
         live_grep = {
           preview = { hide_on_startup = false }
-        }
+        },
+        help_tags = {
+          preview = { hide_on_startup = false }
+        },
       }),
       defaults = {
         layout_strategy = 'horizontal',
@@ -189,21 +200,15 @@ layer.use({
     telescope.load_extension('fzy_native')
 
     function ts.find_files(path)
-      builtin.find_files(if_path(path, {
-        cwd = path,
-        prompt_prefix = get_prompt_prefix(path),
-      }))
+      builtin.find_files(set_path(path))
     end
 
     function ts.find_string(path)
-      builtin.live_grep(if_path(path, {
-        search_dirs = { path },
-        prompt_prefix = get_prompt_prefix(path),
-      }))
+      builtin.live_grep(set_path(path))
     end
 
     function ts.find_config()
-      builtin.find_files({ cwd = paths.configHome })
+      builtin.find_files(set_path(paths.configHome))
     end
 
     function ts.find_docs()
@@ -232,5 +237,12 @@ layer.use({
     end
 
     ts.select = require('jg.telescope-select').select
+
+    vim.api.nvim_add_user_command("F", function(opts)
+      ts.find_files(opts.args)
+    end, {
+      nargs = 1,
+      complete = "file",
+    })
   end,
 })
