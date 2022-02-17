@@ -71,8 +71,17 @@ map('n', 'X', 'D', { noremap = true })
 map('x', 'X', 'D', { noremap = true })
 
 -- List navigation
-map('n', 'gn', ':cnext<CR>', { noremap = true })
-map('n', 'gp', ':cprevious<CR>', { noremap = true })
+map('n', '<c-j>', ':cnext<CR>zz', { noremap = true })
+map('n', '<c-k>', ':cprevious<CR>zz', { noremap = true })
 
 -- show hilight group
 vim.cmd([[map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'<cr>]])
+
+
+-- Keep cursor centered: next or previews search result
+map('n', 'n', 'nzzzv', { noremap = true })
+map('n', 'N', 'Nzzzv', { noremap = true })
+
+-- Keep cursor centered: joining lines
+map('n', 'J', 'mzJ`z', { noremap = true })
+
