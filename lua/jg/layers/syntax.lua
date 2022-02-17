@@ -21,15 +21,22 @@ local filetypes = {
   { '.parcelrc', 'json' },
   { '.terserrc', 'json' },
   { '.stylelintrc', 'json' },
+  { '*.jsx', 'javascript' },
 }
 
 layer.use({
   requires = {
-    'sheerun/vim-polyglot',
+    -- 'sheerun/vim-polyglot',
     'zhaozg/vim-diagram',
     'rhysd/vim-syntax-codeowners',
     'darfink/vim-plist',
     'josa42/vim-monkey-c',
+
+    -- test
+    'mityu/vim-applescript',
+    'bfontaine/Brewfile.vim',
+    'mustache/vim-mustache-handlebars',
+    'mityu/vim-applescript',
   },
 
   init = function()
