@@ -1,5 +1,4 @@
 local plug = require('jg.lib.plug')
-local utils = require('jg.lib.utils')
 
 local M = {}
 local l = {}
