@@ -61,6 +61,8 @@ layer.use({
       end
     end
 
+    require'lspconfig'.sourcekit.setup{}
+
     require('lsp_signature').setup({
       use_lspsaga = false,
       floating_window = true,
@@ -81,6 +83,7 @@ layer.use({
       css = { 'stylelint_lsp' },
       lua = { 'stylua' },
       Dockerfile = { 'dockerls' },
+      swift = { 'null-ls' },
     })
   end,
 })

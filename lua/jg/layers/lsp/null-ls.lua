@@ -80,6 +80,8 @@ function M.setup()
           '-kp', -- function opening braces are placed on a separate line
         },
       }),
+
+    null_ls.builtins.formatting.swiftformat,
     },
   })
 end
