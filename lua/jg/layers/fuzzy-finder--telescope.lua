@@ -51,7 +51,7 @@ layer.use({
     local function action_select(bufnr, type)
       if type == 'default' then
         local entry = action_state.get_selected_entry()
-        local filepath = entry.filename or entry.path
+        local filepath = entry.path or entry.filename
         if filepath then
           actions.close(bufnr)
           open(filepath, entry.lnum and { entry.lnum, entry.col or 0 } or nil)
@@ -76,13 +76,6 @@ layer.use({
       edit('tabe', file)
     end
 
-    local function make_gen_from_file(opts)
-      local m = make_entry.gen_from_file(opts)
-      return function(line)
-        -- remove "./" prefix for from relative paths
-        return m(line:gsub('^%./', ''))
-      end
-    end
 
     local function get_prompt_prefix(path)
       if path ~= nil and path ~= '.' then
@@ -108,19 +101,19 @@ layer.use({
       })
     end
 
-    local function set_path(path)
+    local function set_path(path, opts)
       if path ~= nil and path ~= '.' then
         if string.sub(path, 1, paths.home:len()) == paths.home then
           path = '~' .. string.sub(path, paths.home:len() + 1)
         end
 
-        return {
-          search_dirs = { path },
+        return vim.tbl_extend('keep', {
+          cwd = path,
           prompt_prefix = get_prompt_prefix(path),
-          entry_maker = make_gen_from_file({ cwd = path }),
-        }
+        }, opts or {})
       end
-      return {}
+
+      return opts
     end
 
     local function picker_default_opts(pickers)
@@ -134,12 +127,18 @@ layer.use({
       pickers = picker_default_opts({
         find_files = {
           hidden = true,
-          entry_maker = make_gen_from_file(),
         },
         live_grep = {
+          hidden = true,
           preview = { hide_on_startup = false }
         },
         help_tags = {
+          preview = { hide_on_startup = false }
+        },
+        git_bcommits = {
+          preview = { hide_on_startup = false }
+        },
+        git_commits = {
           preview = { hide_on_startup = false }
         },
       }),
@@ -193,7 +192,7 @@ layer.use({
           results = { ' ', '│', '─', '│', '│', '│', '╯', '╰' },
           preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         },
-        file_ignore_patterns = { '.git', '.DS_Store', 'node_modules', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.pdf' },
+        file_ignore_patterns = { '%.git$', '%.git/', '%.DS_Store$', 'node_modules/', '%.(png|PNG|jpe?g|JPE?G|pdf|PDF)$' },
       },
     })
 
@@ -238,7 +237,7 @@ layer.use({
 
     ts.select = require('jg.telescope-select').select
 
-    vim.api.nvim_add_user_command("F", function(opts)
+    vim.api.nvim_add_user_command("Find", function(opts)
       ts.find_files(opts.args)
     end, {
       nargs = 1,
