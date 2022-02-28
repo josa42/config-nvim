@@ -66,6 +66,7 @@ layer.use({
       input = {
         anchor = 'NW',
         row = 1,
+        border = 'rounded',
       },
       select = {
         get_config = function(opts)

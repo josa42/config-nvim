@@ -17,6 +17,23 @@ l.servers = {
 }
 
 layer.use({
+  requires = { 'rmagatti/goto-preview' },
+
+  map = function()
+    local goto_preview = require('goto-preview')
+    return {
+      { 'n', 'gpd', goto_preview.goto_preview_definition },
+      { 'n', 'gpx', goto_preview.close_all_win },
+    }
+  end,
+  setup = function()
+    require('goto-preview').setup({
+      border = { '↖', '─', '╮', '│', '╯', '─', '╰', '│' },
+    })
+  end,
+})
+
+layer.use({
   requires = {
     'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
