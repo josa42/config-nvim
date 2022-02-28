@@ -8,7 +8,6 @@ function M.open(filepath, pos)
       M.edit('tabedit', filepath, pos)
     end
   end
-
 end
 
 function M.switch_to(filepath, pos)

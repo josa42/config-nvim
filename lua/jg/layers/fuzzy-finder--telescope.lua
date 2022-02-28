@@ -76,7 +76,6 @@ layer.use({
       edit('tabe', file)
     end
 
-
     local function get_prompt_prefix(path)
       if path ~= nil and path ~= '.' then
         return '[' .. path .. '] → '
@@ -96,8 +95,8 @@ layer.use({
           return true
         end,
         preview = vim.tbl_extend('keep', opts.preview or {}, {
-          hide_on_startup = true
-        })
+          hide_on_startup = true,
+        }),
       })
     end
 
@@ -130,16 +129,16 @@ layer.use({
         },
         live_grep = {
           hidden = true,
-          preview = { hide_on_startup = false }
+          preview = { hide_on_startup = false },
         },
         help_tags = {
-          preview = { hide_on_startup = false }
+          preview = { hide_on_startup = false },
         },
         git_bcommits = {
-          preview = { hide_on_startup = false }
+          preview = { hide_on_startup = false },
         },
         git_commits = {
-          preview = { hide_on_startup = false }
+          preview = { hide_on_startup = false },
         },
       }),
       defaults = {
@@ -192,7 +191,13 @@ layer.use({
           results = { ' ', '│', '─', '│', '│', '│', '╯', '╰' },
           preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         },
-        file_ignore_patterns = { '%.git$', '%.git/', '%.DS_Store$', 'node_modules/', '%.(png|PNG|jpe?g|JPE?G|pdf|PDF)$' },
+        file_ignore_patterns = {
+          '%.git$',
+          '%.git/',
+          '%.DS_Store$',
+          'node_modules/',
+          '%.(png|PNG|jpe?g|JPE?G|pdf|PDF)$',
+        },
       },
     })
 
@@ -212,7 +217,7 @@ layer.use({
 
     function ts.find_docs()
       builtin.find_files({
-        find_command = { 'fd', '--type=f', '--glob', '*.md' }
+        find_command = { 'fd', '--type=f', '--glob', '*.md' },
       })
     end
 
@@ -237,11 +242,11 @@ layer.use({
 
     ts.select = require('jg.telescope-select').select
 
-    vim.api.nvim_add_user_command("Find", function(opts)
+    vim.api.nvim_add_user_command('Find', function(opts)
       ts.find_files(opts.args)
     end, {
       nargs = 1,
-      complete = "file",
+      complete = 'file',
     })
   end,
 })

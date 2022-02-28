@@ -44,7 +44,6 @@ local condition_not_eslint_with_json = function(utils)
 end
 
 function M.setup()
-
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
@@ -91,7 +90,7 @@ function M.setup()
         },
       }),
 
-    null_ls.builtins.formatting.swiftformat,
+      null_ls.builtins.formatting.swiftformat,
     },
   })
 end

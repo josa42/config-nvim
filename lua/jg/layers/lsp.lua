@@ -61,7 +61,7 @@ layer.use({
       end
     end
 
-    require'lspconfig'.sourcekit.setup{}
+    require('lspconfig').sourcekit.setup({})
 
     require('lsp_signature').setup({
       use_lspsaga = false,
