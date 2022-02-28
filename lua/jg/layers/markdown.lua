@@ -1,6 +1,6 @@
 local command = require('jg.lib.command')
 local paths = require('jg.lib.paths')
-local layer = require('jg.lib.plug')
+local layer = require('jg.lib.layer')
 
 layer.use({
   requires = {
