@@ -242,6 +242,8 @@ layer.use({
 
     ts.select = require('jg.telescope-select').select
 
+    vim.ui.select = ts.select
+
     vim.api.nvim_add_user_command('Find', function(opts)
       ts.find_files(opts.args)
     end, {

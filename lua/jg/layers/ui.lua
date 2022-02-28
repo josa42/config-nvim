@@ -23,36 +23,9 @@ layer.use({
         anchor = 'NW',
         row = 1,
         border = 'rounded',
+        default_prompt = '→',
       },
-      select = {
-        get_config = function(opts)
-          if opts.kind == 'codeaction' or opts.kind == 'file' then
-            return {
-              backend = 'nui',
-              nui = {
-                relative = 'cursor',
-                position = 1,
-                size = {
-                  width = opts.width,
-                },
-              },
-            }
-          end
-
-          return {
-            backend = 'nui',
-            nui = {
-              relative = opts.relative,
-              position = opts.position,
-              size = {
-                width = opts.width,
-              },
-              max_width = opts.max_width,
-              max_height = opts.max_height,
-            },
-          }
-        end,
-      },
+      select = { enabled = false },
     })
   end,
 })
