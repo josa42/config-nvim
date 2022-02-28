@@ -81,7 +81,7 @@ layer.use({
       ts = { 'null-ls' },
       tsx = { 'null-ls' },
       css = { 'stylelint_lsp' },
-      lua = { 'stylua' },
+      lua = { 'null-ls' },
       Dockerfile = { 'dockerls' },
       swift = { 'null-ls' },
     })

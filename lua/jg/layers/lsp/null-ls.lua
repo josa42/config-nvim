@@ -4,10 +4,19 @@ local null_ls = require('null-ls')
 
 local M = {}
 
-local fixjson_bin = paths.lspBin .. '/fixjson'
-local eslint_d_bin = paths.lspBin .. '/eslint_d'
-local stylua_bin = paths.lspBin .. '/stylua'
-local shfmt_bin = paths.lspBin .. '/shfmt'
+local function bin(name)
+  local bin_path = paths.lspBin .. '/' .. name
+
+  if vim.fn.executable(bin_path) == 1 then
+    return bin_path
+  end
+
+  if vim.fn.executable(name) ~= 1 then
+    vim.notify_once('binary for "' .. name .. '" is not installed')
+  end
+
+  return name
+end
 
 local jsAndJson = {
   'json',
@@ -35,43 +44,44 @@ local condition_not_eslint_with_json = function(utils)
 end
 
 function M.setup()
+
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
       -- eslint -> js; without json
       null_ls.builtins.diagnostics.eslint_d.with({
         condition = condition_eslint,
-        command = eslint_d_bin,
+        command = bin('eslint_d'),
       }),
       null_ls.builtins.formatting.eslint_d.with({
         condition = condition_eslint,
-        command = eslint_d_bin,
+        command = bin('eslint_d'),
       }),
 
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({
         condition = condition_eslint_with_json,
-        command = eslint_d_bin,
+        command = bin('eslint_d'),
         filetypes = jsAndJson,
       }),
       null_ls.builtins.formatting.eslint_d.with({
         condition = condition_eslint_with_json,
-        command = eslint_d_bin,
+        command = bin('eslint_d'),
         filetypes = jsAndJson,
       }),
 
       -- fixjson
       null_ls.builtins.formatting.fixjson.with({
         condition = condition_not_eslint_with_json,
-        command = fixjson_bin,
+        command = bin('fixjson'),
       }),
 
       null_ls.builtins.formatting.stylua.with({
-        command = stylua_bin,
+        command = bin('stylua'),
       }),
 
       null_ls.builtins.formatting.shfmt.with({
-        command = shfmt_bin,
+        command = bin('shfmt'),
         extra_args = {
           '-i=2', -- indent: 0 for tabs (default), >0 for number of spaces
           '-bn', -- binary ops like && and | may start a line
