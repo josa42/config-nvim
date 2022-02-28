@@ -9,10 +9,18 @@ local utils = require('jg.lib.utils')
 --     end)
 --   end)
 function M.group(name, defineCmds)
-  vim.cmd('augroup ' .. name)
-  vim.cmd('autocmd!')
-  defineCmds(M.cmd)
-  vim.cmd('augroup end')
+  if vim.api.nvim_create_augroup == nil then
+    vim.cmd('augroup ' .. name)
+    vim.cmd('autocmd!')
+    defineCmds(M.cmd)
+    vim.cmd('augroup end')
+  return end
+
+  vim.api.nvim_create_augroup({ name = name, clear = true })
+  defineCmds(function(options, listener)
+    options.group = name
+    M.cmd(options, listener)
+  end)
 end
 
 -- Usage:
@@ -32,24 +40,46 @@ function M.cmd(options, listener)
   if type(options) == 'string' then
     options = { on = options }
   end
-  if type(options.on) == 'string' then
-    options.on = { options.on }
-  end
-  if type(options.pattern) == 'table' then
-    options.pattern = table.concat(options.pattern, ',')
-  end
-  if type(options.pattern) ~= 'string' then
-    options.pattern = '*'
-  end
 
   if type(listener) ~= 'string' and type(listener) ~= 'function' then
     print('error: Invalid listener type: ' .. type(listener))
     return
   end
 
-  local on = table.concat(options.on, ',')
+  if type(vim.api.nvim_create_autocmd) ~= "function" then
+    if type(options.pattern) ~= 'string' and type(options.pattern) ~= 'table' then
+      options.pattern = '*'
+    end
 
-  vim.cmd(table.concat({ 'autocmd', on, options.pattern, utils.wrapFunction('aucmd', listener) }, ' '))
+    if type(options.pattern) == 'table' then
+      options.pattern = table.concat(options.pattern, ',')
+    end
+
+    if type(options.on) == 'string' then
+      options.on = { options.on }
+    end
+
+    local on = table.concat(options.on, ',')
+    vim.cmd(table.concat({ 'autocmd', on, options.pattern, utils.wrapFunction('aucmd', listener) }, ' '))
+    return
+  end
+
+  local opts = {
+    group = options.group,
+    event = options.on,
+    pattern = options.pattern or '*',
+  }
+
+  if type(listener) == 'function' then
+    opts.callback = listener
+  end
+
+  if type(listener) == 'string' then
+    opts.command = listener
+  end
+
+
+  vim.api.nvim_create_autocmd(opts)
 end
 
 return M
