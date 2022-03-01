@@ -2,8 +2,8 @@ local layer = require('jg.lib.layer')
 local plug = require('jg.lib.plug')
 local command = require('jg.lib.command')
 
-command.define('RG', { nargs = '+' }, "lua require('jg.lib.quickfix').rg(<f-args>)")
-command.define('FD', { nargs = '+' }, "lua require('jg.lib.quickfix').fd(<f-args>)")
+command.define('RG', { nargs = '+' }, "lua require('jg.quickfix.tools').rg(<f-args>)")
+command.define('FD', { nargs = '+' }, "lua require('jg.quickfix.tools').fd(<f-args>)")
 
 plug.require(
   -- fix performance of CursorHold and CursorHoldI events

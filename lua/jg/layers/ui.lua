@@ -2,11 +2,10 @@ local layer = require('jg.lib.layer')
 
 -- quickfix list
 layer.use({
-  requires = { 'kevinhwang91/nvim-bqf' },
-
-  setup = function()
-    vim.o.qftf = '{info -> v:lua.require("jg.lib.quickfix").format(info)}'
-  end,
+  requires = {
+    'kevinhwang91/nvim-bqf',
+    'josa42/nvim-quickfix',
+  },
 })
 
 layer.use({
