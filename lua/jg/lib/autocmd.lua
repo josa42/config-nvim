@@ -14,9 +14,10 @@ function M.group(name, defineCmds)
     vim.cmd('autocmd!')
     defineCmds(M.cmd)
     vim.cmd('augroup end')
-  return end
+    return
+  end
 
-  vim.api.nvim_create_augroup({ name = name, clear = true })
+  vim.api.nvim_create_augroup(name, { clear = true })
   defineCmds(function(options, listener)
     options.group = name
     M.cmd(options, listener)
@@ -46,7 +47,7 @@ function M.cmd(options, listener)
     return
   end
 
-  if type(vim.api.nvim_create_autocmd) ~= "function" then
+  if type(vim.api.nvim_create_autocmd) ~= 'function' then
     if type(options.pattern) ~= 'string' and type(options.pattern) ~= 'table' then
       options.pattern = '*'
     end
@@ -64,22 +65,11 @@ function M.cmd(options, listener)
     return
   end
 
-  local opts = {
+  vim.api.nvim_create_autocmd(options.on, {
     group = options.group,
-    event = options.on,
-    pattern = options.pattern or '*',
-  }
-
-  if type(listener) == 'function' then
-    opts.callback = listener
-  end
-
-  if type(listener) == 'string' then
-    opts.command = listener
-  end
-
-
-  vim.api.nvim_create_autocmd(opts)
+    pattern = options.pattern,
+    [type(listener) == 'function' and 'callback' or 'command'] = listener,
+  })
 end
 
 return M
