@@ -7,7 +7,7 @@ layer.use({
   requires = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
-    'nvim-telescope/telescope-fzy-native.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' } },
     'itchyny/vim-gitbranch',
     'josa42/nvim-telescope-select',
     'josa42/nvim-telescope-workspaces',
@@ -201,7 +201,7 @@ layer.use({
       },
     })
 
-    telescope.load_extension('fzy_native')
+    telescope.load_extension('fzf')
 
     function ts.find_files(path)
       builtin.find_files(set_path(path))
