@@ -28,3 +28,27 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  enabled = false,
+  requires = { 'onsails/diaglist.nvim' },
+
+  map = function()
+    local diaglist = require('diaglist')
+    return {
+      -- { 'n', '<space>dw', diaglist.open_all_diagnostics },
+      { 'n', '<space>l', diaglist.open_buffer_diagnostics },
+    }
+  end,
+
+  setup = function()
+    require('diaglist').init({
+      -- optional settings
+      -- below are defaults
+      debug = false,
+
+      -- increase for noisy servers
+      debounce_ms = 150,
+    })
+  end,
+})
