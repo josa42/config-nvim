@@ -20,9 +20,12 @@ layer.use({
     require('dressing').setup({
       input = {
         anchor = 'NW',
-        row = 1,
         border = 'rounded',
         default_prompt = '→',
+        override = function(conf)
+          conf.row = 1
+          return conf
+        end,
       },
       select = { enabled = false },
     })
