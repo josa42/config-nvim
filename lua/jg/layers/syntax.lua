@@ -7,6 +7,7 @@ local filetypes = {
   { '~/.config/git/*', 'gitconfig' },
   { '*.tmux', 'sh' },
   { '*.conf', 'conf' },
+  { '.tmux.conf', 'tmux' },
   { 'Vagrantfile', 'ruby' },
   { '.eslintrc', 'json' },
   { '*/inventory/*.yml', 'yaml.ansible' },
