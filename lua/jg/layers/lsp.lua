@@ -91,15 +91,16 @@ layer.use({
 
     require('jg.lsp-codelens').setup()
     require('jg.lsp-autoformat').setup({
-      js = { 'null-ls' },
-      json = { 'null-ls' },
-      jsx = { 'null-ls' },
-      ts = { 'null-ls' },
-      tsx = { 'null-ls' },
-      css = { 'stylelint_lsp' },
-      lua = { 'null-ls' },
-      Dockerfile = { 'dockerls' },
-      swift = { 'null-ls' },
+      ['*.js'] = { 'null-ls' },
+      ['*.json'] = { 'null-ls' },
+      ['*.jsx'] = { 'null-ls' },
+      ['*.ts'] = { 'null-ls', 'tsserver' },
+      ['*.tsx'] = { 'null-ls' },
+      ['*.css'] = { 'stylelint_lsp' },
+      ['*.lua'] = { 'null-ls' },
+      ['Dockerfile'] = { 'dockerls' },
+      ['*.swift'] = { 'null-ls' },
+      ['*.go'] = { 'gopls' },
     })
   end,
 })

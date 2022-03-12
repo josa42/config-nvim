@@ -23,20 +23,6 @@ local function buf_formatting()
 end
 
 return function()
-  local group = vim.api.nvim_create_augroup('jg.lsp.go.autoformat', { clear = true })
-
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    group = group,
-    pattern = '*.go',
-    callback = buf_formatting,
-  })
-
-  vim.api.nvim_create_autocmd('InsertLeave', {
-    group = group,
-    pattern = '*.go',
-    callback = vim.lsp.buf.formatting,
-  })
-
   return {
     settings = settings,
   }

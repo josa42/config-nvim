@@ -19,13 +19,6 @@ local settings = {
 }
 
 return function()
-  local group = vim.api.nvim_create_augroup('jg.lsp.docker.auto-format', { clear = true })
-
-  vim.api.nvim_create_autocmd({ 'BufWritePre', 'InsertLeave' }, {
-    group = group,
-    pattern = 'Dockerfile',
-    callback = vim.lsp.buf.formatting,
-  })
 
   return {
     settings = settings,
