@@ -1,4 +1,4 @@
-local au = require('jg.lib.autocmd')
+require('jg.lib.polyfills')
 local paths = require('jg.lib.paths')
 
 vim.opt.number = true -- Show: Line numbers
@@ -77,14 +77,14 @@ vim.opt.autochdir = false
 vim.opt.signcolumn = 'yes'
 
 vim.opt.autoread = true
-au.group('autoread', function(cmd)
-  -- read files on focus
-  cmd({ on = { 'FocusGained', 'BufEnter' } }, 'silent! !')
-  -- save on focus lost!
-  cmd({ on = { 'FocusLost', 'WinLeave' } }, 'silent! update')
-  -- ignore removed files
-  cmd({ on = { 'FileChangedShell' } }, 'execute')
-end)
+
+local autoread_group = vim.api.nvim_create_augroup('jg.autoread', { clear = true })
+-- read files on focus
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, { command = 'silent! !', group = autoread_group })
+-- save on focus lost!
+vim.api.nvim_create_autocmd({ 'FocusLost', 'WinLeave' }, { command = 'silent! update', group = autoread_group })
+-- ignore removed files
+vim.api.nvim_create_autocmd({ 'FileChangedShell' }, { command = 'execute', group = autoread_group })
 
 -- Scroll offset
 vim.opt.scrolloff = 2
@@ -95,25 +95,35 @@ vim.opt.wildoptions = 'pum'
 
 vim.g.nerdfont = true
 
-au.group('language_settings', function(cmd)
-  cmd({ on = 'FileType', pattern = 'yaml' }, function()
+local settings_group = vim.api.nvim_create_augroup('jg.language_settings', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  group = settings_group,
+  pattern = 'yaml',
+  callback = function()
     vim.bo.tabstop = 2
     vim.bo.softtabstop = 2
     vim.bo.shiftwidth = 2
     vim.bo.expandtab = true
-  end)
-
-  cmd({ on = 'FileType', pattern = 'markdown' }, function()
+  end,
+})
+vim.api.nvim_create_autocmd('FileType', {
+  group = settings_group,
+  pattern = 'markdown',
+  callback = function()
     vim.wo.wrap = true
-  end)
-end)
+  end,
+})
 
-au.group('paste', function(cmd)
-  cmd({ on = { 'BufWrite', 'InsertLeave' } }, function()
+local paste_group = vim.api.nvim_create_augroup('jg.paste', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufWrite', 'InsertLeave' }, {
+  group = paste_group,
+  callback = function()
     vim.o.paste = false
-  end)
-end)
+  end,
+})
 
-au.group('highlight-yank', function(cmd)
-  cmd({ on = 'TextYankPost' }, "silent! lua require('vim.highlight').on_yank()")
-end)
+local yank_group = vim.api.nvim_create_augroup('jg.yank', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = yank_group,
+  callback = require('vim.highlight').on_yank,
+})

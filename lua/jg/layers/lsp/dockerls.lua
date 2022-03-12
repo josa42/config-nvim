@@ -1,4 +1,4 @@
-local au = require('jg.lib.autocmd')
+require('jg.lib.polyfills')
 
 local settings = {
   docker = {
@@ -19,9 +19,13 @@ local settings = {
 }
 
 return function()
-  au.group('jg.lsp.docker.auto-format', function(cmd)
-    cmd({ on = { 'BufWritePre', 'InsertLeave' }, pattern = 'Dockerfile' }, vim.lsp.buf.formatting)
-  end)
+  local group = vim.api.nvim_create_augroup('jg.lsp.docker.auto-format', { clear = true })
+
+  vim.api.nvim_create_autocmd({ 'BufWritePre', 'InsertLeave' }, {
+    group = group,
+    pattern = 'Dockerfile',
+    callback = vim.lsp.buf.formatting,
+  })
 
   return {
     settings = settings,

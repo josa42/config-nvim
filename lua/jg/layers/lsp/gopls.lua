@@ -1,4 +1,4 @@
-local au = require('jg.lib.autocmd')
+require('jg.lib.polyfills')
 
 local settings = {
   gopls = {
@@ -23,10 +23,19 @@ local function buf_formatting()
 end
 
 return function()
-  au.group('jg.lsp.go.autoformat', function(cmd)
-    cmd({ on = { 'BufWritePre' }, pattern = '*.go' }, buf_formatting)
-    cmd({ on = { 'InsertLeave' }, pattern = '*.go' }, vim.lsp.buf.formatting)
-  end)
+  local group = vim.api.nvim_create_augroup('jg.lsp.go.autoformat', { clear = true })
+
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = group,
+    pattern = '*.go',
+    callback = buf_formatting,
+  })
+
+  vim.api.nvim_create_autocmd('InsertLeave', {
+    group = group,
+    pattern = '*.go',
+    callback = vim.lsp.buf.formatting,
+  })
 
   return {
     settings = settings,
