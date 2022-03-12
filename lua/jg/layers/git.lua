@@ -1,5 +1,4 @@
 local layer = require('jg.lib.layer')
-local command = require('jg.lib.command')
 
 layer.use({
   requires = {
@@ -10,17 +9,17 @@ layer.use({
     'sindrets/diffview.nvim', -- still used?
   },
 
-  init = function()
+  commands = {
     -- reset file
     -- FIXME force reload buffer
-    command.define('ResetFile', { nargs = 0 }, 'silent !git checkout HEAD -- %')
+    ResetFile = { 'silent !git checkout HEAD -- %', nargs = 0 },
 
     -- Open Fork (git client)
-    command.define('F', {}, 'silent! !fork')
-    command.define('Ff', {}, 'silent! !fork log -- %')
-    command.define('Fl', {}, 'silent! !fork log')
-    command.define('Fs', {}, 'silent! !fork status')
-  end,
+    F = 'silent! !fork',
+    Ff = 'silent! !fork log -- %',
+    Fl = 'silent! !fork log',
+    Fs = 'silent! !fork status',
+  },
 })
 
 layer.use({

@@ -1,10 +1,13 @@
 -- TODO split this layer up
 
 local layer = require('jg.lib.layer')
-local command = require('jg.lib.command')
 
-command.define('RG', { nargs = '+' }, "lua require('jg.quickfix.tools').rg(<f-args>)")
-command.define('FD', { nargs = '+' }, "lua require('jg.quickfix.tools').fd(<f-args>)")
+layer.use({
+  commands = {
+    RG = { "lua require('jg.quickfix.tools').rg(<f-args>)", nargs = '+' },
+    FD = { "lua require('jg.quickfix.tools').fd(<f-args>)", nargs = '+' },
+  },
+})
 
 layer.use({
   requires = {

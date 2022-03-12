@@ -1,6 +1,4 @@
 local layer = require('jg.lib.layer')
-
-local cmd = require('jg.lib.command')
 local open = require('jg.lib.open')
 
 layer.use({
@@ -9,19 +7,17 @@ layer.use({
     'josa42/nvim-project-config',
   },
 
-  setup = function()
-    local p = require('jg.project-config')
-
-    cmd.define('Config', { bar = true, nargs = 0 }, 'silent! tabe $MYVIMRC')
-
-    cmd.define('ProjectConfig', {}, function()
+  commands = {
+    Config = { 'silent! tabe $MYVIMRC', bar = true, nargs = 0 },
+    ProjectConfig = function()
+      local p = require('jg.project-config')
       local config = p.find_config({ p.local_config, p.global_config })
       if config then
         open.edit('tabe', config)
       end
-    end)
-
-    cmd.define('ProjectConfigMove', {}, function()
+    end,
+    ProjectConfigMove = function()
+      local p = require('jg.project-config')
       local config = p.find_config({ p.local_config })
       if config then
         local dir = config:gsub('/.vim/init.vim$', ''):gsub('/.vim/init.lua$', '')
@@ -31,6 +27,6 @@ layer.use({
 
         vim.cmd([[ ProjectConfig ]])
       end
-    end)
-  end,
+    end,
+  },
 })

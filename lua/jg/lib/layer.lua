@@ -46,6 +46,13 @@ function M.use(opts)
     --   },
     -- },
     l.apply_autocmds(('layer:%s'):format(opts.name), l.try_call(opts.autocmds))
+
+    -- commands = {
+    --   Foo1 = 'echo "Foo"',
+    --   Foo2 = { 'echo "Foo"', nargs = 0 },
+    --   Foo3 = function() print('Foo') end,
+    -- }
+    l.apply_commands(l.try_call(opts.commands))
   end)
 end
 
@@ -121,4 +128,16 @@ function l.apply_autocmds(group_name, autocmds)
     end
   end
 end
+
+function l.apply_commands(commands)
+  for name, cmd in pairs(commands or {}) do
+    if type(cmd) == 'function' or type(cmd) == 'string' then
+      cmd = { cmd }
+    end
+    assert(type(cmd[1]) == 'function' or type(cmd[1]) == 'string')
+
+    vim.api.nvim_add_user_command(name, cmd[1], l.to_dict(cmd))
+  end
+end
+
 return M
