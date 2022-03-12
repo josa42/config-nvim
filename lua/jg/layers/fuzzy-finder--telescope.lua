@@ -44,6 +44,13 @@ layer.use({
     local open = require('jg.lib.open').open
     local edit = require('jg.lib.open').edit
 
+    local function make_gen_from_file(opts)
+      local gen = make_entry.gen_from_file(opts)
+      return function(filename)
+        return gen(filename:gsub('^%./', ''))
+      end
+    end
+
     local function action_edit(prompt_bufnr)
       action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key('default'))
     end
@@ -109,6 +116,7 @@ layer.use({
         return vim.tbl_extend('keep', {
           cwd = path,
           prompt_prefix = get_prompt_prefix(path),
+          entry_maker = make_gen_from_file({ cwd = path }),
         }, opts or {})
       end
 
@@ -126,6 +134,7 @@ layer.use({
       pickers = picker_default_opts({
         find_files = {
           hidden = true,
+          entry_maker = make_gen_from_file(),
         },
         live_grep = {
           additional_args = function()
