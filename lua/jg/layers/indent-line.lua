@@ -1,11 +1,13 @@
 local layer = require('jg.lib.layer')
 
-vim.g.indent_blankline_buftype_exclude = { 'nofile' }
-
 layer.use({
   requires = {
     'lukas-reineke/indent-blankline.nvim',
   },
+
+  init = function()
+    vim.g.indent_blankline_buftype_exclude = { 'nofile' }
+  end,
 
   setup = function()
     require('indent-o-matic').setup({

@@ -1,18 +1,18 @@
 local layer = require('jg.lib.layer')
-local hi = require('jg.lib.highlight')
 local command = require('jg.lib.command')
 
 layer.use({
   requires = {
-    'tpope/vim-fugitive', -- Git commands; mainly Gblame
+    'tpope/vim-fugitive', -- Git commands; mainly for Gblame
     'tpope/vim-rhubarb',
     'tpope/vim-git',
-    'rhysd/conflict-marker.vim',
-    'sindrets/diffview.nvim',
+    'rhysd/conflict-marker.vim', -- is this this working?
+    'sindrets/diffview.nvim', -- still used?
   },
 
   init = function()
     -- reset file
+    -- FIXME force reload buffer
     command.define('ResetFile', { nargs = 0 }, 'silent !git checkout HEAD -- %')
 
     -- Open Fork (git client)
@@ -20,12 +20,6 @@ layer.use({
     command.define('Ff', {}, 'silent! !fork log -- %')
     command.define('Fl', {}, 'silent! !fork log')
     command.define('Fs', {}, 'silent! !fork status')
-
-    hi.set('ConflictMarkerBegin', { bg = '#2f7366' })
-    hi.set('ConflictMarkerOurs', { bg = '#2e5049' })
-    hi.set('ConflictMarkerTheirs', { bg = '#344f69' })
-    hi.set('ConflictMarkerEnd', { bg = '#2f628e' })
-    hi.set('ConflictMarkerCommonAncestorsHunk', { bg = '#754a81' })
   end,
 })
 

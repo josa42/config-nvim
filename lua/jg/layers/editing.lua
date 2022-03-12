@@ -1,15 +1,19 @@
-local plug = require('jg.lib.plug')
 local au = require('jg.lib.autocmd')
-
-plug.require('tpope/vim-repeat')
 
 local layer = require('jg.lib.layer')
 
 --------------------------------------------------------------------------------
 
 layer.use({
+  requires = { 'tpope/vim-repeat' },
+})
+
+--------------------------------------------------------------------------------
+
+layer.use({
   requires = { 'AndrewRadev/splitjoin.vim' },
 })
+
 --------------------------------------------------------------------------------
 
 layer.use({
@@ -21,6 +25,7 @@ layer.use({
 })
 
 --------------------------------------------------------------------------------
+
 layer.use({
   requires = { 'windwp/nvim-autopairs' },
   setup = function()
@@ -54,6 +59,7 @@ layer.use({
 
 --------------------------------------------------------------------------------
 -- Aligning
+
 layer.use({
   requires = { 'junegunn/vim-easy-align' }, -- Column align: ga
   map = {
@@ -63,7 +69,9 @@ layer.use({
     { 'n', 'ga', '<Plug>(EasyAlign)' },
   },
 })
+
 --------------------------------------------------------------------------------
+
 layer.use({
   requires = { 'arthurxavierx/vim-caser' }, -- Change cases: gk
   init = function()
@@ -81,8 +89,10 @@ layer.use({
     require('jg.actions').setup()
   end,
 })
+
 --------------------------------------------------------------------------------
 -- Surround
+
 layer.use({
   requires = { 'machakann/vim-sandwich' },
   setup = function()
@@ -120,6 +130,7 @@ layer.use({
 
 --------------------------------------------------------------------------------
 -- Toogle values
+
 layer.use({
   requires = { 'AndrewRadev/switch.vim' },
 
@@ -149,6 +160,9 @@ layer.use({
     end)
   end,
 })
+
+--------------------------------------------------------------------------------
+-- automatically create nested directories for new files
 
 layer.use({
   requires = { 'jghauser/mkdir.nvim' },

@@ -1,33 +1,35 @@
+-- TODO split this layer up
+
 local layer = require('jg.lib.layer')
-local plug = require('jg.lib.plug')
 local command = require('jg.lib.command')
 
 command.define('RG', { nargs = '+' }, "lua require('jg.quickfix.tools').rg(<f-args>)")
 command.define('FD', { nargs = '+' }, "lua require('jg.quickfix.tools').fd(<f-args>)")
 
-plug.require(
-  -- fix performance of CursorHold and CursorHoldI events
+layer.use({
+  requires = {
+    -- fix performance of CursorHold and CursorHoldI events
+    'antoinemadec/FixCursorHold.nvim',
 
-  'antoinemadec/FixCursorHold.nvim',
+    -- Editing
+    'Darazaki/indent-o-matic',
+    'josa42/vim-templates',
+    'tpope/vim-repeat',
 
-  -- Editing
-  'Darazaki/indent-o-matic',
-  'josa42/vim-templates',
-  'tpope/vim-repeat',
+    -- Files
+    'tpope/vim-eunuch',
+    'jghauser/mkdir.nvim',
+  },
 
-  -- Files
-  'tpope/vim-eunuch',
-  'jghauser/mkdir.nvim'
-)
-
-plug.after(function()
-  require('diffview').setup({
-    use_icons = false,
-  })
-  require('indent-o-matic').setup({
-    standard_widths = { 2, 4, 8 },
-  })
-end)
+  setup = function()
+    require('diffview').setup({
+      use_icons = false,
+    })
+    require('indent-o-matic').setup({
+      standard_widths = { 2, 4, 8 },
+    })
+  end,
+})
 
 layer.use({
   requires = {

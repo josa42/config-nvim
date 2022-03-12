@@ -13,7 +13,6 @@ l.servers = {
   'tsserver',
   'yamlls',
   'stylelint_lsp',
-  'zk',
 }
 
 layer.use({

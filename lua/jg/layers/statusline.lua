@@ -1,7 +1,6 @@
 local layer = require('jg.lib.layer')
 
 local M = {}
-local l = {}
 
 layer.use({
   requires = {
@@ -27,7 +26,6 @@ layer.use({
         },
         lualine_c = {
           'branch',
-          -- { 'diff', source = l.diff_source },
           'b:gitsigns_status',
           'lsp_progress',
         },
@@ -74,17 +72,6 @@ function M.messages()
   end
 
   return table.concat(messages, ' | ')
-end
-
-function l.diff_source()
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed,
-    }
-  end
 end
 
 return M

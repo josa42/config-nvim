@@ -27,16 +27,12 @@ require('jg.layers.statusline')
 require('jg.layers.indent-line')
 require('jg.layers.scrolling')
 require('jg.layers.ui')
--- require('jg.layers.scrollbar')
 
 -- Version Control
 require('jg.layers.git')
 
 -- Language specific Settings
 require('jg.layers.markdown')
-require('jg.layers.yaml')
-require('jg.layers.ansible')
-require('jg.layers.go')
 
 -- Editing
 require('jg.layers.lsp')
@@ -52,9 +48,7 @@ require('jg.layers.file-pairs')
 
 -- File Navigations
 require('jg.layers.file-tree')
-require('jg.layers.fuzzy-finder--telescope')
-require('jg.layers.search')
--- require('jg.layers.fuzzy-finder--fzf')
+require('jg.layers.fuzzy-finder')
 
 require('jg.layers.config')
 

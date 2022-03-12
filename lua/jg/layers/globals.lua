@@ -1,19 +1,3 @@
-function flag(name, options, default)
-  local value = os.getenv(name) or default
-  if vim.fn.index(options, value) == -1 then
-    print('[error] ' .. name .. ' has to be one of: [' .. table.concat(options, ', ') .. ']')
-    return default
-  end
-  return value
-end
-
-_G.__flags = {
-  treesitter = flag('NVIM_TS', { 'true', 'false' }, 'false'),
-  fuzzy_finder = flag('NVIM_FUZZY_FINDER', { 'fzf', 'fzf-lua', 'telescope' }, 'telescope'),
-  snippets = flag('NVIM_SNIPPETS', { 'vsnip' }, 'vsnip'),
-  tree = flag('NVIM_TREE', { 'nvim-tree', 'nvim-filetree' }, 'nvim-filetree'),
-}
-
 _G.__keymaps = {
   find_file = '<c-p>',
   find_string = '<c-f>',

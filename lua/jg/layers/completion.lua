@@ -64,3 +64,13 @@ layer.use({
     cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 })
+
+-- copilot
+layer.use({
+  enabled = false,
+  requires = { 'github/copilot.vim' },
+  setup = function()
+    -- Disable by default
+    vim.g.copilot_filetypes = { ['*'] = false }
+  end,
+})
