@@ -128,7 +128,9 @@ layer.use({
           hidden = true,
         },
         live_grep = {
-          hidden = true,
+          additional_args = function()
+            return { '--hidden' }
+          end,
           preview = { hide_on_startup = false },
         },
         help_tags = {
