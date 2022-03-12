@@ -17,14 +17,14 @@ layer.use({
     local builtin = require('telescope.builtin')
 
     return {
-      { 'n', __keymaps.find_file, ts.find_files, nil, 'Find files' },
-      { 'n', __keymaps.find_string, ts.find_string, nil, 'Find string' },
-      { 'n', __keymaps.find_config, ts.find_config, nil, 'Find config' },
-      { 'n', '<leader>d', ts.find_docs, nil, 'Find docs' },
-      { 'n', __keymaps.find_help, builtin.help_tags, nil, 'Find help' },
-      { 'n', '<leader>gs', builtin.git_status, nil, 'Git status' },
-      { 'n', '<leader>gb', builtin.git_bcommits, nil, 'Git buffer commits' },
-      { 'n', '<leader>gg', builtin.git_commits, nil, 'Git commits' },
+      { 'n', __keymaps.find_file, ts.find_files, label = 'Find files' },
+      { 'n', __keymaps.find_string, ts.find_string, label = 'Find string' },
+      { 'n', __keymaps.find_config, ts.find_config, label = 'Find config' },
+      { 'n', '<leader>d', ts.find_docs, label = 'Find docs' },
+      { 'n', __keymaps.find_help, builtin.help_tags, label = 'Find help' },
+      { 'n', '<leader>gs', builtin.git_status, label = 'Git status' },
+      { 'n', '<leader>gb', builtin.git_bcommits, label = 'Git buffer commits' },
+      { 'n', '<leader>gg', builtin.git_commits, label = 'Git commits' },
       { 'n', '<leader><leader>', ts.find_file_in_workspace },
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },

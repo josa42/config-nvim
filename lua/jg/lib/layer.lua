@@ -36,6 +36,11 @@ function M.use(opts)
   end
 
   table.insert(l.setup_handlers, function()
+    -- map = {
+    --   { 'n', '<leader>p', function()
+    --     print('Hello')
+    --   end}
+    -- }
     l.apply_key_maps(l.try_call(opts.map))
 
     -- autocmds = {
@@ -106,15 +111,15 @@ function l.apply_key_maps(maps)
     local mode = map[1]
     local lhs = map[2]
     local rhs = map[3]
-    local opts = map[4] or { silent = true }
+    local opts = vim.tbl_extend('keep', l.to_dict(map), { silent = true })
+    opts.label = nil
 
-    assert(rhs ~= nil, map[5])
+    assert(rhs ~= nil, vim.inspect(map))
 
     vim.keymap.set(mode, lhs, rhs, opts)
 
-    local label = map[5]
-    if label ~= nil then
-      require('cheatsheet').add_cheat(label, '[' .. mode .. '] ' .. lhs, 'keymap')
+    if map.label ~= nil then
+      require('cheatsheet').add_cheat(map.label, '[' .. mode .. '] ' .. lhs, 'keymap')
     end
   end
 end
