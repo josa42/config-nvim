@@ -12,13 +12,13 @@ layer.use({
   commands = {
     -- reset file
     -- FIXME force reload buffer
-    ResetFile = { 'silent !git checkout HEAD -- %', nargs = 0 },
+    ResetFile = { 'silent !git checkout HEAD -- %', nargs = 0, label = 'Reset current file' },
 
     -- Open Fork (git client)
-    F = 'silent! !fork',
-    Ff = 'silent! !fork log -- %',
-    Fl = 'silent! !fork log',
-    Fs = 'silent! !fork status',
+    F = { 'silent! !fork', label = 'Open Fork' },
+    Ff = { 'silent! !fork log -- %', label = 'Open Fork - log current file' },
+    Fl = { 'silent! !fork log', label = 'Open Fork - log' },
+    Fs = { 'silent! !fork status', label = 'Open Fork - status' },
   },
 })
 

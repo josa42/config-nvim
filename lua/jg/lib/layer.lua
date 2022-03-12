@@ -141,7 +141,13 @@ function l.apply_commands(commands)
     end
     assert(type(cmd[1]) == 'function' or type(cmd[1]) == 'string')
 
-    vim.api.nvim_add_user_command(name, cmd[1], l.to_dict(cmd))
+    local opts = l.to_dict(cmd)
+    opts.label = nil
+    vim.api.nvim_add_user_command(name, cmd[1], opts)
+
+    if cmd.label ~= nil then
+      require('cheatsheet').add_cheat(cmd.label, name, 'command')
+    end
   end
 end
 
