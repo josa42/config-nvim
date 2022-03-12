@@ -1,3 +1,5 @@
+require('jg.lib.polyfills')
+
 local plug = require('jg.lib.plug')
 
 local M = {}
@@ -6,10 +8,17 @@ local l = {}
 l.init_handlers = {}
 l.setup_handlers = {}
 
+l.layer_names = {}
+
 function M.use(opts)
   if opts.enabled == false then
     return
   end
+
+  opts.name = opts.name or l.default_name()
+
+  assert(not vim.tbl_contains(l.layer_names, opts.name), ('layer.name must be unique: %s'):format(opts.name))
+  table.insert(l.layer_names, opts.name)
 
   for _, plugin in ipairs(opts.requires or {}) do
     if type(plugin) == 'string' then
@@ -28,6 +37,15 @@ function M.use(opts)
 
   table.insert(l.setup_handlers, function()
     l.apply_key_maps(l.try_call(opts.map))
+
+    -- autocmds = {
+    --   {
+    --     { 'BufEnter' }, callback = function()
+    --       print('entering a buffer')
+    --     end,
+    --   },
+    -- },
+    l.apply_autocmds(('layer:%s'):format(opts.name), l.try_call(opts.autocmds))
   end)
 end
 
@@ -35,6 +53,11 @@ function M.load()
   l.run_handlers(l.init_handlers)
   plug.run()
   l.run_handlers(l.setup_handlers)
+end
+
+function l.default_name()
+  local i = debug.getinfo(3)
+  return ('%s:%d'):format(i.short_src:gsub('^.*%/layers%/', ''):gsub('%.lua$', ''), i.currentline)
 end
 
 function l.run_handlers(handers)
@@ -49,6 +72,26 @@ function l.try_call(fn)
   end
 
   return fn
+end
+
+function l.to_dict(tbl)
+  local dict = {}
+  for k, v in pairs(tbl) do
+    if type(k) == 'string' then
+      dict[k] = v
+    end
+  end
+
+  return dict
+end
+
+function l.to_list(tbl)
+  local list = {}
+  for _, v in ipairs(tbl) do
+    table.insert(list, v)
+  end
+
+  return list
 end
 
 function l.apply_key_maps(maps)
@@ -69,4 +112,13 @@ function l.apply_key_maps(maps)
   end
 end
 
+function l.apply_autocmds(group_name, autocmds)
+  if autocmds ~= nil then
+    local group = vim.api.nvim_create_augroup(group_name, { clear = true })
+
+    for _, autocmd in ipairs(autocmds) do
+      vim.api.nvim_create_autocmd(autocmd[1], l.to_dict(autocmd))
+    end
+  end
+end
 return M

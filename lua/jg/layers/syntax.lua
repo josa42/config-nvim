@@ -1,5 +1,4 @@
 local layer = require('jg.lib.layer')
-local au = require('jg.lib.autocmd')
 local paths = require('jg.lib.paths')
 
 local filetypes = {
@@ -32,19 +31,23 @@ layer.use({
     'josa42/vim-monkey-c',
   },
 
+  autocmds = function()
+    return vim.tbl_map(function(ft)
+      local pattern = string.gsub(ft[1], '^~', paths.home)
+      local filetype = ft[2]
+
+      return {
+        { 'BufNewFile', 'BufRead' },
+        pattern = pattern,
+        callback = function()
+          vim.bo.filetype = filetype
+        end,
+      }
+    end, filetypes)
+  end,
+
   init = function()
     vim.g.polyglot_disabled = { 'sensible', 'vim-sleuth', 'autoindent' }
-
-    au.group('jg.layers.syntax.detect', function(cmd)
-      for _, ft in ipairs(filetypes) do
-        local pattern = string.gsub(ft[1], '^~', paths.home)
-        local filetype = ft[2]
-
-        cmd({ on = { 'BufNewFile', 'BufRead' }, pattern = pattern }, function()
-          vim.bo.filetype = filetype
-        end)
-      end
-    end)
   end,
 })
 

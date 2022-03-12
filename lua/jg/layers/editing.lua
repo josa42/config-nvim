@@ -1,5 +1,3 @@
-local au = require('jg.lib.autocmd')
-
 local layer = require('jg.lib.layer')
 
 --------------------------------------------------------------------------------
@@ -134,15 +132,17 @@ layer.use({
 layer.use({
   requires = { 'AndrewRadev/switch.vim' },
 
-  init = function()
-    vim.g.switch_mapping = '-'
-
-    au.group('switch_custom_definitions', function(cmd)
-      cmd({ on = 'FileType' }, function()
-        vim.g.switch_custom_definitions = {}
-      end)
-
-      cmd({ on = 'FileType', pattern = [[\v(javascript|typescript)(react|)]] }, function()
+  autocmds = {
+    {
+      'FileType',
+      callback = function()
+        vim.b.switch_custom_definitions = {}
+      end,
+    },
+    {
+      'FileType',
+      pattern = [[\v(javascript|typescript)(react|)]],
+      callback = function()
         vim.b.switch_custom_definitions = {
           {
             [ [[\v'([^'`]+)']] ] = [[`\1`]],
@@ -156,8 +156,12 @@ layer.use({
             [ [[\v^( *)(it|describe|test).skip( *)\(]] ] = [[\1\2\3(]],
           },
         }
-      end)
-    end)
+      end,
+    },
+  },
+
+  init = function()
+    vim.g.switch_mapping = '-'
   end,
 })
 
