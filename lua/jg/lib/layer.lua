@@ -3,42 +3,56 @@ local plug = require('jg.lib.plug')
 local M = {}
 local l = {}
 
+l.init_handlers = {}
+l.setup_handlers = {}
+
 function M.use(opts)
   if opts.enabled == false then
     return
   end
 
   for _, plugin in ipairs(opts.requires or {}) do
+    if type(plugin) == 'string' then
+      plugin = { plugin }
+    end
     plug.require(plugin)
   end
 
-  if opts.init ~= nil then
-    plug.before(opts.init)
+  if type(opts.init) == 'function' then
+    table.insert(l.init_handlers, opts.init)
   end
 
-  if opts.setup ~= nil then
-    plug.after(opts.setup)
+  if type(opts.setup) == 'function' then
+    table.insert(l.setup_handlers, opts.setup)
   end
 
-  if opts.map ~= nil then
-    plug.after(function()
-      if type(opts.map) == 'function' then
-        plug.after(function()
-          l.applyKeyMaps(opts.map())
-        end)
-      else
-        l.applyKeyMaps(opts.map)
-      end
-    end)
-  end
+  table.insert(l.setup_handlers, function()
+    l.apply_key_maps(l.try_call(opts.map))
+  end)
 end
 
 function M.load()
+  l.run_handlers(l.init_handlers)
   plug.run()
+  l.run_handlers(l.setup_handlers)
 end
 
-function l.applyKeyMaps(maps)
-  for _, map in ipairs(maps) do
+function l.run_handlers(handers)
+  for _, hander in pairs(handers) do
+    hander()
+  end
+end
+
+function l.try_call(fn)
+  if type(fn) == 'function' then
+    return fn()
+  end
+
+  return fn
+end
+
+function l.apply_key_maps(maps)
+  for _, map in ipairs(maps or {}) do
     local mode = map[1]
     local lhs = map[2]
     local rhs = map[3]

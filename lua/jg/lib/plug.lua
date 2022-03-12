@@ -4,47 +4,23 @@ local plugDir = paths.dataDir .. '/plugged'
 local plugFile = paths.dataDir .. '/site/autoload/plug.vim'
 local plugURL = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+local plug = vim.fn['plug#']
+local plug_begin = vim.fn['plug#begin']
+local plug_end = vim.fn['plug#end']
+
 local M = {}
+local l = {}
 local plugins = {}
-
-function M.use(opts)
-  for _, plugin in ipairs(opts.require or {}) do
-    M.require(plugin)
-  end
-
-  if opts.before ~= nil then
-    M.before(opts.before)
-  end
-
-  if opts.after ~= nil then
-    M.after(opts.after)
-  end
-end
 
 function M.require(...)
   for _, plugin in ipairs({ ... }) do
-    if type(plugin) == 'string' then
-      table.insert(plugins, { name = plugin })
-    elseif vim.tbl_islist(plugin) then
-      table.insert(plugins, { name = plugin[1], options = plugin[2] })
-    end
+    assert(vim.tbl_islist(plugin), 'plugin needs to be a table or string')
+    assert(plugin[1] ~= nil and #plugin[1] > 0, 'plugin name is mandatory')
+
+    table.insert(plugins, { name = plugin[1], options = plugin[2] })
   end
 
   return M
-end
-
-function M.before(handler)
-  table.insert(plugins, { before = handler })
-end
-
-function M.after(handler)
-  table.insert(plugins, { after = handler })
-end
-
-function M.register(...)
-  for _, plugin in ipairs({ ... }) do
-    table.insert(plugins, plugin)
-  end
 end
 
 local function exists(path)
@@ -55,7 +31,7 @@ local function startsWith(str, prefix)
   return string.sub(str, 1, string.len(prefix)) == prefix
 end
 
-local function hasMissingPlugs()
+local function has_missing_plugs()
   for _, p in pairs(vim.g.plugs) do
     if type(p) ~= 'table' or startsWith(p.dir, plugDir) and not exists(p.dir) then
       return true
@@ -64,43 +40,23 @@ local function hasMissingPlugs()
   return false
 end
 
-local function plugInstall()
+local function plug_install()
   vim.cmd('PlugInstall --sync')
 end
 
-local function install()
-  if not exists(plugFile) then
-    vim.cmd('silent !curl -fLo ' .. plugFile .. ' --create-dirs ' .. plugURL)
-  end
-end
-
-local function add(name, options)
-  vim.fn['plug#'](name, options or vim.empty_dict())
-end
-
 function M.run()
-  for _, plugin in pairs(plugins) do
-    if plugin.before then
-      plugin.before()
-    end
+  if not exists(plugFile) then
+    vim.cmd(('silent !curl -fLo %s --create-dirs %s'):format(plugFile, plugURL))
   end
 
-  install()
-  vim.call('plug#begin', plugDir)
+  plug_begin(plugDir)
   for _, plugin in pairs(plugins) do
-    if plugin.name ~= nil then
-      add(plugin.name, plugin.options)
-    end
+    plug(plugin.name, plugin.options or vim.empty_dict())
   end
-  vim.call('plug#end')
-  if hasMissingPlugs() then
-    plugInstall()
-  end
+  plug_end()
 
-  for _, plugin in pairs(plugins) do
-    if plugin.after then
-      plugin.after()
-    end
+  if has_missing_plugs() then
+    plug_install()
   end
 end
 
