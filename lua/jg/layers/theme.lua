@@ -1,5 +1,4 @@
 local layer = require('jg.lib.layer')
-local utils = require('jg.lib.utils')
 
 local l = {}
 
@@ -24,7 +23,7 @@ layer.use({
 })
 
 function l.setColorScheme(theme)
-  if utils.contains(vim.fn.getcompletion('', 'color'), theme) then
+  if vim.tbl_contains(vim.fn.getcompletion('', 'color'), theme) then
     vim.cmd('colorscheme ' .. theme)
   else
     print('[error] colorscheme "' .. theme .. '" not found!')

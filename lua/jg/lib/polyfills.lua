@@ -1,5 +1,3 @@
-local utils = require('jg.lib.utils')
-
 local l = {}
 
 if type(vim.api.nvim_create_augroup) ~= 'function' then
@@ -26,7 +24,7 @@ if type(vim.api.nvim_create_autocmd) ~= 'function' then
 
     local command = opts.command
     if type(opts.callback) == 'function' then
-      command = utils.wrapFunction('aucmd', opts.callback)
+      command = l.wrapFunction('aucmd', opts.callback)
     elseif type(opts.callback) == 'string' then
       command = 'call ' .. opts.callback .. '()'
     elseif opts.callback ~= nil then
@@ -56,4 +54,39 @@ function l.try_concat(entries)
   end
 
   return nil
+end
+
+function l.wrapFunction(name, cmd)
+  if type(cmd) ~= 'string' then
+    local fname = '__wrapper_' .. name .. '_' .. l.randomString(16)
+    _G[fname] = cmd
+
+    cmd = 'lua ' .. fname .. '()'
+  end
+  return cmd
+end
+
+-- Source https://gist.github.com/haggen/2fd643ea9a261fea2094
+
+local charset = {}
+for i = 48, 57 do
+  table.insert(charset, string.char(i))
+end
+for i = 65, 90 do
+  table.insert(charset, string.char(i))
+end
+for i = 97, 122 do
+  table.insert(charset, string.char(i))
+end
+
+function l.randomString(length)
+  if length == nil then
+    length = 16
+  end
+  if length <= 0 then
+    return ''
+  end
+
+  math.randomseed(os.clock() ^ 5)
+  return M.randomString(length - 1) .. charset[math.random(1, #charset)]
 end

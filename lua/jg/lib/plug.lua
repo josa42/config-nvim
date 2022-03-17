@@ -9,7 +9,6 @@ local plug_begin = vim.fn['plug#begin']
 local plug_end = vim.fn['plug#end']
 
 local M = {}
-local l = {}
 local plugins = {}
 
 function M.require(...)
