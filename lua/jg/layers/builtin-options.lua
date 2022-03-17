@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd({ 'FileChangedShell' }, { command = 'execute', group
 vim.opt.scrolloff = 2
 
 -- pum
-vim.opt.pumblend = 10
+vim.opt.pumblend = 0
 vim.opt.wildoptions = 'pum'
 
 vim.g.nerdfont = true

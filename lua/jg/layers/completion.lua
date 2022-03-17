@@ -8,15 +8,88 @@ layer.use({
     'hrsh7th/cmp-vsnip',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
-
-    'onsails/lspkind-nvim',
   },
 
   setup = function()
-    vim.cmd('hi link CmpItemMenu Comment')
+    -- See:
+    -- - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
+    -- - https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt
 
-    local lspkind = require('lspkind')
+    local kind_icons = {
+      Text = '',
+      Method = '',
+      Function = '',
+      Constructor = '',
+      Field = '',
+      Variable = '',
+      Class = 'ﴯ',
+      Interface = '',
+      Module = '',
+      Property = 'ﰠ',
+      Unit = '',
+      Value = '',
+      Enum = '',
+      Keyword = '',
+      Snippet = '',
+      Color = '',
+      File = '',
+      Reference = '',
+      Folder = '',
+      EnumMember = '',
+      Constant = '',
+      Struct = '',
+      Event = '',
+      Operator = '',
+      TypeParameter = '',
+    }
+
+    -- TODO enable codicons, once nerdfont 2.2.0 is released
+    -- local kind_icons = {
+    --   Text = '  ',
+    --   Method = '  ',
+    --   Function = '  ',
+    --   Constructor = '  ',
+    --   Field = '  ',
+    --   Variable = '  ',
+    --   Class = '  ',
+    --   Interface = '  ',
+    --   Module = '  ',
+    --   Property = '  ',
+    --   Unit = '  ',
+    --   Value = '  ',
+    --   Enum = '  ',
+    --   Keyword = '  ',
+    --   Snippet = '  ',
+    --   Color = '  ',
+    --   File = '  ',
+    --   Reference = '  ',
+    --   Folder = '  ',
+    --   EnumMember = '  ',
+    --   Constant = '  ',
+    --   Struct = '  ',
+    --   Event = '  ',
+    --   Operator = '  ',
+    --   TypeParameter = '  ',
+    -- }
+
+    local source_labels = {
+      buffer = '[buf]',
+      nvim_lsp = '[lsp]',
+      vsnip = '[snip]',
+      nvim_lua = '[lua]',
+      path = '[path]',
+    }
+
     local cmp = require('cmp')
+
+    local cmp_toggle = function()
+      if cmp.visible() then
+        cmp.close()
+      else
+        cmp.complete()
+      end
+    end
+
     cmp.setup({
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -30,28 +103,15 @@ layer.use({
         end,
       },
       formatting = {
-        format = lspkind.cmp_format({
-          with_text = false,
-          menu = {
-            buffer = '[buf]',
-            nvim_lsp = '[lsp]',
-            vsnip = '[snip]',
-            nvim_lua = '[lua]',
-            path = '[path]',
-          },
-        }),
+        format = function(entry, item)
+          return vim.tbl_extend('force', item, {
+            kind = kind_icons[item.kind] or item.kind,
+            menu = source_labels[entry.source.name] or ('[' .. entry.source.name .. ']'),
+          })
+        end,
       },
       mapping = {
-        ['<C-Space>'] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.close()
-          else
-            cmp.complete()
-          end
-        end, {
-          'i',
-          'c',
-        }),
+        ['<C-Space>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
       },
@@ -60,8 +120,7 @@ layer.use({
       },
     })
 
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
   end,
 })
 
