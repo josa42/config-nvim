@@ -1,0 +1,14 @@
+{
+  "gauth": {
+    "prefix": [
+      "-gauth"
+    ],
+    "body": [
+      "- uses: 'google-github-actions/auth@v0'",
+      "  with:",
+      "    credentials_json: \\${{ secrets.BW_PROD_ARTIFACTS_KEY }}",
+      "",
+      "- uses: google-github-actions/setup-gcloud@v0"
+    ]
+  }
+}
