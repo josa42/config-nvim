@@ -29,49 +29,72 @@ local jsAndJson = {
   'svelte',
 }
 
-local condition_eslint = function(utils)
-  return utils.root_has_file('node_modules/.bin/eslint')
-    and not utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')
-end
-
-local condition_eslint_with_json = function(utils)
-  return utils.root_has_file('node_modules/.bin/eslint')
-    and utils.root_has_file('node_modules/jsonc-eslint-parser/package.json')
-end
-
-local condition_not_eslint_with_json = function(utils)
-  return not condition_eslint_with_json(utils)
-end
-
 function M.setup()
+  local utils = require('null-ls.utils')
+  local yarn_root = utils.root_pattern('.yarn')
+  local pkg_root = utils.root_pattern('package.json')
+
+  local eslint_root = function(p)
+    local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
+    return yarn_root(bufname) or pkg_root(bufname)
+  end
+
+  local has_file = function(root, name)
+    return utils.path.exists(utils.path.join(root, name))
+  end
+
+  local condition_eslint = function(u)
+    return u.root_has_file('node_modules/.bin/eslint')
+  end
+
+  local condition_eslint_without_json = function(p)
+    local root = eslint_root(p)
+    return has_file(root, 'node_modules/.bin/eslint')
+      and not has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+  end
+
+  local condition_eslint_with_json = function(p)
+    local root = eslint_root(p)
+    return has_file(root, 'node_modules/.bin/eslint')
+      and has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+  end
+
+  local condition_not_eslint_with_json = function(p)
+    return not condition_eslint_with_json(p)
+  end
+
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
       -- eslint -> js; without json
       null_ls.builtins.diagnostics.eslint_d.with({
         condition = condition_eslint,
+        runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
       }),
       null_ls.builtins.formatting.eslint_d.with({
         condition = condition_eslint,
+        runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
       }),
 
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({
-        condition = condition_eslint_with_json,
+        condition = condition_eslint,
+        runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
         filetypes = jsAndJson,
       }),
       null_ls.builtins.formatting.eslint_d.with({
-        condition = condition_eslint_with_json,
+        condition = condition_eslint,
+        runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
         filetypes = jsAndJson,
       }),
 
       -- fixjson
       null_ls.builtins.formatting.fixjson.with({
-        condition = condition_not_eslint_with_json,
+        runtime_condition = condition_not_eslint_with_json,
         command = bin('fixjson'),
       }),
 
