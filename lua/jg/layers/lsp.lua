@@ -13,6 +13,7 @@ l.servers = {
   'tsserver',
   'yamlls',
   'stylelint_lsp',
+  'sourcekit',
 }
 
 layer.use({
@@ -53,6 +54,22 @@ layer.use({
     { 'n', __keymaps.codelens_action, '<cmd>lua vim.lsp.codelens.run()<cr>' },
   },
 
+  commands = function()
+    return {
+      -- $ nvim --headless +'LspInstallAll | qa'
+      LspInstallAll = {
+        function()
+          for _, server in ipairs(l.servers) do
+            local ok = pcall(vim.cmd, 'silent LspInstall --sync ' .. server)
+            print('         ' .. (ok and 'done' or 'failed'))
+          end
+        end,
+        nargs = 0,
+        bar = true,
+      },
+    }
+  end,
+
   setup = function()
     require('jg.lib.lsp.handlers').setup()
     require('jg.layers.lsp.null-ls').setup()
@@ -76,8 +93,6 @@ layer.use({
         server:install()
       end
     end
-
-    require('lspconfig').sourcekit.setup({})
 
     require('lsp_signature').setup({
       use_lspsaga = false,
