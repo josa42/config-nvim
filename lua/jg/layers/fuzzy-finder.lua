@@ -55,16 +55,12 @@ layer.use({
       action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key('default'))
     end
 
-    local function action_select(bufnr, type)
-      if type == 'default' then
-        local entry = action_state.get_selected_entry()
-        local filepath = entry.path or entry.filename
-        if filepath then
-          actions.close(bufnr)
-          open(filepath, entry.lnum and { entry.lnum, entry.col or 0 } or nil)
-        end
-      else
-        action_set.edit(bufnr, action_state.select_key_to_edit_key(type))
+    local function action_select(bufnr)
+      local entry = action_state.get_selected_entry()
+      local filepath = entry.path or entry.filename
+      if filepath then
+        actions.close(bufnr)
+        open(filepath, entry.lnum and { entry.lnum, entry.col or 0 } or nil)
       end
     end
 
@@ -97,8 +93,11 @@ layer.use({
         prompt_title = false,
         preview_title = false,
         results_title = false,
-        attach_mappings = function(prompt_bufnr, map)
-          action_set.select:replace(action_select)
+        attach_mappings = function()
+          action_set.select:replace_if(function(_, type)
+            return type == 'default' and not action_state.get_selected_entry().cmd
+          end, action_select)
+
           return true
         end,
         preview = vim.tbl_extend('keep', opts.preview or {}, {
