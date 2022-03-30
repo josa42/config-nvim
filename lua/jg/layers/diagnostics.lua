@@ -1,6 +1,8 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
+  enabled = true,
+
   requires = {
     'folke/lsp-trouble.nvim',
   },
@@ -12,6 +14,8 @@ layer.use({
   },
 
   setup = function()
+    vim.diagnostic.config({ underline = false, severity_sort = true })
+
     require('trouble').setup({
       mode = 'document_diagnostics',
       signs = {

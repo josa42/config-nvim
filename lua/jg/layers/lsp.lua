@@ -26,6 +26,7 @@ layer.use({
       { 'n', 'gpx', goto_preview.close_all_win },
     }
   end,
+
   setup = function()
     require('goto-preview').setup({
       border = { '↖', '─', '╮', '│', '╯', '─', '╰', '│' },
@@ -105,6 +106,7 @@ layer.use({
     })
 
     require('jg.lsp-codelens').setup()
+
     require('jg.lsp-autoformat').setup({
       ['*.js'] = { 'null-ls' },
       ['*.json'] = { 'null-ls' },

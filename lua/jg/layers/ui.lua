@@ -34,6 +34,7 @@ layer.use({
 
 layer.use({
   enabled = false,
+
   requires = { 'onsails/diaglist.nvim' },
 
   map = function()
