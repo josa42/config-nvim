@@ -13,7 +13,7 @@ _G.__keymaps = {
 }
 
 _G.__icons = {
-  action = '',
+  action = '',
   vcs = {
     add = '│', -- '✚'
     change = '│', -- '✚'

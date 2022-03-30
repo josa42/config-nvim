@@ -121,3 +121,28 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  enabled = true,
+
+  requires = {
+    'kosayoda/nvim-lightbulb',
+  },
+
+  setup = function()
+    vim.api.nvim_create_augroup('nvim-lightbulb', { clear = true })
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = 'nvim-lightbulb',
+      callback = require('nvim-lightbulb').update_lightbulb,
+    })
+
+    vim.fn.sign_define('LightBulbSign', { text = _G.__icons.action, texthl = 'DiagnosticSignAction' })
+
+    require('nvim-lightbulb').setup({
+      sign = {
+        enabled = true,
+        priority = 10,
+      },
+    })
+  end,
+})
