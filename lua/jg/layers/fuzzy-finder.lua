@@ -51,13 +51,17 @@ layer.use({
       end
     end
 
-    local function action_edit(prompt_bufnr)
+    local function entry_path(entry)
+      return entry.path or entry.filename
+    end
+
+    local function action_edit(prompt_bufnr, type)
       action_set.edit(prompt_bufnr, action_state.select_key_to_edit_key('default'))
     end
 
     local function action_select(bufnr)
       local entry = action_state.get_selected_entry()
-      local filepath = entry.path or entry.filename
+      local filepath = entry_path(entry)
       if filepath then
         actions.close(bufnr)
         open(filepath, entry.lnum and { entry.lnum, entry.col or 0 } or nil)
@@ -95,7 +99,8 @@ layer.use({
         results_title = false,
         attach_mappings = function()
           action_set.select:replace_if(function(_, type)
-            return type == 'default' and not action_state.get_selected_entry().cmd
+            local entry = action_state.get_selected_entry()
+            return type == 'default' and entry_path(entry) and not entry.cmd
           end, action_select)
 
           return true
@@ -245,14 +250,10 @@ layer.use({
     function ts.select_workspace()
       local ws = require('jg.telescope-workspaces')
 
-      ts.select(ws.get_workspaces(), { prompt = 'Workspace' }, function(w)
+      vim.ui.select(ws.get_workspaces(), { prompt = 'Workspace' }, function(w)
         ws.set_current_workspace(w)
       end)
     end
-
-    ts.select = require('jg.telescope-select').select
-
-    vim.ui.select = ts.select
 
     vim.api.nvim_add_user_command('Find', function(opts)
       ts.find_files(opts.args)
