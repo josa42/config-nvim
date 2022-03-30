@@ -2,20 +2,19 @@ local util = require('vim.lsp.util')
 
 local M = {}
 
+local ignored_codes = {
+  typescript = {
+    7016, --  Could not find a declaration file for module '<module>'.
+    80001, -- File is a CommonJS module; it may be converted to an ES6 module.
+    80002, -- This constructor function may be converted to a class declaration.
+  },
+}
+
 -- Filter diagnostics
 function M.on_publish_diagnostics(_, result, ...)
   -- Hide some diagnostics
   result.diagnostics = vim.tbl_filter(function(diagnostic)
-    if
-      -- File is a CommonJS module; it may be converted to an ES6 module.
-      diagnostic.code == 80001 and diagnostic.source == 'typescript'
-      -- Could not find a declaration file for module '<module>'.
-      or diagnostic.code == 7016 and diagnostic.source == 'typescript'
-    then
-      return false
-    end
-
-    return true
+    return not vim.tbl_contains(ignored_codes[diagnostic.source] or {}, diagnostic.code)
   end, result.diagnostics or {})
 
   return require('vim.lsp.diagnostic').on_publish_diagnostics(nil, result, ...)
