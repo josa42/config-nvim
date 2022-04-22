@@ -17,11 +17,9 @@ layer.use({
     -- Editing
     'Darazaki/indent-o-matic',
     'josa42/vim-templates',
-    'tpope/vim-repeat',
 
     -- Files
     'tpope/vim-eunuch',
-    'jghauser/mkdir.nvim',
   },
 
   setup = function()
