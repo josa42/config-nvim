@@ -1,6 +1,6 @@
 require('jg.lib.polyfills')
 
-local plug = require('jg.lib.plug')
+local plug = require('jg.lib.packer')
 
 local M = {}
 local l = {}
@@ -9,6 +9,8 @@ l.init_handlers = {}
 l.setup_handlers = {}
 
 l.layer_names = {}
+
+l.plugins = {}
 
 function M.use(opts)
   if opts.enabled == false then
@@ -25,6 +27,9 @@ function M.use(opts)
       plugin = { plugin }
     end
     plug.require(plugin)
+
+    table.insert(l.plugins, plugin)
+    -- print(vim.inspect(l.plugins))
   end
 
   if type(opts.init) == 'function' then
@@ -72,9 +77,9 @@ function l.default_name()
   return ('%s:%d'):format(i.short_src:gsub('^.*%/layers%/', ''):gsub('%.lua$', ''), i.currentline)
 end
 
-function l.run_handlers(handers)
-  for _, hander in pairs(handers) do
-    hander()
+function l.run_handlers(handlers)
+  for _, handler in pairs(handlers) do
+    handler()
   end
 end
 

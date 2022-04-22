@@ -24,8 +24,7 @@ layer.use({
 
 layer.use({
   requires = {
-    'nvim-lua/plenary.nvim',
-    'lewis6991/gitsigns.nvim',
+    { 'lewis6991/gitsigns.nvim', { requires = 'nvim-lua/plenary.nvim' } },
   },
 
   setup = function()
