@@ -7,8 +7,10 @@ layer.use({
     'josa42/nvim-file-tree',
   },
 
-  map = {
-    { 'n', '<leader>b', ':lua require("file-tree").toggle_smart()<CR>' },
-    { 'n', '<leader>B', ':lua require("file-tree").close()<CR>' },
-  },
+  map = function()
+    return {
+      { 'n', '<leader>b', require('file-tree').toggle_smart },
+      { 'n', '<leader>B', require('file-tree').close },
+    }
+  end,
 })

@@ -1,129 +1,166 @@
 require('jg.lib.polyfills')
+
 local paths = require('jg.lib.paths')
+local layer = require('jg.lib.layer')
 
-vim.opt.number = true -- Show: Line numbers
-vim.opt.cursorline = true -- Hilight current curser line
-vim.opt.showmode = false -- Hide: -- INSERT --
+-- TODO split these up!
 
--- Editing
-vim.opt.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:·,space:·,trail:·'
-vim.opt.list = true -- Show white space
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.wrap = false
-vim.opt.colorcolumn = { 80, 120 }
+layer.use({
+  init = function()
+    vim.opt.number = true
+    vim.opt.showmode = false
+    vim.opt.cmdheight = 1
+    vim.opt.signcolumn = 'yes'
 
-vim.opt.mouse = 'a'
+    vim.opt.cursorline = true
+    vim.opt.colorcolumn = { 80, 120 }
 
-vim.opt.guifont = 'DejaVuSansMono Nerd Font'
+    -- White space
+    vim.opt.list = true
+    vim.opt.listchars = {
+      -- eol = '↲',
+      tab = '» ',
+      extends = '›',
+      precedes = '‹',
+      nbsp = '·',
+      space = '·',
+      trail = '·',
+    }
 
--- clipboard
-vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
+    vim.opt.mouse = 'a'
 
--- Do not write .swp files
-vim.opt.backup = false
-vim.opt.swapfile = false
+    vim.opt.guifont = 'DejaVuSansMono Nerd Font'
 
--- Persistent undo
-vim.opt.undodir = paths.dataDir .. '/undo'
-vim.opt.undofile = true
+    -- Do not write .swp files
+    vim.opt.backup = false
+    vim.opt.swapfile = false
 
-vim.opt.conceallevel = 2
+    -- Persistent undo
+    vim.opt.undodir = paths.dataDir .. '/undo'
+    vim.opt.undofile = true
 
-vim.opt.cmdheight = 1 -- Better display for messages
-vim.opt.shortmess = vim.opt.shortmess + 'c' -- don't give |ins-completion-menu| messages.
-vim.opt.signcolumn = 'yes' -- always show signcolumns
-vim.opt.updatetime = 300 -- Smaller updatetime for CursorHold & CursorHoldI
-vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
+    vim.opt.conceallevel = 2
 
--- Spell check
-vim.opt.spell = true
-vim.opt.spelllang = { 'en_gb', 'en_us', 'de_20' }
+    vim.opt.updatetime = 300 -- Smaller updatetime for CursorHold & CursorHoldI
+    vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
 
---Splits
-vim.opt.splitbelow = true
-vim.opt.splitright = true
---
--- Theme
--- TODO what is this?
-vim.cmd([[ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1 ]])
+    -- Spell check
+    vim.opt.spell = true
+    vim.opt.spelllang = { 'en_gb', 'en_us', 'de_20' }
 
--- Search
-vim.opt.hlsearch = true -- Highlight search results.
-vim.opt.ignorecase = false -- Make searching case insensitive
-vim.opt.smartcase = true -- ... unless the query has capital letters.
-vim.opt.gdefault = true -- Use 'g' flag by default with :s/foo/bar/.
-vim.opt.magic = true -- Use 'magic' patterns (extended regular expressions).
-vim.opt.foldmethod = 'marker'
-vim.opt.foldenable = true
+    --Splits
+    vim.opt.splitbelow = true
+    vim.opt.splitright = true
 
-vim.opt.incsearch = true -- Incremental search.
-vim.opt.inccommand = 'split'
+    -- folds
+    vim.opt.foldmethod = 'marker'
+    vim.opt.foldenable = true
 
-vim.opt.wildignore = {
-  '.sass-cache',
-  '.DS_Store',
-  '.git$',
-  '~$',
-  '.swp$',
-  'gin-bin',
-  '*/node_modules/*',
-}
+    vim.opt.autochdir = false
 
-vim.opt.autochdir = false
+    -- Scroll offset
+    vim.opt.scrolloff = 2
 
--- Always draw the signcolumn.
-vim.opt.signcolumn = 'yes'
+    -- pum
+    vim.opt.pumblend = 0
+    vim.opt.wildoptions = 'pum'
+    vim.opt.shortmess = vim.opt.shortmess + 'c' -- don't give |ins-completion-menu| messages.
 
-vim.opt.autoread = true
-
-local autoread_group = vim.api.nvim_create_augroup('jg.autoread', { clear = true })
--- read files on focus
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, { command = 'silent! !', group = autoread_group })
--- save on focus lost!
-vim.api.nvim_create_autocmd({ 'FocusLost', 'WinLeave' }, { command = 'silent! update', group = autoread_group })
--- ignore removed files
-vim.api.nvim_create_autocmd({ 'FileChangedShell' }, { command = 'execute', group = autoread_group })
-
--- Scroll offset
-vim.opt.scrolloff = 2
-
--- pum
-vim.opt.pumblend = 0
-vim.opt.wildoptions = 'pum'
-
-vim.g.nerdfont = true
-
-local settings_group = vim.api.nvim_create_augroup('jg.language_settings', { clear = true })
-vim.api.nvim_create_autocmd('FileType', {
-  group = settings_group,
-  pattern = 'yaml',
-  callback = function()
-    vim.bo.tabstop = 2
-    vim.bo.softtabstop = 2
-    vim.bo.shiftwidth = 2
-    vim.bo.expandtab = true
-  end,
-})
-vim.api.nvim_create_autocmd('FileType', {
-  group = settings_group,
-  pattern = 'markdown',
-  callback = function()
-    vim.wo.wrap = true
+    vim.g.nerdfont = true
   end,
 })
 
-local paste_group = vim.api.nvim_create_augroup('jg.paste', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufWrite', 'InsertLeave' }, {
-  group = paste_group,
-  callback = function()
-    vim.o.paste = false
+layer.use({
+  name = 'indent',
+
+  init = function()
+    vim.opt.tabstop = 2
+    vim.opt.shiftwidth = 2
+    vim.opt.expandtab = true
+    vim.opt.wrap = false
+  end,
+
+  autocmds = {
+    {
+      'FileType',
+      pattern = 'yaml',
+      callback = function()
+        vim.bo.tabstop = 2
+        vim.bo.softtabstop = 2
+        vim.bo.shiftwidth = 2
+        vim.bo.expandtab = true
+      end,
+    },
+    {
+      'FileType',
+      pattern = 'markdown',
+      callback = function()
+        vim.wo.wrap = true
+      end,
+    },
+  },
+})
+
+layer.use({
+  name = 'search',
+
+  init = function()
+    vim.opt.hlsearch = true -- Highlight search results.
+    vim.opt.ignorecase = false -- Make searching case insensitive
+    vim.opt.smartcase = true -- ... unless the query has capital letters.
+    vim.opt.gdefault = true -- Use 'g' flag by default with :s/foo/bar/.
+    vim.opt.magic = true -- Use 'magic' patterns (extended regular expressions).
+
+    vim.opt.incsearch = true -- Incremental search.
+    vim.opt.inccommand = 'split'
+
+    vim.opt.wildignore = {
+      '.sass-cache',
+      '.DS_Store',
+      '.git$',
+      '~$',
+      '.swp$',
+      'gin-bin',
+      '*/node_modules/*',
+    }
   end,
 })
 
-local yank_group = vim.api.nvim_create_augroup('jg.yank', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = yank_group,
-  callback = require('vim.highlight').on_yank,
+layer.use({
+  name = 'autoread',
+
+  init = function()
+    vim.opt.autoread = true
+  end,
+
+  autocmds = {
+    { { 'FocusGained', 'BufEnter' }, command = 'silent! !' },
+    -- save on focus lost!
+    { { 'FocusLost', 'WinLeave' }, command = 'silent! update' },
+    -- ignore removed files
+    { { 'FileChangedShell' }, command = 'execute' },
+  },
+})
+
+layer.use({
+  name = 'clipboard',
+
+  init = function()
+    vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
+  end,
+
+  autocmds = {
+    {
+      { 'BufWrite', 'InsertLeave' },
+      callback = function()
+        vim.o.paste = false
+      end,
+    },
+    {
+      'TextYankPost',
+      callback = function()
+        vim.highlight.on_yank()
+      end,
+    },
+  },
 })

@@ -129,7 +129,7 @@ function l.apply_autocmds(group_name, autocmds)
     local group = vim.api.nvim_create_augroup(group_name, { clear = true })
 
     for _, autocmd in ipairs(autocmds) do
-      vim.api.nvim_create_autocmd(autocmd[1], l.to_dict(autocmd))
+      vim.api.nvim_create_autocmd(autocmd[1], vim.tbl_extend('keep', l.to_dict(autocmd), { group = group }))
     end
   end
 end
