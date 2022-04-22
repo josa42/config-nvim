@@ -143,7 +143,7 @@ function l.apply_commands(commands)
 
     local opts = l.to_dict(cmd)
     opts.label = nil
-    vim.api.nvim_add_user_command(name, cmd[1], opts)
+    vim.api.nvim_create_user_command(name, cmd[1], opts)
 
     if cmd.label ~= nil then
       require('cheatsheet').add_cheat(cmd.label, name, 'command')

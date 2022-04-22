@@ -255,7 +255,7 @@ layer.use({
       end)
     end
 
-    vim.api.nvim_add_user_command('Find', function(opts)
+    vim.api.nvim_create_user_command('Find', function(opts)
       ts.find_files(opts.args)
     end, {
       nargs = 1,

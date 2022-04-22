@@ -26,7 +26,8 @@ local filetypes = {
 
 layer.use({
   requires = {
-    'josa42/vim-polyglot',
+    'sheerun/vim-polyglot',
+    -- 'josa42/vim-polyglot',
     'zhaozg/vim-diagram',
     'rhysd/vim-syntax-codeowners',
     'darfink/vim-plist',

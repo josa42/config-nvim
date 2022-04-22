@@ -44,6 +44,10 @@ if type(vim.api.nvim_create_autocmd) ~= 'function' then
   end
 end
 
+if type(vim.api.nvim_create_user_command) ~= 'function' then
+  vim.api.nvim_create_user_command = vim.api.nvim_add_user_command
+end
+
 function l.try_concat(entries)
   if type(entries) == 'table' then
     return table.concat(entries, ',')
