@@ -19,7 +19,6 @@ require('jg.layers.builtin-keymaps')
 -- Theme and syntax highlighting
 require('jg.layers.theme')
 require('jg.layers.syntax')
-require('jg.layers.syntax--treesitter')
 
 -- UI
 require('jg.layers.tabline')

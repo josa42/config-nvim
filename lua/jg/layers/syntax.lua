@@ -24,7 +24,51 @@ local filetypes = {
   { '.stylelintrc', 'json' },
 }
 
+-- See: https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+local ts_enable = 'all'
+
+-- See: https://github.com/sheerun/vim-polyglot#language-packs
+local polyglot_disable = { -- <= handled by treesitter
+  'css',
+  'go',
+  'gomod',
+  'gowork',
+  'html',
+  'java',
+  'javascript',
+  'json',
+  'json5',
+  'jsonc',
+  'php',
+  'sh',
+  'typescript',
+  'yaml',
+  'python',
+}
+
 layer.use({
+  enabled = true,
+  name = 'syntax-treesitter',
+
+  requires = {
+    { 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } },
+  },
+  setup = function()
+    local configs = require('nvim-treesitter.configs')
+
+    configs.setup({
+      ensure_installed = ts_enable,
+      ignore_install = { 'phpdoc' },
+      highlight = { enable = true },
+      indent = { enable = false },
+      autotag = { enable = false },
+    })
+  end,
+})
+
+layer.use({
+  name = 'syntax',
+
   requires = {
     'sheerun/vim-polyglot',
     -- 'josa42/vim-polyglot',
@@ -33,6 +77,10 @@ layer.use({
     'darfink/vim-plist',
     'josa42/vim-monkey-c',
   },
+
+  init = function()
+    vim.g.polyglot_disabled = vim.tbl_flatten({ { 'sensible', 'vim-sleuth', 'autoindent' }, polyglot_disable })
+  end,
 
   autocmds = function()
     return vim.tbl_map(function(ft)
@@ -48,14 +96,12 @@ layer.use({
       }
     end, filetypes)
   end,
-
-  init = function()
-    vim.g.polyglot_disabled = { 'sensible', 'vim-sleuth', 'autoindent' }
-  end,
 })
 
 -- golang
 layer.use({
+  enabled = not vim.tbl_contains(polyglot_disable, 'go'),
+
   init = function()
     vim.g.go_highlight_array_whitespace_error = true
     vim.g.go_highlight_build_constraints = true
@@ -80,6 +126,8 @@ layer.use({
 
 -- yaml
 layer.use({
+  enabled = not vim.tbl_contains(polyglot_disable, 'python'),
+
   init = function()
     vim.g.yaml_schema = 'pyyaml'
   end,
@@ -87,6 +135,8 @@ layer.use({
 
 -- markdown
 layer.use({
+  enabled = not vim.tbl_contains(polyglot_disable, 'markdown'),
+
   init = function()
     -- plasticboy/vim-markdown (sheerun/vim-polyglot)
     -- -----------------------------------------------------------------------------
@@ -106,6 +156,8 @@ layer.use({
 
 -- ansible
 layer.use({
+  enabled = not vim.tbl_contains(polyglot_disable, 'ansible'),
+
   init = function()
     vim.g.ansible_unindent_after_newline = 1
   end,
