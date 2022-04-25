@@ -24,6 +24,16 @@ layer.use({
     -- redo
     { 'n', '<S-U>', '<C-R>', noremap = true },
 
+    {
+      'n',
+      '<space>h',
+      function()
+        local syn_id = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
+        local syn_id_trans = vim.fn.synIDtrans(syn_id)
+        print(('hi %s -> %s'):format(vim.fn.synIDattr(syn_id, 'name'), vim.fn.synIDattr(syn_id_trans, 'name')))
+      end,
+    },
+
     -- folds
     -- {
     --   'n',
