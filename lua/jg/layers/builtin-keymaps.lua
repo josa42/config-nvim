@@ -98,5 +98,14 @@ layer.use({
 
     -- Keep cursor centered: joining lines
     { 'n', 'J', 'mzJ`z', noremap = true },
+
+    -- toggle spell checker
+    {
+      { 'n', 'i' },
+      '<c-s>',
+      function()
+        vim.wo.spell = not vim.wo.spell
+      end,
+    },
   },
 })

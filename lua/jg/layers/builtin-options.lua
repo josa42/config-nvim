@@ -45,7 +45,7 @@ layer.use({
     vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
 
     -- Spell check
-    vim.opt.spell = true
+    vim.opt.spell = false
     vim.opt.spelllang = { 'en_gb', 'en_us', 'de_20' }
 
     --Splits
