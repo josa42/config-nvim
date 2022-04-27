@@ -10,7 +10,17 @@ layer.use({
 
   requires = {
     { 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } },
+    { 'nvim-treesitter/playground' },
   },
+
+  map = {
+    {
+      'n',
+      '<space>t',
+      ':TSHighlightCapturesUnderCursor<CR>',
+    },
+  },
+
   setup = function()
     local configs = require('nvim-treesitter.configs')
 
