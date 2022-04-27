@@ -1,7 +1,9 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  requires = { 'tomtom/tcomment_vim' },
+  requires = {
+    'tomtom/tcomment_vim',
+  },
 
   map = {
     { 'n', '#', '<Plug>TComment_gcc' },

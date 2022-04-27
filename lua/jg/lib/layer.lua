@@ -22,9 +22,24 @@ function M.use(opts)
 
   for _, plugin in ipairs(opts.requires or {}) do
     if type(plugin) == 'string' then
+      -- requires = {
+      --   'my/plugin',
+      -- }
+      -- TODO deprecate?
+
       plugin = { plugin }
     end
-    plug.require(plugin)
+
+    -- requires = {
+    --   { 'my/plugin' },
+    --   { 'my/plugin', option = 1 },
+    -- }
+
+    assert(type(plugin) == 'table', 'plugin must be a table => ' .. vim.inspect(plugin))
+    assert(plugin[1] ~= nil and #plugin[1] > 0, 'plugin name is mandatory => ' .. vim.inspect(plugin))
+    assert(plugin[2] == nil, 'plugin must be in the form: { "name", option_a = 1 } => ' .. vim.inspect(plugin))
+
+    plug.require({ plugin[1], l.to_dict_or_nil(plugin) })
   end
 
   if type(opts.init) == 'function' then
@@ -92,6 +107,16 @@ function l.to_dict(tbl)
     if type(k) == 'string' then
       dict[k] = v
     end
+  end
+
+  return dict
+end
+
+function l.to_dict_or_nil(tbl)
+  local dict = l.to_dict(tbl)
+
+  if vim.tbl_isempty(dict) then
+    return nil
   end
 
   return dict

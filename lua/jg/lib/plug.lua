@@ -13,10 +13,20 @@ local plugins = {}
 
 function M.require(...)
   for _, plugin in ipairs({ ... }) do
-    assert(vim.tbl_islist(plugin), 'plugin needs to be a table or string')
+    assert(vim.tbl_islist(plugin), 'plugin needs to be a table')
     assert(plugin[1] ~= nil and #plugin[1] > 0, 'plugin name is mandatory')
 
-    table.insert(plugins, { name = plugin[1], options = plugin[2] })
+    local existing = vim.tbl_filter(function(p)
+      return p.name == plugin[1]
+    end, plugins)[1]
+
+    if existing ~= nil then
+      if plugin[2] ~= nil then
+        existing.options = vim.tbl_extend('force', existing.options or {}, plugin[2])
+      end
+    else
+      table.insert(plugins, { name = plugin[1], options = plugin[2] })
+    end
   end
 
   return M

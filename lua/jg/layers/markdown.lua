@@ -5,13 +5,11 @@ layer.use({
   requires = {
     {
       'euclio/vim-markdown-composer',
-      {
-        ['do'] = function(info)
-          if info.status ~= 'unchanged' or info.force then
-            vim.fn.system('cargo build --release --locked')
-          end
-        end,
-      },
+      ['do'] = function(info)
+        if info.status ~= 'unchanged' or info.force then
+          vim.fn.system('cargo build --release --locked')
+        end
+      end,
     },
   },
 

@@ -9,7 +9,7 @@ layer.use({
   name = 'syntax-treesitter',
 
   requires = {
-    { 'nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' } },
+    { 'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate' },
     { 'nvim-treesitter/playground' },
   },
 

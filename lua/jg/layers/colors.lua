@@ -3,7 +3,7 @@ local layer = require('jg.lib.layer')
 
 layer.use({
   requires = {
-    { 'rrethy/vim-hexokinase', { ['do'] = 'GO111MODULE=off make hexokinase' } },
+    { 'rrethy/vim-hexokinase', ['do'] = 'GO111MODULE=off make hexokinase' },
     '~/github/josa42/axiom-colors',
   },
 

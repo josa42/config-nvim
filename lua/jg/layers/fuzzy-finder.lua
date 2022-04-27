@@ -7,7 +7,7 @@ layer.use({
   requires = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' } },
+    { 'nvim-telescope/telescope-fzf-native.nvim', ['do'] = 'make' },
     'itchyny/vim-gitbranch',
     'josa42/nvim-telescope-select',
     'josa42/nvim-telescope-workspaces',
