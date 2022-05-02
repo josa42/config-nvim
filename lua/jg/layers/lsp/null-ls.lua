@@ -113,6 +113,14 @@ function M.setup()
         },
       }),
 
+      -- action lint
+      null_ls.builtins.diagnostics.actionlint.with({
+        runtime_condition = function(params)
+          return params.bufname:match('.*%.github/workflows/.*%.yml')
+        end,
+        command = bin('actionlint'),
+        args = { '-no-color', '-format', '{{json .}}', '--shellcheck=' .. bin('shellcheck'), '-' },
+      }),
       null_ls.builtins.formatting.swiftformat,
     },
   })
