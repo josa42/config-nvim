@@ -121,6 +121,10 @@ function M.setup()
         command = bin('actionlint'),
         args = { '-no-color', '-format', '{{json .}}', '--shellcheck=' .. bin('shellcheck'), '-' },
       }),
+      null_ls.builtins.diagnostics.shellcheck.with({
+        command = bin('shellcheck'),
+      }),
+
       null_ls.builtins.formatting.swiftformat,
     },
   })
