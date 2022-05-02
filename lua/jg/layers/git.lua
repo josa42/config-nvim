@@ -39,5 +39,7 @@ layer.use({
         border = 'rounded',
       },
     })
+
+    vim.cmd([[hi ConflictMarkerCommonAncestorsHunk guibg=#4F3058]])
   end,
 })
