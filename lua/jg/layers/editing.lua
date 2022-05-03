@@ -19,6 +19,18 @@ layer.use({
   map = {
     { 'n', 'g<left>', ':SidewaysLeft<cr>' },
     { 'n', 'g<right>', ':SidewaysRight<cr>' },
+
+    -- argument text objects
+    { 'o', 'aa', '<Plug>SidewaysArgumentTextobjA' },
+    { 'x', 'aa', '<Plug>SidewaysArgumentTextobjA' },
+    { 'o', 'ia', '<Plug>SidewaysArgumentTextobjI' },
+    { 'x', 'ia', '<Plug>SidewaysArgumentTextobjI' },
+
+    -- inserting arguments
+    { 'n', '<leader>si', '<Plug>SidewaysArgumentInsertBefore' },
+    { 'n', '<leader>sa', '<Plug>SidewaysArgumentAppendAfter' },
+    { 'n', '<leader>sI', '<Plug>SidewaysArgumentInsertFirst' },
+    { 'n', '<leader>sA', '<Plug>SidewaysArgumentAppendLast' },
   },
 })
 
