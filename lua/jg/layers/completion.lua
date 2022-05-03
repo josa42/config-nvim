@@ -90,6 +90,16 @@ layer.use({
       end
     end
 
+    local visible_map = function(fn)
+      return cmp.mapping(function(fallback)
+        if cmp.visible() then
+          fn()
+        else
+          fallback()
+        end
+      end, { 'i', 's' })
+    end
+
     cmp.setup({
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -114,6 +124,10 @@ layer.use({
         ['<C-Space>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
+        ['<Down>'] = visible_map(cmp.select_next_item),
+        ['<Up>'] = visible_map(cmp.select_prev_item),
+        ['<C-n>'] = visible_map(cmp.select_next_item),
+        ['<C-p>'] = visible_map(cmp.select_prev_item),
       },
       experimental = {
         ghost_text = true,
