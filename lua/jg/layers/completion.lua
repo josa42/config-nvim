@@ -5,9 +5,9 @@ layer.use({
     -- nvim-cmp and sources
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-vsnip',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
+    'hrsh7th/cmp-vsnip',
   },
 
   setup = function()
@@ -102,9 +102,9 @@ layer.use({
 
     cmp.setup({
       sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
         { name = 'vsnip' },
+        { name = 'nvim_lua' },
+        { name = 'nvim_lsp' },
         { name = 'path' },
       }),
       snippet = {
