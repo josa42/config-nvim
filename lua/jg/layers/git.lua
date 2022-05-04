@@ -43,3 +43,16 @@ layer.use({
     vim.cmd([[hi ConflictMarkerCommonAncestorsHunk guibg=#4F3058]])
   end,
 })
+
+layer.use({
+  enabled = false,
+  requires = {
+    'pwntester/octo.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    -- 'kyazdani42/nvim-web-devicons',
+  },
+  setup = function()
+    require('octo').setup()
+  end,
+})
