@@ -6,6 +6,18 @@ layer.use({
     'kevinhwang91/nvim-bqf',
     'josa42/nvim-quickfix',
   },
+
+  setup = function()
+    require('bqf').setup({
+      auto_enable = true,
+      auto_resize_height = true,
+      preview = {
+        should_preview_cb = function(bufnr)
+          return not vim.api.nvim_buf_get_name(bufnr):match('^fugitive://')
+        end,
+      },
+    })
+  end,
 })
 
 layer.use({
