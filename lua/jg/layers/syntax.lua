@@ -3,6 +3,7 @@ local paths = require('jg.lib.paths')
 
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 local ts_enable = 'all'
+local ts_ignore = { 'phpdoc', 'markdown' }
 
 layer.use({
   enabled = true,
@@ -26,7 +27,7 @@ layer.use({
 
     configs.setup({
       ensure_installed = ts_enable,
-      ignore_install = { 'phpdoc' },
+      ignore_install = ts_ignore,
       highlight = { enable = true },
       indent = { enable = false },
       autotag = { enable = false },
