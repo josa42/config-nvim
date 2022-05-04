@@ -127,12 +127,104 @@
     ]
   },
   "esm:dirname": {
-    "prefix": ["dirname"],
+    "prefix": [
+      "dirname"
+    ],
     "body": [
       "import { dirname } from 'path';",
       "import { fileURLToPath } from 'url';",
       "",
       "const __dirname = dirname(fileURLToPath(import.meta.url));"
     ]
+  },
+  "getter": {
+    "prefix": "get",
+    "body": "get ${1:property} () {\n\t${0}\n}"
+  },
+  "setter": {
+    "prefix": "set",
+    "body": "set ${1:property} (${2:value}) {\n\t${0}\n}"
+  },
+  "For-Of Loop": {
+    "prefix": "forof",
+    "body": [
+      "for (const ${1:iterator} of ${2:object}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "For-Of Loop"
+  },
+  "Function Statement": {
+    "prefix": "function",
+    "body": [
+      "function ${1:name}(${2:params}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Function Statement"
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "if (${1:condition}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "If Statement"
+  },
+  "If-Else Statement": {
+    "prefix": "else",
+    "body": [
+      "else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "If-Else Statement"
+  },
+  "Switch Statement": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement"
+  },
+  "Try-Catch Statement": {
+    "prefix": "trycatch",
+    "body": [
+      "try {",
+      "\t$0",
+      "} catch (${1:error}) {",
+      "\t",
+      "}"
+    ],
+    "description": "Try-Catch Statement"
+  },
+  "Log to console": {
+    "prefix": "log",
+    "body": [
+      "console.log($1);",
+      "$0"
+    ],
+    "description": "Log warning to the console"
+  },
+  "Log warning to console": {
+    "prefix": "warn",
+    "body": [
+      "console.warn($1);",
+      "$0"
+    ],
+    "description": "Log warning to the console"
+  },
+  "Log error to console": {
+    "prefix": "error",
+    "body": [
+      "console.error($1);",
+      "$0"
+    ],
+    "description": "Log error to the console"
   }
 }
