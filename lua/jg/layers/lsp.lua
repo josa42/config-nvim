@@ -148,3 +148,20 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  requires = {
+    'j-hui/fidget.nvim',
+  },
+
+  setup = function()
+    vim.cmd('hi! link FidgetTitle Title')
+    vim.cmd('hi! link FidgetTask Normal')
+
+    require('fidget').setup({
+      text = {
+        spinner = 'dots',
+      },
+    })
+  end,
+})

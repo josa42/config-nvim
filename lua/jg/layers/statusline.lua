@@ -27,7 +27,6 @@ layer.use({
         lualine_c = {
           'branch',
           'b:gitsigns_status',
-          'lsp_progress',
         },
         lualine_x = {},
         lualine_y = {},
