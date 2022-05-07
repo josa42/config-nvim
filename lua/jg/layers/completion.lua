@@ -113,10 +113,11 @@ layer.use({
         end,
       },
       formatting = {
+        fields = { 'abbr', 'kind' },
         format = function(entry, item)
           return vim.tbl_extend('force', item, {
             kind = kind_icons[item.kind] or item.kind,
-            menu = source_labels[entry.source.name] or ('[' .. entry.source.name .. ']'),
+            -- menu = source_labels[entry.source.name] or ('[' .. entry.source.name .. ']'),
           })
         end,
       },
