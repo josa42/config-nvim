@@ -9,9 +9,31 @@ layer.use({
   },
 
   setup = function()
+    local cp = function(trg, src)
+      return vim.tbl_deep_extend('force', trg, src)
+    end
+
+    vim.cmd([[
+      hi! StatusLineNC guibg=#21252B
+      hi! StatusLine   guibg=#21252B
+    ]])
+
+    local theme = cp({}, require('lualine.themes.auto'))
+    theme.normal.a.bg = '#21252B'
+    theme.normal.b.bg = '#21252B'
+    theme.normal.c.bg = '#21252B'
+
+    for _, mode in ipairs({ 'command', 'insert', 'visual', 'terminal', 'replace' }) do
+      theme[mode].b = theme.normal.b
+      theme[mode].c = theme.normal.c
+      theme[mode].x = theme.normal.c
+      theme[mode].y = theme.normal.b
+      theme[mode].z = theme.normal.a
+    end
+
     require('lualine').setup({
       options = {
-        theme = 'auto',
+        theme = theme,
         icons_enabled = true,
         section_separators = { left = '', right = '' },
         component_separators = { left = '⏐', right = '⏐' },
@@ -29,7 +51,7 @@ layer.use({
           'b:gitsigns_status',
         },
         lualine_x = {},
-        lualine_y = {},
+        lualine_y = { 'filesize' },
         lualine_z = { 'filetype' },
       },
       inactive_sections = {
