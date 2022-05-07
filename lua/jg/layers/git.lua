@@ -5,7 +5,6 @@ layer.use({
     'tpope/vim-fugitive', -- Git commands; mainly for Gblame
     'tpope/vim-rhubarb',
     'tpope/vim-git',
-    'rhysd/conflict-marker.vim', -- is this this working?
     'sindrets/diffview.nvim', -- still used?
   },
 
@@ -19,6 +18,39 @@ layer.use({
     Ff = { 'silent! !fork log -- %', label = 'Open Fork - log current file' },
     Fl = { 'silent! !fork log', label = 'Open Fork - log' },
     Fs = { 'silent! !fork status', label = 'Open Fork - status' },
+  },
+})
+
+layer.use({
+  enabled = false,
+  requires = {
+    'rhysd/conflict-marker.vim',
+  },
+})
+
+layer.use({
+  enabled = true,
+  requires = {
+    'akinsho/git-conflict.nvim',
+  },
+  setup = function()
+    require('git-conflict').setup({
+      default_mappings = false,
+      highlights = {
+        current = 'DiffText',
+        incoming = 'DiffAdd',
+        ancestor = 'DiffAncestor',
+      },
+    })
+  end,
+
+  map = {
+    { 'n', 'co', '<Plug>(git-conflict-ours)' },
+    { 'n', 'cb', '<Plug>(git-conflict-both)' },
+    { 'n', 'c0', '<Plug>(git-conflict-none)' },
+    { 'n', 'ct', '<Plug>(git-conflict-theirs)' },
+    { 'n', 'cn', '<Plug>(git-conflict-next-conflict)' },
+    { 'n', 'np', '<Plug>(git-conflict-prev-conflict)' },
   },
 })
 
