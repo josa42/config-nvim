@@ -155,6 +155,9 @@ layer.use({
         git_commits = {
           preview = { hide_on_startup = false },
         },
+        highlights = {
+          preview = { hide_on_startup = false },
+        },
       }),
       defaults = {
         layout_strategy = 'horizontal',
