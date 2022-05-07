@@ -40,6 +40,12 @@ layer.use({
     vim.opt.undofile = true
 
     vim.opt.conceallevel = 2
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'json' },
+      callback = function()
+        vim.wo.conceallevel = 0
+      end,
+    })
 
     vim.opt.updatetime = 300 -- Smaller updatetime for CursorHold & CursorHoldI
     vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
