@@ -162,7 +162,20 @@ layer.use({
       defaults = {
         layout_strategy = 'horizontal',
         layout_config = {
-          horizontal = { mirror = false, width = 0.75, preview_width = 0.5 },
+          horizontal = {
+            mirror = false,
+            width = function(self, max_width)
+              if self.previewer == nil or max_width < 120 then
+                return 80
+              end
+              return math.min(max_width, 160)
+            end,
+            height = function(_, _, max_height)
+              return math.min(math.max(max_height - 4, 10), 40)
+            end,
+            preview_width = 80,
+            preview_cutoff = 120,
+          },
           vertical = { mirror = true },
           prompt_position = 'top',
         },
