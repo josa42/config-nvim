@@ -36,20 +36,52 @@
       "print(vim.inspect($1))"
     ]
   },
-  "layer": {
-    "prefix": [
-      "layer"
-    ],
+  "layer import": {
+    "prefix": "layer:i",
     "body": [
-      "local layer = require('jg.lib.layer')",
-      "",
-      "layer.use {",
-      "  require = { '$1' },",
+      "layer.use({",
+      "  requires = { '$1' },",
       "",
       "  after = function()",
       "    $2",
       "  end,",
-      "}"
+      "})"
+    ]
+  },
+  "layer": {
+    "prefix": "layer",
+    "body": [
+      "layer.use({",
+      "  requires = {",
+      "    '${1:$CLIPBOARD}',",
+      "  },$0",
+      "})"
+    ]
+  },
+  "layer setup": {
+    "prefix": "setup",
+    "body": [
+      "setup = function()",
+      "  $0",
+      "end,"
+    ]
+  },
+  "layer enabled": {
+    "prefix": "enabled",
+    "body": [
+      "enabled = ${1|true,false|},$0"
+    ]
+  },
+  "autocmd": {
+    "prefix": [
+      "autocmd"
+    ],
+    "body": [
+      "  vim.api.nvim_create_autocmd('${1:$CLIPBOARD}', {",
+      "    callback = function()",
+      "      $0",
+      "    end,",
+      "  })"
     ]
   }
 }
