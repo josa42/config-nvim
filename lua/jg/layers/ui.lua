@@ -68,3 +68,26 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  requires = {
+    'rcarriga/nvim-notify',
+  },
+  setup = function()
+    local notify = require('notify')
+
+    notify.setup({
+      render = 'minimal',
+      stages = 'fade',
+      icons = {
+        ERROR = _G.__icons.diagnostic.error,
+        WARN = _G.__icons.diagnostic.warning,
+        INFO = _G.__icons.diagnostic.info,
+        DEBUG = '', -- _G.__icons.diagnostic.hint
+        TRACE = '✎',
+      },
+    })
+
+    vim.notify = notify
+  end,
+})
