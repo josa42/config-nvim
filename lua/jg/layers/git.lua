@@ -88,3 +88,36 @@ layer.use({
     require('octo').setup()
   end,
 })
+
+layer.use({
+  enabled = false,
+  requires = {
+    'pwntester/octo.nvim',
+  },
+})
+
+layer.use({
+  enabled = false,
+  requires = {
+    'ldelossa/litee.nvim',
+    'ldelossa/gh.nvim',
+  },
+
+  setup = function()
+    require('litee.lib').setup()
+    require('litee.gh').setup()
+  end,
+})
+
+layer.use({
+  enabled = false,
+  requires = {
+    'pwntester/octo.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    -- 'kyazdani42/nvim-web-devicons',
+  },
+  setup = function()
+    require('octo').setup()
+  end,
+})
