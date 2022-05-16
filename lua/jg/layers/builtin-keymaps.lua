@@ -89,7 +89,7 @@ layer.use({
     { 'n', '<c-j>', ':cnext<CR>zz', noremap = true },
     { 'n', '<c-k>', ':cprevious<CR>zz', noremap = true },
 
-    -- show hilight group
+    -- show highlight group
     -- vim.cmd([[map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'<cr>]])
 
     -- Keep cursor centered: next or previews search result
