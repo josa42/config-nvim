@@ -121,3 +121,13 @@ layer.use({
     require('octo').setup()
   end,
 })
+
+layer.use({
+  requires = {
+    'Tarmean/Gistory.vim',
+  },
+
+  setup = function()
+    vim.g.gistory_no_format = 1
+  end,
+})
