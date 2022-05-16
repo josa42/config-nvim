@@ -126,8 +126,19 @@ layer.use({
   requires = {
     'Tarmean/Gistory.vim',
   },
-
   setup = function()
     vim.g.gistory_no_format = 1
+  end,
+})
+
+layer.use({
+  enabled = false,
+  requires = {
+    'ldelossa/gh.nvim',
+    'ldelossa/litee.nvim',
+  },
+  setup = function()
+    require('litee.lib').setup()
+    require('litee.gh').setup()
   end,
 })
