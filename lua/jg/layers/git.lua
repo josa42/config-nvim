@@ -10,8 +10,13 @@ layer.use({
 
   commands = {
     -- reset file
-    -- FIXME force reload buffer
-    ResetFile = { 'silent !git checkout HEAD -- %', nargs = 0, label = 'Reset current file' },
+    ResetFile = {
+      function()
+        vim.cmd('silent !git checkout HEAD -- %')
+        vim.cmd('edit!')
+      end,
+      nargs = 0,
+    },
 
     -- Open Fork (git client)
     F = { 'silent! !fork', label = 'Open Fork' },
