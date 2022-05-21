@@ -3,7 +3,7 @@ vim.g.do_filetype_lua = 1
 vim.filetype.add({
   extension = {
     conf = 'conf',
-    template = 'mustache',
+    template = 'html',
   },
   filename = {
     ['Vagrantfile'] = 'ruby',
