@@ -3,6 +3,21 @@ local layer = require('jg.lib.layer')
 local M = {}
 
 layer.use({
+  enabled = false,
+
+  requires = {
+    'feline-nvim/feline.nvim',
+  },
+
+  setup = function()
+    require('feline').setup()
+    require('feline').winbar.setup()
+  end,
+})
+
+layer.use({
+  enabled = true,
+
   requires = {
     'nvim-lualine/lualine.nvim',
     'arkav/lualine-lsp-progress',
@@ -19,24 +34,56 @@ layer.use({
     ]])
 
     local theme = cp({}, require('lualine.themes.auto'))
-    theme.normal.a.bg = '#21252B'
-    theme.normal.b.bg = '#21252B'
-    theme.normal.c.bg = '#21252B'
 
-    for _, mode in ipairs({ 'command', 'insert', 'visual', 'terminal', 'replace' }) do
-      theme[mode].b = theme.normal.b
-      theme[mode].c = theme.normal.c
-      theme[mode].x = theme.normal.c
-      theme[mode].y = theme.normal.b
-      theme[mode].z = theme.normal.a
-    end
+    local color = {
+      fg = '#7c818d',
+      fg_strong = '#bcc3d2',
+      bg = '#21252B',
+      bg_command = '#f67680',
+      bg_insert = '#a7d685',
+      bg_visual = '#6ac0ff',
+      bg_replace = '#e5a970',
+      bg_terminal = '#f67680',
+    }
+    -- local normal = { bg = color.bg, fg = color.fg }
+    -- local strong = { bg = color.bg, fg = color.fg_strong }
+
+    -- local mode_normal = { bg = color.fg, fg = color.bg, gui = 'bold' }
+    -- local mode_insert = { bg = color.bg_insert, fg = color.bg, gui = 'bold' }
+    -- local mode_visual = { bg = color.bg_visual, fg = color.bg, gui = 'bold' }
+    -- local mode_replace = { bg = color.bg_replace, fg = color.bg, gui = 'bold' }
+    -- local mode_terminal = { bg = color.bg_terminal, fg = color.bg, gui = 'bold' }
 
     require('lualine').setup({
       options = {
-        theme = theme,
-        icons_enabled = true,
+        theme = {
+          normal = {
+            a = { bg = color.fg, fg = color.bg, gui = 'bold' },
+            b = { bg = color.bg, fg = color.fg_strong },
+            c = { bg = color.bg, fg = color.fg },
+            x = { bg = color.bg, fg = color.fg },
+            y = { bg = color.bg, fg = color.fg },
+            z = { bg = color.bg, fg = color.fg },
+          },
+          command = {
+            a = { bg = color.bg_command, fg = color.bg, gui = 'bold' },
+          },
+          insert = {
+            a = { bg = color.bg_insert, fg = color.bg, gui = 'bold' },
+          },
+          visual = {
+            a = { bg = color.bg_visual, fg = color.bg, gui = 'bold' },
+          },
+          replace = {
+            a = { bg = color.bg_replace, fg = color.bg, gui = 'bold' },
+          },
+          terminal = {
+            a = { bg = color.bg_terminal, fg = color.bg, gui = 'bold' },
+          },
+        },
+        icons_enabled = false,
         section_separators = { left = '', right = '' },
-        component_separators = { left = '⏐', right = '⏐' },
+        component_separators = { left = '', right = '' },
         disabled_filetypes = { 'tree' },
         always_divide_middle = true,
       },
@@ -44,11 +91,19 @@ layer.use({
         lualine_a = { 'mode' },
         lualine_b = {
           { 'filename', path = 1 },
-          { 'diagnostics', sources = { 'nvim_diagnostic' } },
         },
         lualine_c = {
-          'branch',
-          'b:gitsigns_status',
+          { 'branch', icons_enabled = true, icon = '' },
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+            icons_enabled = true,
+            sections = { 'error', 'warn' },
+            symbols = {
+              error = _G.__icons.error,
+              warn = _G.__icons.warning,
+            },
+          },
         },
         lualine_x = {},
         lualine_y = { 'filesize' },
@@ -56,13 +111,13 @@ layer.use({
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = {},
-        lualine_c = {
+        lualine_b = {
           { 'filename', path = 1 },
         },
+        lualine_c = {},
         lualine_x = {},
         lualine_y = {},
-        lualine_z = { 'filetype' },
+        lualine_z = {},
       },
       tabline = {},
       extensions = {},
