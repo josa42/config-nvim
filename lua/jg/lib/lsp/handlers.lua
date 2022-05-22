@@ -52,6 +52,13 @@ function M.setup(opts)
   vim.lsp.handlers['textDocument/definition'] = M.on_location
   vim.lsp.handlers['textDocument/typeDefinition'] = M.on_location
   vim.lsp.handlers['textDocument/implementation'] = M.on_location
+  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+    -- Use a sharp border with `FloatBorder` highlights
+    border = 'single',
+    width = 50,
+  })
+
+  -- open_floating_preview
 end
 
 return M

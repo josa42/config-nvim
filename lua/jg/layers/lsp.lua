@@ -53,7 +53,21 @@ layer.use({
     { 'v', __keymaps.codeaction, "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>" },
     { 'n', __keymaps.format_buffer, '<cmd>lua vim.lsp.buf.formatting()<cr>' },
     { 'n', __keymaps.codelens_action, '<cmd>lua vim.lsp.codelens.run()<cr>' },
-    { 'n', 'K', vim.lsp.buf.hover },
+    {
+      'n',
+      'K',
+      function()
+        local clients = vim.tbl_filter(function(client)
+          return client.supports_method('textDocument/hover')
+        end, vim.tbl_values(vim.lsp.buf_get_clients()))
+
+        if vim.tbl_isempty(clients) then
+          vim.cmd('normal! K')
+        else
+          vim.lsp.buf.hover()
+        end
+      end,
+    },
     { 'n', '<C-k>', vim.lsp.buf.signature_help },
   },
 
