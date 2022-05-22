@@ -84,6 +84,7 @@ layer.use({
     vim.opt.shiftwidth = 2
     vim.opt.expandtab = true
     vim.opt.wrap = false
+    vim.opt.linebreak = true
   end,
 
   autocmds = {
