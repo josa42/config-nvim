@@ -33,8 +33,6 @@ layer.use({
       hi! StatusLine   guibg=#21252B
     ]])
 
-    local theme = cp({}, require('lualine.themes.auto'))
-
     local color = {
       fg = '#7c818d',
       fg_strong = '#bcc3d2',
@@ -45,14 +43,6 @@ layer.use({
       bg_replace = '#e5a970',
       bg_terminal = '#f67680',
     }
-    -- local normal = { bg = color.bg, fg = color.fg }
-    -- local strong = { bg = color.bg, fg = color.fg_strong }
-
-    -- local mode_normal = { bg = color.fg, fg = color.bg, gui = 'bold' }
-    -- local mode_insert = { bg = color.bg_insert, fg = color.bg, gui = 'bold' }
-    -- local mode_visual = { bg = color.bg_visual, fg = color.bg, gui = 'bold' }
-    -- local mode_replace = { bg = color.bg_replace, fg = color.bg, gui = 'bold' }
-    -- local mode_terminal = { bg = color.bg_terminal, fg = color.bg, gui = 'bold' }
 
     require('lualine').setup({
       options = {
@@ -124,30 +114,5 @@ layer.use({
     })
   end,
 })
-
-function M.client_names()
-  local clients = {}
-  local icon = ' '
-
-  for _, client in pairs(vim.lsp.buf_get_clients()) do
-    clients[#clients + 1] = icon .. client.name
-  end
-
-  return table.concat(clients, ' ')
-end
-
-function M.messages()
-  local messages = {}
-
-  for _, client in pairs(vim.lsp.buf_get_clients()) do
-    for _, progress in pairs(client.messages.progress) do
-      if not progress.done then
-        table.insert(messages, progress.title .. ': ' .. progress.message)
-      end
-    end
-  end
-
-  return table.concat(messages, ' | ')
-end
 
 return M

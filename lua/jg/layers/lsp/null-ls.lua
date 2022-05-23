@@ -31,12 +31,20 @@ local jsAndJson = {
 
 function M.setup()
   local utils = require('null-ls.utils')
+
+  local eslintrc_root = utils.root_pattern(
+    '.eslintrc',
+    'eslintrc.json',
+    '.eslintrc.js',
+    'eslintrc.yaml',
+    'eslintrc.yml'
+  )
   local yarn_root = utils.root_pattern('.yarn')
   local pkg_root = utils.root_pattern('package.json')
 
   local eslint_root = function(p)
     local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
-    return yarn_root(bufname) or pkg_root(bufname)
+    return eslintrc_root(bufname) or yarn_root(bufname) or pkg_root(bufname)
   end
 
   local has_file = function(root, name)
@@ -71,25 +79,29 @@ function M.setup()
         condition = condition_eslint,
         runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
+        cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
         condition = condition_eslint,
         runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
+        cwd = eslint_root,
       }),
 
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({
+        filetypes = jsAndJson,
         condition = condition_eslint,
         runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
-        filetypes = jsAndJson,
+        cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
+        filetypes = jsAndJson,
         condition = condition_eslint,
         runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
-        filetypes = jsAndJson,
+        cwd = eslint_root,
       }),
 
       -- fixjson

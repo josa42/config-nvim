@@ -1,5 +1,4 @@
 local layer = require('jg.lib.layer')
-local paths = require('jg.lib.paths')
 
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 local ts_enable = 'all'

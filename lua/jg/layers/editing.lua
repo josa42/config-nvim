@@ -96,6 +96,7 @@ layer.use({
 layer.use({
   requires = { 'josa42/nvim-actions' },
   setup = function()
+    -- sort actions: gs / gz
     require('jg.actions').setup()
   end,
 })
@@ -181,12 +182,17 @@ layer.use({
 -- automatically create nested directories for new files
 
 layer.use({
-  requires = { 'jghauser/mkdir.nvim' },
   setup = function()
-    require('mkdir')
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      callback = function()
+        local dir = vim.fn.expand('<afile>:p:h')
+        if vim.fn.isdirectory(dir) == 0 then
+          vim.fn.mkdir(dir, 'p')
+        end
+      end,
+    })
   end,
 })
-
 --------------------------------------------------------------------------------
 
 layer.use({
