@@ -8,21 +8,21 @@ layer.use({
 
   map = {
     -- select tabs
-    { 'n', '<Tab>', ':tabnext<CR>', noremap = true },
-    { 'n', '<S-Tab>', ':tabprevious<CR>', noremap = true },
+    { 'n', '<Tab>', ':tabnext<CR>', desc = 'Select Next Tab' },
+    { 'n', '<S-Tab>', ':tabprevious<CR>', desc = 'Select Previous Tab' },
 
     -- move tabs
-    { 'n', 'm<Tab>', ':tabm +1<CR>', noremap = true },
-    { 'n', 'm<S-Tab>', ':tabm -1<CR>', noremap = true },
+    { 'n', 'm<Tab>', ':tabm +1<CR>', desc = 'Move Tab Right' },
+    { 'n', 'm<S-Tab>', ':tabm -1<CR>', desc = 'Move Tab Left' },
 
     -- move lines
-    { 'n', 'g<up>', ':m -2<cr>', noremap = true },
-    { 'n', 'g<down>', ':m +1<cr>', noremap = true },
-    { 'v', 'g<up>', ":m '<-2<CR>gv=gv", noremap = true },
-    { 'v', 'g<down>', ":m '>+1<CR>gv=gv", noremap = true },
+    { 'n', 'g<up>', ':m -2<cr>', desc = 'Move Line Up' },
+    { 'n', 'g<down>', ':m +1<cr>', desc = 'Move Line Down' },
+    { 'v', 'g<up>', ":m '<-2<CR>gv=gv", desc = 'Move Selection Up' },
+    { 'v', 'g<down>', ":m '>+1<CR>gv=gv", desc = 'Move Selection Down' },
 
     -- redo
-    { 'n', '<S-U>', '<C-R>', noremap = true },
+    { 'n', '<S-U>', '<C-R>', desc = 'Redo' },
 
     {
       'n',
@@ -32,72 +32,57 @@ layer.use({
         local syn_id_trans = vim.fn.synIDtrans(syn_id)
         print(('hi %s -> %s'):format(vim.fn.synIDattr(syn_id, 'name'), vim.fn.synIDattr(syn_id_trans, 'name')))
       end,
+      desc = 'Show Hightlight Group',
     },
 
-    -- folds
-    -- {
-    --   'n',
-    --   '<space><space>',
-    --   [[:exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>]],
-    --   noremap = true,
-    -- },
-
     -- Navigate panes
-    { '', '<C-Down>', '<C-W><C-J>', noremap = true },
-    { '', '<C-Up>', '<C-W><C-K>', noremap = true },
-    { '', '<C-Right>', '<C-W><C-L>', noremap = true },
-    { '', '<C-Left>', '<C-W><C-H>', noremap = true },
-
-    { '', '<Leader><Down>', '<C-W><C-J>', noremap = true },
-    { '', '<Leader><Up>', '<C-W><C-K>', noremap = true },
-    { '', '<Leader><Right>', '<C-W><C-L>', noremap = true },
-    { '', '<Leader><Left>', '<C-W><C-H>', noremap = true },
+    { '', '<C-Down>', '<C-W><C-J>', 'Focus Pane Below' },
+    { '', '<C-Up>', '<C-W><C-K>', 'Focus Pane Above' },
+    { '', '<C-Right>', '<C-W><C-L>', 'Focus Pane Right' },
+    { '', '<C-Left>', '<C-W><C-H>', 'Focus Pane Left' },
 
     -- Search
-    { 'n', '/', '/\\v', noremap = true },
-    { 'v', '/', '/\\v', noremap = true },
-    { 'c', '%s/', '%s/\\v', noremap = true },
+    { 'n', '/', '/\\v' },
+    { 'v', '/', '/\\v' },
+    { 'c', '%s/', '%s/\\v' },
 
     -- Deleting without yanking
-    { 'n', 'c', '"_c', noremap = true },
-    { 'x', 'c', '"_c', noremap = true },
-    { 'n', 'cc', '"_S', noremap = true },
-    { 'n', 'C', '"_C', noremap = true },
-    { 'x', 'C', '"_C', noremap = true },
-    { 'n', 's', '"_s', noremap = true },
-    { 'x', 's', '"_s', noremap = true },
-    { 'n', 'S', '"_S', noremap = true },
-    { 'x', 'S', '"_S', noremap = true },
-    { 'n', 'd', '"_d', noremap = true },
-    { 'x', 'd', '"_d', noremap = true },
-    { 'n', 'dd', '"_dd', noremap = true },
-    { 'n', 'D', '"_D', noremap = true },
-    { 'x', 'D', '"_D', noremap = true },
+    { 'n', 'c', '"_c' },
+    { 'x', 'c', '"_c' },
+    { 'n', 'cc', '"_S' },
+    { 'n', 'C', '"_C' },
+    { 'x', 'C', '"_C' },
+    { 'n', 's', '"_s' },
+    { 'x', 's', '"_s' },
+    { 'n', 'S', '"_S' },
+    { 'x', 'S', '"_S' },
+    { 'n', 'd', '"_d' },
+    { 'x', 'd', '"_d' },
+    { 'n', 'dd', '"_dd' },
+    { 'n', 'D', '"_D' },
+    { 'x', 'D', '"_D' },
 
     -- paste without yanking
-    { 'v', 'p', '"0p', noremap = true },
-    { 'v', 'P', '"0P', noremap = true },
+    { 'v', 'p', '"0p' },
+    { 'v', 'P', '"0P' },
 
     -- use x for copy
-    { 'n', 'x', 'd', noremap = true },
-    { 'x', 'x', 'd', noremap = true },
-    { 'n', 'xx', 'dd', noremap = true },
-    { 'n', 'X', 'D', noremap = true },
-    { 'x', 'X', 'D', noremap = true },
+    { 'n', 'x', 'd' },
+    { 'x', 'x', 'd' },
+    { 'n', 'xx', 'dd' },
+    { 'n', 'X', 'D' },
+    { 'x', 'X', 'D' },
 
     -- List navigation
-    { 'n', '<c-j>', ':cnext<CR>zz', noremap = true },
-    { 'n', '<c-k>', ':cprevious<CR>zz', noremap = true },
-
-    -- show highlight group
-    -- vim.cmd([[map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'<cr>]])
+    { 'n', '<c-j>', ':cnext<CR>zz' },
+    { 'n', '<c-k>', ':cprevious<CR>zz' },
 
     -- Keep cursor centered: next or previews search result
-    { 'n', 'n', 'nzzzv', noremap = true },
-    { 'n', 'N', 'Nzzzv', noremap = true },
+    { 'n', 'n', 'nzzzv' },
+    { 'n', 'N', 'Nzzzv' },
 
     -- Keep cursor centered: joining lines
-    { 'n', 'J', 'mzJ`z', noremap = true },
+    { 'n', 'J', 'mzJ`z' },
 
     -- toggle spell checker
     {
@@ -106,6 +91,7 @@ layer.use({
       function()
         vim.wo.spell = not vim.wo.spell
       end,
+      desc = 'Toggle Spell Checking',
     },
   },
 })
