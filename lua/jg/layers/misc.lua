@@ -15,7 +15,6 @@ layer.use({
     'antoinemadec/FixCursorHold.nvim',
 
     -- Editing
-    'Darazaki/indent-o-matic',
     'josa42/vim-templates',
 
     -- Files
@@ -25,9 +24,6 @@ layer.use({
   setup = function()
     require('diffview').setup({
       use_icons = false,
-    })
-    require('indent-o-matic').setup({
-      standard_widths = { 2, 4, 8 },
     })
   end,
 })

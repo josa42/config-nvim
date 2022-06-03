@@ -28,7 +28,7 @@ layer.use({
       ensure_installed = ts_enable,
       ignore_install = ts_ignore,
       highlight = { enable = true },
-      indent = { enable = false },
+      indent = { enable = true },
       autotag = { enable = false },
     })
   end,

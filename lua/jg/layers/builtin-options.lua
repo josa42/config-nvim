@@ -79,6 +79,10 @@ layer.use({
 layer.use({
   name = 'indent',
 
+  requires = {
+    'Darazaki/indent-o-matic',
+  },
+
   init = function()
     vim.opt.tabstop = 2
     vim.opt.shiftwidth = 2
@@ -87,17 +91,36 @@ layer.use({
     vim.opt.linebreak = true
   end,
 
-  autocmds = {
-    {
-      'FileType',
-      pattern = 'yaml',
-      callback = function()
-        vim.bo.tabstop = 2
-        vim.bo.softtabstop = 2
-        vim.bo.shiftwidth = 2
-        vim.bo.expandtab = true
+  setup = function()
+    require('indent-o-matic').setup({
+      standard_widths = { 2, 4 },
+
+      filetype_yaml = {
+        standard_widths = { 2, 4 },
+      },
+    })
+  end,
+
+  commands = {
+    Indent = {
+      function(evt)
+        local indent = tonumber(evt.fargs[1])
+
+        vim.opt.tabstop = indent
+        vim.opt.shiftwidth = indent
+        vim.opt.expandtab = true
+
+        if evt.bang then
+          vim.cmd('normal! mzggVG=`z')
+        end
       end,
+      nargs = 1,
+      bang = true,
+      bar = true,
     },
+  },
+
+  autocmds = {
     {
       'FileType',
       pattern = 'markdown',
