@@ -13,7 +13,6 @@ layer.use({
     vim.opt.signcolumn = 'yes'
 
     vim.opt.cursorline = true
-    vim.opt.colorcolumn = { 80, 120 }
 
     -- White space
     vim.opt.list = true
