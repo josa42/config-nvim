@@ -83,5 +83,13 @@
       "    end,",
       "  })"
     ]
+  },
+  "it should": {
+    "prefix": "its",
+    "body": [
+      "it('should $1', function()",
+      "  $0",
+      "end)"
+    ]
   }
 }
