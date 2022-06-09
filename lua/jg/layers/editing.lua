@@ -81,16 +81,6 @@ layer.use({
 })
 
 --------------------------------------------------------------------------------
-
-layer.use({
-  requires = { 'arthurxavierx/vim-caser' }, -- Change cases: gk
-  init = function()
-    -- g prefix
-    vim.g.caser_prefix = 'gk'
-  end,
-})
-
---------------------------------------------------------------------------------
 -- Motion actions
 
 layer.use({
