@@ -1,22 +1,18 @@
 -- stylelint-lsp
 local paths = require('jg.lib.paths')
 local null_ls = require('null-ls')
+local utils = require('null-ls.utils')
 local mason = require('mason-registry')
 
 local M = {}
 
-local function bin(name)
-  if vim.fn.executable(name) ~= 1 then
-    local ok, pkg = pcall(mason.get_package, name)
-    if ok and not pkg:is_installed() then
-      pkg:install()
-    else
-      vim.notify_once('binary for "' .. name .. '" is not installed')
-    end
-  end
-
-  return name
-end
+M.tools = {
+  'actionlint',
+  'eslint_d',
+  'fixjson',
+  'shellcheck',
+  'shfmt',
+}
 
 local jsAndJson = {
   'json',
@@ -30,7 +26,12 @@ local jsAndJson = {
 }
 
 function M.setup()
-  local utils = require('null-ls.utils')
+  for _, tool in ipairs(M.tools) do
+    local pkg = mason.get_package(tool)
+    if not pkg:is_installed() then
+      pkg:install()
+    end
+  end
 
   local eslintrc_root = utils.root_pattern(
     '.eslintrc',
@@ -73,12 +74,10 @@ function M.setup()
       -- eslint -> js; without json
       null_ls.builtins.diagnostics.eslint_d.with({
         runtime_condition = condition_eslint_without_json,
-        command = bin('eslint_d'),
         cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
         runtime_condition = condition_eslint_without_json,
-        command = bin('eslint_d'),
         cwd = eslint_root,
       }),
 
@@ -86,28 +85,22 @@ function M.setup()
       null_ls.builtins.diagnostics.eslint_d.with({
         filetypes = jsAndJson,
         runtime_condition = condition_eslint_with_json,
-        command = bin('eslint_d'),
         cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
         filetypes = jsAndJson,
         runtime_condition = condition_eslint_with_json,
-        command = bin('eslint_d'),
         cwd = eslint_root,
       }),
 
       -- fixjson
       null_ls.builtins.formatting.fixjson.with({
         runtime_condition = condition_not_eslint_with_json,
-        command = bin('fixjson'),
       }),
 
-      null_ls.builtins.formatting.stylua.with({
-        command = bin('stylua'),
-      }),
+      null_ls.builtins.formatting.stylua,
 
       null_ls.builtins.formatting.shfmt.with({
-        command = bin('shfmt'),
         extra_args = {
           '-i=2', -- indent: 0 for tabs (default), >0 for number of spaces
           '-bn', -- binary ops like && and | may start a line
@@ -122,12 +115,9 @@ function M.setup()
         runtime_condition = function(params)
           return params.bufname:match('.*%.github/workflows/.*%.yml')
         end,
-        command = bin('actionlint'),
-        args = { '-no-color', '-format', '{{json .}}', '--shellcheck=' .. bin('shellcheck'), '-' },
       }),
-      null_ls.builtins.diagnostics.shellcheck.with({
-        command = bin('shellcheck'),
-      }),
+
+      null_ls.builtins.diagnostics.shellcheck,
 
       null_ls.builtins.formatting.swiftformat,
     },

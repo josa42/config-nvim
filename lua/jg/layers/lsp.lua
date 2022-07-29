@@ -98,13 +98,12 @@ layer.use({
         },
       },
     })
-    require('jg.layers.lsp.null-ls').setup()
-
 
     require('mason').setup({})
+    require('jg.layers.lsp.null-ls').setup()
     require('mason-lspconfig').setup({
       ensure_installed = l.servers,
-      automatic_installation = false,
+      automatic_installation = true,
     })
     require('mason-lspconfig').setup_handlers({
       function(server_name) -- default handler (optional)
