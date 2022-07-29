@@ -14,6 +14,7 @@ l.servers = {
   'yamlls',
   'stylelint_lsp',
   'sourcekit',
+  'marksman',
 }
 
 layer.use({
