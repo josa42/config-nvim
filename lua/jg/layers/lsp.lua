@@ -100,8 +100,6 @@ layer.use({
     })
     require('jg.layers.lsp.null-ls').setup()
 
-    require('mason-registry.index').fixjson = 'jg.mason-registry.fixjson'
-    table.insert(require('mason.mappings.language').json, 'jsonfix')
 
     require('mason').setup({})
     require('mason-lspconfig').setup({
