@@ -1,18 +1,18 @@
 -- stylelint-lsp
 local paths = require('jg.lib.paths')
 local null_ls = require('null-ls')
+local mason = require('mason-registry')
 
 local M = {}
 
 local function bin(name)
-  local bin_path = paths.lspBin .. '/' .. name
-
-  if vim.fn.executable(bin_path) == 1 then
-    return bin_path
-  end
-
   if vim.fn.executable(name) ~= 1 then
-    vim.notify_once('binary for "' .. name .. '" is not installed')
+    local ok, pkg = pcall(mason.get_package, name)
+    if ok and not pkg:is_installed() then
+      pkg:install()
+    else
+      vim.notify_once('binary for "' .. name .. '" is not installed')
+    end
   end
 
   return name
