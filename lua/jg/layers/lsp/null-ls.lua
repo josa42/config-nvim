@@ -51,10 +51,6 @@ function M.setup()
     return utils.path.exists(utils.path.join(root, name))
   end
 
-  local condition_eslint = function(u)
-    return u.root_has_file('node_modules/.bin/eslint')
-  end
-
   local condition_eslint_without_json = function(p)
     local root = eslint_root(p)
     return has_file(root, 'node_modules/.bin/eslint')
@@ -76,13 +72,11 @@ function M.setup()
     sources = {
       -- eslint -> js; without json
       null_ls.builtins.diagnostics.eslint_d.with({
-        condition = condition_eslint,
         runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
         cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
-        condition = condition_eslint,
         runtime_condition = condition_eslint_without_json,
         command = bin('eslint_d'),
         cwd = eslint_root,
@@ -91,14 +85,12 @@ function M.setup()
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({
         filetypes = jsAndJson,
-        condition = condition_eslint,
         runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
         cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
         filetypes = jsAndJson,
-        condition = condition_eslint,
         runtime_condition = condition_eslint_with_json,
         command = bin('eslint_d'),
         cwd = eslint_root,
