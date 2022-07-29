@@ -4,12 +4,9 @@ _G.__keymaps = {
   find_config = '<c-c>',
   find_help = '<c-h>',
   trigger_completion = '<c-space>',
-  codeaction = '<leader>ac',
-  codelens_action = '<leader>al',
   goto_diagnostics_list = 'gll',
   goto_diagnostics_next = 'glj',
   goto_diagnostics_prev = 'glk',
-  format_buffer = 'gf',
 }
 
 _G.__icons = {

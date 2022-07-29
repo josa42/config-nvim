@@ -83,6 +83,7 @@ layer.use({
           { 'filename', path = 1 },
         },
         lualine_c = {
+          'fileformat',
           { 'branch', icons_enabled = true, icon = '' },
           {
             'diagnostics',
@@ -104,7 +105,9 @@ layer.use({
         lualine_b = {
           { 'filename', path = 1 },
         },
-        lualine_c = {},
+        lualine_c = {
+          'fileformat',
+        },
         lualine_x = {},
         lualine_y = {},
         lualine_z = {},
