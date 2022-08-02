@@ -44,6 +44,8 @@ require('jg.layers.snippets')
 require('jg.layers.colors')
 require('jg.layers.file-pairs')
 -- require('jg.layers.copilot')
+require('jg.layers.testing')
+require('jg.layers.tasks')
 
 -- File Navigations
 require('jg.layers.file-tree')
