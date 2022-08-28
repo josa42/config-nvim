@@ -1,0 +1,106 @@
+local paths = require('jg.lib.paths')
+
+-- local plugDir = paths.dataDir .. '/plugged'
+-- local plugFile = paths.dataDir .. '/site/autoload/plug.vim'
+-- local plugURL = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+
+local plug = vim.fn['plug#']
+local plug_begin = vim.fn['plug#begin']
+local plug_end = vim.fn['plug#end']
+
+local M = {}
+local plugins = {}
+
+function M.require(...)
+  for _, plugin in ipairs({ ... }) do
+    assert(vim.tbl_islist(plugin), 'plugin needs to be a table')
+    assert(plugin[1] ~= nil and #plugin[1] > 0, 'plugin name is mandatory')
+
+    local existing = vim.tbl_filter(function(p)
+      return p.name == plugin[1]
+    end, plugins)[1]
+
+    if existing ~= nil then
+      if plugin[2] ~= nil then
+        existing.options = vim.tbl_extend('force', existing.options or {}, plugin[2])
+      end
+    else
+      table.insert(plugins, { name = plugin[1], options = plugin[2] })
+    end
+  end
+
+  return M
+end
+
+local function exists(path)
+  return vim.fn.empty(vim.fn.glob(path)) == 0
+end
+
+local function startsWith(str, prefix)
+  return string.sub(str, 1, string.len(prefix)) == prefix
+end
+
+local function has_missing_plugs()
+  -- for _, p in pairs(vim.g.plugs) do
+  --   if type(p) ~= 'table' or startsWith(p.dir, plugDir) and not exists(p.dir) then
+  --     return true
+  --   end
+  -- end
+  return false
+end
+
+local function plug_install()
+  -- vim.cmd('PlugInstall --sync')
+end
+
+function M.run()
+  -- if not exists(plugFile) then
+  --   vim.cmd(('silent !curl -fLo %s --create-dirs %s'):format(plugFile, plugURL))
+  -- end
+  local packer_bootstrap = false
+
+  print(install_path)
+
+  if not exists(install_path) then
+    packer_bootstrap =
+      vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    vim.cmd([[packadd packer.nvim]])
+  end
+
+  local packer = require('packer')
+
+  packer.startup(function(use)
+    for _, plugin in pairs(plugins) do
+      print('use => ' .. plugin.name)
+      use(plugin.name, plugin.options or vim.empty_dict())
+    end
+  end)
+
+  -- return require('packer').startup(function(use)
+  --   -- My plugins here
+  --   -- use 'foo1/bar1.nvim'
+  --   -- use 'foo2/bar2.nvim'
+  --   for _, plugin in pairs(plugins) do
+  --     use(plugin.name, plugin.options or vim.empty_dict())
+  --   end
+  --
+  --   if packer_bootstrap then
+  --     require('packer').sync()
+  --   end
+  -- end)
+
+  --
+  -- plug_begin(plugDir)
+  -- for _, plugin in pairs(plugins) do
+  --   plug(plugin.name, plugin.options or vim.empty_dict())
+  -- end
+  -- plug_end()
+  --
+  -- if has_missing_plugs() then
+  --   plug_install()
+  -- end
+end
+
+return M

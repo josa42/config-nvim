@@ -1,6 +1,6 @@
 require('jg.lib.polyfills')
 
-local plug = require('jg.lib.plug')
+local plug = require('jg.lib.packer')
 
 local M = {}
 local l = {}
