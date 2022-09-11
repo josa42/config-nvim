@@ -1,8 +1,9 @@
 local layer = require('jg.lib.layer')
 
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-local ts_enable = 'all'
-local ts_ignore = { 'phpdoc', 'markdown' }
+local ts_install = 'all'
+local ts_ignore = { 'vim', 'phpdoc', 'markdown' }
+local ts_disable = { 'vim' }
 
 layer.use({
   enabled = true,
@@ -25,10 +26,10 @@ layer.use({
     local configs = require('nvim-treesitter.configs')
 
     configs.setup({
-      ensure_installed = ts_enable,
+      ensure_installed = ts_install,
       ignore_install = ts_ignore,
-      highlight = { enable = true },
-      indent = { enable = true },
+      highlight = { enable = true, disable = ts_disable },
+      indent = { enable = true, disable = ts_disable },
       autotag = { enable = false },
     })
   end,
