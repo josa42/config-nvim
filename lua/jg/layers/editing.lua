@@ -239,3 +239,13 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  requires = {
+    'axelvc/template-string.nvim',
+  },
+
+  setup = function()
+    require('template-string').setup()
+  end,
+})
