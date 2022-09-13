@@ -1,13 +1,4 @@
 {
-  "v": {
-    "prefix": [
-      "v"
-    ],
-    "description": "Description",
-    "body": [
-      "v: ${VISUAL}"
-    ]
-  },
   "badge": {
     "prefix": [
       "badge"
