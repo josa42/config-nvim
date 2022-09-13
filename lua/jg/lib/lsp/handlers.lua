@@ -44,9 +44,8 @@ end
 function M.setup(opts)
   opts = opts or {}
   if opts.diagnostics_ignored_codes then
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = M.filtered_on_publish_diagnostics(
-      opts.diagnostics_ignored_codes
-    )
+    vim.lsp.handlers['textDocument/publishDiagnostics'] =
+      M.filtered_on_publish_diagnostics(opts.diagnostics_ignored_codes)
   end
   vim.lsp.handlers['textDocument/declaration'] = M.on_location
   vim.lsp.handlers['textDocument/definition'] = M.on_location

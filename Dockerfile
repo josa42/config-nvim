@@ -41,7 +41,7 @@ RUN \
 
 RUN \
   curl -fLo /root/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ENV XDG_DATA_HOME=/root/.local/share
 ENV XDG_CONFIG_HOME=/root/.config

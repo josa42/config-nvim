@@ -1,5 +1,4 @@
 -- stylelint-lsp
-local paths = require('jg.lib.paths')
 local null_ls = require('null-ls')
 local utils = require('null-ls.utils')
 local mason = require('mason-registry')
@@ -12,6 +11,8 @@ M.tools = {
   'fixjson',
   'shellcheck',
   'shfmt',
+  'stylua',
+  'editorconfig-checker',
 }
 
 local jsAndJson = {
@@ -33,13 +34,8 @@ function M.setup()
     end
   end
 
-  local eslintrc_root = utils.root_pattern(
-    '.eslintrc',
-    'eslintrc.json',
-    '.eslintrc.js',
-    'eslintrc.yaml',
-    'eslintrc.yml'
-  )
+  local eslintrc_root =
+    utils.root_pattern('.eslintrc', 'eslintrc.json', '.eslintrc.js', 'eslintrc.yaml', 'eslintrc.yml')
   local yarn_root = utils.root_pattern('.yarn')
   local pkg_root = utils.root_pattern('package.json')
 
@@ -120,6 +116,10 @@ function M.setup()
       null_ls.builtins.diagnostics.shellcheck,
 
       null_ls.builtins.formatting.swiftformat,
+
+      null_ls.builtins.diagnostics.editorconfig_checker.with({
+        command = 'editorconfig-checker',
+      }),
     },
   })
 end
