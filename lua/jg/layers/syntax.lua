@@ -43,5 +43,6 @@ layer.use({
     'rhysd/vim-syntax-codeowners',
     'darfink/vim-plist',
     'josa42/vim-monkey-c',
+    'jxnblk/vim-mdx-js',
   },
 })
