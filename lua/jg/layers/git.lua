@@ -50,12 +50,12 @@ layer.use({
   end,
 
   map = {
-    { 'n', 'co', '<Plug>(git-conflict-ours)' },
-    { 'n', 'cb', '<Plug>(git-conflict-both)' },
-    { 'n', 'c0', '<Plug>(git-conflict-none)' },
-    { 'n', 'ct', '<Plug>(git-conflict-theirs)' },
-    { 'n', 'cn', '<Plug>(git-conflict-next-conflict)' },
-    { 'n', 'np', '<Plug>(git-conflict-prev-conflict)' },
+    { 'n', 'co', '<Plug>(git-conflict-ours)', desc = 'Conflict: use ours' },
+    { 'n', 'cb', '<Plug>(git-conflict-both)', desc = 'Conflict: use both' },
+    { 'n', 'c0', '<Plug>(git-conflict-none)', desc = 'Conflict: use none' },
+    { 'n', 'ct', '<Plug>(git-conflict-theirs)', desc = 'Conflict: use theirs' },
+    { 'n', 'cn', '<Plug>(git-conflict-next-conflict)', desc = 'Conflict: next' },
+    { 'n', 'cp', '<Plug>(git-conflict-prev-conflict)', desc = 'Conflict: previous' },
   },
 })
 
