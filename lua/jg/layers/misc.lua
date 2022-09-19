@@ -12,7 +12,7 @@ layer.use({
 layer.use({
   requires = {
     -- fix performance of CursorHold and CursorHoldI events
-    'antoinemadec/FixCursorHold.nvim',
+    -- 'antoinemadec/FixCursorHold.nvim',
 
     -- Editing
     'josa42/vim-templates',
