@@ -120,7 +120,7 @@ function M.setup()
       null_ls.builtins.diagnostics.editorconfig_checker.with({
         command = 'editorconfig-checker',
         runtime_condition = function(opt)
-          return opt.bufname:find('/node_modules/') == nil
+          return opt.bufname:find('/node_modules/') == nil and not opt.bufname:match('.*/yarn.lock$')
         end,
       }),
     },
