@@ -25,7 +25,7 @@ function M.read_json(path)
   end
 end
 
-function M.binExist(...)
+function M.bin_exists(...)
   for _, bin in ipairs({ ... }) do
     if vim.fn.executable(bin) ~= 1 then
       return false
