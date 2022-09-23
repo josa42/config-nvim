@@ -11,8 +11,11 @@ end
 function M.read(path)
   -- return io.lines(path):concat('\n')
   local file = io.open(path, 'r')
-  io.input(file)
-  return io.read('*a')
+  if file then
+    io.input(file)
+    return io.read('*a')
+  end
+  return ''
 end
 
 function M.read_json(path)
