@@ -53,7 +53,7 @@ layer.use({
     { 'n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
     { 'n', '<leader>ac', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
     { 'v', '<leader>ac', "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>" },
-    { 'n', 'ff', '<cmd>lua vim.lsp.buf.formatting()<cr>' },
+    { 'n', '<leader>F', '<cmd>lua vim.lsp.buf.format()<cr>' },
     { 'n', '<leader>al', '<cmd>lua vim.lsp.codelens.run()<cr>' },
     {
       'n',
