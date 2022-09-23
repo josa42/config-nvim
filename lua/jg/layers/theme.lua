@@ -9,11 +9,11 @@ layer.use({
 
   setup = function()
     vim.o.termguicolors = true
-    l.setColorScheme('theonedark')
+    l.set_color_scheme('theonedark')
   end,
 })
 
-function l.setColorScheme(theme)
+function l.set_color_scheme(theme)
   if vim.tbl_contains(vim.fn.getcompletion('', 'color'), theme) then
     vim.cmd('colorscheme ' .. theme)
   else

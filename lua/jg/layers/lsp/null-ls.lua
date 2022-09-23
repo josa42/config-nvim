@@ -15,7 +15,7 @@ M.tools = {
   'editorconfig-checker',
 }
 
-local jsAndJson = {
+local js_and_json = {
   'json',
   'jsonc',
   'javascript',
@@ -79,12 +79,12 @@ function M.setup()
 
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({
-        filetypes = jsAndJson,
+        filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
       }),
       null_ls.builtins.formatting.eslint_d.with({
-        filetypes = jsAndJson,
+        filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
       }),

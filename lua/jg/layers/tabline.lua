@@ -2,7 +2,7 @@ local layer = require('jg.lib.layer')
 
 local function map_tab(idx)
   return function()
-    require('tabline').switchTabIdx(idx)
+    require('tabline').switch_tab_idx(idx)
   end
 end
 

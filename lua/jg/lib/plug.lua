@@ -1,8 +1,8 @@
 local paths = require('jg.lib.paths')
 
-local plugDir = paths.data_dir .. '/plugged'
-local plugFile = paths.data_dir .. '/site/autoload/plug.vim'
-local plugURL = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+local plug_dir = paths.data_dir .. '/plugged'
+local plug_file = paths.data_dir .. '/site/autoload/plug.vim'
+local plug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 local plug = vim.fn['plug#']
 local plug_begin = vim.fn['plug#begin']
@@ -36,13 +36,13 @@ local function exists(path)
   return vim.fn.empty(vim.fn.glob(path)) == 0
 end
 
-local function startsWith(str, prefix)
+local function starts_with(str, prefix)
   return string.sub(str, 1, string.len(prefix)) == prefix
 end
 
 local function has_missing_plugs()
   for _, p in pairs(vim.g.plugs) do
-    if type(p) ~= 'table' or startsWith(p.dir, plugDir) and not exists(p.dir) then
+    if type(p) ~= 'table' or starts_with(p.dir, plug_dir) and not exists(p.dir) then
       return true
     end
   end
@@ -54,11 +54,11 @@ local function plug_install()
 end
 
 function M.run()
-  if not exists(plugFile) then
-    vim.cmd(('silent !curl -fLo %s --create-dirs %s'):format(plugFile, plugURL))
+  if not exists(plug_file) then
+    vim.cmd(('silent !curl -fLo %s --create-dirs %s'):format(plug_file, plug_url))
   end
 
-  plug_begin(plugDir)
+  plug_begin(plug_dir)
   for _, plugin in pairs(plugins) do
     plug(plugin.name, plugin.options or vim.empty_dict())
   end
