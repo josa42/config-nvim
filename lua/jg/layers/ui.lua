@@ -7,6 +7,11 @@ layer.use({
     'josa42/nvim-quickfix',
   },
 
+  commands = {
+    RG = { "lua require('jg.quickfix.tools').rg(<f-args>)", nargs = '+' },
+    FD = { "lua require('jg.quickfix.tools').fd(<f-args>)", nargs = '+' },
+  },
+
   setup = function()
     require('bqf').setup({
       auto_enable = true,

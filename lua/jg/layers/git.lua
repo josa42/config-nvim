@@ -24,6 +24,12 @@ layer.use({
     Fl = { 'silent! !fork log', label = 'Open Fork - log' },
     Fs = { 'silent! !fork status', label = 'Open Fork - status' },
   },
+
+  setup = function()
+    require('diffview').setup({
+      use_icons = false,
+    })
+  end,
 })
 
 layer.use({

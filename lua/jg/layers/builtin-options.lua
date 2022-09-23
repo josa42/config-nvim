@@ -49,10 +49,6 @@ layer.use({
     vim.opt.updatetime = 300 -- Smaller updatetime for CursorHold & CursorHoldI
     vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
 
-    -- Spell check
-    vim.opt.spell = false
-    vim.opt.spelllang = { 'en_gb', 'en_us', 'de_20' }
-
     --Splits
     vim.opt.splitbelow = true
     vim.opt.splitright = true

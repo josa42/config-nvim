@@ -83,15 +83,5 @@ layer.use({
 
     -- Keep cursor centered: joining lines
     { 'n', 'J', 'mzJ`z' },
-
-    -- toggle spell checker
-    {
-      { 'n', 'i' },
-      '<c-s>',
-      function()
-        vim.wo.spell = not vim.wo.spell
-      end,
-      desc = 'Toggle Spell Checking',
-    },
   },
 })

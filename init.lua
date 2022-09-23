@@ -43,19 +43,18 @@ require('jg.layers.textobjects')
 require('jg.layers.snippets')
 require('jg.layers.colors')
 require('jg.layers.file-pairs')
+require('jg.layers.spelling')
 -- require('jg.layers.copilot')
 
 -- File Navigations
 require('jg.layers.file-tree')
 require('jg.layers.fuzzy-finder')
+require('jg.layers.files')
 
 require('jg.layers.config')
 
 -- nvim dev stuff
 require('jg.layers.debug')
-
--- Misc - TODO split these up
-require('jg.layers.misc')
 
 -- install plugins
 require('jg.lib.layer').load()
