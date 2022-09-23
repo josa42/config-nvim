@@ -2,7 +2,7 @@
 -- local util = require 'lspconfig.util'
 -- configs.eslint = {
 --   default_config = {
---     cmd = { paths.lspBin .. '/eslint-ls', '--stdio' },
+--     cmd = { paths.lsp_bin .. '/eslint-ls', '--stdio' },
 --     filetypes = { 'javascript', 'typescript', 'json', 'jsonc' };
 --     root_dir = util.root_pattern(".eslintrc", '.eslintrc.json', '.eslintrc.js')
 --   };
@@ -10,7 +10,7 @@
 --
 -- local M = {}
 --
--- local eslintLS = paths.lspBin .. '/eslint-ls'
+-- local eslintLS = paths.lsp_bin .. '/eslint-ls'
 --
 -- function M.setup(setup)
 --   setup(lsp.eslint, {

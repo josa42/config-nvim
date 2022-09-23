@@ -243,7 +243,7 @@ layer.use({
     end
 
     function ts.find_config()
-      builtin.find_files(set_path(paths.configDir))
+      builtin.find_files(set_path(paths.config_dir))
     end
 
     function ts.find_docs()

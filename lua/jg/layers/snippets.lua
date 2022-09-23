@@ -12,6 +12,6 @@ layer.use({
   },
 
   init = function()
-    vim.g.vsnip_snippet_dir = paths.configDir .. '/vsnip'
+    vim.g.vsnip_snippet_dir = paths.config_dir .. '/vsnip'
   end,
 })

@@ -19,7 +19,7 @@ layer.use({
 
   init = function()
     vim.g.markdown_composer_custom_css = {
-      'file://' .. paths.configDir .. '/files/euclio--vim-markdown-composer.css',
+      'file://' .. paths.config_dir .. '/files/euclio--vim-markdown-composer.css',
     }
     vim.g.markdown_composer_syntax_theme = 'Atom One Dark'
     vim.g.markdown_composer_open_browser = 0

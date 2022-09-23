@@ -35,7 +35,7 @@ layer.use({
     vim.opt.swapfile = false
 
     -- Persistent undo
-    vim.opt.undodir = paths.dataDir .. '/undo'
+    vim.opt.undodir = paths.data_dir .. '/undo'
     vim.opt.undofile = true
 
     vim.opt.conceallevel = 2

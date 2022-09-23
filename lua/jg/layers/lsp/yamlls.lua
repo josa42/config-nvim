@@ -4,13 +4,13 @@ local settings = {
   yaml = {
     disableAdditionalProperties = false,
     schemas = {
-      ['file://' .. paths.configHome .. '/json-schema/tmuxinator.schema.json'] = {
+      ['file://' .. paths.config_home .. '/json-schema/tmuxinator.schema.json'] = {
         '/Users/josa/.tmuxinator/*.yml',
       },
-      ['file://' .. paths.configHome .. '/json-schema/bitbucket-pipeline.schema.json'] = {
+      ['file://' .. paths.config_home .. '/json-schema/bitbucket-pipeline.schema.json'] = {
         'bitbucket-pipelines.yml',
       },
-      ['file://' .. paths.configHome .. '/json-schema/alacritty.schema.json'] = {
+      ['file://' .. paths.config_home .. '/json-schema/alacritty.schema.json'] = {
         'alacritty.yml',
       },
       ['http://json.schemastore.org/github-workflow'] = {

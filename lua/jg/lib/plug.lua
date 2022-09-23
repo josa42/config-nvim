@@ -1,7 +1,7 @@
 local paths = require('jg.lib.paths')
 
-local plugDir = paths.dataDir .. '/plugged'
-local plugFile = paths.dataDir .. '/site/autoload/plug.vim'
+local plugDir = paths.data_dir .. '/plugged'
+local plugFile = paths.data_dir .. '/site/autoload/plug.vim'
 local plugURL = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 local plug = vim.fn['plug#']

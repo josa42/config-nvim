@@ -2,12 +2,12 @@ local M = {}
 
 M.home = os.getenv('HOME')
 
-M.dataHome = os.getenv('XDG_DATA_HOME') or M.home .. '/.local/share'
-M.dataDir = M.dataHome .. '/nvim'
+M.data_home = os.getenv('XDG_DATA_HOME') or M.home .. '/.local/share'
+M.data_dir = M.data_home .. '/nvim'
 
-M.configHome = os.getenv('XDG_CONFIG_HOME') or M.home .. '/.config'
-M.configDir = M.configHome .. '/nvim'
+M.config_home = os.getenv('XDG_CONFIG_HOME') or M.home .. '/.config'
+M.config_dir = M.config_home .. '/nvim'
 
-M.lspBin = os.getenv('NVIM_TOOLS_BIN') or M.dataHome .. '/nvim-tools/bin'
+M.lsp_bin = os.getenv('NVIM_TOOLS_BIN') or M.data_home .. '/nvim-tools/bin'
 
 return M
