@@ -28,20 +28,6 @@ layer.use({
   end,
 })
 
-layer.use({
-  requires = {
-    'sudormrfbin/cheatsheet.nvim',
-  },
-
-  setup = function()
-    require('cheatsheet').setup({
-      bundled_cheatsheets = {
-        disabled = { 'lua', 'markdown', 'nerd-fonts', 'netrw', 'regex', 'unicode' },
-      },
-    })
-  end,
-})
-
 local l = {}
 layer.use({
   map = function()
