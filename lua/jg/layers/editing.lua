@@ -1,5 +1,18 @@
 local layer = require('jg.lib.layer')
 
+layer.use({
+  map = {
+    -- move lines
+    { 'n', 'g<up>', ':m -2<cr>', desc = 'Move Line Up' },
+    { 'n', 'g<down>', ':m +1<cr>', desc = 'Move Line Down' },
+    { 'v', 'g<up>', ":m '<-2<CR>gv=gv", desc = 'Move Selection Up' },
+    { 'v', 'g<down>', ":m '>+1<CR>gv=gv", desc = 'Move Selection Down' },
+
+    -- redo
+    { 'n', '<S-U>', '<C-R>', desc = 'Redo' },
+  },
+})
+
 --------------------------------------------------------------------------------
 
 layer.use({

@@ -7,34 +7,6 @@ layer.use({
   end,
 
   map = {
-    -- select tabs
-    { 'n', '<Tab>', ':tabnext<CR>', desc = 'Select Next Tab' },
-    { 'n', '<S-Tab>', ':tabprevious<CR>', desc = 'Select Previous Tab' },
-
-    -- move tabs
-    { 'n', 'm<Tab>', ':tabm +1<CR>', desc = 'Move Tab Right' },
-    { 'n', 'm<S-Tab>', ':tabm -1<CR>', desc = 'Move Tab Left' },
-
-    -- move lines
-    { 'n', 'g<up>', ':m -2<cr>', desc = 'Move Line Up' },
-    { 'n', 'g<down>', ':m +1<cr>', desc = 'Move Line Down' },
-    { 'v', 'g<up>', ":m '<-2<CR>gv=gv", desc = 'Move Selection Up' },
-    { 'v', 'g<down>', ":m '>+1<CR>gv=gv", desc = 'Move Selection Down' },
-
-    -- redo
-    { 'n', '<S-U>', '<C-R>', desc = 'Redo' },
-
-    {
-      'n',
-      '<space>h',
-      function()
-        local syn_id = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
-        local syn_id_trans = vim.fn.synIDtrans(syn_id)
-        print(('hi %s -> %s'):format(vim.fn.synIDattr(syn_id, 'name'), vim.fn.synIDattr(syn_id_trans, 'name')))
-      end,
-      desc = 'Show Hightlight Group',
-    },
-
     -- Navigate panes
     { '', '<C-Down>', '<C-W><C-J>', 'Focus Pane Below' },
     { '', '<C-Up>', '<C-W><C-K>', 'Focus Pane Above' },

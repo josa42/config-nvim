@@ -19,5 +19,13 @@ layer.use({
     { 'n', '<leader>7', map_tab(7) },
     { 'n', '<leader>8', map_tab(8) },
     { 'n', '<leader>9', map_tab(9) },
+
+    -- select tabs
+    { 'n', '<Tab>', ':tabnext<CR>', desc = 'Select Next Tab' },
+    { 'n', '<S-Tab>', ':tabprevious<CR>', desc = 'Select Previous Tab' },
+
+    -- move tabs
+    { 'n', 'm<Tab>', ':tabm +1<CR>', desc = 'Move Tab Right' },
+    { 'n', 'm<S-Tab>', ':tabm -1<CR>', desc = 'Move Tab Left' },
   },
 })
