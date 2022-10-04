@@ -4,6 +4,7 @@ vim.filetype.add({
   extension = {
     conf = 'conf',
     template = 'html',
+    mc = 'monkeyc',
   },
   filename = {
     ['Vagrantfile'] = 'ruby',
