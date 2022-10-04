@@ -1,7 +1,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  enable = false,
+  enabled = true,
   requires = {
     'kana/vim-textobj-user',
     'kana/vim-textobj-entire', --         ae | ie

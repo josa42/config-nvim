@@ -11,6 +11,8 @@ l.setup_handlers = {}
 l.layer_names = {}
 
 function M.use(opts)
+  l.assert_keys(opts, { 'autocmds', 'commands', 'enabled', 'init', 'map', 'name', 'requires', 'setup' })
+
   if opts.enabled == false then
     return
   end
@@ -112,6 +114,14 @@ function l.to_dict(tbl)
   return dict
 end
 
+function l.to_keys(tbl)
+  local keys = {}
+  for key in pairs(l.to_dict(tbl)) do
+    table.insert(keys, key)
+  end
+  return keys
+end
+
 function l.to_dict_or_nil(tbl)
   local dict = l.to_dict(tbl)
 
@@ -129,6 +139,12 @@ function l.to_list(tbl)
   end
 
   return list
+end
+
+function l.assert_keys(tbl, keys)
+  for _, k in pairs(l.to_keys(tbl)) do
+    assert(vim.tbl_contains(keys, k), k .. ' is not in ' .. vim.inspect(keys))
+  end
 end
 
 function l.apply_key_maps(maps)
