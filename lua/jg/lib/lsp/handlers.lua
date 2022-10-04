@@ -2,18 +2,6 @@ local util = require('vim.lsp.util')
 
 local M = {}
 
--- Filter diagnostics
-function M.filtered_on_publish_diagnostics(ignored_codes)
-  return function(_, result, ...)
-    -- Hide some diagnostics
-    result.diagnostics = vim.tbl_filter(function(diagnostic)
-      return not vim.tbl_contains(ignored_codes[diagnostic.source] or {}, diagnostic.code)
-    end, result.diagnostics or {})
-
-    return require('vim.lsp.diagnostic').on_publish_diagnostics(nil, result, ...)
-  end
-end
-
 function M.on_location(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then
     return nil
@@ -41,12 +29,7 @@ function M.on_location(_, result, ctx, _)
   end
 end
 
-function M.setup(opts)
-  opts = opts or {}
-  if opts.diagnostics_ignored_codes then
-    vim.lsp.handlers['textDocument/publishDiagnostics'] =
-      M.filtered_on_publish_diagnostics(opts.diagnostics_ignored_codes)
-  end
+function M.setup()
   vim.lsp.handlers['textDocument/declaration'] = M.on_location
   vim.lsp.handlers['textDocument/definition'] = M.on_location
   vim.lsp.handlers['textDocument/typeDefinition'] = M.on_location
