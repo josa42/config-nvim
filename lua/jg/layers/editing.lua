@@ -108,35 +108,26 @@ layer.use({
 -- Surround
 
 layer.use({
-  requires = { 'machakann/vim-sandwich' },
+  requires = {
+    'kylechui/nvim-surround',
+  },
+
   setup = function()
-    vim.cmd([[let sandwich#recipes = sandwich#default_recipes]])
-    --
-    vim.g['sandwich#recipes'] = vim.fn.extend(vim.fn.deepcopy(vim.g['sandwich#default_recipes'] or {}), {
-      { buns = { 'act(() => {', '})' }, nesting = 1, input = { 'c' } },
-      {
-        buns = { 'act(() => {', '});' },
-        motionwise = { 'line' },
-        kind = { 'add' },
-        linewise = 1,
-        command = { "'[+1,']-1normal! >>" },
-        input = { 'a' },
+    require('nvim-surround').setup({
+      keymaps = {
+        insert = nil, -- '<C-g>s',
+        insert_line = nil, -- '<C-g>S',
+        normal = 'sa',
+        normal_cur = nil, --  'yss',
+        normal_line = nil, --  'yS',
+        normal_cur_line = nil, --  'ySS',
+        visual = 'sa',
+        visual_line = nil, --  'gS',
+        delete = 'sd',
+        change = 'sr',
       },
-      {
-        buns = { 'await act(async () => {', '});' },
-        motionwise = { 'line' },
-        kind = { 'add' },
-        linewise = 1,
-        command = { "'[+1,']-1normal! >>" },
-        input = { 'A' },
-      },
-      {
-        buns = { 'act(() => {', '})' },
-        motionwise = { 'line' },
-        kind = { 'delete' },
-        linewise = 1,
-        command = { "'[,']normal! <<" },
-        input = { 'a' },
+      surrounds = {
+        v = { add = { '${', '}' } },
       },
     })
   end,
@@ -196,6 +187,7 @@ layer.use({
     })
   end,
 })
+
 --------------------------------------------------------------------------------
 
 layer.use({
