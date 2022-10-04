@@ -12,8 +12,9 @@ layer.use({
     FD = { "lua require('jg.quickfix.tools').fd(<f-args>)", nargs = '+' },
   },
 
-  setup = function()
-    require('bqf').setup({
+  setup = {
+    {
+      'bqf',
       auto_enable = true,
       auto_resize_height = true,
       preview = {
@@ -21,8 +22,8 @@ layer.use({
           return not vim.api.nvim_buf_get_name(bufnr):match('^fugitive://')
         end,
       },
-    })
-  end,
+    },
+  },
 })
 
 layer.use({
@@ -33,20 +34,19 @@ layer.use({
     'MunifTanjim/nui.nvim',
   },
 
-  setup = function()
-    require('dressing').setup({
-      input = {
-        anchor = 'NW',
-        border = 'rounded',
-        default_prompt = '→',
-        override = function(conf)
-          conf.row = 1
-          return conf
-        end,
-      },
-      select = { enabled = false },
-    })
-  end,
+  setup = {
+    'dressing',
+    input = {
+      anchor = 'NW',
+      border = 'rounded',
+      default_prompt = '→',
+      override = function(conf)
+        conf.row = 1
+        return conf
+      end,
+    },
+    select = { enabled = false },
+  },
 })
 
 layer.use({
@@ -62,16 +62,18 @@ layer.use({
     }
   end,
 
-  setup = function()
-    require('diaglist').init({
+  setup = {
+    {
+      'diaglist',
+      'init',
       -- optional settings
       -- below are defaults
       debug = false,
 
       -- increase for noisy servers
       debounce_ms = 150,
-    })
-  end,
+    },
+  },
 })
 
 layer.use({

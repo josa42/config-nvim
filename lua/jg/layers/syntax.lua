@@ -22,17 +22,16 @@ layer.use({
     },
   },
 
-  setup = function()
-    local configs = require('nvim-treesitter.configs')
-
-    configs.setup({
+  setup = {
+    {
+      'nvim-treesitter.configs',
       ensure_installed = ts_install,
       ignore_install = ts_ignore,
       highlight = { enable = true, disable = ts_disable },
       indent = { enable = true, disable = ts_disable },
       autotag = { enable = false },
-    })
-  end,
+    },
+  },
 })
 
 layer.use({

@@ -46,8 +46,21 @@ function M.use(opts)
     table.insert(l.init_handlers, opts.init)
   end
 
-  if type(opts.setup) == 'function' then
-    table.insert(l.setup_handlers, opts.setup)
+  if type(opts.setup) ~= 'nil' then
+    table.insert(l.setup_handlers, function()
+      local opts_setup = l.try_call(opts.setup) or {}
+      for _, setup in ipairs(opts_setup) do
+        setup = l.try_call(setup)
+        if type(setup) == 'string' then
+          require(setup).setup()
+        elseif type(setup) == 'table' then
+          local mod = l.to_list(setup)[1]
+          local setup_fn = l.to_list(setup)[2] or 'setup'
+
+          require(mod)[setup_fn](l.to_dict(setup))
+        end
+      end
+    end)
   end
 
   table.insert(l.setup_handlers, function()

@@ -9,12 +9,13 @@ layer.use({
     { 'n', '#', '<Plug>(comment_toggle_linewise_current)' },
   },
 
-  setup = function()
-    require('Comment').setup()
-
-    local ft = require('Comment.ft')
-    ft.monkeyc = { '//%s', '/*%s*/' }
-    ft.json = { '//%s', '/*%s*/' }
-    ft.jsonc = { '//%s', '/*%s*/' }
-  end,
+  setup = {
+    { 'Comment' },
+    function()
+      local ft = require('Comment.ft')
+      ft.monkeyc = { '//%s', '/*%s*/' }
+      ft.json = { '//%s', '/*%s*/' }
+      ft.jsonc = { '//%s', '/*%s*/' }
+    end,
+  },
 })

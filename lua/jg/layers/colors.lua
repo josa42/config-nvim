@@ -5,11 +5,12 @@ layer.use({
   requires = {
     'NvChad/nvim-colorizer.lua',
   },
-  setup = function()
-    require('colorizer').setup({
+  setup = {
+    {
+      'colorizer',
       user_default_options = {
         mode = 'virtualtext',
       },
-    })
-  end,
+    },
+  },
 })

@@ -86,15 +86,16 @@ layer.use({
     vim.opt.linebreak = true
   end,
 
-  setup = function()
-    require('indent-o-matic').setup({
+  setup = {
+    {
+      'indent-o-matic',
       standard_widths = { 2, 4 },
 
       filetype_yaml = {
         standard_widths = { 2, 4 },
       },
-    })
-  end,
+    },
+  },
 
   commands = {
     Indent = {
