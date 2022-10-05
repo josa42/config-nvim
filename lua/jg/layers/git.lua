@@ -12,8 +12,8 @@ layer.use({
     -- reset file
     ResetFile = {
       function()
-        vim.cmd('silent !git checkout HEAD -- %')
-        vim.cmd('edit!')
+        vim.fn.system('git checkout HEAD -- %')
+        vim.cmd.edit({ bang = true })
       end,
       nargs = 0,
     },
@@ -83,7 +83,7 @@ layer.use({
       },
     })
 
-    vim.cmd([[hi ConflictMarkerCommonAncestorsHunk guibg=#4F3058]])
+    vim.api.nvim_set_hl(0, 'ConflictMarkerCommonAncestorsHunk', { bg = '#4F3058' })
   end,
 })
 

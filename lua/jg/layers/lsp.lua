@@ -64,7 +64,7 @@ layer.use({
         end, vim.tbl_values(vim.lsp.buf_get_clients()))
 
         if vim.tbl_isempty(clients) then
-          vim.cmd('normal! K')
+          vim.cmd.normal({ 'K', bang = true })
         else
           vim.lsp.buf.hover()
         end
@@ -164,9 +164,6 @@ layer.use({
   },
 
   setup = function()
-    vim.cmd('hi! link FidgetTitle Title')
-    vim.cmd('hi! link FidgetTask Normal')
-
     require('fidget').setup({
       text = {
         spinner = 'dots',

@@ -15,8 +15,8 @@ layer.use({
 
 function l.set_color_scheme(theme)
   if vim.tbl_contains(vim.fn.getcompletion('', 'color'), theme) then
-    vim.cmd('colorscheme ' .. theme)
+    vim.cmd.colorscheme(theme)
   else
-    print('[error] colorscheme "' .. theme .. '" not found!')
+    print(('[error] colorscheme "%s" not found!'):format(theme))
   end
 end

@@ -50,12 +50,12 @@ local function has_missing_plugs()
 end
 
 local function plug_install()
-  vim.cmd('PlugInstall --sync')
+  vim.cmd.PlugInstall('--sync')
 end
 
 function M.run()
   if not exists(plug_file) then
-    vim.cmd(('silent !curl -fLo %s --create-dirs %s'):format(plug_file, plug_url))
+    vim.fn.system(('curl -fLo %s --create-dirs %s'):format(plug_file, plug_url))
   end
 
   plug_begin(plug_dir)

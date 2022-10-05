@@ -25,7 +25,7 @@ layer.use({
 
         vim.fn.system('mv ' .. dir .. '/.vim ' .. gdir)
 
-        vim.cmd([[ ProjectConfig ]])
+        vim.cmd.ProjectConfig()
       end
     end,
   },

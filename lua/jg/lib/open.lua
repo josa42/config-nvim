@@ -27,7 +27,7 @@ function M.switch_to(filepath, pos)
 end
 
 function M.edit(command, filename, pos)
-  vim.cmd(string.format('%s %s', command, vim.fn.fnameescape(filename)))
+  vim.cmd(('%s %s'):format(command, vim.fn.fnameescape(filename)))
   if pos ~= nil then
     pcall(vim.api.nvim_win_set_cursor, 0, pos)
   end

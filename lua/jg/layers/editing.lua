@@ -206,14 +206,14 @@ layer.use({
 
     local function toggle()
       local nr = vim.fn.winnr('$')
-      vim.cmd('cwindow')
+      vim.cmd.cwindow()
       if nr == vim.fn.winnr('$') then
-        vim.cmd('cclose')
+        vim.cmd.cclose()
       end
     end
 
     local function refresh()
-      vim.cmd('copen')
+      vim.cmd.copen()
     end
 
     return {
@@ -271,7 +271,7 @@ layer.use({
         function()
           if not vim.b.venn_enabled then
             vim.b.venn_enabled = true
-            vim.cmd([[setlocal ve=all]])
+            vim.opt_local.virtualedit = 'all'
             -- draw a line on HJKL keystokes
             vim.api.nvim_buf_set_keymap(0, 'n', 'J', '<C-v>j:VBox<CR>', { noremap = true })
             vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<C-v>k:VBox<CR>', { noremap = true })
@@ -280,8 +280,8 @@ layer.use({
             -- draw a box by pressing "f" with visual selection
             vim.api.nvim_buf_set_keymap(0, 'v', 'f', ':VBox<CR>', { noremap = true })
           else
-            vim.cmd([[setlocal ve=]])
-            vim.cmd([[mapclear <buffer>]])
+            vim.opt_local.virtualedit = ''
+            vim.cmd.mapclear('<buffer>')
             vim.b.venn_enabled = nil
           end
         end,

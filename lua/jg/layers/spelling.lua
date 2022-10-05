@@ -33,8 +33,8 @@ layer.use({
         { width = 40, max_height = 10, relative = 'cursor', position = 1 },
         function(word)
           if word then
-            vim.cmd('normal! ciw' .. word)
-            vim.cmd('stopinsert')
+            vim.cmd.normal({ 'ciw' .. word, bang = true })
+            vim.cmd.stopinsert()
           end
         end
       )

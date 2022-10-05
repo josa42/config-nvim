@@ -106,7 +106,7 @@ layer.use({
         vim.opt.expandtab = true
 
         if evt.bang then
-          vim.cmd('normal! mzggVG=`z')
+          vim.cmd.normal({ 'mzggVG=`z', bang = true })
         end
       end,
       nargs = 1,
