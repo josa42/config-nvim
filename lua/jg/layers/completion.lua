@@ -72,31 +72,23 @@ layer.use({
     --   TypeParameter = '  ',
     -- }
 
-    local source_labels = {
-      buffer = '[buf]',
-      nvim_lsp = '[lsp]',
-      vsnip = '[snip]',
-      nvim_lua = '[lua]',
-      path = '[path]',
-    }
-
     local cmp = require('cmp')
 
-    local cmp_toggle = function()
+    local call_if_visible = function(fn, fallback)
       if cmp.visible() then
-        cmp.close()
+        fn()
       else
-        cmp.complete()
+        fallback()
       end
+    end
+
+    local cmp_toggle = function()
+      call_if_visible(cmp.close, cmp.complete)
     end
 
     local visible_map = function(fn)
       return cmp.mapping(function(fallback)
-        if cmp.visible() then
-          fn()
-        else
-          fallback()
-        end
+        call_if_visible(fn, fallback)
       end, { 'i', 's' })
     end
 
@@ -117,12 +109,12 @@ layer.use({
         format = function(entry, item)
           return vim.tbl_extend('force', item, {
             kind = kind_icons[item.kind] or item.kind,
-            -- menu = source_labels[entry.source.name] or ('[' .. entry.source.name .. ']'),
           })
         end,
       },
       mapping = {
-        ['<C-Space>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
+        ['<C-e>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
+        ['<C-space>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
         ['<Down>'] = visible_map(cmp.select_next_item),
