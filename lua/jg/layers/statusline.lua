@@ -24,13 +24,10 @@ layer.use({
   },
 
   setup = function()
-    local cp = function(trg, src)
-      return vim.tbl_deep_extend('force', trg, src)
-    end
-
-    vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#21252B' })
-    vim.api.nvim_set_hl(0, 'StatusLine', { bg = '#21252B' })
-
+    vim.cmd([[
+      hi! StatusLineNC guibg=#21252B
+      hi! StatusLine   guibg=#21252B
+    ]])
     local color = {
       fg = '#7c818d',
       fg_strong = '#bcc3d2',
