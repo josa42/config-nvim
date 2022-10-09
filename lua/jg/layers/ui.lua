@@ -26,7 +26,13 @@ layer.use({
 })
 
 layer.use({
-  enabled = true,
+  requires = {
+    'josa42/nvim-ui',
+  },
+})
+
+layer.use({
+  enabled = false,
 
   requires = {
     'stevearc/dressing.nvim',
