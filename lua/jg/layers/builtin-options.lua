@@ -65,9 +65,12 @@ layer.use({
     -- pum
     vim.opt.pumblend = 0
     vim.opt.wildoptions = 'pum'
-    vim.opt.shortmess = vim.opt.shortmess + 'c' -- don't give |ins-completion-menu| messages.
+    vim.opt.shortmess:append('c') -- don't give |ins-completion-menu| messages.
 
     vim.g.nerdfont = true
+
+    -- split
+    vim.opt.splitkeep = 'topline'
   end,
 })
 
@@ -171,14 +174,14 @@ layer.use({
   name = 'clipboard',
 
   init = function()
-    vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
+    vim.opt.clipboard = { 'unnamedplus' }
   end,
 
   autocmds = {
     {
       { 'BufWrite', 'InsertLeave' },
       callback = function()
-        vim.o.paste = false
+        vim.opt.paste = false
       end,
     },
     {
