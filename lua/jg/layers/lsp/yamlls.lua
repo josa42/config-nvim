@@ -3,6 +3,7 @@ local paths = require('jg.lib.paths')
 local settings = {
   yaml = {
     disableAdditionalProperties = false,
+    schemaStore = { enable = true },
     schemas = {
       ['file://' .. paths.config_home .. '/json-schema/tmuxinator.schema.json'] = {
         '/Users/josa/.tmuxinator/*.yml',
