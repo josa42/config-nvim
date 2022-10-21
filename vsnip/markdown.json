@@ -7,5 +7,39 @@
     "body": [
       "[![Test](https://github.com/josa42/${1:repo}/workflows/${2:Main}/badge.svg?branch=master)](https://github.com/josa42/${1}/actions?query=workflow%3A${2})"
     ]
+  },
+  "pkg-docs": {
+    "prefix": [
+      "pkg-docs"
+    ],
+    "body": [
+      "## Quick overview",
+      "",
+      "| Feature                        | Status |",
+      "| ------------------------------ | ------ |",
+      "| 🌎 Internationalization        | ✅/❌  |",
+      "| ♿︎ WCAG compliant              | ✅/❌  |",
+      "| 🧪 React Testing Library tests | ✅/❌  |",
+      "",
+      "## Architecture",
+      "",
+      "<!-- Anything notable about how the app/package is structured?  -->",
+      "",
+      "## Usage",
+      "",
+      "<!-- For packages, how should they be used? Any examples? -->",
+      "",
+      "## Historical Context",
+      "",
+      "<!-- Why was this needed? Would anything change if you were to be asked to reimplement this today? -->",
+      "",
+      "## General notes",
+      "",
+      "<!-- Anything else that you think future engineers should be aware of? -->",
+      "",
+      "## TODO",
+      "",
+      "<!-- Stuff you know still needs to be done -->"
+    ]
   }
 }
