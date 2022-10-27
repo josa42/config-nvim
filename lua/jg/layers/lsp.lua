@@ -13,7 +13,6 @@ l.servers = {
   'tsserver',
   'yamlls',
   'stylelint_lsp',
-  'sourcekit',
   'marksman',
 }
 
@@ -90,21 +89,23 @@ layer.use({
   end,
 
   setup = function()
+    local setup_server = function(name)
+      local ok, setup = pcall(require, 'jg.layers.lsp.' .. name)
+      require('lspconfig')[name].setup(vim.tbl_extend('keep', ok and setup() or {}, {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      }))
+    end
+
     require('jg.lib.lsp.handlers').setup()
     require('mason').setup({})
-    require('jg.layers.lsp.null-ls').setup()
+    require('mason-lspconfig').setup_handlers({ setup_server })
     require('mason-lspconfig').setup({
       ensure_installed = l.servers,
       automatic_installation = true,
     })
-    require('mason-lspconfig').setup_handlers({
-      function(server_name) -- default handler (optional)
-        local ok, setup = pcall(require, 'jg.layers.lsp.' .. server_name)
-        require('lspconfig')[server_name].setup(vim.tbl_extend('keep', ok and setup() or {}, {
-          capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        }))
-      end,
-    })
+
+    setup_server('sourcekit')
+    require('jg.layers.lsp.null-ls').setup()
 
     require('lsp_signature').setup({
       use_lspsaga = false,
