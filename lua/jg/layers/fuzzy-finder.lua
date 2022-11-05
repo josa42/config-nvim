@@ -2,6 +2,7 @@ local layer = require('jg.lib.layer')
 local paths = require('jg.lib.paths')
 
 local ts = {}
+local l = {}
 
 layer.use({
   requires = {
@@ -28,6 +29,7 @@ layer.use({
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },
       { 'n', '<leader>w', ts.select_workspace },
+      { 'n', '<leader>j', builtin.jumplist },
     }
   end,
 

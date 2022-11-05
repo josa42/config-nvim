@@ -7,6 +7,7 @@ layer.use({
 
   map = {
     { 'n', '#', '<Plug>(comment_toggle_linewise_current)' },
+    { 'v', '#', '<Plug>(comment_toggle_linewise_visual)' },
   },
 
   setup = function()
