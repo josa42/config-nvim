@@ -21,6 +21,18 @@ layer.use({
       },
     }
   end,
+
+  autocmds = {
+    {
+      'FileType',
+      pattern = 'markdown',
+      callback = function()
+        -- vim.cmd('setlocal spell')
+        vim.api.nvim_set_option_value('spell', true, { scope = 'local', win = 0 })
+      end,
+    },
+  },
+
   setup = function()
     -- Spell check
     vim.opt.spell = false
