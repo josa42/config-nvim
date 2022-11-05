@@ -1,7 +1,5 @@
-/.netrwhist
-/plugged
-/spell
-/undo/
-/spell
 /.tmp
+/spell/*.spl
+/spell/*.sug
 .DS_Store
+
