@@ -16,6 +16,33 @@ layer.use({
 --------------------------------------------------------------------------------
 
 layer.use({
+  map = {
+    {
+      'n',
+      'gr',
+      function()
+        local formatexpr = vim.opt.formatexpr
+        vim.opt.formatexpr = nil
+        vim.cmd.normal({ 'mzgqip`z', bang = true })
+        vim.opt.formatexpr = formatexpr
+      end,
+    },
+    {
+      'v',
+      'gr',
+      function()
+        local formatexpr = vim.opt.formatexpr
+        vim.opt.formatexpr = nil
+        vim.cmd.normal({ 'mzgq`z', bang = true })
+        vim.opt.formatexpr = formatexpr
+      end,
+    },
+  },
+})
+
+--------------------------------------------------------------------------------
+
+layer.use({
   requires = { 'tpope/vim-repeat' },
 })
 
