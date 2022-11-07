@@ -53,3 +53,9 @@ layer.use({
     end
   end,
 })
+
+layer.use({
+  requires = {
+    'rhysd/vim-grammarous',
+  },
+})
