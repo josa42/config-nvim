@@ -12,7 +12,7 @@ layer.use({
     -- reset file
     ResetFile = {
       function()
-        vim.fn.system('git checkout HEAD -- %')
+        vim.fn.system('git checkout HEAD -- ' .. vim.fn.expand('%'))
         vim.cmd.edit({ bang = true })
       end,
       nargs = 0,
