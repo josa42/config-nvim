@@ -97,6 +97,7 @@ layer.use({
     end
 
     require('jg.lib.lsp.handlers').setup()
+
     require('mason').setup({})
     require('mason-lspconfig').setup_handlers({ setup_server })
     require('mason-lspconfig').setup({
@@ -105,6 +106,7 @@ layer.use({
     })
 
     setup_server('sourcekit')
+
     require('jg.layers.lsp.null-ls').setup()
 
     require('lsp_signature').setup({
