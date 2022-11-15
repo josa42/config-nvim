@@ -55,5 +55,16 @@ layer.use({
 
     -- Keep cursor centered: joining lines
     { 'n', 'J', 'mzJ`z' },
+
+    -- Nop arrow keys
+    { '', '<Up>', '<nop>' },
+    { '', '<Right>', '<nop>' },
+    { '', '<Down>', '<nop>' },
+    { '', '<Left>', '<nop>' },
+
+    { 'i', '<c-k>', '<Up>' },
+    { 'i', '<c-l>', '<Right>' },
+    { 'i', '<c-j>', '<Down>' },
+    { 'i', '<c-h>', '<Left>' },
   },
 })
