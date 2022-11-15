@@ -14,7 +14,7 @@ function M.on_location(_, result, ctx, _)
   end
 
   if #result == 1 then
-    util.jump_to_location(result[1], client.offset_encoding)
+    util.jump_to_location(result[1], client.offset_encoding, false)
   else
     vim.ui.select(result, {
       kind = 'file',
@@ -23,7 +23,7 @@ function M.on_location(_, result, ctx, _)
       end,
     }, function(loc)
       if loc then
-        util.jump_to_location(loc)
+        util.jump_to_location(loc, client.offset_encoding, false)
       end
     end)
   end
