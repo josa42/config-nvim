@@ -13,6 +13,8 @@ M.tools = {
   'shfmt',
   'stylua',
   'editorconfig-checker',
+  'proselint',
+  'vale',
 }
 
 local js_and_json = {
@@ -76,6 +78,9 @@ function M.setup()
         runtime_condition = condition_eslint_without_json,
         cwd = eslint_root,
       }),
+
+      null_ls.builtins.diagnostics.proselint,
+      null_ls.builtins.diagnostics.vale,
 
       -- eslint -> js and json
       null_ls.builtins.diagnostics.eslint_d.with({

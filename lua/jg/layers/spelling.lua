@@ -53,3 +53,16 @@ layer.use({
     end
   end,
 })
+
+layer.use({
+  enabled = false,
+  requires = {
+    'rhysd/vim-grammarous',
+  },
+})
+
+layer.use({
+  requires = {
+    'vigoux/LanguageTool.nvim',
+  },
+})
