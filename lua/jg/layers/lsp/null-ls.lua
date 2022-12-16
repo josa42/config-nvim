@@ -123,6 +123,8 @@ function M.setup()
       --     return opt.bufname:find('/node_modules/') == nil and not opt.bufname:match('.*/yarn.lock$')
       --   end,
       -- }),
+
+      null_ls.builtins.formatting.terraform_fmt,
     },
   })
 end

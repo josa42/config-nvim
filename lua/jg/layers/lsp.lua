@@ -14,6 +14,8 @@ l.servers = {
   'yamlls',
   'stylelint_lsp',
   'marksman',
+  'terraformls',
+  'tflint',
 }
 
 layer.use({
@@ -132,6 +134,7 @@ layer.use({
       ['Dockerfile'] = { 'dockerls' },
       ['*.swift'] = { 'null-ls' },
       ['*.go'] = { 'gopls' },
+      ['*.tf'] = { 'null-ls' },
     })
   end,
 })
