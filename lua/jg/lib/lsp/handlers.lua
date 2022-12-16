@@ -2,9 +2,9 @@ local util = require('vim.lsp.util')
 
 local M = {}
 
-function M.on_location(_, result, ctx, _)
+local function on_location(_, result, ctx, _)
   if result == nil or vim.tbl_isempty(result) then
-    return nil
+    return
   end
 
   local client = vim.lsp.get_client_by_id(ctx.client_id)
@@ -30,10 +30,10 @@ function M.on_location(_, result, ctx, _)
 end
 
 function M.setup()
-  vim.lsp.handlers['textDocument/declaration'] = M.on_location
-  vim.lsp.handlers['textDocument/definition'] = M.on_location
-  vim.lsp.handlers['textDocument/typeDefinition'] = M.on_location
-  vim.lsp.handlers['textDocument/implementation'] = M.on_location
+  vim.lsp.handlers['textDocument/declaration'] = on_location
+  vim.lsp.handlers['textDocument/definition'] = on_location
+  vim.lsp.handlers['textDocument/typeDefinition'] = on_location
+  vim.lsp.handlers['textDocument/implementation'] = on_location
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
     -- Use a sharp border with `FloatBorder` highlights
     border = 'single',
