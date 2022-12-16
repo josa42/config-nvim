@@ -14,9 +14,9 @@ layer.use({
     { '', '<C-Left>', '<C-W><C-H>', 'Focus Pane Left' },
 
     -- Search
-    { 'n', '/', '/\\v' },
-    { 'v', '/', '/\\v' },
-    { 'c', '%s/', '%s/\\v' },
+    -- { 'n', '/', '/\\v' },
+    -- { 'v', '/', '/\\v' },
+    -- { 'c', '%s/', '%s/\\v' },
 
     -- Deleting without yanking
     { 'n', 'c', '"_c' },
