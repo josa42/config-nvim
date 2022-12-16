@@ -9,5 +9,6 @@ layer.use({
     'kana/vim-textobj-indent', --         ai | ii
     -- 'sgur/vim-textobj-parameter', --      a, | i,
     'whatyouhide/vim-textobj-xmlattr', -- ax | ix
+    'fvictorio/vim-textobj-backticks', -- a` | i`
   },
 })
