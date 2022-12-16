@@ -289,7 +289,10 @@ layer.use({
 -- Draw diagrams
 -- keep forgetting about this...
 layer.use({
-  requires = { 'jbyuki/venn.nvim' },
+  requires = {
+    'jbyuki/venn.nvim',
+    'xorid/asciitree.nvim',
+  },
   map = function()
     return {
       {
@@ -314,6 +317,12 @@ layer.use({
         end,
       },
     }
+  end,
+
+  setup = function()
+    require('asciitree').setup({
+      delimiter = '-',
+    })
   end,
 })
 
