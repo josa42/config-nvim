@@ -22,14 +22,8 @@ local function input_win(opts, on_confirm, win_opts)
     close(vim.api.nvim_buf_get_lines(0, 0, 1, true)[1])
   end
 
-  vim.keymap.set({ 'i', 'n' }, '<CR>', confirm, {
-    silent = true,
-    buffer = bufnr,
-  })
-  vim.keymap.set({ 'i', 'n' }, '<ESC>', close, {
-    silent = true,
-    buffer = bufnr,
-  })
+  vim.keymap.set({ 'i', 'n' }, '<CR>', confirm, { silent = true, buffer = bufnr })
+  vim.keymap.set({ 'i', 'n' }, '<ESC>', close, { silent = true, buffer = bufnr })
 
   win_opts = vim.tbl_deep_extend(
     'force',

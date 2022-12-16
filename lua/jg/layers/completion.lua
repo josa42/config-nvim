@@ -8,6 +8,11 @@ layer.use({
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-vsnip',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    -- fallback
+    'hrsh7th/cmp-buffer',
+    -- git
+    'davidsierradz/cmp-conventionalcommits',
   },
 
   setup = function()
@@ -16,94 +21,72 @@ layer.use({
     -- - https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt
 
     local kind_icons = {
-      Text = '',
-      Method = '',
-      Function = '',
-      Constructor = '',
-      Field = '',
-      Variable = '',
-      Class = 'ﴯ',
-      Interface = '',
-      Module = '',
-      Property = 'ﰠ',
-      Unit = '',
-      Value = '',
-      Enum = '',
-      Keyword = '',
-      Snippet = '',
-      Color = '',
-      File = '',
-      Reference = '',
-      Folder = '',
-      EnumMember = '',
-      Constant = '',
-      Struct = '',
-      Event = '',
-      Operator = '',
-      TypeParameter = '',
+      Text = '',
+      Method = '',
+      Function = '',
+      Constructor = '',
+      Field = '',
+      Variable = '',
+      Class = '',
+      Interface = '',
+      Module = '',
+      Property = '',
+      Unit = '',
+      Value = '',
+      Enum = '',
+      Keyword = '',
+      Snippet = '',
+      Color = '',
+      File = '',
+      Reference = '',
+      Folder = '',
+      EnumMember = '',
+      Constant = '',
+      Struct = '',
+      Event = '',
+      Operator = '',
+      TypeParameter = '',
     }
-
-    -- TODO enable codicons, once nerdfont 2.2.0 is released
-    -- local kind_icons = {
-    --   Text = '  ',
-    --   Method = '  ',
-    --   Function = '  ',
-    --   Constructor = '  ',
-    --   Field = '  ',
-    --   Variable = '  ',
-    --   Class = '  ',
-    --   Interface = '  ',
-    --   Module = '  ',
-    --   Property = '  ',
-    --   Unit = '  ',
-    --   Value = '  ',
-    --   Enum = '  ',
-    --   Keyword = '  ',
-    --   Snippet = '  ',
-    --   Color = '  ',
-    --   File = '  ',
-    --   Reference = '  ',
-    --   Folder = '  ',
-    --   EnumMember = '  ',
-    --   Constant = '  ',
-    --   Struct = '  ',
-    --   Event = '  ',
-    --   Operator = '  ',
-    --   TypeParameter = '  ',
-    -- }
 
     local cmp = require('cmp')
 
-    local call_if_visible = function(fn, fallback)
-      if cmp.visible() then
-        fn()
-      else
-        fallback()
+    local function if_visible(fn, fallback_fn)
+      return function(fallback)
+        fallback = fallback_fn or fallback
+        if cmp.visible() then
+          fn()
+        else
+          fallback()
+        end
       end
     end
 
-    local cmp_toggle = function()
-      call_if_visible(cmp.close, cmp.complete)
-    end
-
-    local visible_map = function(fn)
-      return cmp.mapping(function(fallback)
-        call_if_visible(fn, fallback)
-      end, { 'i', 's' })
-    end
+    local mapping_cmp_toggle = cmp.mapping(if_visible(cmp.close, cmp.complete), { 'i', 'c' })
 
     cmp.setup({
+      window = {
+        completion = {
+          -- col_offset = -3,
+          -- side_padding = 0,
+        },
+      },
+
       sources = cmp.config.sources({
+        { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip' },
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' },
+      }, {
+        { name = 'buffer' },
       }),
+
       snippet = {
         expand = function(args)
           vim.fn['vsnip#anonymous'](args.body)
         end,
       },
+
       formatting = {
         fields = { 'abbr', 'kind' },
         format = function(entry, item)
@@ -112,31 +95,32 @@ layer.use({
           })
         end,
       },
+
       mapping = {
-        ['<C-e>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
-        ['<C-space>'] = cmp.mapping(cmp_toggle, { 'i', 'c' }),
+        ['<C-e>'] = mapping_cmp_toggle,
+        ['<C-Space>'] = mapping_cmp_toggle,
+        -- ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
-        ['<Down>'] = visible_map(cmp.select_next_item),
-        ['<Up>'] = visible_map(cmp.select_prev_item),
-        ['<C-n>'] = visible_map(cmp.select_next_item),
-        ['<C-p>'] = visible_map(cmp.select_prev_item),
+        ['<C-j>'] = cmp.mapping.select_next_item(),
+        ['<C-k>'] = cmp.mapping.select_prev_item(),
       },
+
       experimental = {
         ghost_text = true,
       },
     })
 
-    cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
-  end,
-})
+    cmp.setup.filetype('gitcommit', {
+      sources = cmp.config.sources({
+        { name = 'conventionalcommits' },
+      }),
+    })
 
--- copilot
-layer.use({
-  enabled = false,
-  requires = { 'github/copilot.vim' },
-  setup = function()
-    -- Disable by default
-    vim.g.copilot_filetypes = { ['*'] = false }
+    local ok, autopairs_cmp = pcall(require, 'nvim-autopairs.completion.cmp')
+
+if ok then
+    cmp.event:on('confirm_done', autopairs_cmp.on_confirm_done())
+  end
   end,
 })

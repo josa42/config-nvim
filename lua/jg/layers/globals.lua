@@ -3,7 +3,6 @@ _G.__keymaps = {
   find_string = '<c-f>',
   find_config = '<c-c>',
   find_help = '<c-h>',
-  trigger_completion = '<c-space>',
   goto_diagnostics_list = 'gll',
   goto_diagnostics_next = 'glj',
   goto_diagnostics_prev = 'glk',

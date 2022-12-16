@@ -42,9 +42,9 @@ layer.use({
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
     'jose-elias-alvarez/null-ls.nvim',
+    'nvim-lua/plenary.nvim',
     'josa42/nvim-lsp-autoformat',
     'josa42/nvim-lsp-codelens',
-    'ray-x/lsp_signature.nvim',
   },
 
   map = {
@@ -110,19 +110,7 @@ layer.use({
     setup_server('sourcekit')
 
     require('jg.layers.lsp.null-ls').setup()
-
-    require('lsp_signature').setup({
-      use_lspsaga = false,
-      floating_window = true,
-      hint_enable = false,
-      doc_lines = 0,
-      handler_opts = {
-        border = 'none', -- double, single, shadow, none
-      },
-    })
-
     require('jg.lsp-codelens').setup()
-
     require('jg.lsp-autoformat').setup({
       ['*.js'] = { 'null-ls' },
       ['*.json'] = { 'null-ls' },

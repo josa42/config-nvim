@@ -64,6 +64,7 @@ layer.use({
 
     -- pum
     vim.opt.pumblend = 0
+    vim.opt.pumheight = 12
     vim.opt.wildoptions = 'pum'
     vim.opt.shortmess:append('c') -- don't give |ins-completion-menu| messages.
 
