@@ -4,7 +4,7 @@ local l = {}
 
 layer.use({
   requires = {
-    { 'josa42/theme-theonedark', rtp = 'dist/vim' },
+    { 'josa42/theme-theonedark', rtp = 'dist/nvim' },
   },
 
   setup = function()
