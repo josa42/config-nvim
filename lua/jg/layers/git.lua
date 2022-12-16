@@ -79,7 +79,7 @@ layer.use({
         ignore_whitespace = true,
       },
       preview_config = {
-        border = 'rounded',
+        border = 'single',
       },
     })
 

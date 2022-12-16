@@ -31,7 +31,7 @@ layer.use({
 
   setup = function()
     require('goto-preview').setup({
-      border = { '↖', '─', '╮', '│', '╯', '─', '╰', '│' },
+      border = { '↖', '─', '┐', '│', '┘', '─', '└', '│' },
     })
   end,
 })
