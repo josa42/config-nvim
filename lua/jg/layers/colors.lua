@@ -8,8 +8,11 @@ layer.use({
   setup = function()
     require('colorizer').setup({
       filetypes = {
-        '*', -- Highlight all files, but customize some others.
-        '!vim-plug', -- Exclude vim from highlighting.
+        -- Highlight all files:
+        '*',
+        -- Exclude from highlighting:
+        '!vim-plug',
+        '!mason',
       },
       user_default_options = {
         mode = 'virtualtext',
