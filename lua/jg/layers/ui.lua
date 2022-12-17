@@ -49,7 +49,7 @@ layer.use({
 })
 
 layer.use({
-  setup = function()
-    vim.ui.input = require('jg.lib.input')
-  end,
+  requires = {
+    'josa42/nvim-ui',
+  },
 })
