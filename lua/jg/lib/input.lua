@@ -3,7 +3,9 @@ local function input_win(opts, on_confirm, win_opts)
   local prompt = opts.prompt or ''
   local default = opts.default or ''
 
-  local ctx = {}
+  local ctx = {
+    open = true,
+  }
   local bufnr = vim.api.nvim_create_buf(false, true)
 
   vim.bo[bufnr].buftype = 'prompt'
@@ -12,6 +14,11 @@ local function input_win(opts, on_confirm, win_opts)
   vim.fn.prompt_setprompt(bufnr, '')
 
   local function close(value)
+    if not ctx.open then
+      return
+    end
+    ctx.open = false
+
     pcall(vim.api.nvim_win_close, ctx.winid, true)
     vim.defer_fn(function()
       on_confirm(value)
@@ -22,8 +29,23 @@ local function input_win(opts, on_confirm, win_opts)
     close(vim.api.nvim_buf_get_lines(0, 0, 1, true)[1])
   end
 
+  vim.api.nvim_create_autocmd('BufLeave', {
+    desc = 'Close vim.ui.input on leave',
+    buffer = bufnr,
+    nested = true,
+    once = true,
+    callback = function()
+      close()
+    end,
+  })
+
+  if opts.complete then
+    require('jg.lib.completefunc').attach(bufnr, opts.complete)
+  end
+
   vim.keymap.set({ 'i', 'n' }, '<CR>', confirm, { silent = true, buffer = bufnr })
   vim.keymap.set({ 'i', 'n' }, '<ESC>', close, { silent = true, buffer = bufnr })
+  vim.keymap.set({ 'i', 'n' }, '<C-c>', close, { silent = true, buffer = bufnr })
 
   win_opts = vim.tbl_deep_extend(
     'force',
@@ -33,7 +55,7 @@ local function input_win(opts, on_confirm, win_opts)
       row = 1,
       col = 0,
       height = 1,
-      width = 32,
+      width = 40,
       style = 'minimal',
       focusable = true,
     },
