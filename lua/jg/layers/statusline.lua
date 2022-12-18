@@ -3,19 +3,6 @@ local layer = require('jg.lib.layer')
 local M = {}
 
 layer.use({
-  enabled = false,
-
-  requires = {
-    'feline-nvim/feline.nvim',
-  },
-
-  setup = function()
-    require('feline').setup()
-    require('feline').winbar.setup()
-  end,
-})
-
-layer.use({
   enabled = true,
 
   requires = {
@@ -24,9 +11,38 @@ layer.use({
   },
 
   setup = function()
+    local luasnip = require('luasnip')
+
+    local function luasnip_status()
+      if not luasnip.expand_or_jumpable() then
+        return ''
+      end
+
+      local icon = ('%s%s'):format('%#StatusLuasnipIcon#', '%#StatusLuasnip#')
+
+      local actions = {}
+
+      if luasnip.jumpable() then
+        table.insert(actions, '')
+      end
+
+      if luasnip.choice_active() then
+        table.insert(actions, '(choices)')
+      end
+
+      if #actions > 0 then
+        return ('%s %s'):format(icon, table.concat(actions, ' '))
+      end
+
+      return icon
+    end
+
     vim.cmd([[
-      hi! StatusLineNC guibg=#21252B
-      hi! StatusLine   guibg=#21252B
+      hi! StatusLineNC  guibg=#21252B
+      hi! StatusLine    guibg=#21252B
+      hi! StatusLuasnipIcon guifg=#a7d685 guibg=#21252B
+      hi! StatusLuasnip     guifg=#7c818d guibg=#21252B
+
     ]])
     local color = {
       fg = '#7c818d',
@@ -90,6 +106,7 @@ layer.use({
               warn = _G.__icons.warning,
             },
           },
+          { luasnip_status },
         },
         lualine_x = {},
         lualine_y = { 'filesize' },
