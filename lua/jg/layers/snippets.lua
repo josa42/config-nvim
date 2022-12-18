@@ -1,6 +1,8 @@
 local layer = require('jg.lib.layer')
 local paths = require('jg.lib.paths')
 
+local snipptes_dir = ('%s/snippets'):format(paths.config_dir)
+
 layer.use({
   requires = {
     'L3MON4D3/LuaSnip',
@@ -20,7 +22,7 @@ layer.use({
   autocmds = {
     {
       'BufWritePost',
-      pattern = ('%s/snippets/*.json'):format(paths.config_dir),
+      pattern = ('%s/*.json'):format(snipptes_dir),
       callback = function(opts)
         require('luasnip.loaders').reload_file(opts.file)
       end,
@@ -42,11 +44,13 @@ layer.use({
 
       local luasnip = require('luasnip')
       local from_vscode = require('luasnip.loaders.from_vscode')
+      local from_lua = require('luasnip.loaders.from_lua')
 
       if opts.cleanup then
         luasnip.cleanup()
       end
       from_vscode.load({ paths = { './snippets' } })
+      from_lua.load({ paths = { './snippets' } })
     end,
   },
 })
