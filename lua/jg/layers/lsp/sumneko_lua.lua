@@ -8,7 +8,10 @@ local settings = {
       globals = { 'vim', 'describe', 'it', 'require' },
       workspaceDelay = -1,
     },
-    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+    workspace = {
+      checkThirdParty = false,
+      library = vim.api.nvim_get_runtime_file('', true),
+    },
     telemetry = { enable = false },
   },
 }
