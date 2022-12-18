@@ -2,7 +2,6 @@ local layer = require('jg.lib.layer')
 local paths = require('jg.lib.paths')
 
 local ts = {}
-local l = {}
 
 layer.use({
   requires = {
@@ -30,6 +29,8 @@ layer.use({
       { 'n', '<leader>f', ts.find_string_in_workspace },
       { 'n', '<leader>w', ts.select_workspace },
       { 'n', '<leader>j', builtin.jumplist },
+      { 'n', '<leader>/', ts.find_string_in_buffer },
+      { 'n', '<leader>rf', builtin.oldfiles },
     }
   end,
 
@@ -269,6 +270,10 @@ layer.use({
       vim.ui.select(ws.get_workspaces(), { prompt = 'Workspace' }, function(w)
         ws.set_current_workspace(w)
       end)
+    end
+
+    function ts.find_string_in_buffer()
+      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({ previewer = false }))
     end
 
     vim.api.nvim_create_user_command('Find', function(opts)
