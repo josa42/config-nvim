@@ -11,7 +11,7 @@ l.setup_handlers = {}
 l.layer_names = {}
 
 function M.use(opts)
-  l.assert_keys(opts, { 'autocmds', 'commands', 'enabled', 'init', 'map', 'name', 'requires', 'setup' })
+  l.assert_keys(opts, { 'autocmds', 'commands', 'enabled', 'init', 'map', 'name', 'requires', 'setup', 'fn' })
 
   if opts.enabled == false then
     return
@@ -49,7 +49,9 @@ function M.use(opts)
   end
 
   if type(opts.setup) == 'function' then
-    table.insert(l.setup_handlers, opts.setup)
+    table.insert(l.setup_handlers, function()
+      opts.setup(opts.fn or {})
+    end)
   end
 
   table.insert(l.setup_handlers, function()
@@ -58,7 +60,7 @@ function M.use(opts)
     --     print('Hello')
     --   end}
     -- }
-    l.apply_key_maps(l.try_call(opts.map))
+    l.apply_key_maps(l.try_call(opts.map, opts.fn))
 
     -- autocmds = {
     --   {
@@ -67,14 +69,14 @@ function M.use(opts)
     --     end,
     --   },
     -- },
-    l.apply_autocmds(('layer:%s'):format(opts.name), l.try_call(opts.autocmds))
+    l.apply_autocmds(('layer:%s'):format(opts.name), l.try_call(opts.autocmds, opts.fn))
 
     -- commands = {
     --   Foo1 = 'echo "Foo"',
     --   Foo2 = { 'echo "Foo"', nargs = 0 },
     --   Foo3 = function() print('Foo') end,
     -- }
-    l.apply_commands(l.try_call(opts.commands))
+    l.apply_commands(l.try_call(opts.commands, opts.fn))
   end)
 end
 
@@ -95,9 +97,9 @@ function l.run_handlers(handers)
   end
 end
 
-function l.try_call(fn)
+function l.try_call(fn, opts)
   if type(fn) == 'function' then
-    return fn()
+    return fn(opts)
   end
 
   return fn

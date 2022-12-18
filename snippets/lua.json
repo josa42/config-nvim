@@ -6,7 +6,7 @@
     "description": "Module",
     "body": [
       "local M = {}",
-      "",
+      "${0}",
       "return M"
     ]
   },
@@ -82,14 +82,6 @@
       "      $0",
       "    end,",
       "  })"
-    ]
-  },
-  "it should": {
-    "prefix": "its",
-    "body": [
-      "it('should $1', function()",
-      "  $0",
-      "end)"
     ]
   }
 }
