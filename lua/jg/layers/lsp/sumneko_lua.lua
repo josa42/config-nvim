@@ -8,12 +8,8 @@ local settings = {
       globals = { 'vim', 'describe', 'it', 'require' },
       workspaceDelay = -1,
     },
-    workspace = {
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-      },
-    },
+    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+    telemetry = { enable = false },
   },
 }
 
