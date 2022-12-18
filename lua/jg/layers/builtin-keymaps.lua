@@ -56,6 +56,9 @@ layer.use({
     -- Keep cursor centered: joining lines
     { 'n', 'J', 'mzJ`z' },
 
+    { 'n', 'j', "v:count == 0 ? 'gj' : 'j'", expr = true },
+    { 'n', 'k', "v:count == 0 ? 'gk' : 'k'", expr = true },
+
     -- Nop arrow keys
     { '', '<Up>', '<nop>' },
     { '', '<Right>', '<nop>' },
