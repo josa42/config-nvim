@@ -24,6 +24,7 @@ local js_and_json = {
   'typescriptreact',
   'vue',
   'svelte',
+  'markdown',
 }
 
 function M.setup()
@@ -64,6 +65,10 @@ function M.setup()
     return not condition_eslint_with_json(p)
   end
 
+  local condition_prettier_markdown = function(p)
+    return os.getenv('NVIMV_ENABLE_PRETTIER_MARKDOWN') == '1' and has_file(eslint_root(p), 'node_modules/.bin/prettier')
+  end
+
   null_ls.setup({
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
@@ -92,6 +97,12 @@ function M.setup()
       -- fixjson
       null_ls.builtins.formatting.fixjson.with({
         runtime_condition = condition_not_eslint_with_json,
+      }),
+
+      -- fixjson
+      null_ls.builtins.formatting.prettier.with({
+        filetypes = { 'markdown' },
+        runtime_condition = condition_prettier_markdown,
       }),
 
       null_ls.builtins.formatting.stylua,

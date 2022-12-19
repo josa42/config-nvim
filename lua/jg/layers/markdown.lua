@@ -2,6 +2,7 @@ local paths = require('jg.lib.paths')
 local layer = require('jg.lib.layer')
 
 layer.use({
+  enabled = false,
   requires = {
     {
       'euclio/vim-markdown-composer',

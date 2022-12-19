@@ -115,6 +115,7 @@ layer.use({
       ['*.js'] = { 'null-ls' },
       ['*.json'] = { 'null-ls' },
       ['*.jsx'] = { 'null-ls' },
+      ['*.md'] = { 'null-ls' },
       ['*.ts'] = { 'null-ls', 'tsserver' },
       ['*.tsx'] = { 'null-ls' },
       ['*.css'] = { 'stylelint_lsp' },
