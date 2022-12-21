@@ -50,6 +50,7 @@ require('jg.layers.file-tree')
 require('jg.layers.fuzzy-finder')
 require('jg.layers.files')
 
+-- config
 require('jg.layers.config')
 
 -- nvim dev stuff
