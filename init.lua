@@ -44,6 +44,8 @@ require('jg.layers.snippets')
 require('jg.layers.colors')
 require('jg.layers.file-pairs')
 require('jg.layers.spelling')
+require('jg.layers.diagrams')
+require('jg.layers.templates')
 
 -- File Navigations
 require('jg.layers.file-tree')
