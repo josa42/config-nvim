@@ -1,4 +1,5 @@
 local M = {}
+local l = {}
 local plugins = {}
 local option_keys = {
   'dir',
@@ -37,15 +38,15 @@ function M.require(...)
       vim.notify_once(('plugin "%s" is required twice'):format(plugin[1]), vim.log.levels.ERROR)
     else
       local spec = { plugin[1] }
+      local opts = plugin[2] or {}
 
-      for key, value in pairs(plugin[2] or {}) do
-        if key == 'do' then
-          spec.build = value
-        elseif key == 'rtp' then
-          spec.config = function(p)
-            vim.opt.rtp:append(p.dir .. '/' .. plugin[2].rtp)
-          end
-        elseif vim.tbl_contains(option_keys, key) then
+      if opts.rtp ~= nil then
+        opts.config = l.merge_fn(l.config_rtp(plugin[2].rtp), opts.config)
+        opts.rtp = nil
+      end
+
+      for key, value in pairs(opts) do
+        if vim.tbl_contains(option_keys, key) then
           spec[key] = value
         else
           vim.notify_once(('[%s] Unknown option for lazy.nvim'):format(plugin[1], key), vim.log.levels.ERROR)
@@ -81,6 +82,23 @@ function M.run()
       path = '~/github/josa42',
     },
   })
+end
+
+function l.merge_fn(fn1, fn2)
+  if fn2 == nil then
+    return fn1
+  end
+
+  return function(...)
+    fn1(...)
+    fn2(...)
+  end
+end
+
+function l.config_rtp(rtp)
+  return function(p)
+    vim.opt.rtp:append(('%s/%s'):format(p.dir, rtp))
+  end
 end
 
 return M
