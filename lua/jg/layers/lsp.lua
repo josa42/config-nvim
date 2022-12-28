@@ -41,8 +41,9 @@ layer.use({
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
-    'jose-elias-alvarez/null-ls.nvim',
-    'nvim-lua/plenary.nvim',
+    { 'jose-elias-alvarez/null-ls.nvim', dependencies = {
+      'nvim-lua/plenary.nvim',
+    } },
     'josa42/nvim-lsp-autoformat',
     'josa42/nvim-lsp-codelens',
   },

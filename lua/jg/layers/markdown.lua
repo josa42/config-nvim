@@ -6,7 +6,7 @@ layer.use({
   requires = {
     {
       'euclio/vim-markdown-composer',
-      ['do'] = function(info)
+      build = function(info)
         if info.status ~= 'unchanged' or info.force then
           vim.fn.system('cargo build --release --locked')
         end

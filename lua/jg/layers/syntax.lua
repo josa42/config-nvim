@@ -9,7 +9,7 @@ layer.use({
   name = 'syntax-treesitter',
 
   requires = {
-    { 'nvim-treesitter/nvim-treesitter', ['do'] = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     { 'nvim-treesitter/playground' },
   },
 
@@ -32,12 +32,14 @@ layer.use({
       autotag = { enable = false },
     })
 
-    -- Remove conceal for markdown code fences
-    local file = vim.treesitter.query.get_query_files('markdown', 'highlights')[1]
-    local content = require('jg.lib.fs')
-      .read(file)
-      :gsub('%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n', '++++')
-    vim.treesitter.query.set_query('markdown', 'highlights', content)
+    pcall(function()
+      -- Remove conceal for markdown code fences
+      local file = vim.treesitter.query.get_query_files('markdown', 'highlights')[1]
+      local content = require('jg.lib.fs')
+        .read(file)
+        :gsub('%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n', '++++')
+      vim.treesitter.query.set_query('markdown', 'highlights', content)
+    end)
   end,
 })
 

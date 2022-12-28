@@ -1,6 +1,7 @@
 require('jg.lib.polyfills')
 
-local plug = require('jg.lib.plug')
+-- local plug = require('jg.lib.plug')
+local plug = require('jg.lib.lazy')
 
 local M = {}
 local l = {}

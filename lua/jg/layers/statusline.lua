@@ -7,7 +7,7 @@ layer.use({
 
   requires = {
     'nvim-lualine/lualine.nvim',
-    'arkav/lualine-lsp-progress',
+    dependencies = { 'arkav/lualine-lsp-progress' },
   },
 
   setup = function()

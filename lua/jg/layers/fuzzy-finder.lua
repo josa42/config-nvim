@@ -5,9 +5,13 @@ local ts = {}
 
 layer.use({
   requires = {
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', ['do'] = 'make' },
+    {
+      'nvim-telescope/telescope.nvim',
+      dependencies = {
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+        'nvim-lua/plenary.nvim',
+      },
+    },
     'itchyny/vim-gitbranch',
     'josa42/nvim-telescope-workspaces',
   },

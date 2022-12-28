@@ -10,6 +10,18 @@ local plug_end = vim.fn['plug#end']
 
 local M = {}
 local plugins = {}
+local option_keys = {
+  'branch',
+  'tag',
+  'commit',
+  'rtp',
+  'dir',
+  'as',
+  'do',
+  'on',
+  'for',
+  'frozen',
+}
 
 function M.require(...)
   for _, plugin in ipairs({ ... }) do
@@ -20,12 +32,12 @@ function M.require(...)
       return p.name == plugin[1]
     end, plugins)[1]
 
+    local options = M.to_options(plugin[2])
+
     if existing ~= nil then
-      if plugin[2] ~= nil then
-        existing.options = vim.tbl_extend('force', existing.options or {}, plugin[2])
-      end
+      existing.options = vim.tbl_extend('force', existing.options or {}, options)
     else
-      table.insert(plugins, { name = plugin[1], options = plugin[2] })
+      table.insert(plugins, { name = plugin[1], options = options })
     end
   end
 
@@ -67,6 +79,33 @@ function M.run()
   if has_missing_plugs() then
     plug_install()
   end
+end
+
+function M.to_options(tbl)
+  local options = vim.empty_dict()
+
+  if tbl ~= nil then
+    for key, value in pairs(tbl) do
+      if key == 'dependencies' then
+        for _, dep in ipairs(value) do
+          if type(dep) == 'string' then
+            dep = { dep }
+          else
+            dep = { dep[1], M.to_options(dep) }
+          end
+          M.require(dep)
+        end
+      elseif key == 'build' then
+        options['do'] = value
+      elseif vim.tbl_contains(option_keys, key) then
+        options[key] = value
+      elseif type(key) == 'string' then
+        vim.notify_once(('Unknown option "%s" for vim-plug'):format(key), vim.log.levels.ERROR)
+      end
+    end
+  end
+
+  return options
 end
 
 return M

@@ -3,17 +3,21 @@ local layer = require('jg.lib.layer')
 layer.use({
   requires = {
     -- nvim-cmp and sources
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lua',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    -- fallback
-    'hrsh7th/cmp-buffer',
-    -- git
-    'davidsierradz/cmp-conventionalcommits',
-    -- snippets
-    'saadparwaiz1/cmp_luasnip',
+    {
+      'hrsh7th/nvim-cmp',
+      dependencies = {
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        -- fallback
+        'hrsh7th/cmp-buffer',
+        -- git
+        'davidsierradz/cmp-conventionalcommits',
+        -- snippets
+        'saadparwaiz1/cmp_luasnip',
+      },
+    },
   },
 
   setup = function()

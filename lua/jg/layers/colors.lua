@@ -13,6 +13,7 @@ layer.use({
         -- Exclude from highlighting:
         '!vim-plug',
         '!mason',
+        '!lazy',
       },
       user_default_options = {
         mode = 'virtualtext',
