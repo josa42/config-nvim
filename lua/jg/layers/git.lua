@@ -33,18 +33,15 @@ layer.use({
 })
 
 layer.use({
-  enabled = false,
-  requires = {
-    'rhysd/conflict-marker.vim',
-  },
-})
-
-layer.use({
   enabled = true,
   requires = {
     'akinsho/git-conflict.nvim',
   },
   setup = function()
+    vim.api.nvim_set_hl(0, 'DiffText', { link = 'Normal', default = true })
+    vim.api.nvim_set_hl(0, 'DiffAdd', { link = 'Normal', default = true })
+    vim.api.nvim_set_hl(0, 'DiffAncestor', { link = 'Normal', default = true })
+
     require('git-conflict').setup({
       default_mappings = false,
       highlights = {
@@ -67,8 +64,9 @@ layer.use({
 
 layer.use({
   requires = {
-    'nvim-lua/plenary.nvim',
-    'lewis6991/gitsigns.nvim',
+    { 'lewis6991/gitsigns.nvim', dependencies = {
+      'nvim-lua/plenary.nvim',
+    } },
   },
 
   setup = function()
@@ -82,74 +80,5 @@ layer.use({
         border = 'single',
       },
     })
-
-    vim.api.nvim_set_hl(0, 'ConflictMarkerCommonAncestorsHunk', { bg = '#4F3058' })
-  end,
-})
-
-layer.use({
-  enabled = false,
-  requires = {
-    'pwntester/octo.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    -- 'kyazdani42/nvim-web-devicons',
-  },
-  setup = function()
-    require('octo').setup()
-  end,
-})
-
-layer.use({
-  enabled = false,
-  requires = {
-    'pwntester/octo.nvim',
-  },
-})
-
-layer.use({
-  enabled = false,
-  requires = {
-    'ldelossa/litee.nvim',
-    'ldelossa/gh.nvim',
-  },
-
-  setup = function()
-    require('litee.lib').setup()
-    require('litee.gh').setup()
-  end,
-})
-
-layer.use({
-  enabled = false,
-  requires = {
-    'pwntester/octo.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    -- 'kyazdani42/nvim-web-devicons',
-  },
-  setup = function()
-    require('octo').setup()
-  end,
-})
-
-layer.use({
-  requires = {
-    'Tarmean/Gistory.vim',
-  },
-  setup = function()
-    vim.g.gistory_no_format = 1
-  end,
-})
-
-layer.use({
-  enabled = false,
-  requires = {
-    'ldelossa/gh.nvim',
-    'ldelossa/litee.nvim',
-  },
-  setup = function()
-    require('litee.lib').setup()
-    require('litee.gh').setup()
   end,
 })
