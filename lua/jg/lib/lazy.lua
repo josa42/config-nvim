@@ -25,6 +25,10 @@ local option_keys = {
   'module',
   'priority',
 }
+
+-- local data_dir = '/tmp/lazy'
+local data_dir = vim.fn.stdpath('data') .. '/lazy'
+
 function M.require(...)
   for _, plugin in ipairs({ ... }) do
     assert(vim.tbl_islist(plugin), 'plugin needs to be a table')
@@ -60,7 +64,7 @@ function M.require(...)
 end
 
 function M.run()
-  local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+  local lazypath = data_dir .. '/lazy.nvim'
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
       'git',
@@ -74,7 +78,9 @@ function M.run()
   vim.opt.runtimepath:prepend(lazypath)
 
   require('lazy').setup(plugins, {
-    lockfile = vim.fn.stdpath('data') .. '/lazy/lazy-lock.json',
+    root = data_dir,
+    lockfile = data_dir .. '/lazy-lock.json',
+    concurrency = 20,
     checker = {
       enabled = true,
     },

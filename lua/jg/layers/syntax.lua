@@ -4,12 +4,14 @@ local layer = require('jg.lib.layer')
 local ts_install = 'all'
 local ts_disable = { 'help' }
 
+local parser_install_dir = vim.fn.stdpath('data') .. '/tree-sitter'
+
 layer.use({
   enabled = true,
   name = 'syntax-treesitter',
 
   requires = {
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', lazy = true, event = 'BufReadPre', priority = 100 },
     { 'nvim-treesitter/playground' },
   },
 
@@ -24,16 +26,20 @@ layer.use({
   setup = function()
     local configs = require('nvim-treesitter.configs')
 
+    vim.opt.runtimepath:append(parser_install_dir)
+
     configs.setup({
       ensure_installed = ts_install,
       ignore_install = ts_disable,
+      parser_install_dir = parser_install_dir,
+
       highlight = { enable = true, disable = ts_disable },
       indent = { enable = true, disable = ts_disable },
       autotag = { enable = false },
     })
 
+    -- Remove conceal for markdown code fences
     pcall(function()
-      -- Remove conceal for markdown code fences
       local file = vim.treesitter.query.get_query_files('markdown', 'highlights')[1]
       local content = require('jg.lib.fs')
         .read(file)
