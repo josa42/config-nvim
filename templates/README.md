@@ -1,4 +1,4 @@
-# {{dirname}}
+# {{ lua: vim.fn.expand('%:p:h:t') }}
 
 ## License
 
