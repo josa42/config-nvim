@@ -55,6 +55,8 @@ layer.use({
       bg_terminal = '#f67680',
     }
 
+    local components = require('jg.layers.statusline.components')
+
     require('lualine').setup({
       options = {
         theme = {
@@ -108,7 +110,9 @@ layer.use({
           },
           { luasnip_status },
         },
-        lualine_x = {},
+        lualine_x = {
+          components.lazy_status(),
+        },
         lualine_y = { 'filesize' },
         lualine_z = { 'filetype' },
       },
