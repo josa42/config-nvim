@@ -5,7 +5,7 @@ layer.use({
     'tpope/vim-fugitive', -- Git commands; mainly for Gblame
     'tpope/vim-rhubarb',
     'tpope/vim-git',
-    'sindrets/diffview.nvim', -- still used?
+    { 'sindrets/diffview.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   },
 
   commands = {
@@ -64,9 +64,7 @@ layer.use({
 
 layer.use({
   requires = {
-    { 'lewis6991/gitsigns.nvim', dependencies = {
-      'nvim-lua/plenary.nvim',
-    } },
+    { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   },
 
   setup = function()
