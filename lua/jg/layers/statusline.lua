@@ -11,32 +11,6 @@ layer.use({
   },
 
   setup = function()
-    local luasnip = require('luasnip')
-
-    local function luasnip_status()
-      if not luasnip.expand_or_jumpable() then
-        return ''
-      end
-
-      local icon = ('%s%s'):format('%#StatusLuasnipIcon#', '%#StatusLuasnip#')
-
-      local actions = {}
-
-      if luasnip.jumpable() then
-        table.insert(actions, '')
-      end
-
-      if luasnip.choice_active() then
-        table.insert(actions, '(choices)')
-      end
-
-      if #actions > 0 then
-        return ('%s %s'):format(icon, table.concat(actions, ' '))
-      end
-
-      return icon
-    end
-
     vim.cmd([[
       hi! StatusLineNC  guibg=#21252B
       hi! StatusLine    guibg=#21252B
@@ -108,7 +82,7 @@ layer.use({
               warn = _G.__icons.warning,
             },
           },
-          { luasnip_status },
+          components.luasnip_status(),
         },
         lualine_x = {
           components.lazy_status(),
