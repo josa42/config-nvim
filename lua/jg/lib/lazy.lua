@@ -77,6 +77,10 @@ function M.run()
     concurrency = 20,
     checker = {
       enabled = true,
+      notify = false,
+    },
+    change_detection = {
+      enabled = false,
     },
     dev = {
       path = '~/github/josa42',
