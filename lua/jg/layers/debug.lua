@@ -7,4 +7,7 @@ layer.use({
   requires = {
     'nvim-lua/plenary.nvim',
   },
+  map = {
+    { 'n', '<leader>rt', '<Plug>PlenaryTestFile' },
+  },
 })
