@@ -91,7 +91,7 @@ layer.use({
 
     notify.setup({
       render = 'minimal',
-      stages = 'fade',
+      stages = 'static',
       icons = {
         ERROR = _G.__icons.diagnostic.error,
         WARN = _G.__icons.diagnostic.warning,
