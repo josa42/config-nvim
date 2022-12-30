@@ -28,7 +28,7 @@ layer.use({
 
     vim.opt.mouse = 'a'
 
-    vim.opt.guifont = 'DejaVuSansMono Nerd Font'
+    vim.opt.guifont = 'DejaVuSansMono Nerd Font:h12'
 
     -- Do not write .swp files
     vim.opt.backup = false
@@ -71,7 +71,9 @@ layer.use({
     vim.g.nerdfont = true
 
     -- split
-    vim.opt.splitkeep = 'topline'
+    pcall(function()
+      vim.opt.splitkeep = 'topline'
+    end)
   end,
 })
 
