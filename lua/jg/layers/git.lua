@@ -80,3 +80,9 @@ layer.use({
     })
   end,
 })
+
+layer.use({
+  requires = {
+    { 'josa42/nvim-blame', dev = true },
+  },
+})
