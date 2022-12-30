@@ -61,7 +61,7 @@ layer.use({
         icons_enabled = false,
         section_separators = { left = '', right = '' },
         component_separators = { left = '', right = '' },
-        disabled_filetypes = { 'tree' },
+        disabled_filetypes = { 'tree', 'blame', 'fugitiveblame' },
         always_divide_middle = true,
       },
       sections = {
