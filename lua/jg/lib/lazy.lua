@@ -85,6 +85,14 @@ function M.run()
     dev = {
       path = '~/github/josa42',
     },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          'netrwPlugin',
+          'tohtml',
+        },
+      },
+    },
   })
 end
 
