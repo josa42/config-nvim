@@ -15,13 +15,30 @@
     "prefix": [
       "recover"
     ],
-    "description": "Description",
     "body": [
       "defer func() {",
       "\tif err := recover(); err != nil {",
       "\t\tlog.Printf(\"error: %v\", err)",
       "\t}",
       "}()"
+    ]
+  },
+  "jsonwrite": {
+    "prefix": [
+      "jsonwrite"
+    ],
+    "body": [
+      "content, _ := json.Marshal(bytes(\"\"))",
+      "ioutil.WriteFile(\"data.json\", content, os.ModePerm)"
+    ]
+  },
+  "jsonread": {
+    "prefix": [
+      "jsonread"
+    ],
+    "body": [
+      "content, _ := ioutil.ReadFile(\"./config.json\")",
+      "json.Unmarshal(content, &data)"
     ]
   }
 }
