@@ -86,3 +86,9 @@ layer.use({
     { 'josa42/nvim-blame', dev = true },
   },
 })
+
+layer.use({
+  map = {
+    { 'n', '<leader>gg', ':tabe term://lazygit | startinsert<cr>' },
+  },
+})
