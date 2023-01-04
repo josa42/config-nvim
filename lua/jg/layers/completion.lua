@@ -105,16 +105,12 @@ layer.use({
       mapping = {
         ['<C-e>'] = mapping_cmp_toggle,
         ['<C-Space>'] = mapping_cmp_toggle,
-        -- ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        -- ['<TAB>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable() then
-            luasnip.jump(1)
-          elseif cmp.visible() then
+          if cmp.visible() then
             cmp.confirm({ select = true })
-          elseif luasnip.expandable() then
-            luasnip.expand()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
           else
             fallback()
           end
