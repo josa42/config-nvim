@@ -55,6 +55,8 @@ require('jg.layers.files')
 -- config
 require('jg.layers.config')
 
+require('jg.layers.terminal')
+
 -- nvim dev stuff
 require('jg.layers.debug')
 
