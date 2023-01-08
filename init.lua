@@ -47,6 +47,8 @@ require('jg.layers.spelling')
 require('jg.layers.diagrams')
 require('jg.layers.templates')
 
+require('jg.layers.undo')
+
 -- File Navigations
 require('jg.layers.file-tree')
 require('jg.layers.fuzzy-finder')
