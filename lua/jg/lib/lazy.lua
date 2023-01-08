@@ -88,7 +88,6 @@ function M.run()
     performance = {
       rtp = {
         disabled_plugins = {
-          'netrwPlugin',
           'tohtml',
         },
       },
