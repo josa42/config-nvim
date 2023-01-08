@@ -24,7 +24,7 @@
       "require"
     ],
     "body": [
-      "local plug = require('jg.plug')"
+      "local $1 = require('${2:$1}')"
     ]
   },
   "dump": {
