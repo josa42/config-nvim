@@ -20,6 +20,10 @@ layer.use({
     },
   },
 
+  map = {
+    { 'n', '<c-space>', function() end },
+  },
+
   setup = function()
     -- See:
     -- - https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
