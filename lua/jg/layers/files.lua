@@ -51,3 +51,11 @@ layer.use({
     }
   end,
 })
+
+--------------------------------------------------------------------------------
+-- replace gx mapping
+layer.use({
+  requires = {
+    { 'josa42/nvim-gx', dev = true },
+  },
+})
