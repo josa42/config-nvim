@@ -36,7 +36,7 @@ function M.setup()
   end
 
   local eslintrc_root =
-    utils.root_pattern('.eslintrc', 'eslintrc.json', '.eslintrc.js', 'eslintrc.yaml', 'eslintrc.yml')
+    utils.root_pattern('.eslintrc', 'eslintrc.json', '.eslintrc.cjs', '.eslintrc.js', 'eslintrc.yaml', 'eslintrc.yml')
   local yarn_root = utils.root_pattern('.yarn')
   local pkg_root = utils.root_pattern('package.json')
 
@@ -49,16 +49,31 @@ function M.setup()
     return utils.path.exists(utils.path.join(root, name))
   end
 
-  local condition_eslint_without_json = function(p)
+  function find_local_bin(p, name)
     local root = eslint_root(p)
-    return has_file(root, 'node_modules/.bin/eslint')
-      and not has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+
+    local out = vim.trim(vim.fn.system('cd ' .. vim.fn.shellescape(root) .. '; npm bin'))
+
+    if has_file(out, name) then
+      return out .. '/' .. name
+    end
+
+    -- local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
+    --
+    -- print('bufname: ' .. bufname)
+    --
+    -- local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
+    -- local eslint_dir eslintrc_root(bufname) or yarn_root(bufname) or pkg_root(bufname)
+
+    return nil
+  end
+
+  local condition_eslint_without_json = function(p)
+    return find_local_bin(p, 'eslint') ~= nil and not has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
   end
 
   local condition_eslint_with_json = function(p)
-    local root = eslint_root(p)
-    return has_file(root, 'node_modules/.bin/eslint')
-      and has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+    return find_local_bin(p, 'eslint') ~= nil and has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
   end
 
   local condition_not_eslint_with_json = function(p)
