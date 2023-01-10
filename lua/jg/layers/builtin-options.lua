@@ -58,8 +58,8 @@ layer.use({
       end,
     })
 
-    vim.opt.updatetime = 300 -- Smaller updatetime for CursorHold & CursorHoldI
-    vim.opt.hidden = true -- if hidden is not set, TextEdit might fail.
+    vim.opt.updatetime = 300
+    vim.opt.hidden = true
 
     --Splits
     vim.opt.splitbelow = true
@@ -78,7 +78,7 @@ layer.use({
     vim.opt.pumblend = 0
     vim.opt.pumheight = 12
     vim.opt.wildoptions = 'pum'
-    vim.opt.shortmess:append('c') -- don't give |ins-completion-menu| messages.
+    vim.opt.shortmess:append('c')
 
     vim.g.nerdfont = true
 
