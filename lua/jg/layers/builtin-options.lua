@@ -67,7 +67,8 @@ layer.use({
 
     -- folds
     vim.opt.foldmethod = 'marker'
-    vim.opt.foldenable = true
+    vim.o.foldenable = false
+    vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
     vim.opt.autochdir = false
 
