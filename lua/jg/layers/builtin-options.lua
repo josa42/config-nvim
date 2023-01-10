@@ -13,6 +13,17 @@ layer.use({
     vim.opt.cmdheight = 1
     vim.opt.signcolumn = 'yes'
 
+    -- vim.opt.statuscolumn = vim.fn.join({
+    --   -- line number
+    --   '%=%{&nu? (&rnu&&(v:relnum) ? v:relnum : v:lnum." ") : ""}',
+    --   -- signs
+    --   '%s',
+    --   -- fold
+    --   '%C%',
+    --   -- space
+    --   '#Normal#%{&nu? " " : ""}',
+    -- }, '')
+
     vim.opt.cursorline = true
 
     -- White space
