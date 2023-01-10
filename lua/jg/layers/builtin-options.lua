@@ -38,7 +38,7 @@ layer.use({
       trail = '·',
     }
 
-    vim.opt.mouse = 'a'
+    vim.opt.mouse = ''
 
     vim.opt.guifont = 'DejaVuSansMono Nerd Font:h12'
 
