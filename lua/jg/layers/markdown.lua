@@ -26,3 +26,15 @@ layer.use({
     vim.g.markdown_composer_open_browser = 0
   end,
 })
+
+layer.use({
+  enabled = true,
+  requires = {
+    {
+      'iamcco/markdown-preview.nvim',
+      build = function()
+        vim.fn['mkdp#util#install']()
+      end,
+    },
+  },
+})
