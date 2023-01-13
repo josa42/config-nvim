@@ -18,5 +18,16 @@
       "\t$2",
       "})"
     ]
+  },
+  "esm:dirname": {
+    "prefix": [
+      "dirname"
+    ],
+    "body": [
+      "import { dirname } from 'path';",
+      "import { fileURLToPath } from 'url';",
+      "",
+      "const __dirname = dirname(fileURLToPath(import.meta.url));"
+    ]
   }
 }
