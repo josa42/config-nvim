@@ -82,5 +82,25 @@
       "  end,",
       "})"
     ]
+  },
+  "desc": {
+    "prefix": [
+      "desc"
+    ],
+    "body": [
+      "describe('gx', function ()",
+      "\t$1",
+      "end)"
+    ]
+  },
+  "its": {
+    "prefix": [
+      "its"
+    ],
+    "body": [
+      "it('should $1', function()",
+      "\t$2",
+      "end)"
+    ]
   }
 }
