@@ -35,6 +35,7 @@ layer.use({
       { 'n', '<leader>j', builtin.jumplist },
       { 'n', '<leader>/', ts.find_string_in_buffer },
       { 'n', '<leader>rf', builtin.oldfiles },
+      { 'n', '<leader>m', require('jg.lib.telescope-marks').marks },
     }
   end,
 

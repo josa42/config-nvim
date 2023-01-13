@@ -46,6 +46,7 @@ require('jg.layers.file-pairs')
 require('jg.layers.spelling')
 require('jg.layers.diagrams')
 require('jg.layers.templates')
+require('jg.layers.marks')
 
 require('jg.layers.undo')
 
