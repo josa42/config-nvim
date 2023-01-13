@@ -92,3 +92,9 @@ layer.use({
     { 'n', '<leader>gg', ':tabe term://lazygit | startinsert<cr>' },
   },
 })
+
+layer.use({
+  map = {
+    { 'n', '<leader>gf', ':tabe term://lazygit -f % | startinsert<cr>' },
+  },
+})
