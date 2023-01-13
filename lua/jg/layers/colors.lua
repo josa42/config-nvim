@@ -2,6 +2,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
+  enabled = false,
   requires = {
     'NvChad/nvim-colorizer.lua',
   },
