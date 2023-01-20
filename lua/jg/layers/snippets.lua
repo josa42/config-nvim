@@ -35,6 +35,7 @@ layer.use({
     luasnip.setup({
       delete_check_events = 'TextChanged',
       update_events = 'TextChanged,TextChangedI',
+      region_check_events = 'CursorMoved',
     })
     fn.load_snippets()
   end,

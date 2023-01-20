@@ -73,6 +73,9 @@ layer.use({
 
     local mapping_cmp_toggle = cmp.mapping(if_visible(cmp.close, cmp.complete), { 'i', 'c' })
 
+    -- local jumpable = require('jg.lib.luasnip-jumpable-source')
+    -- cmp.register_source('luasnip-jumpable', jumpable.new())
+
     cmp.setup({
       window = {
         completion = {
@@ -82,12 +85,14 @@ layer.use({
       },
 
       sources = cmp.config.sources({
+        -- { name = 'luasnip-jumpable' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' },
       }, {
+        -- { name = 'luasnip-jumpable' },
         { name = 'buffer' },
       }),
 
@@ -111,10 +116,10 @@ layer.use({
         ['<C-Space>'] = mapping_cmp_toggle,
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<Tab>'] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.confirm({ select = true })
-          elseif luasnip.jumpable(1) then
+          if luasnip.jumpable(1) then
             luasnip.jump(1)
+          elseif cmp.visible() then
+            cmp.confirm({ select = true })
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           else
