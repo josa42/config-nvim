@@ -13,16 +13,18 @@ layer.use({
     vim.opt.cmdheight = 1
     vim.opt.signcolumn = 'yes'
 
-    -- vim.opt.statuscolumn = vim.fn.join({
-    --   -- line number
-    --   '%=%{&nu? (&rnu&&(v:relnum) ? v:relnum : v:lnum." ") : ""}',
-    --   -- signs
-    --   '%s',
-    --   -- fold
-    --   '%C%',
-    --   -- space
-    --   '#Normal#%{&nu? " " : ""}',
-    -- }, '')
+    if vim.fn.exists('&statuscolumn') == 1 then
+      vim.opt.statuscolumn = vim.fn.join({
+        -- signs
+        '%s',
+        -- line number
+        '%=%{&nu? (&rnu&&(v:relnum) ? v:relnum : v:lnum." ") : ""} ',
+        -- fold
+        '%C%',
+        -- space
+        '#Normal#%{&nu? " " : ""}',
+      }, '')
+    end
 
     vim.opt.cursorline = true
 
