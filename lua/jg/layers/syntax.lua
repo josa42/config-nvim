@@ -61,5 +61,6 @@ layer.use({
     'darfink/vim-plist',
     'josa42/vim-monkey-c',
     'jxnblk/vim-mdx-js',
+    'mityu/vim-applescript',
   },
 })
