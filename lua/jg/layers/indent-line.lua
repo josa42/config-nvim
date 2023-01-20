@@ -16,4 +16,14 @@ layer.use({
 
     require('virt-column').setup({ char = '│' })
   end,
+
+  autocmds = {
+    {
+      'filetype',
+      pattern = { 'help' },
+      callback = function()
+        vim.opt.colorcolumn = vim.opt_local.modifiable:get() and { 79 } or {}
+      end,
+    },
+  },
 })
