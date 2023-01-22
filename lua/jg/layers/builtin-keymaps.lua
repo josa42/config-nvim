@@ -7,11 +7,28 @@ layer.use({
   end,
 
   map = {
+    -- Nop arrow keys
+    { '', '<Up>', '<nop>' },
+    { '', '<Right>', '<nop>' },
+    { '', '<Down>', '<nop>' },
+    { '', '<Left>', '<nop>' },
+
+    { 'i', '<c-k>', '<Up>' },
+    { 'i', '<c-l>', '<Right>' },
+    { 'i', '<c-j>', '<Down>' },
+    { 'i', '<c-h>', '<Left>' },
+
     -- Navigate panes
     { '', '<C-Down>', '<C-W><C-J>', 'Focus Pane Below' },
     { '', '<C-Up>', '<C-W><C-K>', 'Focus Pane Above' },
     { '', '<C-Right>', '<C-W><C-L>', 'Focus Pane Right' },
     { '', '<C-Left>', '<C-W><C-H>', 'Focus Pane Left' },
+
+    { 'n', '<leader><space>', '<c-w><c-p>', silent = true },
+    { 'n', '<Down>', '<C-W><C-J>', 'Focus Pane Below' },
+    { 'n', '<Up>', '<C-W><C-K>', 'Focus Pane Above' },
+    { 'n', '<Right>', '<C-W><C-L>', 'Focus Pane Right' },
+    { '', '<Left>', '<C-W><C-H>', 'Focus Pane Left' },
 
     -- Search
     -- { 'n', '/', '/\\v' },
@@ -58,16 +75,5 @@ layer.use({
 
     { 'n', 'j', "v:count == 0 ? 'gj' : 'j'", expr = true },
     { 'n', 'k', "v:count == 0 ? 'gk' : 'k'", expr = true },
-
-    -- Nop arrow keys
-    { '', '<Up>', '<nop>' },
-    { '', '<Right>', '<nop>' },
-    { '', '<Down>', '<nop>' },
-    { '', '<Left>', '<nop>' },
-
-    { 'i', '<c-k>', '<Up>' },
-    { 'i', '<c-l>', '<Right>' },
-    { 'i', '<c-j>', '<Down>' },
-    { 'i', '<c-h>', '<Left>' },
   },
 })

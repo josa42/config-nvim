@@ -56,6 +56,7 @@ layer.use({
 -- replace gx mapping
 layer.use({
   requires = {
-    { 'josa42/nvim-gx', dev = false },
+    -- { 'josa42/nvim-gx', dir = '~/github/josa42/nvim-gx' },
+    { 'josa42/nvim-gx', branch = 'dev' },
   },
 })
