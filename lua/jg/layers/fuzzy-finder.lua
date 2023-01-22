@@ -8,6 +8,7 @@ layer.use({
     {
       'nvim-telescope/telescope.nvim',
       dependencies = {
+        { 'josa42/nvim-telescope-minimal-layout' },
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         'nvim-lua/plenary.nvim',
       },
@@ -101,9 +102,6 @@ layer.use({
       opts = opts or {}
 
       return vim.tbl_extend('keep', opts, {
-        prompt_title = false,
-        preview_title = false,
-        results_title = false,
         attach_mappings = function()
           action_set.select:replace_if(function(_, type)
             local entry = action_state.get_selected_entry()
@@ -167,24 +165,10 @@ layer.use({
         },
       }),
       defaults = {
-        layout_strategy = 'horizontal',
+        layout_strategy = 'minimal',
         layout_config = {
-          horizontal = {
-            mirror = false,
-            width = function(self, max_width)
-              if self.previewer == nil or max_width < 120 then
-                return 80
-              end
-              return math.min(max_width, 160)
-            end,
-            height = function(_, _, max_height)
-              return math.min(math.max(max_height - 4, 10), 40)
-            end,
-            preview_width = 80,
-            preview_cutoff = 120,
-          },
-          vertical = { mirror = true },
           prompt_position = 'top',
+          minimal = {},
         },
         sorting_strategy = 'ascending',
         prompt_prefix = get_prompt_prefix(),
@@ -223,11 +207,7 @@ layer.use({
             ['<c-p>'] = action_layout.toggle_preview,
           },
         },
-        borderchars = {
-          prompt = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-          results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-          preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-        },
+        borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
         file_ignore_patterns = {
           '%.git$',
           '%.git/',
@@ -239,6 +219,7 @@ layer.use({
     })
 
     telescope.load_extension('fzf')
+    telescope.load_extension('minimal_layout')
 
     function ts.find_files(path)
       builtin.find_files(set_path(path))
