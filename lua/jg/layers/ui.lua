@@ -25,63 +25,6 @@ layer.use({
   end,
 })
 
--- layer.use({
---   enabled = false,
---
---   name = 'quickfix-list',
---
---   requires = {
---     'LhKipp/nvim-locationist',
---   },
---
---   map = function()
---     local locationist = require('locationist')
---
---     local function add()
---       locationist.yank({ send_to = 'clist', comment = 'default' })
---     end
---
---     local function toggle()
---       local nr = vim.fn.winnr('$')
---       vim.cmd.cwindow()
---       if nr == vim.fn.winnr('$') then
---         vim.cmd.cclose()
---       end
---     end
---
---     local function refresh()
---       vim.cmd.copen()
---     end
---
---     return {
---       { 'n', '<leader>qa', add },
---       { 'n', '<leader>qq', toggle },
---       { 'n', '<leader>qr', refresh },
---     }
---   end,
---
---   setup = function()
---     require('locationist').setup({})
---
---     local function remove()
---       local curqfidx = vim.fn.line('.')
---       local qfall = vim.fn.getqflist()
---       table.remove(qfall, curqfidx)
---
---       vim.fn.setqflist(qfall, 'r')
---     end
---
---     vim.api.nvim_create_autocmd('FileType', {
---       pattern = 'qf',
---       callback = function(evt)
---         vim.keymap.set('n', 'dd', remove, {
---           buffer = evt.buf,
---         })
---       end,
---     })
---   end,
--- })
-
 layer.use({
   requires = {
     'rcarriga/nvim-notify',

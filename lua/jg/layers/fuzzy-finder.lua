@@ -9,6 +9,7 @@ layer.use({
       'nvim-telescope/telescope.nvim',
       dependencies = {
         { 'josa42/nvim-telescope-minimal-layout' },
+        -- { 'josa42/nvim-telescope-minimal-layout', dir = '~/github/josa42/nvim-telescope-minimal-layout' },
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         'nvim-lua/plenary.nvim',
       },
