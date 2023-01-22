@@ -110,9 +110,6 @@ layer.use({
 
           return true
         end,
-        preview = vim.tbl_extend('keep', opts.preview or {}, {
-          hide_on_startup = true,
-        }),
       })
     end
 
@@ -168,12 +165,14 @@ layer.use({
         layout_strategy = 'minimal',
         layout_config = {
           prompt_position = 'top',
-          minimal = {},
         },
         sorting_strategy = 'ascending',
         prompt_prefix = get_prompt_prefix(),
         selection_caret = '→ ',
         entry_prefix = '  ',
+        preview = {
+          hide_on_startup = true,
+        },
         mappings = {
           i = {
             ['<C-Down>'] = actions.cycle_history_next,
