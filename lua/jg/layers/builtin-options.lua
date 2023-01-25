@@ -38,6 +38,7 @@ layer.use({
       nbsp = '·',
       space = '·',
       trail = '·',
+      -- eol = '↴',
     }
 
     vim.opt.mouse = ''

@@ -4,6 +4,43 @@ layer.use({
   requires = {
     'lukas-reineke/indent-blankline.nvim',
   },
+
+  setup = function()
+    vim.cmd(':hi! IndentBlanklineContextChar guifg=#4b5263')
+    -- vim.cmd(':hi! link IndentBlanklineContextChar IndentBlanklineChar')
+    require('indent_blankline').setup({
+      -- for example, context is off by default, use this to turn it on
+      show_current_context = true,
+      show_current_context_start = false,
+
+      -- use_treesitter = true,
+      use_treesitter_scope = true,
+
+      show_end_of_line = true,
+
+      disable_with_nolist = true,
+
+      filetype_exclude = {
+        'tree',
+        'lspinfo',
+        'packer',
+        'checkhealth',
+        'help',
+        'man',
+        '',
+      },
+    })
+  end,
+
+  -- autocmds = {
+  --   {
+  --     'FileType',
+  --     pattern = { 'yaml' },
+  --     callback = function()
+  --       vim.cmd(':hi! IndentBlanklineContextChar guifg=#4b5263')
+  --     end,
+  --   },
+  -- },
 })
 
 layer.use({
