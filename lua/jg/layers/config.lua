@@ -1,7 +1,7 @@
 local layer = require('jg.lib.layer')
-local open = require('jg.lib.open')
 
 layer.use({
+  enabled = not vim.fn.has('nvim-0.9'),
   requires = {
     'editorconfig/editorconfig-vim',
   },
