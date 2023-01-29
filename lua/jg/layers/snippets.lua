@@ -27,6 +27,15 @@ layer.use({
         require('luasnip.loaders').reload_file(opts.file)
       end,
     },
+    {
+      'BufWritePost',
+      callback = function()
+        local luasnip = require('luasnip')
+        if luasnip.jumpable() then
+          luasnip.unlink_current()
+        end
+      end,
+    },
   },
 
   setup = function(fn)

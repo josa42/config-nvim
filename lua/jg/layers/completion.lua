@@ -73,15 +73,18 @@ layer.use({
 
     local mapping_cmp_toggle = cmp.mapping(if_visible(cmp.close, cmp.complete), { 'i', 'c' })
 
-    -- local jumpable = require('jg.lib.luasnip-jumpable-source')
-    -- cmp.register_source('luasnip-jumpable', jumpable.new())
-
     cmp.setup({
       window = {
         completion = {
           -- col_offset = -3,
           -- side_padding = 0,
         },
+      },
+
+      preselect = cmp.PreselectMode.None,
+
+      completion = {
+        autocomplete = false,
       },
 
       sources = cmp.config.sources({
@@ -112,16 +115,20 @@ layer.use({
       },
 
       mapping = {
-        ['<C-e>'] = mapping_cmp_toggle,
         ['<C-Space>'] = mapping_cmp_toggle,
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-e>'] = cmp.mapping(function(fallback)
+          if luasnip.expandable() then
+            luasnip.expand()
+          else
+            fallback()
+          end
+        end),
         ['<Tab>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then
             luasnip.jump(1)
           elseif cmp.visible() then
             cmp.confirm({ select = true })
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
           else
             fallback()
           end
