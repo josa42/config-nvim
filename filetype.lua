@@ -21,5 +21,6 @@ vim.filetype.add({
     ['~/.config/git/.*'] = 'gitconfig',
     ['~/.config/direnv/direnvrc'] = 'sh',
     ['~/.direnvrc'] = 'sh',
+    ['~/.config/kitty/kitty.conf'] = 'kitty',
   },
 })

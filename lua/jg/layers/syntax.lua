@@ -62,5 +62,6 @@ layer.use({
     'josa42/vim-monkey-c',
     'jxnblk/vim-mdx-js',
     'mityu/vim-applescript',
+    'fladson/vim-kitty',
   },
 })
