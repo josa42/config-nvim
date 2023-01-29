@@ -88,8 +88,8 @@
       "desc"
     ],
     "body": [
-      "describe('gx', function ()",
-      "\t$1",
+      "describe('$1', function ()",
+      "\t$2",
       "end)"
     ]
   },

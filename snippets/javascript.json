@@ -18,7 +18,7 @@
     ],
     "description": "it should",
     "body": [
-      "it('should ${1}', () => {});"
+      "it('should ${1}', () => {$2});"
     ]
   },
   "desc": {
