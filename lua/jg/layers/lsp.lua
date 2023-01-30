@@ -113,6 +113,8 @@ layer.use({
     require('jg.layers.lsp.null-ls').setup()
     require('jg.lsp-codelens').setup()
     require('jg.lsp-autoformat').setup({
+      ['*.cjs'] = { 'null-ls' },
+      ['*.mjs'] = { 'null-ls' },
       ['*.js'] = { 'null-ls' },
       ['*.json'] = { 'null-ls' },
       ['*.jsx'] = { 'null-ls' },
