@@ -32,5 +32,11 @@ layer.use({
     vim.fn.sign_define('DiagnosticSignWarn', { text = _G.__icons.diagnostic.warning, texthl = 'DiagnosticSignWarn' })
     vim.fn.sign_define('DiagnosticSignInfo', { text = _G.__icons.diagnostic.info, texthl = 'DiagnosticSignInfo' })
     vim.fn.sign_define('DiagnosticSignHint', { text = _G.__icons.diagnostic.hint, texthl = 'DiagnosticSignHint' })
+
+    vim.cmd.hi({ 'link', 'DiagnosticVirtualTextOk', 'Comment', bang = true })
+    vim.cmd.hi({ 'link', 'DiagnosticVirtualTextHint', 'Comment', bang = true })
+    vim.cmd.hi({ 'link', 'DiagnosticVirtualTextInfo', 'Comment', bang = true })
+    vim.cmd.hi({ 'link', 'DiagnosticVirtualTextWarn', 'Comment', bang = true })
+    vim.cmd.hi({ 'link', 'DiagnosticVirtualTextError', 'Comment', bang = true })
   end,
 })
