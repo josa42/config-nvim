@@ -53,8 +53,8 @@ layer.use({
     { 'n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>' },
     { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
     { 'n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
-    { 'n', '<leader>ac', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
-    { 'v', '<leader>ac', "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>" },
+    { 'n', '<leader>ac', vim.lsp.buf.code_action },
+    { 'v', '<leader>ac', vim.lsp.buf.code_action },
     { 'n', '<leader>F', '<cmd>lua vim.lsp.buf.format()<cr>' },
     { 'n', '<leader>al', '<cmd>lua vim.lsp.codelens.run()<cr>' },
     {
