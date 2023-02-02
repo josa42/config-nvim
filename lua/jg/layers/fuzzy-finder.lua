@@ -12,6 +12,7 @@ layer.use({
         -- { 'josa42/nvim-telescope-minimal-layout', dir = '~/github/josa42/nvim-telescope-minimal-layout' },
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-ui-select.nvim',
       },
     },
     'itchyny/vim-gitbranch',
@@ -216,10 +217,21 @@ layer.use({
           '%.(png|PNG|jpe?g|JPE?G|pdf|PDF)$',
         },
       },
+      extensions = {
+        ['ui-select'] = {
+          {
+            layout_config = {
+              width = 60,
+              height = 16,
+            },
+          },
+        },
+      },
     })
 
     telescope.load_extension('fzf')
     telescope.load_extension('minimal_layout')
+    telescope.load_extension('ui-select')
 
     function ts.find_files(path)
       builtin.find_files(set_path(path))

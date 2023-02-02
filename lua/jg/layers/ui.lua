@@ -50,6 +50,10 @@ layer.use({
 
 layer.use({
   requires = {
-    'josa42/nvim-ui',
+    { 'josa42/nvim-ui' },
+    -- { 'josa42/nvim-ui', dir = '~/github/josa42/nvim-ui' },
   },
+  setup = function()
+    require('jg.ui').setup({ select = false })
+  end,
 })
