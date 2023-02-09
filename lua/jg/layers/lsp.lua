@@ -77,17 +77,29 @@ layer.use({
 
   commands = function()
     return {
-      -- $ nvim --headless +'LspInstallAll | qa'
-      LspInstallAll = {
-        function()
-          for _, server in ipairs(l.servers) do
-            local ok = pcall(vim.cmd, 'silent LspInstall --sync ' .. server)
-            print('         ' .. (ok and 'done' or 'failed'))
-          end
-        end,
-        nargs = 0,
-        bar = true,
-      },
+      -- $ nvim --headless -c 'MasonInstallAll' -c qall
+      MasonInstallAll = function()
+        local running = 0
+        local done = function()
+          running = running - 1
+        end
+
+        for _, pkg in ipairs(require('mason-registry').get_installed_packages()) do
+          running = running + 1
+
+          pkg:check_new_version(function(new_available)
+            if new_available then
+              pkg:install():on('closed', done)
+            else
+              done()
+            end
+          end)
+        end
+
+        vim.wait(10000, function()
+          return running == 0
+        end)
+      end,
     }
   end,
 
