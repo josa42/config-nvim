@@ -4,7 +4,8 @@ layer.use({
   enabled = true,
 
   requires = {
-    'josa42/nvim-file-tree',
+    { 'josa42/nvim-file-tree' },
+    -- { 'josa42/nvim-file-tree', dir = '~/github/josa42/nvim-file-tree' },
   },
 
   map = function()

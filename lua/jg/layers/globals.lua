@@ -7,22 +7,3 @@ _G.__keymaps = {
   goto_diagnostics_next = 'glj',
   goto_diagnostics_prev = 'glk',
 }
-
-_G.__icons = {
-  action = '',
-  vcs = {
-    add = '│', -- '✚'
-    change = '│', -- '✚'
-    change_delete = '│', -- '✚'
-    delete_top = '_',
-    delete = '‾',
-  },
-  diagnostic = {
-    error = '',
-    warning = '',
-    info = '',
-    hint = '',
-
-    --.  16  18  1
-  },
-}

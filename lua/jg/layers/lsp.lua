@@ -1,4 +1,6 @@
 local layer = require('jg.lib.layer')
+local signs = require('jg.signs')
+
 local l = {}
 
 l.servers = {
@@ -157,7 +159,7 @@ layer.use({
       callback = require('nvim-lightbulb').update_lightbulb,
     })
 
-    vim.fn.sign_define('LightBulbSign', { text = _G.__icons.action, texthl = 'DiagnosticSignAction' })
+    vim.fn.sign_define('LightBulbSign', { text = signs.action, texthl = 'DiagnosticSignAction' })
 
     require('nvim-lightbulb').setup({
       sign = {

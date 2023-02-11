@@ -1,4 +1,5 @@
 local util = require('vim.lsp.util')
+local signs = require('jg.signs')
 
 local M = {}
 
@@ -49,9 +50,9 @@ function M.setup()
         local icon = '■'
 
         if d.severity == vim.diagnostic.severity.ERROR then
-          icon = _G.__icons.diagnostic.error
+          icon = signs.diagnostic.error
         elseif d.severity == vim.diagnostic.severity.WARN then
-          icon = _G.__icons.diagnostic.warning
+          icon = signs.diagnostic.warning
         end
 
         local message = icon .. ' ' .. d.message

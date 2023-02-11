@@ -1,4 +1,5 @@
 local layer = require('jg.lib.layer')
+local signs = require('jg.signs')
 
 layer.use({
   requires = {
@@ -70,6 +71,7 @@ layer.use({
   setup = function()
     require('gitsigns').setup({
       yadm = { enable = true },
+      signs = signs.gitsigns,
       current_line_blame = false,
       current_line_blame_opts = {
         ignore_whitespace = true,

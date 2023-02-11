@@ -1,6 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "runtime.version": "LuaJIT",
+    "runtime.special": {
+        "require": "require"
+    },
     "diagnostics": {
         "enable": true,
         "globals": [
@@ -13,7 +16,8 @@
             "setup",
             "teardown",
             "finally",
-            "lfs"
+            "lfs",
+            "_G"
         ]
     },
     "workspace": {

@@ -1,4 +1,5 @@
 local layer = require('jg.lib.layer')
+local signs = require('jg.signs')
 
 layer.use({
   enabled = true,
@@ -18,20 +19,15 @@ layer.use({
 
     require('trouble').setup({
       mode = 'document_diagnostics',
-      signs = {
-        error = _G.__icons.diagnostic.error,
-        warning = _G.__icons.diagnostic.warning,
-        hint = _G.__icons.diagnostic.hint,
-        information = _G.__icons.diagnostic.info,
-      },
+      signs = signs.trouble,
       icons = false,
       auto_close = true,
     })
 
-    vim.fn.sign_define('DiagnosticSignError', { text = _G.__icons.diagnostic.error, texthl = 'DiagnosticSignError' })
-    vim.fn.sign_define('DiagnosticSignWarn', { text = _G.__icons.diagnostic.warning, texthl = 'DiagnosticSignWarn' })
-    vim.fn.sign_define('DiagnosticSignInfo', { text = _G.__icons.diagnostic.info, texthl = 'DiagnosticSignInfo' })
-    vim.fn.sign_define('DiagnosticSignHint', { text = _G.__icons.diagnostic.hint, texthl = 'DiagnosticSignHint' })
+    vim.fn.sign_define('DiagnosticSignError', { text = signs.diagnostic.error, texthl = 'DiagnosticSignError' })
+    vim.fn.sign_define('DiagnosticSignWarn', { text = signs.diagnostic.warning, texthl = 'DiagnosticSignWarn' })
+    vim.fn.sign_define('DiagnosticSignInfo', { text = signs.diagnostic.info, texthl = 'DiagnosticSignInfo' })
+    vim.fn.sign_define('DiagnosticSignHint', { text = signs.diagnostic.hint, texthl = 'DiagnosticSignHint' })
 
     vim.cmd.hi({ 'link', 'DiagnosticVirtualTextOk', 'Comment', bang = true })
     vim.cmd.hi({ 'link', 'DiagnosticVirtualTextHint', 'Comment', bang = true })

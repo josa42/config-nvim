@@ -1,7 +1,8 @@
 local M = {}
+local signs = require('jg.sings')
 
 local file_icon = {
-  icon = '',
+  icon = signs.fs.file,
 }
 
 function M.set_default_icon() end

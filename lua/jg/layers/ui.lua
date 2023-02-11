@@ -1,4 +1,5 @@
 local layer = require('jg.lib.layer')
+local signs = require('jg.signs')
 
 -- quickfix list
 layer.use({
@@ -35,13 +36,7 @@ layer.use({
     notify.setup({
       render = 'minimal',
       stages = 'static',
-      icons = {
-        ERROR = _G.__icons.diagnostic.error,
-        WARN = _G.__icons.diagnostic.warning,
-        INFO = _G.__icons.diagnostic.info,
-        DEBUG = '', -- _G.__icons.diagnostic.hint
-        TRACE = '✎',
-      },
+      icons = signs.notify,
     })
 
     vim.notify = notify

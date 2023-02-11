@@ -1,4 +1,5 @@
 local layer = require('jg.lib.layer')
+local signs = require('jg.signs')
 
 local M = {}
 
@@ -77,10 +78,7 @@ layer.use({
             sources = { 'nvim_diagnostic' },
             icons_enabled = true,
             sections = { 'error', 'warn' },
-            symbols = {
-              error = _G.__icons.error,
-              warn = _G.__icons.warning,
-            },
+            symbols = signs.diagnostics,
           },
           components.luasnip_status(),
         },
