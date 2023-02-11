@@ -1,5 +1,6 @@
 local layer = require('jg.lib.layer')
 local signs = require('jg.signs')
+local keymaps = require('jg.keymaps')
 
 layer.use({
   enabled = true,
@@ -9,9 +10,9 @@ layer.use({
   },
 
   map = {
-    { 'n', __keymaps.goto_diagnostics_prev, '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_next, '<cmd>lua vim.diagnostic.goto_next()<CR>' },
-    { 'n', __keymaps.goto_diagnostics_list, ':TroubleToggle document_diagnostics<cr>' },
+    { 'n', keymaps.diagnostics.goto_prev, '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
+    { 'n', keymaps.diagnostics.goto_next, '<cmd>lua vim.diagnostic.goto_next()<CR>' },
+    { 'n', keymaps.diagnostics.goto_list, ':TroubleToggle document_diagnostics<cr>' },
   },
 
   setup = function()

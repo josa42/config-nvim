@@ -1,5 +1,6 @@
 local layer = require('jg.lib.layer')
 local paths = require('jg.lib.paths')
+local keymaps = require('jg.keymaps')
 
 local ts = {}
 
@@ -23,11 +24,11 @@ layer.use({
     local builtin = require('telescope.builtin')
 
     return {
-      { 'n', __keymaps.find_file, ts.find_files, label = 'Find files' },
-      { 'n', __keymaps.find_string, ts.find_string, label = 'Find string' },
-      { 'n', __keymaps.find_config, ts.find_config, label = 'Find config' },
+      { 'n', keymaps.find.file, ts.find_files, label = 'Find files' },
+      { 'n', keymaps.find.string, ts.find_string, label = 'Find string' },
+      { 'n', keymaps.find.config, ts.find_config, label = 'Find config' },
       { 'n', '<leader>d', ts.find_docs, label = 'Find docs' },
-      { 'n', __keymaps.find_help, builtin.help_tags, label = 'Find help' },
+      { 'n', keymaps.find.help, builtin.help_tags, label = 'Find help' },
       { 'n', '<leader>gs', builtin.git_status, label = 'Git status' },
       { 'n', '<leader>gb', builtin.git_bcommits, label = 'Git buffer commits' },
       { 'n', '<leader>gl', builtin.git_commits, label = 'Git commits' },

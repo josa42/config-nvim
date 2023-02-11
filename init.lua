@@ -11,8 +11,6 @@
 --                                           |___/
 -- Layers ======================================================================
 
-require('jg.layers.globals')
-
 require('jg.layers.builtin-options')
 require('jg.layers.builtin-keymaps')
 
