@@ -210,3 +210,13 @@ layer.use({
     require('template-string').setup()
   end,
 })
+
+layer.use({
+  requires = {
+    'ThePrimeagen/refactoring.nvim',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+  },
+})
