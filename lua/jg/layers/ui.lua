@@ -49,6 +49,31 @@ layer.use({
     -- { 'josa42/nvim-ui', dir = '~/github/josa42/nvim-ui' },
   },
   setup = function()
+    -- use nvim-telescope/telescope-ui-select.nvim for select
     require('jg.ui').setup({ select = false })
+  end,
+})
+
+layer.use({
+  requires = {
+    'nyngwang/NeoZoom.lua',
+  },
+  map = {
+    { 'n', '<cr>', vim.cmd.NeoZoomToggle, { silent = true, nowait = true } },
+  },
+  setup = function()
+    require('neo-zoom').setup({
+      top_ratio = 0,
+      left_ratio = 0,
+      width_ratio = 1,
+      height_ratio = 1,
+      border = 'none',
+      callbacks = {
+        function()
+          -- vim.opt_local.winblend = 80
+          vim.opt_local.winhighlight = { Normal = 'Normal' }
+        end,
+      },
+    })
   end,
 })
