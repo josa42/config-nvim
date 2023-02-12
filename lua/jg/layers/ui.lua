@@ -56,18 +56,19 @@ layer.use({
 
 layer.use({
   requires = {
-    'nyngwang/NeoZoom.lua',
+    -- { 'nyngwang/NeoZoom.lua' },
+    { 'josa42/NeoZoom.lua', branch = 'josa42/allow-full-size' },
   },
   map = {
     { 'n', '<cr>', vim.cmd.NeoZoomToggle, { silent = true, nowait = true } },
   },
   setup = function()
+    -- local editor = vim.api.nvim_list_uis()[1]
     require('neo-zoom').setup({
-      top_ratio = 0,
-      left_ratio = 0,
-      width_ratio = 1,
-      height_ratio = 1,
-      border = 'none',
+      winopts = {
+        offset = { top = 0, left = 0, width = 1.0, height = 1.0 },
+        border = 'none',
+      },
       callbacks = {
         function()
           -- vim.opt_local.winblend = 80
