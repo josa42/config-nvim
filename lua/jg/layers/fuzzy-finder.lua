@@ -7,7 +7,10 @@ local ts = {}
 layer.use({
   requires = {
     {
-      'nvim-telescope/telescope.nvim',
+      -- 'nvim-telescope/telescope.nvim',
+      -- dir = '~/github/nvim-telescope/telescope.nvim',
+      'josa42/telescope.nvim',
+      branch = 'josa42/fix-exec-autocmds',
       dependencies = {
         { 'josa42/nvim-telescope-minimal-layout' },
         -- { 'josa42/nvim-telescope-minimal-layout', dir = '~/github/josa42/nvim-telescope-minimal-layout' },
