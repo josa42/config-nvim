@@ -11,7 +11,7 @@ l.servers = {
   'dockerls',
   'gopls',
   'jsonls',
-  'sumneko_lua',
+  'lua_ls',
   'tsserver',
   'yamlls',
   'stylelint_lsp',
