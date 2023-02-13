@@ -56,8 +56,7 @@ layer.use({
 
 layer.use({
   requires = {
-    -- { 'nyngwang/NeoZoom.lua' },
-    { 'josa42/NeoZoom.lua', branch = 'josa42/allow-full-size' },
+    { 'nyngwang/NeoZoom.lua' },
   },
   map = {
     { 'n', '<cr>', vim.cmd.NeoZoomToggle, { silent = true, nowait = true } },
