@@ -27,6 +27,7 @@ layer.use({
         'checkhealth',
         'help',
         'man',
+        'lazy',
         '',
       },
     })
@@ -60,6 +61,13 @@ layer.use({
       pattern = { 'help' },
       callback = function()
         vim.opt.colorcolumn = vim.opt_local.modifiable:get() and { 79 } or {}
+      end,
+    },
+    {
+      'filetype',
+      pattern = { 'lazy' },
+      callback = function()
+        vim.opt.colorcolumn = {}
       end,
     },
   },
