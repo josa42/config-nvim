@@ -130,8 +130,18 @@ layer.use({
         return vim.tbl_extend('keep', {
           cwd = path,
           prompt_prefix = get_prompt_prefix(path),
+        }, opts)
+      end
+
+      return opts
+    end
+
+    local function set_entry_maker(path, opts)
+      opts = opts or {}
+      if path ~= nil and path ~= '.' then
+        return vim.tbl_extend('keep', {
           entry_maker = make_gen_from_file({ cwd = path }),
-        }, opts or {})
+        }, opts)
       end
 
       return opts
@@ -240,7 +250,7 @@ layer.use({
     telescope.load_extension('ui-select')
 
     function ts.find_files(path)
-      builtin.find_files(set_path(path))
+      builtin.find_files(set_path(path, set_entry_maker(path)))
     end
 
     function ts.find_string(path)
@@ -248,7 +258,7 @@ layer.use({
     end
 
     function ts.find_config()
-      builtin.find_files(set_path(paths.config_dir))
+      ts.find_files(paths.config_dir)
     end
 
     function ts.find_docs()
