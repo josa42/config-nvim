@@ -7,10 +7,8 @@ local ts = {}
 layer.use({
   requires = {
     {
-      -- 'nvim-telescope/telescope.nvim',
+      'nvim-telescope/telescope.nvim',
       -- dir = '~/github/nvim-telescope/telescope.nvim',
-      'josa42/telescope.nvim',
-      branch = 'josa42/fix-exec-autocmds',
       dependencies = {
         { 'josa42/nvim-telescope-minimal-layout' },
         -- { 'josa42/nvim-telescope-minimal-layout', dir = '~/github/josa42/nvim-telescope-minimal-layout' },
@@ -122,6 +120,7 @@ layer.use({
     end
 
     local function set_path(path, opts)
+      opts = opts or {}
       if path ~= nil and path ~= '.' then
         if string.sub(path, 1, paths.home:len()) == paths.home then
           path = '~' .. string.sub(path, paths.home:len() + 1)
