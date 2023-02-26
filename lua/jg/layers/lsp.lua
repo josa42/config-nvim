@@ -15,7 +15,6 @@ l.servers = {
   'tsserver',
   'yamlls',
   'stylelint_lsp',
-  'marksman',
   'terraformls',
   'tflint',
 }
