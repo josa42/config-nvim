@@ -28,7 +28,7 @@ layer.use({
 })
 
 layer.use({
-  enabled = true,
+  enabled = false,
   requires = {
     {
       'iamcco/markdown-preview.nvim',
