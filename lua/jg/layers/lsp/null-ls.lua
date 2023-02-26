@@ -27,6 +27,24 @@ local js_and_json = {
   'markdown',
 }
 
+M.cache = {}
+
+function M.has_cache(key)
+  return M.cache[key] ~= nil
+end
+
+function M.get_cache(key, default)
+  if M.has_cache(key) then
+    return M.cache[key]
+  end
+  return default
+end
+
+function M.set_cache(key, value)
+  M.cache[key] = value
+  return value
+end
+
 function M.setup()
   for _, tool in ipairs(M.tools) do
     local pkg = mason.get_package(tool)
@@ -37,8 +55,20 @@ function M.setup()
 
   local eslintrc_root =
     utils.root_pattern('.eslintrc', 'eslintrc.json', '.eslintrc.cjs', '.eslintrc.js', 'eslintrc.yaml', 'eslintrc.yml')
-  local yarn_root = utils.root_pattern('.yarn')
-  local pkg_root = utils.root_pattern('package.json')
+
+  local not_home = function(fn)
+    local home = os.getenv('HOME')
+    return function(bufname)
+      local dir = fn(bufname)
+      if dir == home then
+        return nil
+      end
+      return dir
+    end
+  end
+
+  local yarn_root = not_home(utils.root_pattern('.yarn'))
+  local pkg_root = not_home(utils.root_pattern('package.json'))
 
   local eslint_root = function(p)
     local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
@@ -49,31 +79,54 @@ function M.setup()
     return utils.path.exists(utils.path.join(root, name))
   end
 
-  function find_local_bin(p, name)
-    local root = eslint_root(p)
-
-    local out = vim.trim(vim.fn.system('cd ' .. vim.fn.shellescape(root) .. '; npm bin'))
-
-    if has_file(out, name) then
-      return out .. '/' .. name
+  local function npm_bin_dir(p)
+    local cache_key = 'npm:bin:dir:' .. p.bufname
+    if M.has_cache(cache_key) then
+      return M.get_cache(cache_key)
     end
 
-    -- local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
-    --
-    -- print('bufname: ' .. bufname)
-    --
-    -- local bufname = p and p.bufname or vim.api.nvim_buf_get_name(0)
-    -- local eslint_dir eslintrc_root(bufname) or yarn_root(bufname) or pkg_root(bufname)
+    local root = eslint_root(p)
+
+    -- TODO npm bin has been removed in npm 9
+    local out = vim.trim(vim.fn.system('cd ' .. vim.fn.shellescape(root) .. '; npm bin'))
+
+    if utils.path.exists(out) then
+      return M.set_cache(cache_key, utils.path.join(root, 'node_modules', '.bin'))
+    end
+
+    return M.set_cache(cache_key, '.')
+  end
+
+  local function find_local_bin(p, name)
+    local cache_key = 'local:bin:' .. p.bufname .. ':' .. name
+    if M.has_cache(cache_key) then
+      return M.get_cache(cache_key)
+    end
+
+    local bin_dir = npm_bin_dir(p)
+    if has_file(bin_dir, name) then
+      return M.set_cache(cache_key, utils.path.join(bin_dir, name))
+    end
+
+    if name == 'eslint' then
+      local dir = vim.fs.dirname(p.bufname)
+      local eslint = vim.json.decode(vim.fn.system('cd ' .. vim.fn.shellescape(dir) .. '; npm query \\#eslint'))[1]
+      if eslint ~= nil then
+        return M.set_cache(cache_key, utils.path.join(eslint.path, eslint.bin.eslint))
+      end
+    end
 
     return nil
   end
 
   local condition_eslint_without_json = function(p)
-    return find_local_bin(p, 'eslint') ~= nil and not has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+    local root = eslint_root(p)
+    return not has_file(root, 'node_modules/jsonc-eslint-parser/package.json') and find_local_bin(p, 'eslint') ~= nil
   end
 
   local condition_eslint_with_json = function(p)
-    return find_local_bin(p, 'eslint') ~= nil and has_file(root, 'node_modules/jsonc-eslint-parser/package.json')
+    local root = eslint_root(p)
+    return has_file(root, 'node_modules/jsonc-eslint-parser/package.json') and find_local_bin(p, 'eslint') ~= nil
   end
 
   local condition_not_eslint_with_json = function(p)
