@@ -17,5 +17,6 @@ layer.use({
     ft.monkeyc = { '//%s', '/*%s*/' }
     ft.json = { '//%s', '/*%s*/' }
     ft.jsonc = { '//%s', '/*%s*/' }
+    ft.gomod = { '//%s' }
   end,
 })
