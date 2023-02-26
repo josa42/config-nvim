@@ -1,5 +1,3 @@
-require('jg.lib.polyfills')
-
 local settings = {}
 
 return function()

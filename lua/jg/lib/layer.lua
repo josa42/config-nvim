@@ -1,5 +1,3 @@
-require('jg.lib.polyfills')
-
 local plug = os.getenv('NVIM_USE_VIM_PLUG') == 'true' and require('jg.lib.plug') or require('jg.lib.lazy')
 
 local M = {}

@@ -1,5 +1,3 @@
-require('jg.lib.polyfills')
-
 local paths = require('jg.lib.paths')
 local layer = require('jg.lib.layer')
 

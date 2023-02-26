@@ -1,5 +1,3 @@
-require('jg.lib.polyfills')
-
 local settings = {
   gopls = {
     codelenses = { vendor = false },
