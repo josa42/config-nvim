@@ -29,7 +29,7 @@ layer.use({
     vim.opt.runtimepath:append(parser_install_dir)
 
     -- use bash parser for zsh
-    require('nvim-treesitter.parsers').filetype_to_parsername.zsh = 'bash'
+    vim.treesitter.language.register('bash', 'zsh')
 
     configs.setup({
       ensure_installed = ts_install,
