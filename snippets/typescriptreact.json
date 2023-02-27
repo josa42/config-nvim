@@ -15,5 +15,25 @@
       "",
       "export default ${1};"
     ]
+  },
+  "props": {
+    "prefix": [
+      "props"
+    ],
+    "description": "",
+    "body": [
+      "const ${1}PropTypes = {}",
+      "",
+      "type ${2:$1}Props = InferProps<typeof ${1}PropTypes>"
+    ]
+  },
+  ",i": {
+    "prefix": [
+      ",i"
+    ],
+    "description": "",
+    "body": [
+      ", { InferProps }"
+    ]
   }
 }
