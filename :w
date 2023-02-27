@@ -159,9 +159,9 @@ function M.setup()
         end
       end
 
-      if utils.path.exists(path_join(dir, '.git')) or vim.tbl_contains({ home, '/', '.' }, dir) then
-        return nil
-      end
+        if utils.path.exists(path_join(dir, '.git')) or vim.tbl_contains({ home, '/', '.' }, dir) then
+          return nil
+        end
 
       dir = vim.fs.dirname(dir)
     end
