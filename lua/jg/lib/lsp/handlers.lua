@@ -8,14 +8,14 @@ local function on_location(_, result, ctx, _)
     return
   end
 
-  local client = vim.lsp.get_client_by_id(ctx.client_id)
-
   if not vim.tbl_islist(result) then
     result = { result }
   end
 
   if #result == 1 then
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
     util.jump_to_location(result[1], client.offset_encoding, false)
+    -- util.preview_location(result[1], { max_width = 100, max_height = 8 })
   else
     vim.ui.select(result, {
       kind = 'file',
@@ -25,6 +25,7 @@ local function on_location(_, result, ctx, _)
     }, function(loc)
       if loc then
         util.jump_to_location(loc, client.offset_encoding, false)
+        -- util.preview_location(loc, { max_width = 100, max_height = 8 })
       end
     end)
   end
@@ -55,14 +56,7 @@ function M.setup()
           icon = signs.diagnostic.warning
         end
 
-        local message = icon .. ' ' .. d.message
-
-        -- local l = vim.fn.strchars(vim.fn.getline(d.lnum + 1))
-        -- if l < 78 then
-        --   return string.rep(' ', 78 - l) .. message
-        -- end
-
-        return message
+        return icon .. ' ' .. d.message
       end,
     },
   })
