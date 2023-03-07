@@ -7,7 +7,6 @@ local M = {}
 
 M.tools = {
   'actionlint',
-  'eslint_d',
   'fixjson',
   'shellcheck',
   'shfmt',
@@ -217,22 +216,22 @@ function M.setup()
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
       -- eslint -> js; without json
-      null_ls.builtins.diagnostics.eslint_d.with({
+      null_ls.builtins.diagnostics.eslint.with({
         runtime_condition = condition_eslint_without_json,
         cwd = eslint_root,
       }),
-      null_ls.builtins.formatting.eslint_d.with({
+      null_ls.builtins.formatting.eslint.with({
         runtime_condition = condition_eslint_without_json,
         cwd = eslint_root,
       }),
 
       -- eslint -> js and json
-      null_ls.builtins.diagnostics.eslint_d.with({
+      null_ls.builtins.diagnostics.eslint.with({
         filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
       }),
-      null_ls.builtins.formatting.eslint_d.with({
+      null_ls.builtins.formatting.eslint.with({
         filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
