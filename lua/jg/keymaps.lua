@@ -2,8 +2,9 @@ local keymaps = {
   find = {
     file = '<c-p>',
     string = '<c-f>',
-    config = '<c-c>',
-    help = '<c-h>',
+    config = '<leader>cc',
+    config_find = '<leader>cf',
+    help = '<leader>h',
   },
   diagnostics = {
     goto_list = 'gll',

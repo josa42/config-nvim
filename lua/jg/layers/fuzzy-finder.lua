@@ -26,11 +26,17 @@ layer.use({
   map = function()
     local builtin = require('telescope.builtin')
 
+    local set_opts = function(fn, opts)
+      return function()
+        return fn(opts)
+      end
+    end
+
     return {
       { 'n', keymaps.find.file, ts.find_files, label = 'Find files' },
       { 'n', keymaps.find.string, ts.find_string, label = 'Find string' },
-      { 'n', keymaps.find.config, ts.find_config, label = 'Find config' },
-      { 'n', '<leader>d', ts.find_docs, label = 'Find docs' },
+      { 'n', keymaps.find.config, set_opts(ts.find_files, paths.config_dir), label = 'Find config' },
+      { 'n', keymaps.find.config_find, ts.find_config_string, label = 'Find config' },
       { 'n', keymaps.find.help, builtin.help_tags, label = 'Find help' },
       { 'n', '<leader>gs', builtin.git_status, label = 'Git status' },
       { 'n', '<leader>gb', builtin.git_bcommits, label = 'Git buffer commits' },
@@ -39,7 +45,7 @@ layer.use({
       { 'n', '<leader>p', ts.find_file_in_workspace },
       { 'n', '<leader>f', ts.find_string_in_workspace },
       { 'n', '<leader>w', ts.select_workspace },
-      { 'n', '<leader>j', builtin.jumplist },
+      { 'n', '<leader>j', set_opts(builtin.jumplist, { show_line = false }) },
       { 'n', '<leader>/', ts.find_string_in_buffer },
       { 'n', '<leader>rf', builtin.oldfiles },
       { 'n', '<leader>m', require('jg.lib.telescope-marks').marks },
@@ -177,6 +183,9 @@ layer.use({
         highlights = {
           preview = { hide_on_startup = false },
         },
+        jumplist = {
+          preview = { hide_on_startup = false },
+        },
       }),
       defaults = {
         layout_strategy = 'minimal',
@@ -256,14 +265,8 @@ layer.use({
       builtin.live_grep(set_path(path))
     end
 
-    function ts.find_config()
-      ts.find_files(paths.config_dir)
-    end
-
-    function ts.find_docs()
-      builtin.find_files({
-        find_command = { 'fd', '--type=f', '--glob', '*.md' },
-      })
+    function ts.find_config_string()
+      builtin.live_grep(set_path(paths.config_dir))
     end
 
     -- TODO extract into josa42/nvim-telescope-workspaces
