@@ -175,7 +175,7 @@ layer.use({
 
 layer.use({
   requires = {
-    'j-hui/fidget.nvim',
+    { 'j-hui/fidget.nvim', tag = 'legacy' },
   },
 
   setup = function()
