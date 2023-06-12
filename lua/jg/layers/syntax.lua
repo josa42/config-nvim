@@ -43,11 +43,11 @@ layer.use({
 
     -- Remove conceal for markdown code fences
     pcall(function()
-      local file = vim.treesitter.query.get_query_files('markdown', 'highlights')[1]
+      local file = vim.treesitter.query.get_files('markdown', 'highlights')[1]
       local content = require('jg.lib.fs')
         .read(file)
         :gsub('%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n', '++++')
-      vim.treesitter.query.set_query('markdown', 'highlights', content)
+      vim.treesitter.query.set('markdown', 'highlights', content)
     end)
   end,
 })
