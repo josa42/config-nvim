@@ -43,6 +43,9 @@ layer.use({
 
     -- Remove conceal for markdown code fences
     pcall(function()
+      vim.treesitter.query.set = vim.treesitter.query.set or vim.treesitter.query.set_query
+      vim.treesitter.query.get_files = vim.treesitter.query.get_files or vim.treesitter.query.get_query_files
+
       local file = vim.treesitter.query.get_files('markdown', 'highlights')[1]
       local content = require('jg.lib.fs')
         .read(file)
