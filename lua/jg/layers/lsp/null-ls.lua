@@ -216,22 +216,22 @@ function M.setup()
     debug = false, -- log: ~/.cache/nvim/null-ls.log
     sources = {
       -- eslint -> js; without json
-      null_ls.builtins.diagnostics.eslint.with({
+      null_ls.builtins.diagnostics.eslint_d.with({
         runtime_condition = condition_eslint_without_json,
         cwd = eslint_root,
       }),
-      null_ls.builtins.formatting.eslint.with({
+      null_ls.builtins.formatting.eslint_d.with({
         runtime_condition = condition_eslint_without_json,
         cwd = eslint_root,
       }),
 
       -- eslint -> js and json
-      null_ls.builtins.diagnostics.eslint.with({
+      null_ls.builtins.diagnostics.eslint_d.with({
         filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
       }),
-      null_ls.builtins.formatting.eslint.with({
+      null_ls.builtins.formatting.eslint_d.with({
         filetypes = js_and_json,
         runtime_condition = condition_eslint_with_json,
         cwd = eslint_root,
