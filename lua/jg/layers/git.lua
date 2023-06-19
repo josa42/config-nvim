@@ -6,7 +6,7 @@ layer.use({
     'tpope/vim-fugitive', -- Git commands; mainly for Gblame
     'tpope/vim-rhubarb',
     'tpope/vim-git',
-    { 'sindrets/diffview.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+    -- { 'sindrets/diffview.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   },
 
   commands = {
@@ -26,11 +26,11 @@ layer.use({
     Fs = { 'silent! !fork status', label = 'Open Fork - status' },
   },
 
-  setup = function()
-    require('diffview').setup({
-      use_icons = false,
-    })
-  end,
+  -- setup = function()
+  --   require('diffview').setup({
+  --     use_icons = false,
+  --   })
+  -- end,
 })
 
 layer.use({
