@@ -55,6 +55,7 @@ layer.use({
 })
 
 layer.use({
+  enabled = false,
   requires = {
     { 'nyngwang/NeoZoom.lua' },
   },
