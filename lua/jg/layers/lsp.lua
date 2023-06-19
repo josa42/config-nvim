@@ -47,7 +47,7 @@ layer.use({
     } },
     'josa42/nvim-lsp-autoformat',
     'josa42/nvim-lsp-codelens',
-    'josa42/nvim-markdown-preview',
+    -- 'josa42/nvim-markdown-preview',
   },
 
   map = {
@@ -122,8 +122,8 @@ layer.use({
       automatic_installation = true,
     })
 
-    setup_server('markdown_preview_ls')
-    require('markdown-preview').create_update_autocmd()
+    -- setup_server('markdown_preview_ls')
+    -- require('markdown-preview').create_update_autocmd()
 
     setup_server('sourcekit')
 

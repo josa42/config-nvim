@@ -27,14 +27,14 @@ layer.use({
   end,
 })
 
-layer.use({
-  enabled = false,
-  requires = {
-    {
-      'iamcco/markdown-preview.nvim',
-      build = function()
-        vim.fn['mkdp#util#install']()
-      end,
-    },
-  },
-})
+-- layer.use({
+--   enabled = false,
+--   requires = {
+--     {
+--       'iamcco/markdown-preview.nvim',
+--       build = function()
+--         vim.fn['mkdp#util#install']()
+--       end,
+--     },
+--   },
+-- })
