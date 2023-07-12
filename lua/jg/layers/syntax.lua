@@ -66,5 +66,6 @@ layer.use({
     'jxnblk/vim-mdx-js',
     'mityu/vim-applescript',
     'fladson/vim-kitty',
+    'antonk52/vim-browserslist',
   },
 })
