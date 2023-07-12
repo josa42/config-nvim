@@ -1,6 +1,24 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
+  requires = { 'numToStr/Navigator.nvim' },
+  setup = function()
+    vim.keymap.set('n', '<leader>l', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>')
+
+    require('Navigator').setup()
+  end,
+  map = {
+    { { 'n', 't' }, '<c-h>', '<CMD>NavigatorLeft<CR>' },
+    { { 'n', 't' }, '<c-l>', '<CMD>NavigatorRight<CR>' },
+    { { 'n', 't' }, '<c-k>', '<CMD>NavigatorUp<CR>' },
+    { { 'n', 't' }, '<c-j>', '<CMD>NavigatorDown<CR>' },
+    { { 'n', 't' }, '<c-space>', '<CMD>NavigatorPrevious<CR>' },
+  },
+})
+
+--------------------------------------------------------------------------------
+
+layer.use({
   map = {
     -- move lines
     { 'n', 'g<up>', ':m -2<cr>', desc = 'Move Line Up' },
