@@ -33,6 +33,7 @@ require('jg.layers.markdown')
 
 -- Editing
 require('jg.layers.lsp')
+require('jg.layers.code-commands')
 require('jg.layers.completion')
 require('jg.layers.diagnostics')
 require('jg.layers.editing')

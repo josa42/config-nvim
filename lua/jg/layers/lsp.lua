@@ -3,6 +3,8 @@ local signs = require('jg.signs')
 
 local l = {}
 
+local use_null_ls = false
+
 l.servers = {
   'cssls',
   'html',
@@ -45,8 +47,8 @@ layer.use({
     { 'jose-elias-alvarez/null-ls.nvim', dependencies = {
       'nvim-lua/plenary.nvim',
     } },
-    'josa42/nvim-lsp-autoformat',
     'josa42/nvim-lsp-codelens',
+    use_null_ls and 'josa42/nvim-lsp-autoformat' or nil,
     -- 'josa42/nvim-markdown-preview',
   },
 
@@ -65,7 +67,7 @@ layer.use({
       function()
         local clients = vim.tbl_filter(function(client)
           return client.supports_method('textDocument/hover')
-        end, vim.tbl_values(vim.lsp.buf_get_clients()))
+        end, vim.tbl_values(vim.lsp.get_clients()))
 
         if vim.tbl_isempty(clients) then
           vim.cmd.normal({ 'K', bang = true })
@@ -127,24 +129,27 @@ layer.use({
 
     setup_server('sourcekit')
 
-    require('jg.layers.lsp.null-ls').setup()
     require('jg.lsp-codelens').setup()
-    require('jg.lsp-autoformat').setup({
-      ['*.cjs'] = { 'null-ls' },
-      ['*.mjs'] = { 'null-ls' },
-      ['*.js'] = { 'null-ls' },
-      ['*.json'] = { 'null-ls' },
-      ['*.jsx'] = { 'null-ls' },
-      ['*.md'] = { 'null-ls' },
-      ['*.ts'] = { 'null-ls', 'tsserver' },
-      ['*.tsx'] = { 'null-ls' },
-      ['*.css'] = { 'stylelint_lsp' },
-      ['*.lua'] = { 'null-ls' },
-      ['Dockerfile'] = { 'dockerls' },
-      ['*.swift'] = { 'null-ls' },
-      ['*.go'] = { 'gopls' },
-      ['*.tf'] = { 'null-ls' },
-    })
+
+    if use_null_ls then
+      require('jg.layers.lsp.null-ls').setup()
+      require('jg.lsp-autoformat').setup({
+        ['*.cjs'] = { 'null-ls' },
+        ['*.mjs'] = { 'null-ls' },
+        ['*.js'] = { 'null-ls' },
+        ['*.json'] = { 'null-ls' },
+        ['*.jsx'] = { 'null-ls' },
+        ['*.md'] = { 'null-ls' },
+        ['*.ts'] = { 'null-ls', 'tsserver' },
+        ['*.tsx'] = { 'null-ls' },
+        ['*.css'] = { 'stylelint_lsp' },
+        ['*.lua'] = { 'null-ls' },
+        ['Dockerfile'] = { 'dockerls' },
+        ['*.swift'] = { 'null-ls' },
+        ['*.go'] = { 'gopls' },
+        ['*.tf'] = { 'null-ls' },
+      })
+    end
   end,
 })
 
