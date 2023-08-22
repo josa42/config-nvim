@@ -8,15 +8,13 @@ layer.use({
   requires = {
     {
       'nvim-telescope/telescope.nvim',
-      -- dir = '~/github/nvim-telescope/telescope.nvim',
       dependencies = {
         { 'josa42/nvim-telescope-minimal-layout' },
-        -- { 'josa42/nvim-telescope-minimal-layout', dir = '~/github/josa42/nvim-telescope-minimal-layout' },
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-ui-select.nvim',
         { 'josa42/nvim-telescope-mask' },
-        -- { 'josa42/nvim-telescope-mask', dir = '~/github/josa42/nvim-telescope-mask' },
+        { 'nvim-telescope/telescope-file-browser.nvim' },
       },
     },
     'itchyny/vim-gitbranch',
@@ -43,6 +41,7 @@ layer.use({
       { 'n', '<leader>gl', builtin.git_commits, label = 'Git commits' },
       -- { 'n', '<leader><leader>', ts.find_file_in_workspace },
       { 'n', '<leader>p', ts.find_file_in_workspace },
+      { 'n', '<leader>rg', ts.find_file_in_root },
       { 'n', '<leader>f', ts.find_string_in_workspace },
       { 'n', '<leader>w', ts.select_workspace },
       { 'n', '<leader>j', set_opts(builtin.jumplist, { show_line = false }) },
@@ -250,12 +249,28 @@ layer.use({
             },
           },
         },
+        file_browser = {
+          hijack_netrw = true,
+          mappings = {
+            ['i'] = {
+              ['<CR>'] = actions.select_default,
+            },
+          },
+        },
       },
     })
 
     telescope.load_extension('fzf')
     telescope.load_extension('minimal_layout')
     telescope.load_extension('ui-select')
+    telescope.load_extension('file_browser')
+
+    vim.api.nvim_set_keymap(
+      'n',
+      '<space>fb',
+      ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
+      { noremap = true }
+    )
 
     function ts.find_files(path)
       builtin.find_files(set_path(path, set_entry_maker(path)))
@@ -267,6 +282,23 @@ layer.use({
 
     function ts.find_config_string()
       builtin.live_grep(set_path(paths.config_dir))
+    end
+
+    function ts.find_file_in_root()
+      local root_dir
+      for dir in vim.fs.parents((vim.loop or vim.uv).cwd()) do
+        local git = dir .. '/.git'
+        if vim.fn.isdirectory(git) == 1 or vim.fn.filereadable(git) == 1 then
+          root_dir = dir
+          break
+        end
+      end
+
+      if root_dir ~= nil then
+        ts.find_files(root_dir)
+      else
+        print('Could not find root')
+      end
     end
 
     -- TODO extract into josa42/nvim-telescope-workspaces
