@@ -10,8 +10,8 @@ layer.use({
 
   map = function()
     return {
-      { 'n', '<leader>b', require('file-tree').toggle_smart },
-      { 'n', '<leader>B', require('file-tree').close },
+      { 'n', '<leader>sb', require('file-tree').toggle_smart },
+      { 'n', '<leader>sB', require('file-tree').close },
     }
   end,
 })

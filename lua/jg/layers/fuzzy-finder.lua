@@ -32,22 +32,50 @@ layer.use({
 
     return {
       { 'n', keymaps.find.file, ts.find_files, label = 'Find files' },
-      { 'n', keymaps.find.string, ts.find_string, label = 'Find string' },
-      { 'n', keymaps.find.config, set_opts(ts.find_files, paths.config_dir), label = 'Find config' },
-      { 'n', keymaps.find.config_find, ts.find_config_string, label = 'Find config' },
+
+      -- { 'n', '<leader><leader>', ts.find_file_in_workspace },
+      { 'n', '<leader>j', set_opts(builtin.jumplist, { show_line = false }) },
+      { 'n', '<leader>/', ts.find_string_in_buffer },
+      -- { 'n', '<leader>rf', builtin.oldfiles },
+      { 'n', '<leader>m', require('jg.lib.telescope-marks').marks },
+
+      -- select workspace
+      { 'n', '<leader>ww', ts.select_workspace },
+
+      -- Find File
+      -- p  -> find
+      -- wp -> find in workspace
+      -- rp -> find in repo root
+      { 'n', '<leader>p', ts.find_files },
+      { 'n', '<leader>wp', ts.in_workspace(ts.find_file) },
+      { 'n', '<leader>rp', ts.in_root(ts.find_file) },
+      { 'n', '<leader>cp', ts.in_config(ts.find_files), label = 'Find config' },
+
+      -- Find String
+      -- f  -> search
+      -- wf -> search in workspace
+      -- rf -> search in repo root
+      -- cf -> search in config
+      { 'n', '<leader>f', ts.find_string, label = 'Find string' },
+      { 'n', '<leader>wf', ts.in_workspace(ts.find_string) },
+      { 'n', '<leader>rf', ts.in_root(ts.find_string) },
+      { 'n', '<leader>cf', ts.in_config(ts.find_string), label = 'Find string in config' },
+
+      -- File Browser
+      -- b  -> file browser
+      -- wb -> file browser in workspace
+      -- rb -> file browser in repo root
+      -- cb -> file browser in config
+      { 'n', '<leader>b', ts.file_browser },
+      { 'n', '<leader>wb', ts.in_workspace(ts.file_browser) },
+      { 'n', '<leader>rb', ts.in_root(ts.file_browser) },
+      { 'n', '<leader>cb', ts.in_config(ts.file_browser) },
+
+      -- Git
       { 'n', keymaps.find.help, builtin.help_tags, label = 'Find help' },
       { 'n', '<leader>gs', builtin.git_status, label = 'Git status' },
       { 'n', '<leader>gb', builtin.git_bcommits, label = 'Git buffer commits' },
       { 'n', '<leader>gl', builtin.git_commits, label = 'Git commits' },
-      -- { 'n', '<leader><leader>', ts.find_file_in_workspace },
-      { 'n', '<leader>p', ts.find_file_in_workspace },
-      { 'n', '<leader>rg', ts.find_file_in_root },
-      { 'n', '<leader>f', ts.find_string_in_workspace },
-      { 'n', '<leader>w', ts.select_workspace },
-      { 'n', '<leader>j', set_opts(builtin.jumplist, { show_line = false }) },
-      { 'n', '<leader>/', ts.find_string_in_buffer },
-      { 'n', '<leader>rf', builtin.oldfiles },
-      { 'n', '<leader>m', require('jg.lib.telescope-marks').marks },
     }
   end,
 
@@ -265,12 +293,36 @@ layer.use({
     telescope.load_extension('ui-select')
     telescope.load_extension('file_browser')
 
-    vim.api.nvim_set_keymap(
-      'n',
-      '<space>fb',
-      ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-      { noremap = true }
-    )
+    function ts.in_root(fn)
+      return function()
+        local root_dir
+        for dir in vim.fs.parents((vim.loop or vim.uv).cwd()) do
+          local git = dir .. '/.git'
+          if vim.fn.isdirectory(git) == 1 or vim.fn.filereadable(git) == 1 then
+            root_dir = dir
+            break
+          end
+        end
+
+        if root_dir ~= nil then
+          fn(root_dir)
+        else
+          print('Could not find root')
+        end
+      end
+    end
+
+    function ts.in_config(fn)
+      return function()
+        return fn(paths.config_dir)
+      end
+    end
+
+    function ts.in_workspace(fn)
+      return function()
+        return fn(require('jg.telescope-workspaces').get_current_workspace_path())
+      end
+    end
 
     function ts.find_files(path)
       builtin.find_files(set_path(path, set_entry_maker(path)))
@@ -280,36 +332,19 @@ layer.use({
       builtin.live_grep(set_path(path))
     end
 
-    function ts.find_config_string()
-      builtin.live_grep(set_path(paths.config_dir))
+    function ts.file_browser(path)
+      vim.cmd.Telescope('file_browser', path and ('path=%s'):format(path))
     end
 
-    function ts.find_file_in_root()
-      local root_dir
-      for dir in vim.fs.parents((vim.loop or vim.uv).cwd()) do
-        local git = dir .. '/.git'
-        if vim.fn.isdirectory(git) == 1 or vim.fn.filereadable(git) == 1 then
-          root_dir = dir
-          break
-        end
-      end
-
-      if root_dir ~= nil then
-        ts.find_files(root_dir)
-      else
-        print('Could not find root')
-      end
-    end
-
-    -- TODO extract into josa42/nvim-telescope-workspaces
-    function ts.find_file_in_workspace()
-      ts.find_files(require('jg.telescope-workspaces').get_current_workspace_path())
-    end
-
-    -- TODO extract into josa42/nvim-telescope-workspaces
-    function ts.find_string_in_workspace()
-      ts.find_string(require('jg.telescope-workspaces').get_current_workspace_path())
-    end
+    -- -- TODO extract into josa42/nvim-telescope-workspaces
+    -- function ts.find_file_in_workspace()
+    --   ts.find_files(require('jg.telescope-workspaces').get_current_workspace_path())
+    -- end
+    --
+    -- -- TODO extract into josa42/nvim-telescope-workspaces
+    -- function ts.find_string_in_workspace()
+    --   ts.find_string(require('jg.telescope-workspaces').get_current_workspace_path())
+    -- end
 
     -- TODO extract into josa42/nvim-telescope-workspaces
     function ts.select_workspace()
