@@ -278,6 +278,7 @@ layer.use({
           },
         },
         file_browser = {
+          dir_icon = require('jg.signs').fs.dir,
           hijack_netrw = true,
           mappings = {
             ['i'] = {
