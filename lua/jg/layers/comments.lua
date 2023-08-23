@@ -2,7 +2,9 @@ local layer = require('jg.lib.layer')
 
 layer.use({
   requires = {
-    'numToStr/Comment.nvim',
+    { 'numToStr/Comment.nvim', dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    } },
   },
 
   map = {
@@ -11,7 +13,9 @@ layer.use({
   },
 
   setup = function()
-    require('Comment').setup()
+    require('Comment').setup({
+      pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    })
 
     local ft = require('Comment.ft')
     ft.monkeyc = { '//%s', '/*%s*/' }

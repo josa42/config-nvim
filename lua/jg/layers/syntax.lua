@@ -11,7 +11,15 @@ layer.use({
   name = 'syntax-treesitter',
 
   requires = {
-    { 'nvim-treesitter/nvim-treesitter', lazy = true, event = 'BufReadPre', priority = 100 },
+    {
+      'nvim-treesitter/nvim-treesitter',
+      lazy = true,
+      event = 'BufReadPre',
+      priority = 100,
+      dependencies = {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+      },
+    },
     { 'nvim-treesitter/playground' },
   },
 
@@ -39,6 +47,7 @@ layer.use({
       highlight = { enable = true, disable = ts_disable },
       indent = { enable = true, disable = ts_disable },
       autotag = { enable = false },
+      context_commentstring = { enable = true },
     })
 
     -- Remove conceal for markdown code fences
