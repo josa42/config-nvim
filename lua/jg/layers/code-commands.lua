@@ -1,9 +1,10 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
+  enabled = false,
   requires = {
-    { 'josa42/nvim-code-commands' },
-    -- { 'josa42/nvim-code-commands', dir = '/Users/josa/github/josa42/nvim-code-commands' },
+    -- { 'josa42/nvim-code-commands' },
+    { 'josa42/nvim-code-commands', dir = os.getenv('HOME') .. '/github/josa42/nvim-code-commands' },
   },
 
   setup = function()
@@ -39,7 +40,11 @@ layer.use({
 
     cmds.register({
       filetypes = { 'yaml' },
-      linters = { cmds.linters.actionlint },
+      linters = {
+        c.condition(cmds.linters.actionlint, function(opts)
+          return vim.api.nvim_buf_get_name(opts.buffer):find('%.github[\\/]workflows') ~= nil
+        end),
+      },
     })
 
     cmds.register({

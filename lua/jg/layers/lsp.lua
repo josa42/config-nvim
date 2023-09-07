@@ -3,7 +3,7 @@ local signs = require('jg.signs')
 
 local l = {}
 
-local use_null_ls = false
+local use_null_ls = true
 
 l.servers = {
   'cssls',

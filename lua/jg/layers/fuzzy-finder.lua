@@ -33,7 +33,7 @@ layer.use({
     return {
       { 'n', keymaps.find.file, ts.find_files, label = 'Find files' },
 
-      -- { 'n', '<leader><leader>', ts.find_file_in_workspace },
+      -- { 'n', '<leader><leader>', ts.find_files_in_workspace },
       { 'n', '<leader>j', set_opts(builtin.jumplist, { show_line = false }) },
       { 'n', '<leader>/', ts.find_string_in_buffer },
       -- { 'n', '<leader>rf', builtin.oldfiles },
@@ -47,8 +47,8 @@ layer.use({
       -- wp -> find in workspace
       -- rp -> find in repo root
       { 'n', '<leader>p', ts.find_files },
-      { 'n', '<leader>wp', ts.in_workspace(ts.find_file) },
-      { 'n', '<leader>rp', ts.in_root(ts.find_file) },
+      { 'n', '<leader>wp', ts.in_workspace(ts.find_files) },
+      { 'n', '<leader>rp', ts.in_root(ts.find_files) },
       { 'n', '<leader>cp', ts.in_config(ts.find_files), label = 'Find config' },
 
       -- Find String
@@ -338,7 +338,7 @@ layer.use({
     end
 
     -- -- TODO extract into josa42/nvim-telescope-workspaces
-    -- function ts.find_file_in_workspace()
+    -- function ts.find_files_in_workspace()
     --   ts.find_files(require('jg.telescope-workspaces').get_current_workspace_path())
     -- end
     --
