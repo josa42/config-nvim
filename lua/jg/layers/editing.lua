@@ -115,13 +115,11 @@ layer.use({
 
 layer.use({
   requires = {
-    'AndrewRadev/tagalong.vim', -- Keep html tags in sync
-    'alvan/vim-closetag',
+    'windwp/nvim-ts-autotag',
   },
 
-  init = function()
-    vim.g.tagalong_additional_filetypes = { 'javascript', 'template', 'html', 'js' }
-    vim.g.closetag_filetypes = 'html,javascript,template'
+  setup = function()
+    require('nvim-ts-autotag').setup()
   end,
 })
 
