@@ -1,63 +1,5 @@
 local layer = require('jg.lib.layer')
 
-layer.use({
-  requires = { 'numToStr/Navigator.nvim' },
-  setup = function()
-    vim.keymap.set('n', '<leader>l', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>')
-
-    require('Navigator').setup()
-  end,
-  map = {
-    { { 'n', 't' }, '<c-h>', '<CMD>NavigatorLeft<CR>' },
-    { { 'n', 't' }, '<c-l>', '<CMD>NavigatorRight<CR>' },
-    { { 'n', 't' }, '<c-k>', '<CMD>NavigatorUp<CR>' },
-    { { 'n', 't' }, '<c-j>', '<CMD>NavigatorDown<CR>' },
-    { { 'n', 't' }, '<c-space>', '<CMD>NavigatorPrevious<CR>' },
-  },
-})
-
---------------------------------------------------------------------------------
-
-layer.use({
-  map = {
-    -- move lines
-    { 'n', 'g<up>', ':m -2<cr>', desc = 'Move Line Up' },
-    { 'n', 'g<down>', ':m +1<cr>', desc = 'Move Line Down' },
-    { 'v', 'g<up>', ":m '<-2<CR>gv=gv", desc = 'Move Selection Up' },
-    { 'v', 'g<down>', ":m '>+1<CR>gv=gv", desc = 'Move Selection Down' },
-
-    -- redo
-    { 'n', '<S-U>', '<C-R>', desc = 'Redo' },
-  },
-})
-
---------------------------------------------------------------------------------
-
-layer.use({
-  map = {
-    {
-      'n',
-      'gr',
-      function()
-        local formatexpr = vim.opt.formatexpr
-        vim.opt.formatexpr = nil
-        vim.cmd.normal({ 'mzgqip`z', bang = true })
-        vim.opt.formatexpr = formatexpr
-      end,
-    },
-    {
-      'v',
-      'gr',
-      function()
-        local formatexpr = vim.opt.formatexpr
-        vim.opt.formatexpr = nil
-        vim.cmd.normal({ 'mzgq`z', bang = true })
-        vim.opt.formatexpr = formatexpr
-      end,
-    },
-  },
-})
-
 --------------------------------------------------------------------------------
 
 layer.use({
@@ -225,14 +167,4 @@ layer.use({
   setup = function()
     require('template-string').setup()
   end,
-})
-
-layer.use({
-  requires = {
-    'ThePrimeagen/refactoring.nvim',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' },
-    },
-  },
 })

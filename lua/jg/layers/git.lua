@@ -18,19 +18,7 @@ layer.use({
       end,
       nargs = 0,
     },
-
-    -- Open Fork (git client)
-    F = { 'silent! !fork', label = 'Open Fork' },
-    Ff = { 'silent! !fork log -- %', label = 'Open Fork - log current file' },
-    Fl = { 'silent! !fork log', label = 'Open Fork - log' },
-    Fs = { 'silent! !fork status', label = 'Open Fork - status' },
   },
-
-  -- setup = function()
-  --   require('diffview').setup({
-  --     use_icons = false,
-  --   })
-  -- end,
 })
 
 layer.use({

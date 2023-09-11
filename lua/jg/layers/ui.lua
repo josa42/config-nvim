@@ -54,27 +54,3 @@ layer.use({
   end,
 })
 
-layer.use({
-  enabled = false,
-  requires = {
-    { 'nyngwang/NeoZoom.lua' },
-  },
-  map = {
-    { 'n', '<cr>', vim.cmd.NeoZoomToggle, { silent = true, nowait = true } },
-  },
-  setup = function()
-    -- local editor = vim.api.nvim_list_uis()[1]
-    require('neo-zoom').setup({
-      winopts = {
-        offset = { top = 0, left = 0, width = 1.0, height = 1.0 },
-        border = 'none',
-      },
-      callbacks = {
-        function()
-          -- vim.opt_local.winblend = 80
-          vim.opt_local.winhighlight = { Normal = 'Normal' }
-        end,
-      },
-    })
-  end,
-})

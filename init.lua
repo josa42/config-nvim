@@ -28,9 +28,6 @@ require('jg.layers.ui')
 -- Version Control
 require('jg.layers.git')
 
--- Language specific Settings
-require('jg.layers.markdown')
-
 -- Editing
 require('jg.layers.lsp')
 require('jg.layers.code-commands')

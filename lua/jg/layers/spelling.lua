@@ -27,7 +27,6 @@ layer.use({
       'FileType',
       pattern = 'markdown',
       callback = function()
-        -- vim.cmd('setlocal spell')
         vim.api.nvim_set_option_value('spell', true, { scope = 'local', win = 0 })
       end,
     },
@@ -52,10 +51,4 @@ layer.use({
       )
     end
   end,
-})
-
-layer.use({
-  requires = {
-    'rhysd/vim-grammarous',
-  },
 })

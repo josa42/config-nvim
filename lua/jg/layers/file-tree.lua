@@ -1,7 +1,7 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  enabled = true,
+  enabled = false,
 
   requires = {
     { 'josa42/nvim-file-tree' },

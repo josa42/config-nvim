@@ -1,14 +1,6 @@
 local layer = require('jg.lib.layer')
 
 layer.use({
-  enabled = not vim.fn.has('nvim-0.9'),
-  requires = {
-    'editorconfig/editorconfig-vim',
-  },
-})
-
-layer.use({
-  enabled = false and vim.fn.has('nvim-0.9'),
   setup = function()
     local function lang_exists(lang)
       local lang_without_region = vim.fn.split(lang, '_')[1]

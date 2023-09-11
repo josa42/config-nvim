@@ -95,7 +95,6 @@ layer.use({
         { name = 'nvim_lsp' },
         { name = 'path' },
       }, {
-        -- { name = 'luasnip-jumpable' },
         { name = 'buffer' },
       }),
 
