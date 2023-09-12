@@ -12,6 +12,7 @@ M.tools = {
   'shfmt',
   'stylua',
   'editorconfig-checker',
+  'eslint_d',
 }
 
 local js_and_json = {
