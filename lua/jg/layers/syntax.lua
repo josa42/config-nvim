@@ -32,6 +32,9 @@ layer.use({
   },
 
   setup = function()
+    -- prepend path to make sure bundled parsers are not used
+    vim.opt.runtimepath:prepend(vim.fs.joinpath(vim.fn.stdpath('data'), 'tree-sitter'))
+
     local configs = require('nvim-treesitter.configs')
 
     vim.opt.runtimepath:append(parser_install_dir)
