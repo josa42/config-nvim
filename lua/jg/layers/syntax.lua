@@ -79,5 +79,7 @@ layer.use({
     'mityu/vim-applescript',
     'fladson/vim-kitty',
     'antonk52/vim-browserslist',
+    'josa42/vim-trivyignore',
+    -- { 'josa42/vim-trivyignore', dir = '~/github/josa42/vim-trivyignore' },
   },
 })

@@ -296,17 +296,10 @@ layer.use({
 
     function ts.in_root(fn)
       return function()
-        local root_dir
-        for dir in vim.fs.parents((vim.loop or vim.uv).cwd()) do
-          local git = dir .. '/.git'
-          if vim.fn.isdirectory(git) == 1 or vim.fn.filereadable(git) == 1 then
-            root_dir = dir
-            break
-          end
-        end
+        local git_path = vim.fs.find('.git', { upward = true, limit = 1 })[1]
 
-        if root_dir ~= nil then
-          fn(root_dir)
+        if git_path ~= nil then
+          fn(vim.fs.dirname(git_path))
         else
           print('Could not find root')
         end
