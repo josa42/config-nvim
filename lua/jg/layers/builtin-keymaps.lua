@@ -7,6 +7,8 @@ layer.use({
   end,
 
   map = {
+    { 'n', 'U', '<C-r>' },
+
     -- Nop arrow keys
     { '', '<Up>', '<nop>' },
     { '', '<Right>', '<nop>' },

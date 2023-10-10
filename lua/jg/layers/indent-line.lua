@@ -2,31 +2,29 @@ local layer = require('jg.lib.layer')
 
 layer.use({
   requires = {
-    'lukas-reineke/indent-blankline.nvim',
+    { 'lukas-reineke/indent-blankline.nvim', main = 'ibl' },
   },
 
   setup = function()
     vim.cmd(':hi! IndentBlanklineContextChar guifg=#4b5263')
-    require('indent_blankline').setup({
-      show_current_context = true,
-      show_current_context_start = false,
+    require('ibl').setup({
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+      },
 
-      use_treesitter = true,
-      use_treesitter_scope = true,
-
-      show_end_of_line = true,
-
-      disable_with_nolist = true,
-
-      filetype_exclude = {
-        'tree',
-        'lspinfo',
-        'packer',
-        'checkhealth',
-        'help',
-        'man',
-        'lazy',
-        '',
+      exclude = {
+        filetypes = {
+          'tree',
+          'lspinfo',
+          'packer',
+          'checkhealth',
+          'help',
+          'man',
+          'lazy',
+          '',
+        },
       },
     })
   end,

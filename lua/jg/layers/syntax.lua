@@ -81,5 +81,7 @@ layer.use({
     'antonk52/vim-browserslist',
     'josa42/vim-trivyignore',
     -- { 'josa42/vim-trivyignore', dir = '~/github/josa42/vim-trivyignore' },
+    'josa42/vim-npmrc',
+    -- { 'josa42/vim-npmrc', dir = '~/github/josa42/vim-npmrc' },
   },
 })

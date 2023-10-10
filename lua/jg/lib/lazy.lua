@@ -22,6 +22,7 @@ local option_keys = {
   'cmd',
   'ft',
   'keys',
+  'main',
   'module',
   'priority',
 }
