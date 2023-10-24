@@ -6,6 +6,13 @@ local ts_disable = { 'help' }
 
 local parser_install_dir = vim.fn.stdpath('data') .. '/tree-sitter'
 
+function foo()
+  --test
+  print('foo')
+
+  print('foo')
+end
+
 layer.use({
   enabled = true,
   name = 'syntax-treesitter',
@@ -18,6 +25,7 @@ layer.use({
       priority = 100,
       dependencies = {
         'JoosepAlviste/nvim-ts-context-commentstring',
+        'nvim-treesitter/nvim-treesitter-textobjects',
       },
     },
     { 'nvim-treesitter/playground' },
@@ -51,6 +59,26 @@ layer.use({
       indent = { enable = true, disable = ts_disable },
       autotag = { enable = false },
       context_commentstring = { enable = true },
+
+      textobjects = {
+        select = {
+          enable = true,
+
+          lookahead = true,
+
+          keymaps = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+          },
+
+          selection_modes = {
+            ['@function.outer'] = 'V',
+            ['@function.inner'] = 'V',
+          },
+
+          include_surrounding_whitespace = false,
+        },
+      },
     })
 
     -- Remove conceal for markdown code fences
