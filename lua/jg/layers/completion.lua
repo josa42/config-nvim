@@ -84,7 +84,7 @@ layer.use({
       preselect = cmp.PreselectMode.None,
 
       completion = {
-        autocomplete = false,
+        -- autocomplete = false,
       },
 
       sources = cmp.config.sources({
