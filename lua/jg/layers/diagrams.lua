@@ -5,7 +5,7 @@ local layer = require('jg.lib.layer')
 layer.use({
   requires = {
     'jbyuki/venn.nvim',
-    'xorid/asciitree.nvim',
+    -- 'xorid/asciitree.nvim',
   },
   map = function()
     return {
@@ -33,9 +33,9 @@ layer.use({
     }
   end,
 
-  setup = function()
-    require('asciitree').setup({
-      delimiter = '-',
-    })
-  end,
+  -- setup = function()
+  --   require('asciitree').setup({
+  --     delimiter = '-',
+  --   })
+  -- end,
 })

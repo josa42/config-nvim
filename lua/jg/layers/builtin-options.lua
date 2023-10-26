@@ -95,9 +95,9 @@ layer.use({
 layer.use({
   name = 'indent',
 
-  requires = {
-    'Darazaki/indent-o-matic',
-  },
+  -- requires = {
+  --   'Darazaki/indent-o-matic',
+  -- },
 
   init = function()
     vim.opt.tabstop = 2
@@ -107,15 +107,15 @@ layer.use({
     vim.opt.linebreak = true
   end,
 
-  setup = function()
-    require('indent-o-matic').setup({
-      standard_widths = { 2, 4 },
-
-      filetype_yaml = {
-        standard_widths = { 2, 4 },
-      },
-    })
-  end,
+  -- setup = function()
+  --   require('indent-o-matic').setup({
+  --     standard_widths = { 2, 4 },
+  --
+  --     filetype_yaml = {
+  --       standard_widths = { 2, 4 },
+  --     },
+  --   })
+  -- end,
 
   commands = {
     Indent = {
