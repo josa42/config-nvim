@@ -1,4 +1,14 @@
 {
-  "lazy.nvim": { "branch": "main", "commit": "16603c6917435d8446f7357cb61095138a417085" },
-  "theme-theonedark": { "branch": "master", "commit": "3cf80af97a60f7cd70b2dae33fbd10ac7023f639" }
+  "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
+  "nvim-telescope-config": { "branch": "main", "commit": "3ca83428f60109ffee147985f1993311fa862b8a" },
+  "nvim-telescope-mask": { "branch": "main", "commit": "78b860c7dc96c232a0a303e432d101da96dd1782" },
+  "nvim-telescope-minimal-layout": { "branch": "main", "commit": "2dc3c2bfc0ee666780d9f18101c0a28677c8b7c5" },
+  "nvim-telescope-workspaces": { "branch": "main", "commit": "e31981b1989ec3dffdca4e989e8c422b8da327a5" },
+  "plenary.nvim": { "branch": "master", "commit": "50012918b2fc8357b87cff2a7f7f0446e47da174" },
+  "telescope-file-browser.nvim": { "branch": "master", "commit": "f6ef7d29979fcbc71d1774fc0d35cffb9656322e" },
+  "telescope-fzf-native.nvim": { "branch": "main", "commit": "6c921ca12321edaa773e324ef64ea301a1d0da62" },
+  "telescope-ui-select.nvim": { "branch": "master", "commit": "b0015e6e4b46a64192c64b68dec9a9ac5a4e5690" },
+  "telescope.nvim": { "branch": "master", "commit": "4522d7e3ea75ffddabdc39957168a8a7060b5df0" },
+  "theonedark": { "branch": "master", "commit": "3cf80af97a60f7cd70b2dae33fbd10ac7023f639" },
+  "vim-gitbranch": { "branch": "master", "commit": "1a8ba866f3eaf0194783b9f8573339d6ede8f1ed" }
 }
