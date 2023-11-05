@@ -1,3 +1,4 @@
 {
   "lazy.nvim": { "branch": "main", "commit": "16603c6917435d8446f7357cb61095138a417085" },
+  "theme-theonedark": { "branch": "master", "commit": "3cf80af97a60f7cd70b2dae33fbd10ac7023f639" }
 }
