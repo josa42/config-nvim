@@ -1,3 +1,14 @@
-vim.g.mapleader = " "
+require('config.clipboard')
+require('config.autoread')
+require('config.search')
+require('config.indent')
+require('config.statuscolumn')
+require('config.list')
+require('config.undo')
+require('config.conceal')
+require('config.split')
+require('config.fold')
+require('config.misc')
+require('config.diagnostics')
+require('config.keymap')
 require('config.lazy')
-
