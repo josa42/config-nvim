@@ -27,9 +27,6 @@ return {
           'josa42/nvim-mason-install-all',
         },
       },
-      { 'jose-elias-alvarez/null-ls.nvim', dependencies = {
-        'nvim-lua/plenary.nvim',
-      } },
       'josa42/nvim-lsp-codelens',
       'josa42/nvim-lsp-autoformat',
     },
@@ -85,7 +82,6 @@ return {
 
       require('jg.lsp-codelens').setup()
 
-      require('lsp.servers.null-ls').setup()
       require('jg.lsp-autoformat').setup({
         ['*.cjs'] = { 'null-ls' },
         ['*.mjs'] = { 'null-ls' },
