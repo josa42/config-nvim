@@ -27,7 +27,6 @@ return {
           'josa42/nvim-mason-install-all',
         },
       },
-      'josa42/nvim-lsp-codelens',
       'josa42/nvim-lsp-autoformat',
     },
 
@@ -80,7 +79,6 @@ return {
 
       setup_server('sourcekit')
 
-      require('jg.lsp-codelens').setup()
 
       require('jg.lsp-autoformat').setup({
         ['*.cjs'] = { 'null-ls' },
