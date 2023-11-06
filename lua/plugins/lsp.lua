@@ -18,17 +18,6 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = { 'BufRead' },
-    cmd = { 'MasonInstallAll' },
-    dependencies = {
-      {
-        'williamboman/mason.nvim',
-        dependencies = {
-          'williamboman/mason-lspconfig.nvim',
-          'josa42/nvim-mason-install-all',
-        },
-      },
-    },
-
     keys = {
       { 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
       { 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>' },
@@ -69,12 +58,14 @@ return {
 
       require('lsp.handlers').setup()
 
-      require('mason').setup({})
-      require('mason-lspconfig').setup_handlers({ setup_server })
-      require('mason-lspconfig').setup({
-        ensure_installed = servers,
-        automatic_installation = true,
-      })
+      local has_mason, mason_lspconfig = pcall(require, 'mason-lspconfig')
+      if has_mason then
+        mason_lspconfig.setup_handlers({ setup_server })
+        mason_lspconfig.setup({
+          ensure_installed = servers,
+          automatic_installation = true,
+        })
+      end
 
       setup_server('sourcekit')
     end,
