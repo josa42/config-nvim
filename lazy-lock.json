@@ -18,6 +18,7 @@
   "nvim-lsp-codelens": { "branch": "main", "commit": "941e2ee66f988eda6b7e6131e06a140d8c1314e1" },
   "nvim-lspconfig": { "branch": "master", "commit": "b44737605807023d32e6310b87ba69f4dbf10e0e" },
   "nvim-mason-install-all": { "branch": "main", "commit": "3f9071f1e4038a49a96300bed4b12e918990f23d" },
+  "nvim-tabline": { "branch": "main", "commit": "84400e4303b2aa37a5e406a13defbb435bce7aa1" },
   "nvim-telescope-config": { "branch": "main", "commit": "3ca83428f60109ffee147985f1993311fa862b8a" },
   "nvim-telescope-mask": { "branch": "main", "commit": "78b860c7dc96c232a0a303e432d101da96dd1782" },
   "nvim-telescope-minimal-layout": { "branch": "main", "commit": "2dc3c2bfc0ee666780d9f18101c0a28677c8b7c5" },
