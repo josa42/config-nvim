@@ -1,4 +1,5 @@
 {
+  "indent-blankline.nvim": { "branch": "master", "commit": "29be0919b91fb59eca9e90690d76014233392bef" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "nvim-telescope-config": { "branch": "main", "commit": "3ca83428f60109ffee147985f1993311fa862b8a" },
   "nvim-telescope-mask": { "branch": "main", "commit": "78b860c7dc96c232a0a303e432d101da96dd1782" },
