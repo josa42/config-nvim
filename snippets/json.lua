@@ -10,7 +10,7 @@ local sn = luasnip.snippet_node
 local rep = require('luasnip.extras').rep
 local fmt = require('luasnip.extras.fmt').fmt
 
-local paths = require('jg.lib.paths')
+local paths = require('config.paths')
 local snipptes_dir = paths.config_dir .. '/snippets'
 
 local is_json_snippet = function()
