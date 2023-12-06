@@ -14,9 +14,9 @@ return {
     -- event = 'BufReadPre',
     -- priority = 100,
 
-    build = ":TSUpdate",
-    event = { "BufReadPre" },
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    build = ':TSUpdate',
+    event = { 'BufReadPre' },
+    cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 
     init = function(plugin)
       -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
@@ -24,12 +24,11 @@ return {
       -- no longer trigger the **nvim-treeitter** module to be loaded in time.
       -- Luckily, the only thins that those plugins need are the custom queries, which we make available
       -- during startup.
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require("nvim-treesitter.query_predicates")
+      require('lazy.core.loader').add_to_rtp(plugin)
+      require('nvim-treesitter.query_predicates')
     end,
 
     dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/playground',
     },
 
@@ -59,7 +58,6 @@ return {
         highlight = { enable = true, disable = ts_disable },
         indent = { enable = true, disable = ts_disable },
         autotag = { enable = false },
-        context_commentstring = { enable = true },
       })
 
       -- Remove conceal for markdown code fences
@@ -69,8 +67,10 @@ return {
 
         local file = vim.treesitter.query.get_files('markdown', 'highlights')[1]
         local content = require('jg.lib.fs')
-        vim.treesitter.language.r
-        :gsub('%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n', '++++')
+        vim.treesitter.language.r:gsub(
+          '%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n',
+          '++++'
+        )
         vim.treesitter.query.set('markdown', 'highlights', content)
       end)
     end,
