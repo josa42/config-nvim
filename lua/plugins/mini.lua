@@ -28,7 +28,7 @@ return {
       {
         '<leader>rb',
         function()
-          local root = vim.fs.find('.git', { upward = true, limit = 1 })[1]
+          local root = vim.fs.dirname(vim.fs.find('.git', { upward = true, limit = 1 })[1])
           require('mini.files').open(root)
         end,
       },
@@ -46,7 +46,7 @@ return {
         mappings = {
           close = 'q',
           go_in = 'l',
-          go_in_plus = 'L',
+          go_in_plus = 'e',
           go_out = 'h',
           go_out_plus = 'H',
           reset = '<BS>',
@@ -56,6 +56,37 @@ return {
           trim_left = '<',
           trim_right = '>',
         },
+      })
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          local files = require('mini.files')
+          local file = function(fn)
+            local entry = files.get_fs_entry()
+            if entry.fs_type == 'file' then
+              files.close()
+              fn(entry.path)
+            end
+          end
+
+          vim.keymap.set('n', '<CR>', function()
+            file(require('telescope-config.open').open)
+          end, { buffer = buf_id })
+
+          vim.keymap.set('n', 't', function()
+            file(vim.cmd.tabe)
+          end, { buffer = buf_id })
+
+          vim.keymap.set('n', 'v', function()
+            file(vim.cmd.vsplit)
+          end, { buffer = buf_id })
+
+          vim.keymap.set('n', 'x', function()
+            file(vim.cmd.split)
+          end, { buffer = buf_id })
+        end,
       })
     end,
   },
