@@ -88,3 +88,9 @@ layer.use({
     { 'n', '<leader>gf', ':tabe term://lazygit -f % | startinsert<cr>' },
   },
 })
+
+layer.use({
+  requires = {
+    'sindrets/diffview.nvim',
+  },
+})
