@@ -8,7 +8,7 @@ return {
   'fladson/vim-kitty',
   'antonk52/vim-browserslist',
   'josa42/vim-trivyignore',
-  -- { 'josa42/vim-trivyignore', dir = '~/github/josa42/vim-trivyignore' },
   'josa42/vim-npmrc',
-  -- { 'josa42/vim-npmrc', dir = '~/github/josa42/vim-npmrc' },
+  -- ejs
+  'briancollins/vim-jst',
 }
