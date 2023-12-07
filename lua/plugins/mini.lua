@@ -42,7 +42,18 @@ return {
     },
 
     config = function()
+      local ignores = { '.DS_Store', '.git', 'node_modules' }
+
       require('mini.files').setup({
+        content = {
+          filter = function(entry)
+            if vim.tbl_contains(ignores, entry.name) then
+              return false
+            end
+            return true
+          end,
+        },
+
         mappings = {
           close = 'q',
           go_in = 'l',
