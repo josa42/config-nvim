@@ -42,16 +42,32 @@ return {
     },
 
     config = function()
+      local files = require('mini.files')
       local ignores = { '.DS_Store', '.git', 'node_modules' }
 
-      require('mini.files').setup({
+      local filter_hidden = function(entry)
+        if vim.tbl_contains(ignores, entry.name) then
+          return false
+        end
+        return true
+      end
+
+      local filter_noop = function(entry)
+        return true
+      end
+
+      local toggle_hidden = function()
+        files.config = vim.tbl_deep_extend('force', files.config, {
+          content = {
+            filter = files.config.content.filter == filter_noop and filter_hidden or filter_noop,
+          },
+        })
+        files.refresh(files.config)
+      end
+
+      files.setup({
         content = {
-          filter = function(entry)
-            if vim.tbl_contains(ignores, entry.name) then
-              return false
-            end
-            return true
-          end,
+          filter = filter_hidden,
         },
 
         mappings = {
@@ -73,7 +89,6 @@ return {
         pattern = 'MiniFilesBufferCreate',
         callback = function(args)
           local buf_id = args.data.buf_id
-          local files = require('mini.files')
           local file = function(fn)
             local entry = files.get_fs_entry()
             if entry.fs_type == 'file' then
@@ -88,15 +103,19 @@ return {
 
           vim.keymap.set('n', 't', function()
             file(vim.cmd.tabe)
-          end, { buffer = buf_id })
+          end, { buffer = buf_id, desc = 'Open in tab' })
 
           vim.keymap.set('n', 'v', function()
             file(vim.cmd.vsplit)
-          end, { buffer = buf_id })
+          end, { buffer = buf_id, desc = 'Open in vertical split' })
 
           vim.keymap.set('n', 'x', function()
             file(vim.cmd.split)
-          end, { buffer = buf_id })
+          end, { buffer = buf_id, desc = 'Open in hotizontal split' })
+
+          vim.keymap.set('n', '.', function()
+            toggle_hidden()
+          end, { buffer = buf_id, desc = 'Toggle hidden' })
         end,
       })
     end,
