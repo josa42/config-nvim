@@ -1,4 +1,4 @@
-vim.api.nvim_create_user_command('GHBrowse', function(opts)
+vim.api.nvim_create_user_command('GitBrowse', function(opts)
   local function sh(cmd, dir)
     if dir then
       return vim.fn.trim(vim.fn.system(('cd "%s"; %s'):format(dir, cmd)))
@@ -29,3 +29,10 @@ vim.api.nvim_create_user_command('GHBrowse', function(opts)
     sh(('gh browse %s --branch %s'):format(rel_path, branch), root)
   end
 end, { bang = true })
+
+vim.api.nvim_create_user_command('GitReset', function()
+  vim.fn.system('git checkout HEAD -- ' .. vim.fn.expand('%'))
+  vim.cmd.edit({ bang = true })
+end, {
+  nargs = 0,
+})
