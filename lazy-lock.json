@@ -25,6 +25,7 @@
   "nvim-lsp-codelens": { "branch": "main", "commit": "941e2ee66f988eda6b7e6131e06a140d8c1314e1" },
   "nvim-lspconfig": { "branch": "master", "commit": "bd405e45c5fb122c16af8f87fa2dd7ab1981b243" },
   "nvim-mason-install-all": { "branch": "main", "commit": "3f9071f1e4038a49a96300bed4b12e918990f23d" },
+  "nvim-quickfix": { "branch": "main", "commit": "975beb2bd0ec368d7de3b6444c5af267220779b0" },
   "nvim-surround": { "branch": "main", "commit": "633a0ab03159569a66b65671b0ffb1a6aed6cf18" },
   "nvim-tabline": { "branch": "main", "commit": "84400e4303b2aa37a5e406a13defbb435bce7aa1" },
   "nvim-telescope-config": { "branch": "main", "commit": "93f3c4115ac00716c3542a086bc3152ce8f830b4" },
