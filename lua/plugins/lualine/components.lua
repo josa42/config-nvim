@@ -43,4 +43,18 @@ function M.luasnip_status()
   end
 end
 
+function M.workspace()
+  local ok, workspaces = pcall(require, 'jg.telescope-workspaces')
+  if ok then
+    return {
+      function()
+        return (' %s'):format(workspaces.current_workspace)
+      end,
+      cond = function()
+        return workspaces.current_workspace ~= nil
+      end,
+    }
+  end
+end
+
 return M

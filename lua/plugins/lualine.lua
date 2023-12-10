@@ -75,6 +75,7 @@ return {
               sections = { 'error', 'warn' },
               symbols = signs.diagnostics,
             },
+            components.workspace(),
             components.luasnip_status(),
           },
           lualine_x = {
