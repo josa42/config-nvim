@@ -42,6 +42,7 @@
   "telescope.nvim": { "branch": "master", "commit": "6213322ab56eb27356fdc09a5078e41e3ea7f3bc" },
   "template-string.nvim": { "branch": "main", "commit": "5559125aba8499695eb23c3ff2434a13fb05e304" },
   "theonedark": { "branch": "master", "commit": "3cf80af97a60f7cd70b2dae33fbd10ac7023f639" },
+  "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
   "vim-applescript": { "branch": "master", "commit": "a39af8fc7e4caf581366e2917d558f6232e4db36" },
   "vim-browserslist": { "branch": "main", "commit": "c5d73ce0b1503ca6ad3f6dde58a3a49a9d6aa7e3" },
   "vim-diagram": { "branch": "master", "commit": "bd94f79ac6d701caf52a1b5547069c7b93cf6acf" },
