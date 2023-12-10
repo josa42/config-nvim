@@ -1,66 +1,11 @@
-local null_ls = require('null-ls')
 local utils = require('null-ls.utils')
+local cache = require('config.utils.cache')
 
 local M = {}
-
-M.cache = {}
-
-function M.has_cache(key)
-  return M.cache[key] ~= nil
-end
-
-function M.get_cache(key, default)
-  if M.has_cache(key) then
-    return M.cache[key].value
-  end
-  return default
-end
-
-function M.set_cache(key, value)
-  -- print('set  --> ' .. key .. ' = ' .. vim.json.encode(value))
-  M.cache[key] = { value = value }
-  return value
-end
-
-function M.cached(key_base, fn)
-  return function(...)
-    local key = table.concat(
-      vim.tbl_map(function(a)
-        local t = type(a)
-        if t == 'table' and a.bufname ~= nil then
-          return a.bufname
-        end
-
-        return a
-      end, { key_base, ... }),
-      ':'
-    )
-
-    if M.has_cache(key) then
-      -- print('get  --> ' .. key .. ' = ' .. vim.json.encode(M.get_cache(key)))
-      return M.get_cache(key)
-    end
-
-    return M.set_cache(key, fn(...))
-  end
-end
 
 local function path_join(...)
   local path = utils.path.join(...)
   return path
-end
-
-function M.try_mason_install(tools)
-  local has_mason, mason = pcall(require, 'mason-registry')
-
-  if has_mason then
-    for _, tool in ipairs(tools) do
-      local pkg = mason.get_package(tool)
-      if not pkg:is_installed() then
-        pkg:install()
-      end
-    end
-  end
 end
 
 local eslintrc_root =
@@ -89,7 +34,7 @@ local has_file = function(root, name)
   return (root ~= nil and name ~= nil) and utils.path.exists(path_join(root, name))
 end
 
-local npm_bin_dir = M.cached('npm_bin_dir', function(p)
+local npm_bin_dir = cache.fn('npm_bin_dir', function(p)
   local root = M.eslint_root(p)
 
   -- TODO npm bin has been removed in npm 9
@@ -102,7 +47,7 @@ local npm_bin_dir = M.cached('npm_bin_dir', function(p)
   return nil
 end)
 
-local find_in_dir = M.cached('find_in_dir', function(dir, name)
+local find_in_dir = cache.fn('find_in_dir', function(dir, name)
   if has_file(dir, name) then
     return path_join(dir, name)
   end
@@ -110,7 +55,7 @@ local find_in_dir = M.cached('find_in_dir', function(dir, name)
   return nil
 end)
 
-local find_bin_using_npm_query = M.cached('find_bin_using_npm_query', function(dir, name)
+local find_bin_using_npm_query = cache.fn('find_bin_using_npm_query', function(dir, name)
   local ok, res = pcall(function()
     local cmd = ('cd %s; npm query \\#%s'):format(vim.fn.shellescape(dir, name))
     local eslint = vim.json.decode(vim.fn.system(cmd))
@@ -126,7 +71,7 @@ local find_bin_using_npm_query = M.cached('find_bin_using_npm_query', function(d
   return nil
 end)
 
-local find_in_repo = M.cached('find_in_repo', function(dir, rel_path)
+local find_in_repo = cache.fn('find_in_repo', function(dir, rel_path)
   if not dir or not rel_path then
     return nil
   end
@@ -148,7 +93,7 @@ local find_in_repo = M.cached('find_in_repo', function(dir, rel_path)
   end
 end)
 
-local find_local_bin = M.cached('find_local_bin', function(p, name)
+local find_local_bin = cache.fn('find_local_bin', function(p, name)
   local checkers = {
     function()
       return find_in_dir(npm_bin_dir(p), name)
