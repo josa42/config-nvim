@@ -146,9 +146,9 @@ return {
           ['<C-k>'] = cmp.mapping.select_prev_item(),
         },
 
-        experimental = {
-          ghost_text = true,
-        },
+        -- experimental = {
+        --   ghost_text = true,
+        -- },
       })
 
       cmp.setup.filetype('gitcommit', {
