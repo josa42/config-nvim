@@ -1,10 +1,3 @@
-local tools = {
-  'fixjson',
-  'shfmt',
-  'stylua',
-  'eslint_d',
-}
-
 local function extend(name, opts)
   return vim.tbl_deep_extend('force', require('conform.formatters.' .. name), opts)
 end
@@ -35,7 +28,12 @@ return {
     --
     config = function(_, opts)
       -- run when mason is set up
-      require('config.utils.mason').try_mason_install(tools)
+      require('config.utils.mason').try_mason_install({
+        'fixjson',
+        'shfmt',
+        'stylua',
+        'eslint_d',
+      })
 
       local conform = require('conform')
       local c = require('config.utils.find')
