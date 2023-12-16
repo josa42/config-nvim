@@ -18,9 +18,26 @@ return {
         typescriptreact = { 'eslint_d' },
         yaml = { 'actionlint' },
       }
+
+      local conditions = {
+        actionlint = function(ctx)
+          return ctx.filename:match('.*%.github/workflows/.*%.yml') ~= nil
+        end,
+      }
+
       vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
-        callback = function()
-          require('lint').try_lint()
+        group = vim.api.nvim_create_augroup('config.plugins.lint', { clear = true }),
+        callback = function(opts)
+          local lint = require('lint')
+          local ctx = {
+            filename = opts.file,
+          }
+
+          local names = vim.tbl_filter(function(name)
+            return conditions[name] == nil or conditions[name](ctx)
+          end, lint.linters_by_ft[vim.bo.filetype] or {})
+
+          lint.try_lint(names)
         end,
       })
     end,
