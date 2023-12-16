@@ -70,4 +70,8 @@ function M.append_keys(keys, key, desc, fn)
   end
 end
 
+function M.append_key(keys, key, desc, fn)
+  table.insert(keys, M.key(key, desc, fn))
+end
+
 return M

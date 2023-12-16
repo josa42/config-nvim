@@ -44,6 +44,8 @@ return {
       -- p  -> find
       -- wp -> find in workspace
       -- rp -> find in repo root
+      -- cp -> find in config
+      -- ap -> find in github workflows
       map.append_keys(keys, 'p', 'Find file', ts.find_files)
 
       -- Find String
@@ -51,7 +53,9 @@ return {
       -- wf -> search in workspace
       -- rf -> search in repo root
       -- cf -> search in config
+      -- ap -> search in github workflows
       map.append_keys(keys, 'f', 'Find string', ts.find_string)
+      map.append_keys(keys, 'bf', 'Find string in buffer', builtin.current_buffer_fuzzy_find)
 
       return keys
     end,
