@@ -5,12 +5,6 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      -- fallback
-      'hrsh7th/cmp-buffer',
-      -- git
-      'davidsierradz/cmp-conventionalcommits',
-      -- snippets
       'saadparwaiz1/cmp_luasnip',
     },
 
@@ -24,6 +18,7 @@ return {
       -- - https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt
 
       local kind_icons = {
+        Copilot = '',
         Text = '',
         Method = '',
         Function = '',
@@ -38,7 +33,7 @@ return {
         Value = '',
         Enum = '',
         Keyword = '',
-        Snippet = '',
+        Snippet = '',
         Color = '',
         File = '',
         Reference = '',
@@ -50,6 +45,7 @@ return {
         Operator = '',
         TypeParameter = '',
       }
+      -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
 
       local cmp = require('cmp')
       local has_luasnip, luasnip = pcall(require, 'luasnip')
@@ -68,28 +64,14 @@ return {
       local mapping_cmp_toggle = cmp.mapping(if_visible(cmp.close, cmp.complete), { 'i', 'c' })
 
       cmp.setup({
-        window = {
-          completion = {
-            -- col_offset = -3,
-            -- side_padding = 0,
-          },
-        },
-
         preselect = cmp.PreselectMode.None,
 
-        completion = {
-          -- autocomplete = false,
-        },
-
         sources = cmp.config.sources({
-          -- { name = 'luasnip-jumpable' },
-          { name = 'nvim_lsp_signature_help' },
+          { name = 'copilot' },
           { name = 'luasnip' },
           { name = 'nvim_lua' },
           { name = 'nvim_lsp' },
           { name = 'path' },
-        }, {
-          { name = 'buffer' },
         }),
 
         snippet = {
@@ -145,20 +127,9 @@ return {
           ['<C-j>'] = cmp.mapping.select_next_item(),
           ['<C-k>'] = cmp.mapping.select_prev_item(),
         },
-
-        -- experimental = {
-        --   ghost_text = true,
-        -- },
-      })
-
-      cmp.setup.filetype('gitcommit', {
-        sources = cmp.config.sources({
-          { name = 'conventionalcommits' },
-        }),
       })
 
       local ok, autopairs_cmp = pcall(require, 'nvim-autopairs.completion.cmp')
-
       if ok then
         cmp.event:on('confirm_done', autopairs_cmp.on_confirm_done())
       end
