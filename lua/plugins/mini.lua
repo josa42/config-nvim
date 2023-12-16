@@ -5,41 +5,20 @@ return {
       'josa42/nvim-telescope-config',
     },
 
-    keys = {
-      -- File Browser
-      -- b  -> file browser
-      -- wb -> file browser in workspace
-      -- rb -> file browser in repo root
-      -- cb -> file browser in config
-      {
-        '<leader>b',
-        function()
-          require('mini.files').open()
-        end,
-      },
-      {
-        '<leader>wb',
-        function()
-          local workspace = require('jg.telescope-workspaces').get_current_workspace_path()
-          require('mini.files').open(workspace)
-        end,
-      },
+    keys = function()
+      local map = require('config.utils.map')
+      -- local utils = require('telescope-config').utils
 
-      {
-        '<leader>rb',
-        function()
-          local root = vim.fs.dirname(vim.fs.find('.git', { upward = true, limit = 1 })[1])
-          require('mini.files').open(root)
-        end,
-      },
-      {
-        '<leader>cb',
-        function()
-          local config_dir = require('config.paths').config_dir
-          require('mini.files').open(config_dir)
-        end,
-      },
-    },
+      -- File Browser
+      -- e  -> file browser
+      -- we -> file browser in workspace
+      -- re -> file browser in repo root
+      -- ce -> file browser in config
+      -- ca -> file browser in github action workflows
+      return map.keys('e', 'Explore', function(dir)
+        require('mini.files').open(dir)
+      end)
+    end,
 
     config = function()
       local files = require('mini.files')
@@ -52,7 +31,7 @@ return {
         return true
       end
 
-      local filter_noop = function(entry)
+      local filter_noop = function(--[[ entry ]])
         return true
       end
 
