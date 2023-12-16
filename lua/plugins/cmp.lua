@@ -1,5 +1,7 @@
 return {
   {
+    enabled = true,
+    lazy = false,
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
@@ -8,8 +10,8 @@ return {
       'saadparwaiz1/cmp_luasnip',
     },
 
-    map = {
-      { 'n', '<c-space>', function() end },
+    keys = {
+      { '<c-space>', function() end, mode = 'n' },
     },
 
     config = function()
@@ -49,25 +51,12 @@ return {
 
       local cmp = require('cmp')
       local has_luasnip, luasnip = pcall(require, 'luasnip')
-
-      local function if_visible(fn, fallback_fn)
-        return function(fallback)
-          fallback = fallback_fn or fallback
-          if cmp.visible() then
-            fn()
-          else
-            fallback()
-          end
-        end
-      end
-
-      local mapping_cmp_toggle = cmp.mapping(if_visible(cmp.close, cmp.complete), { 'i', 'c' })
+      local has_copilot, copilot = pcall(require, 'copilot.suggestion')
 
       cmp.setup({
         preselect = cmp.PreselectMode.None,
 
         sources = cmp.config.sources({
-          { name = 'copilot' },
           { name = 'luasnip' },
           { name = 'nvim_lua' },
           { name = 'nvim_lsp' },
@@ -92,8 +81,15 @@ return {
         },
 
         mapping = {
-          ['<C-Space>'] = mapping_cmp_toggle,
+          ['<C-Space>'] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.close()
+            else
+              cmp.complete()
+            end
+          end, { 'i', 'c' }),
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
+          ['<Tab>'] = cmp.mapping.confirm({ select = false }),
           ['<C-e>'] = cmp.mapping(function(fallback)
             if has_luasnip and luasnip.expandable() then
               luasnip.expand()
@@ -101,18 +97,22 @@ return {
               fallback()
             end
           end),
-          ['<Tab>'] = cmp.mapping(function(fallback)
+          ['<C-n>'] = cmp.mapping(function(fallback)
             if has_luasnip and luasnip.jumpable(1) then
               luasnip.jump(1)
-            elseif cmp.visible() then
-              cmp.confirm({ select = true })
+            elseif has_copilot and copilot.is_visible() then
+              cmp.close()
+              copilot.next()
             else
               fallback()
             end
           end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
+          ['<C-p'] = cmp.mapping(function(fallback)
             if has_luasnip and luasnip.jumpable(-1) then
               luasnip.jump(-1)
+            elseif has_copilot and copilot.is_visible() then
+              cmp.close()
+              copilot.prev()
             else
               fallback()
             end
