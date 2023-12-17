@@ -12,6 +12,24 @@ git clone git@github.com:josa42/config-nvim ~/.configim
 
 ## Key maps
 
+| Key          | Scope                  |
+| :----------- | :--------------------- |
+| _Default_    | Working directory      |
+| <kbd>r</kbd> | Git root               |
+| <kbd>w</kbd> | Workspace              |
+| <kbd>a</kbd> | Github action workflow |
+| <kbd>c</kbd> | Config                 |
+
+| Key          | Action             |
+| :----------- | :----------------- |
+| <kbd>p</kbd> | Find file          |
+| <kbd>f</kbd> | Find string        |
+| <kbd>s</kbd> | Search and replace |
+| <kbd>e</kbd> | File explorer      |
+| <kbd>d</kbd> | Diagnostics        |
+
+<br>
+
 ### Find Files
 
 | Keys                                      | Action                         | Mode |
