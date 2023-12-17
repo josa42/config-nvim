@@ -104,9 +104,13 @@ git clone git@github.com:josa42/config-nvim ~/.configim
 
 ### Diagnositics
 
-| Keys                                      | Action           | Mode |
-| :---------------------------------------- | :--------------- | :--- |
-| <kbd>leader</kbd><kbd>d</kbd><kbd>l</kbd> | Show Diagnostics | `n`  |
+| Keys                                      | Action                   | Mode |
+| :---------------------------------------- | :----------------------- | :--- |
+| <kbd>leader</kbd><kbd>d</kbd>             | Show diagnostics         | `n`  |
+| <kbd>leader</kbd><kbd>b</kbd><kbd>d</kbd> | Show buffer diagnostics  | `n`  |
+| <kbd>leader</kbd><kbd>l</kbd><kbd>d</kbd> | Show line diagnostics    | `n`  |
+| <kbd>leader</kbd><kbd>j</kbd><kbd>d</kbd> | Show next diagnostic     | `n`  |
+| <kbd>leader</kbd><kbd>k</kbd><kbd>d</kbd> | Show previous diagnostic | `n`  |
 
 ### Comments
 
