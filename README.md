@@ -33,6 +33,16 @@ git clone git@github.com:josa42/config-nvim ~/.configim
 | <kbd>leader</kbd><kbd>c</kbd><kbd>f</kbd> | Find string in config           | `n`  |
 | <kbd>leader</kbd><kbd>b</kbd><kbd>f</kbd> | Find string in buffer           | `n`  |
 
+### Search and Replace
+
+| Keys                                      | Action                                 | Mode |
+| :---------------------------------------- | :------------------------------------- | :--- |
+| <kbd>leader</kbd><kbd>s</kbd>             | Search and replace                     | `n`  |
+| <kbd>leader</kbd><kbd>r</kbd><kbd>s</kbd> | Search and replace in root             | `n`  |
+| <kbd>leader</kbd><kbd>w</kbd><kbd>s</kbd> | Search and replace in workspace        | `n`  |
+| <kbd>leader</kbd><kbd>a</kbd><kbd>s</kbd> | Search and replace in github workflows | `n`  |
+| <kbd>leader</kbd><kbd>c</kbd><kbd>s</kbd> | Search and replace in config           | `n`  |
+
 ### File Explorer
 
 | Keys                                      | Action                             | Mode |
