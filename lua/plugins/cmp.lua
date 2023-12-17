@@ -89,9 +89,11 @@ return {
             end
           end, { 'i', 'c' }),
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
-          ['<Tab>'] = cmp.mapping.confirm({ select = false }),
+          ['<Tab>'] = cmp.mapping.confirm({ select = true }),
           ['<C-e>'] = cmp.mapping(function(fallback)
-            if has_luasnip and luasnip.expandable() then
+            if has_copilot and copilot.is_visible() then
+              copilot.accept()
+            elseif has_luasnip and luasnip.expandable() then
               luasnip.expand()
             else
               fallback()
