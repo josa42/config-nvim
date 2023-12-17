@@ -65,5 +65,6 @@
   "vim-textobj-user": { "branch": "master", "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933" },
   "vim-textobj-xmlattr": { "branch": "master", "commit": "694a297f1d75fd527e87da9769f3c6519a87ebb1" },
   "vim-trivyignore": { "branch": "main", "commit": "e6bddff862d57f7154ae85e15309c28b927cde43" },
-  "virt-column.nvim": { "branch": "master", "commit": "b62b4ef0774d19452d4ed18e473e824c7a756f2f" }
+  "virt-column.nvim": { "branch": "master", "commit": "b62b4ef0774d19452d4ed18e473e824c7a756f2f" },
+  "xbase": { "branch": "master", "commit": "30ed3e638434ee7a09d7dad46562fc6925300145" }
 }
