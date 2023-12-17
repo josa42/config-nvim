@@ -1,10 +1,6 @@
--- local layer = require('jg.lib.layer')
-
 -- See: https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 local ts_install = 'all'
 local ts_disable = { 'help' }
-
-local parser_install_dir = vim.fn.stdpath('data') .. '/tree-sitter'
 
 return {
   {
@@ -40,17 +36,15 @@ return {
     },
 
     config = function()
+      local parser_install_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'tree-sitter')
+
       -- prepend path to make sure bundled parsers are not used
-      vim.opt.runtimepath:prepend(vim.fs.joinpath(vim.fn.stdpath('data'), 'tree-sitter'))
-
-      local configs = require('nvim-treesitter.configs')
-
-      vim.opt.runtimepath:append(parser_install_dir)
+      vim.opt.runtimepath:prepend(parser_install_dir)
 
       -- use bash parser for zsh
       vim.treesitter.language.register('bash', 'zsh')
 
-      configs.setup({
+      require('nvim-treesitter.configs').setup({
         ensure_installed = ts_install,
         ignore_install = ts_disable,
         parser_install_dir = parser_install_dir,
@@ -62,16 +56,16 @@ return {
 
       -- Remove conceal for markdown code fences
       pcall(function()
-        vim.treesitter.query.set = vim.treesitter.query.set or vim.treesitter.query.set_query
-        vim.treesitter.query.get_files = vim.treesitter.query.get_files or vim.treesitter.query.get_query_files
+        local file_path = vim.treesitter.query.get_files('markdown', 'highlights')[1]
+        local file = io.open(file_path, 'r')
+        if file then
+          io.input(file)
+          local content = io.read('*a')
+            :gsub('%(fenced_code_block\n  %(fenced_code_block_delimiter%) @conceal\n  %(#set! conceal ""%)%)', '; -')
+            :gsub('%(fenced_code_block\n  %(info_string %(language%) @conceal\n  %(#set! conceal ""%)%)', '; -')
 
-        local file = vim.treesitter.query.get_files('markdown', 'highlights')[1]
-        local content = require('jg.lib.fs')
-        vim.treesitter.language.r:gsub(
-          '%(%[\n  %(info_string%)\n  %(fenced_code_block_delimiter%)\n%] @conceal.*%)%)\n',
-          '++++'
-        )
-        vim.treesitter.query.set('markdown', 'highlights', content)
+          vim.treesitter.query.set('markdown', 'highlights', content)
+        end
       end)
     end,
   },
