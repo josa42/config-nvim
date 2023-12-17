@@ -14,52 +14,66 @@ local servers = {
   'tflint',
 }
 
+local function try_require(module_name)
+  local ok, module = pcall(require, module_name)
+  return ok and module or nil
+end
+
+local function supports(capability)
+  local clients = vim.tbl_filter(function(client)
+    return client.supports_method(capability)
+  end, vim.tbl_values(vim.lsp.get_clients()))
+
+  return not vim.tbl_isempty(clients)
+end
+
 return {
   {
     'neovim/nvim-lspconfig',
     event = { 'BufRead' },
     keys = {
-      { 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' },
+      { 'gd', vim.lsp.buf.definition },
       { 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>' },
-      { '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' },
-      { 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
+      { '<space>rn', vim.lsp.buf.rename },
+      { 'gH', vim.lsp.buf.signature_help },
+      { '<c-h>', vim.lsp.buf.signature_help, mode = 'i' },
       { '<leader>ac', vim.lsp.buf.code_action },
       { '<leader>ac', vim.lsp.buf.code_action, mode = 'v' },
-      { '<leader>F', '<cmd>lua vim.lsp.buf.format()<cr>' },
-      { '<leader>al', '<cmd>lua vim.lsp.codelens.run()<cr>' },
+      { '<leader>F', vim.lsp.buf.format },
+      { '<leader>al', vim.lsp.codelens.run },
       {
         'K',
         function()
-          local clients = vim.tbl_filter(function(client)
-            return client.supports_method('textDocument/hover')
-          end, vim.tbl_values(vim.lsp.get_clients()))
-
-          if vim.tbl_isempty(clients) then
-            vim.cmd.normal({ 'K', bang = true })
-          else
+          if supports('textDocument/hover') then
             vim.lsp.buf.hover()
+          else
+            vim.cmd.normal({ 'K', bang = true })
           end
         end,
       },
-      { '<C-k>', vim.lsp.buf.signature_help },
     },
 
     config = function()
-      local setup_server = function(name)
-        local ok, setup = pcall(require, 'lsp.servers.' .. name)
-        local ok_cap, capabilities = pcall(function()
-          return require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-        end)
+      local lspconfig = require('lspconfig')
+      local cmp_nvim_lsp = try_require('cmp_nvim_lsp')
 
-        require('lspconfig')[name].setup(vim.tbl_extend('keep', ok and setup() or {}, {
-          capabilities = ok_cap and capabilities or nil,
-        }))
+      local setup_server = function(name)
+        local setup = try_require('lsp.servers.' .. name)
+        local opts = setup and setup() or {}
+
+        if cmp_nvim_lsp == nil then
+          opts = vim.tbl_extend('keep', opts, {
+            capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+          })
+        end
+
+        lspconfig[name].setup(opts)
       end
 
       require('lsp.handlers').setup()
 
-      local has_mason, mason_lspconfig = pcall(require, 'mason-lspconfig')
-      if has_mason then
+      local mason_lspconfig = try_require('mason-lspconfig')
+      if mason_lspconfig then
         mason_lspconfig.setup_handlers({ setup_server })
         mason_lspconfig.setup({
           ensure_installed = servers,
