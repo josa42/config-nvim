@@ -14,6 +14,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
       )
       vim.api.nvim_win_set_cursor(0, { math.min(line, vim.fn.line('$')), 0 })
     end, { buffer = evt.buf })
+    -- vim.keymap.set('n', '<c-j>', vim.cmd.cnext, { buffer = evt.buf })
+    -- vim.keymap.set('n', '<c-k>', vim.cmd.cprevious, { buffer = evt.buf })
   end,
 })
-

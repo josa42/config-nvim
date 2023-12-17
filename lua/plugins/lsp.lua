@@ -37,10 +37,10 @@ return {
       { '<space>rn', vim.lsp.buf.rename },
       { 'gH', vim.lsp.buf.signature_help },
       { '<c-h>', vim.lsp.buf.signature_help, mode = 'i' },
-      { '<leader>ac', vim.lsp.buf.code_action },
-      { '<leader>ac', vim.lsp.buf.code_action, mode = 'v' },
+      { '<leader>la', vim.lsp.buf.code_action },
+      { '<leader>la', vim.lsp.buf.code_action, mode = 'v' },
       { '<leader>F', vim.lsp.buf.format },
-      { '<leader>al', vim.lsp.codelens.run },
+      { '<leader>ll', vim.lsp.codelens.run },
       {
         'K',
         function()

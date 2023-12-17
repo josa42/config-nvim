@@ -30,8 +30,10 @@ return {
         -- select workspace
         { '<leader>ww', commands.workspace.select },
 
-        -- Git
+        -- Help
         { '<leader>h', builtin.help_tags, desc = 'Find help' },
+
+        -- Git
         { '<leader>gs', builtin.git_status, desc = 'Git status' },
         { '<leader>gb', builtin.git_bcommits, desc = 'Git buffer commits' },
         { '<leader>gl', builtin.git_commits, desc = 'Git commits' },
