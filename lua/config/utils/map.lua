@@ -55,12 +55,17 @@ function M.key_github_workflows(key, desc, fn)
   return { '<leader>a' .. key, M.in_github_workflows(fn), desc = ('%s in github workflows'):format(desc) }
 end
 
+function M.key_config(key, desc, fn)
+  return { '<leader>c' .. key, M.in_config(fn), desc = ('%s in config'):format(desc) }
+end
+
 function M.keys(key, desc, fn)
   return {
     M.key(key, desc, fn),
     M.key_workspace(key, desc, fn),
     M.key_root(key, desc, fn),
     M.key_github_workflows(key, desc, fn),
+    M.key_config(key, desc, fn),
   }
 end
 
