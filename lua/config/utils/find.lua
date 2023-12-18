@@ -41,8 +41,6 @@ local find_bin_using_npm_query = cache.fn('config/utils/find:find_bin_using_npm_
 
   if ok then
     return res
-  else
-    print(res)
   end
 
   return nil
