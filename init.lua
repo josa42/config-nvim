@@ -1,5 +1,4 @@
 require('config.clipboard')
-require('config.list')
 require('config.conceal')
 require('config.misc')
 require('config.diagnostics')
