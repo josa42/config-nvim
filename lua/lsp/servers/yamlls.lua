@@ -1,4 +1,4 @@
-local paths = require('config.paths')
+local home = os.getenv('HOME')
 
 local settings = {
   yaml = {
@@ -12,8 +12,8 @@ local settings = {
       ['file:///Users/josa/github/josa42/run/schema/tasks.json'] = {
         'tasks.yml',
       },
-      ['file://' .. paths.home .. '/github/josa42/scheme-lazygit/lazygit.schema.json'] = {
-        paths.home .. '/.config/lazygit/config.yml',
+      ['file://' .. home .. '/github/josa42/scheme-lazygit/lazygit.schema.json'] = {
+        home .. '/.config/lazygit/config.yml',
       },
 
       ['https://goreleaser.com/schema.json'] = {

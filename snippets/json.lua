@@ -10,8 +10,7 @@ local sn = luasnip.snippet_node
 local rep = require('luasnip.extras').rep
 local fmt = require('luasnip.extras.fmt').fmt
 
-local paths = require('config.paths')
-local snipptes_dir = paths.config_dir .. '/snippets'
+local snipptes_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'snippets')
 
 local is_json_snippet = function()
   return vim.fn.expand('%:p:h') == snipptes_dir

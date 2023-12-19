@@ -1,12 +1,4 @@
-local paths = require('config.paths')
 local M = {}
-
-local function git_root()
-  local git_path = vim.fs.find('.git', { upward = true, limit = 1 })[1]
-  if git_path ~= nil then
-    return vim.fs.dirname(git_path)
-  end
-end
 
 function M.in_root(fn)
   return function()
@@ -22,7 +14,7 @@ end
 
 function M.in_config(fn)
   return function()
-    return fn(paths.config_dir)
+    return fn(vim.fn.stdpath('config'))
   end
 end
 
