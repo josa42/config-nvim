@@ -1,5 +1,6 @@
 require('config.clipboard')
 require('config.autoread')
+require('config.automkdir')
 require('config.search')
 require('config.indent')
 require('config.statuscolumn')
