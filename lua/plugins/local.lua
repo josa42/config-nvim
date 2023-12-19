@@ -6,4 +6,5 @@ return {
   { 'josa42/nvim-automkdir', dir = local_plugin('automkdir') },
   { 'josa42/nvim-autoread', dir = local_plugin('autoread') },
   { 'josa42/nvim-indent-lines', dir = local_plugin('indent-lines'), opts = {} },
+  { 'josa42/nvim-git-commands', dir = local_plugin('git-commands'), opts = {} },
 }
