@@ -1,5 +1,4 @@
 require('config.clipboard')
-require('config.autoread')
 require('config.list')
 require('config.conceal')
 require('config.misc')
