@@ -1,11 +1,11 @@
 return {
   {
-    event = { 'BufReadPost' },
-
     'numToStr/Comment.nvim',
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
     },
+
+    event = 'VeryLazy',
 
     keys = {
       { '#', '<Plug>(comment_toggle_linewise_current)' },
