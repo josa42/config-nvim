@@ -25,7 +25,7 @@ return {
         end,
       }
 
-      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave', 'TextChanged' }, {
         group = vim.api.nvim_create_augroup('config.plugins.lint', { clear = true }),
         callback = function(opts)
           local lint = require('lint')

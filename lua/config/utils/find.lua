@@ -1,7 +1,5 @@
 local M = {}
 
-local cache = require('config.utils.cache')
-
 local function exists(file)
   local f = io.open(file, 'r')
   return f ~= nil and io.close(f)
@@ -30,25 +28,14 @@ function M.root_npm(file)
   return M.root({ 'package-lock.json' }, file) or M.root({ 'yarn.lock' }, file) or M.root({ 'package.json' }, file)
 end
 
-local find_bin_using_npm_query = cache.fn('config/utils/find:find_bin_using_npm_query', function(dir, name)
-  local ok, res = pcall(function()
-    local cmd = ('cd %s; npm query \\#%s'):format(vim.fn.shellescape(dir), name)
-    local pkg = vim.json.decode(vim.fn.system(cmd))
-    if pkg and pkg[1] ~= nil then
-      return vim.fs.joinpath(pkg[1].path, pkg[1].bin[name])
-    end
-  end)
-
-  if ok then
-    return res
-  end
-
-  return nil
-end)
-
 function M.eslint_bin(file)
-  local root = M.root_eslintrc(file)
-  return has_file(root, 'node_modules/.bin/eslint') or find_bin_using_npm_query(root, 'eslint') ~= nil
+  local eslint = vim.fs.find('node_modules/.bin/eslint', {
+    upward = true,
+    path = M.root_eslintrc(file),
+    stop = vim.fs.dirname(M.root({ 'package-lock.json' }, file)),
+  })[1]
+
+  return eslint ~= nil
 end
 
 function M.prettier_bin(file)
