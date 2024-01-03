@@ -14,6 +14,11 @@ local servers = {
   'tflint',
 }
 
+local ignore = {
+  'typescript-language-server',
+  'tsserver',
+}
+
 local function try_require(module_name)
   local ok, module = pcall(require, module_name)
   return ok and module or nil
@@ -58,6 +63,10 @@ return {
       local cmp_nvim_lsp = try_require('cmp_nvim_lsp')
 
       local setup_server = function(name)
+        if vim.tbl_contains(ignore, name) then
+          return
+        end
+
         local setup = try_require('lsp.servers.' .. name)
         local opts = setup and setup() or {}
 
