@@ -46,35 +46,4 @@ function M.eslint_json_parser(file)
   return has_file(M.root_eslintrc(file), 'node_modules/jsonc-eslint-parser/package.json')
 end
 
-function M.if_env(name)
-  return function()
-    local value = os.getenv(name)
-    return value == '1' or value == 'true'
-  end
-end
-
-function M.any(...)
-  local fns = { ... }
-  return function(self, ctx)
-    for _, fn in ipairs(fns) do
-      local value = fn(ctx.filename)
-      if value then
-        return value
-      end
-    end
-  end
-end
-
-function M.all(...)
-  local fns = { ... }
-  return function(self, ctx)
-    for _, fn in ipairs(fns) do
-      if not fn(ctx.filename) then
-        return false
-      end
-    end
-    return true
-  end
-end
-
 return M

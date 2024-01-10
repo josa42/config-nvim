@@ -20,7 +20,7 @@ vim.opt.autochdir = false
 
 -- Scroll offset
 vim.opt.scrolloff = 2
-
+vim.opt.smoothscroll = true
 -- pum
 vim.opt.pumblend = 0
 vim.opt.pumheight = 12
