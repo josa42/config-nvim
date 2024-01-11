@@ -35,6 +35,7 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
+    dependencies = { 'b0o/SchemaStore.nvim' },
     event = { 'BufRead' },
     keys = {
       { 'gd', vim.lsp.buf.definition },

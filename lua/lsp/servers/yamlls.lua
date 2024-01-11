@@ -1,25 +1,22 @@
-local home = os.getenv('HOME')
-
 local settings = {
   yaml = {
-    schemas = {
-      ['http://json.schemastore.org/github-workflow'] = {
-        '.github/workflows/*.yml',
-      },
-      ['http://json.schemastore.org/github-action'] = {
-        '.github/actions/*/actions.yml',
-      },
-      ['file:///Users/josa/github/josa42/run/schema/tasks.json'] = {
-        'tasks.yml',
-      },
-      ['file://' .. home .. '/github/josa42/scheme-lazygit/lazygit.schema.json'] = {
-        home .. '/.config/lazygit/config.yml',
-      },
 
-      ['https://goreleaser.com/schema.json'] = {
-        '.goreleaser.yml',
-      },
+    schemaStore = {
+      -- You must disable built-in schemaStore support if you want to use
+      -- this plugin and its advanced options like `ignore`.
+      enable = false,
+      -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+      url = '',
     },
+    schemas = require('schemastore').yaml.schemas({
+      extra = {
+        {
+          fileMatch = { 'tasks.yml' },
+          name = 'tasks.json',
+          url = ('file://%s'):format(vim.fn.expand('~/run/schema/tasks.json')),
+        },
+      },
+    }),
   },
 }
 
