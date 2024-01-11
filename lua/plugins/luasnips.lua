@@ -15,6 +15,33 @@ end
 return {
   {
     'L3MON4D3/LuaSnip',
+
+    dependencies = {
+      {
+        'chrisgrieser/nvim-scissors',
+        opts = {
+          snippetDir = vim.fs.joinpath(vim.fn.stdpath('config'), 'snippets'),
+          jsonFormatter = 'jq',
+        },
+
+        keys = {
+          {
+            '<leader>se',
+            function()
+              require('scissors').editSnippet()
+            end,
+          },
+          {
+            '<leader>sa',
+            function()
+              require('scissors').addNewSnippet()
+            end,
+            mode = { 'n', 'x' },
+          },
+        },
+      },
+    },
+
     opts = {
       delete_check_events = 'TextChanged',
       update_events = 'TextChanged,TextChangedI',

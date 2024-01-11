@@ -1,102 +1,26 @@
 {
-  "str": {
-    "prefix": [
-      "str"
-    ],
-    "description": "String",
-    "body": [
-      "{ \"type\": \"string\" }"
-    ]
-  },
-  "str-pattern": {
-    "prefix": [
-      "str-pattern"
-    ],
-    "description": "String Pattern",
-    "body": [
-      "{ \"type\": \"string\", \"pattern\": \"$1\" }"
-    ]
-  },
-  "str-enum": {
-    "prefix": [
-      "str-enum"
-    ],
-    "description": "String Enum",
-    "body": [
-      "{",
-      "\t\"type\": \"string\",",
-      "\t\"enum\": [",
-      "\t\t\"$1\"",
-      "\t]",
-      "}"
-    ]
-  },
-  "bool": {
-    "prefix": [
-      "bool"
-    ],
-    "description": "Boolean",
-    "body": [
-      "{ \"type\": \"boolean\" }"
-    ]
-  },
-  "num": {
-    "prefix": [
-      "num"
-    ],
-    "description": "Number",
-    "body": [
-      "{ \"type\": \"number\" }"
-    ]
-  },
-  "obj": {
-    "prefix": [
-      "obj"
-    ],
-    "description": "Object",
-    "body": [
-      "{",
-      "\t\"type\": \"object\",",
-      "\t\"required\": [],",
-      "\t\"additionalProperties\": false,",
-      "\t\"properties\": {",
-      "\t\t$1",
-      "\t}",
-      "}"
-    ]
-  },
-  "obj-pattern": {
-    "prefix": [
-      "obj-pattern"
-    ],
-    "description": "Object Pattern",
-    "body": [
-      "{",
-      "\t\"type\": \"object\",",
-      "\t\"required\": [],",
-      "\t\"additionalProperties\": false,",
-      "\t\"patternProperties\": {",
-      "\t\"${1:^.*$}\": $2",
-      "}"
-    ]
-  },
   "arr": {
-    "prefix": [
-      "arr"
-    ],
-    "description": "Array",
     "body": [
       "{",
       "\t\"type\": \"array\",",
       "\t\"items\": $1",
       "}"
+    ],
+    "description": "Array",
+    "prefix": [
+      "arr"
+    ]
+  },
+  "bool": {
+    "body": [
+      "{ \"type\": \"boolean\" }"
+    ],
+    "description": "Boolean",
+    "prefix": [
+      "bool"
     ]
   },
   "eslint:typescript": {
-    "prefix": [
-      "eslint:typescript"
-    ],
-    "description": "Eslint config for typescript projects",
     "body": [
       "{",
       "  \"parser\": \"@typescript-eslint/parser\",",
@@ -129,6 +53,78 @@
       "  ]",
       "}",
       ""
+    ],
+    "description": "Eslint config for typescript projects",
+    "prefix": [
+      "eslint:typescript"
     ]
+  },
+  "num": {
+    "body": [
+      "{ \"type\": \"number\" }"
+    ],
+    "description": "Number",
+    "prefix": [
+      "num"
+    ]
+  },
+  "obj": {
+    "body": [
+      "{",
+      "\t\"type\": \"object\",",
+      "\t\"required\": [],",
+      "\t\"additionalProperties\": false,",
+      "\t\"properties\": {",
+      "\t\t$1",
+      "\t}",
+      "}"
+    ],
+    "description": "Object",
+    "prefix": [
+      "obj"
+    ]
+  },
+  "obj-pattern": {
+    "body": [
+      "{",
+      "\t\"type\": \"object\",",
+      "\t\"required\": [],",
+      "\t\"additionalProperties\": false,",
+      "\t\"patternProperties\": {",
+      "\t\"${1:^.*$}\": $2",
+      "}"
+    ],
+    "description": "Object Pattern",
+    "prefix": [
+      "obj-pattern"
+    ]
+  },
+  "str": {
+    "body": [
+      "{ \"type\": \"string\" }"
+    ],
+    "description": "String",
+    "prefix": [
+      "str"
+    ]
+  },
+  "str-enum": {
+    "body": [
+      "{",
+      "\t\"type\": \"string\",",
+      "\t\"enum\": [",
+      "\t\t\"$1\"",
+      "\t]",
+      "}"
+    ],
+    "description": "String Enum",
+    "prefix": [
+      "str-enum"
+    ]
+  },
+  "str-pattern": {
+    "body": "{ \"type\": \"string\", \"pattern\": \"$1\" }",
+    "description": "String Pattern",
+    "prefix": "str-pattern"
   }
 }

@@ -1,42 +1,69 @@
 {
-  "mod": {
-    "prefix": [
-      "mod"
-    ],
-    "description": "Module",
+  "autocmd": {
     "body": [
-      "local M = {}",
-      "${0}",
-      "return M"
+      "vim.api.nvim_create_autocmd('${1:$CLIPBOARD}', {",
+      "  callback = function()",
+      "    $0",
+      "  end,",
+      "})"
+    ],
+    "prefix": [
+      "autocmd"
     ]
   },
-  "rpaths": {
-    "prefix": [
-      "rpaths"
-    ],
-    "description": "require paths",
+  "desc": {
     "body": [
-      "local plug = require('jg.paths')"
-    ]
-  },
-  "require": {
-    "prefix": [
-      "require"
+      "describe('$1', function ()",
+      "\t$2",
+      "end)"
     ],
-    "body": [
-      "local $1 = require('${2:$1}')"
+    "prefix": [
+      "desc"
     ]
   },
   "dump": {
-    "prefix": [
-      "dump"
-    ],
     "body": [
       "print(vim.inspect($1))"
+    ],
+    "prefix": [
+      "dump"
     ]
   },
-  "layer import": {
-    "prefix": "layer:i",
+  "its": {
+    "body": [
+      "it('should $1', function()",
+      "\t$2",
+      "end)"
+    ],
+    "prefix": [
+      "its"
+    ]
+  },
+  "layer": {
+    "body": [
+      "layer.use({",
+      "  requires = {",
+      "    '${1:$CLIPBOARD}',",
+      "  },$0",
+      "})"
+    ],
+    "prefix": "layer"
+  },
+  "layer enabled": {
+    "body": [
+      "enabled = ${1|true,false|},$0"
+    ],
+    "prefix": "enabled"
+  },
+  "layer setup": {
+    "body": [
+      "setup = function()",
+      "  $0",
+      "end,"
+    ],
+    "prefix": "setup"
+  },
+  "layer:i": {
     "body": [
       "layer.use({",
       "  requires = { '$1' },",
@@ -45,62 +72,43 @@
       "    $2",
       "  end,",
       "})"
-    ]
-  },
-  "layer": {
-    "prefix": "layer",
-    "body": [
-      "layer.use({",
-      "  requires = {",
-      "    '${1:$CLIPBOARD}',",
-      "  },$0",
-      "})"
-    ]
-  },
-  "layer setup": {
-    "prefix": "setup",
-    "body": [
-      "setup = function()",
-      "  $0",
-      "end,"
-    ]
-  },
-  "layer enabled": {
-    "prefix": "enabled",
-    "body": [
-      "enabled = ${1|true,false|},$0"
-    ]
-  },
-  "autocmd": {
-    "prefix": [
-      "autocmd"
     ],
+    "prefix": "layer:i"
+  },
+  "mod": {
     "body": [
-      "vim.api.nvim_create_autocmd('${1:$CLIPBOARD}', {",
-      "  callback = function()",
-      "    $0",
-      "  end,",
-      "})"
+      "local M = {}",
+      "${0}",
+      "return M"
+    ],
+    "description": "Module",
+    "prefix": "mod"
+  },
+  "plugin": {
+    "body": [
+      "return {",
+      "  {",
+      "    '${0}'",
+      "  }",
+      "}"
+    ],
+    "prefix": "plugin"
+  },
+  "require": {
+    "body": [
+      "local $1 = require('${2:$1}')"
+    ],
+    "prefix": [
+      "require"
     ]
   },
-  "desc": {
-    "prefix": [
-      "desc"
-    ],
+  "rpaths": {
     "body": [
-      "describe('$1', function ()",
-      "\t$2",
-      "end)"
-    ]
-  },
-  "its": {
-    "prefix": [
-      "its"
+      "local plug = require('jg.paths')"
     ],
-    "body": [
-      "it('should $1', function()",
-      "\t$2",
-      "end)"
+    "description": "require paths",
+    "prefix": [
+      "rpaths"
     ]
   }
 }
