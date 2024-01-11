@@ -11,12 +11,12 @@ return {
         'actionlint',
         'eslint_d',
         'fixjson',
+        'gitlint',
         'shellcheck',
         'shfmt',
         'stylua',
-        -- 'swiftformat',
-        'gitlint',
-        -- 'terraform_fmt',
+        'vint',
+        -- 'markuplint',
       })
 
       local root_pattern_pkg = utils.root_pattern('package.json')
@@ -110,6 +110,7 @@ return {
             },
           }),
 
+          -- yaml
           -- action lint
           null_ls.builtins.diagnostics.actionlint.with({
             runtime_condition = function(params)
@@ -119,6 +120,7 @@ return {
 
           -- shell
           null_ls.builtins.diagnostics.shellcheck,
+          null_ls.builtins.diagnostics.zsh,
 
           -- swift
           null_ls.builtins.formatting.swiftformat,
@@ -128,6 +130,16 @@ return {
 
           -- git
           null_ls.builtins.diagnostics.gitlint,
+
+          -- html
+          -- TODO enable when issue is resolved; https://github.com/nvimtools/none-ls.nvim/issues/51
+          -- null_ls.builtins.diagnostics.markuplint,
+
+          -- php
+          null_ls.builtins.diagnostics.php,
+
+          -- vimscript
+          null_ls.builtins.diagnostics.vint,
         },
       })
     end,
