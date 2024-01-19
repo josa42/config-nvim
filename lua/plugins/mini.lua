@@ -5,6 +5,8 @@ return {
       'josa42/nvim-telescope-config',
     },
 
+    lazy = false,
+
     keys = function()
       local map = require('config.utils.map')
       -- local utils = require('telescope-config').utils
@@ -21,6 +23,17 @@ return {
     end,
 
     config = function()
+      --------------------------------------------------------------------------
+      -- Notify
+
+      local notify = require('mini.notify')
+
+      notify.setup({})
+      vim.notify = notify.make_notify()
+
+      --------------------------------------------------------------------------
+      -- Files
+
       local files = require('mini.files')
       local ignores = { '.DS_Store', '.git', 'node_modules' }
 
