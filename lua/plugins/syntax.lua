@@ -11,4 +11,5 @@ return {
   'josa42/vim-npmrc',
   -- ejs
   'briancollins/vim-jst',
+  'belltoy/prom.vim',
 }

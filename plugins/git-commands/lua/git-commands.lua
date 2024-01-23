@@ -31,7 +31,7 @@ function M.setup()
       local branch = sh('git branch --show-current', root)
       sh(('gh browse %s --branch %s'):format(rel_path, branch), root)
     end
-  end, { bang = true })
+  end, { bang = true, nargs = 0 })
 
   vim.api.nvim_create_user_command('GitReset', function()
     vim.fn.system('git checkout HEAD -- ' .. vim.fn.expand('%'))

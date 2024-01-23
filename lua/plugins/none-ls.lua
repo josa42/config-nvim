@@ -21,6 +21,15 @@ return {
 
       local root_pattern_pkg = utils.root_pattern('package.json')
       local root_pattern_eslint = utils.root_pattern(
+        '.prettierrc',
+        'prettierrc.json',
+        '.prettierrc.cjs',
+        '.prettierrc.js',
+        'prettierrc.yaml',
+        'prettierrc.yml'
+      )
+
+      local root_pattern_prettier = utils.root_pattern(
         '.eslintrc',
         'eslintrc.json',
         '.eslintrc.cjs',
@@ -46,6 +55,10 @@ return {
 
       local condition_eslint_with_json = function(p)
         return find.eslint_json_parser(p.bufname) and find.eslint_bin(p.bufname)
+      end
+
+      local condition_prettier = function(p)
+        return find.prettier_bin(p.bufname) and root_pattern_prettier(p.bufname)
       end
 
       local condition_prettier_markdown = function(p)
@@ -84,6 +97,12 @@ return {
           -- fixjson
           null_ls.builtins.formatting.fixjson.with({
             runtime_condition = if_not(condition_eslint_with_json),
+          }),
+
+          -- prettier -> javascript
+          null_ls.builtins.formatting.prettier.with({
+            filetypes = { 'javascript', 'javascriptreact' },
+            runtime_condition = condition_prettier,
           }),
 
           -- prettier -> markdown
