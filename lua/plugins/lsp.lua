@@ -12,6 +12,7 @@ local servers = {
   'stylelint_lsp',
   'terraformls',
   'tflint',
+  'eslint',
 }
 
 local ignore = {

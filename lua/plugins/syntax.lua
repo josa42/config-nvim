@@ -10,6 +10,6 @@ return {
   'josa42/vim-trivyignore',
   'josa42/vim-npmrc',
   -- ejs
-  'briancollins/vim-jst',
+  -- 'briancollins/vim-jst',
   'belltoy/prom.vim',
 }
