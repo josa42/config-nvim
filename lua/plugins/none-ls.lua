@@ -99,23 +99,23 @@ return {
             runtime_condition = if_not(condition_eslint_with_json),
           }),
 
-          -- prettier -> javascript
-          null_ls.builtins.formatting.prettier.with({
-            filetypes = { 'javascript', 'javascriptreact' },
-            runtime_condition = condition_prettier,
-          }),
-
-          -- prettier -> markdown
-          null_ls.builtins.formatting.prettier.with({
-            filetypes = { 'markdown' },
-            runtime_condition = condition_prettier_markdown,
-          }),
-
-          -- prettier -> yaml
-          null_ls.builtins.formatting.prettier.with({
-            filetypes = { 'yaml' },
-            runtime_condition = condition_prettier_yaml,
-          }),
+          -- -- prettier -> javascript
+          -- null_ls.builtins.formatting.prettier.with({
+          --   filetypes = { 'javascript', 'javascriptreact' },
+          --   runtime_condition = condition_prettier,
+          -- }),
+          --
+          -- -- prettier -> markdown
+          -- null_ls.builtins.formatting.prettier.with({
+          --   filetypes = { 'markdown' },
+          --   runtime_condition = condition_prettier_markdown,
+          -- }),
+          --
+          -- -- prettier -> yaml
+          -- null_ls.builtins.formatting.prettier.with({
+          --   filetypes = { 'yaml' },
+          --   runtime_condition = condition_prettier_yaml,
+          -- }),
 
           null_ls.builtins.formatting.stylua,
 
