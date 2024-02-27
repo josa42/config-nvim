@@ -13,6 +13,7 @@ local servers = {
   'terraformls',
   'tflint',
   'eslint',
+  -- 'snyk_ls',
 }
 
 local ignore = {
