@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "body": [
+      "# Default permissions",
+      "# See: https://docs.github.com/en/rest/authentication/endpoints-available-for-github-app-user-access-tokens",
+      "permissions:",
+      "  contents: read",
+      "  packages: read"
+    ],
+    "prefix": "permissions"
+  }
+}
