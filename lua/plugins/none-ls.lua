@@ -95,7 +95,7 @@ return {
           -- }),
 
           -- fixjson
-          null_ls.builtins.formatting.fixjson.with({
+          require('plugins.none-ls.formatting.fixjson').with({
             runtime_condition = if_not(condition_eslint_with_json),
           }),
 
@@ -138,7 +138,7 @@ return {
           }),
 
           -- shell
-          null_ls.builtins.diagnostics.shellcheck,
+          require('plugins.none-ls.diagnostics.shellcheck'),
           null_ls.builtins.diagnostics.zsh,
 
           -- swift
@@ -155,7 +155,7 @@ return {
           -- null_ls.builtins.diagnostics.markuplint,
 
           -- php
-          null_ls.builtins.diagnostics.php,
+          require('plugins.none-ls.diagnostics.php'),
 
           -- vimscript
           null_ls.builtins.diagnostics.vint,
