@@ -1,6 +1,6 @@
 return {
-  enables = false,
-  'josa42/nvim-prompt',
+  enabled = false,
+  'josa42/nvim-rompt',
   dir = '~/github/josa42/nvim-prompt',
 
   event = 'VeryLazy',
