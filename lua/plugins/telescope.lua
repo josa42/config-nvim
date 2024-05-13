@@ -35,7 +35,7 @@ return {
 
         -- Git
         { '<leader>gs', builtin.git_status, desc = 'Git status' },
-        { '<leader>gb', builtin.git_bcommits, desc = 'Git buffer commits' },
+        { '<leader>gf', builtin.git_bcommits, desc = 'Git buffer commits' },
         { '<leader>gl', builtin.git_commits, desc = 'Git commits' },
       }
 
