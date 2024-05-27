@@ -3,13 +3,16 @@ local settings = {
     runtime = {
       version = 'LuaJIT',
       path = vim.split(package.path, ';'),
+      special = {
+        include = 'require',
+      },
     },
     diagnostics = {
-      globals = { 'vim', 'describe', 'it', 'require' },
+      globals = { 'describe', 'it' },
       workspaceDelay = -1,
     },
     workspace = {
-      checkThirdParty = false,
+      checkThirdParty = 'Apply',
       library = vim.api.nvim_get_runtime_file('', true),
     },
     telemetry = { enable = false },
