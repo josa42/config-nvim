@@ -1,5 +1,6 @@
 return {
   {
+    enabled = false,
     'nvim-pack/nvim-spectre',
     dependencies = { 'nvim-pack/nvim-spectre' },
 
