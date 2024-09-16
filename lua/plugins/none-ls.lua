@@ -58,7 +58,8 @@ return {
       end
 
       local condition_prettier = function(p)
-        return find.prettier_bin(p.bufname) and root_pattern_prettier(p.bufname)
+        -- return find.prettier_bin(p.bufname) and root_pattern_prettier(p.bufname)
+        return os.getenv('NVIMV_ENABLE_PRETTIER_JS') == '1' and find.prettier_bin(p.bufname)
       end
 
       local condition_prettier_markdown = function(p)
@@ -99,12 +100,12 @@ return {
             runtime_condition = if_not(condition_eslint_with_json),
           }),
 
-          -- -- prettier -> javascript
-          -- null_ls.builtins.formatting.prettier.with({
-          --   filetypes = { 'javascript', 'javascriptreact' },
-          --   runtime_condition = condition_prettier,
-          -- }),
-          --
+          -- prettier -> javascript
+          null_ls.builtins.formatting.prettier.with({
+            filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+            runtime_condition = condition_prettier,
+          }),
+
           -- -- prettier -> markdown
           -- null_ls.builtins.formatting.prettier.with({
           --   filetypes = { 'markdown' },

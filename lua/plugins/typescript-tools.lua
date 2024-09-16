@@ -9,6 +9,19 @@ return {
 
       local api = require('typescript-tools.api')
       require('typescript-tools').setup({
+        settings = {
+          tsserver_file_preferences = {
+            includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all'
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+
         handlers = {
           ['textDocument/publishDiagnostics'] = api.filter_diagnostics({
             -- https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
