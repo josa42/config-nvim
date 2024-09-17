@@ -7,7 +7,7 @@ local servers = {
   'gopls',
   'jsonls',
   'lua_ls',
-  'tsserver',
+  'ts_ls',
   'yamlls',
   'stylelint_lsp',
   'terraformls',
@@ -17,8 +17,7 @@ local servers = {
 }
 
 local ignore = {
-  'typescript-language-server',
-  'tsserver',
+  'ts_ls',
 }
 
 local function try_require(module_name)
@@ -83,6 +82,8 @@ return {
       end
 
       require('lsp.handlers').setup()
+
+      -- print(vim.inspect(servers))
 
       local mason_lspconfig = try_require('mason-lspconfig')
       if mason_lspconfig then

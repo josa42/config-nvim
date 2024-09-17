@@ -1,6 +1,7 @@
 return {
   {
     'xbase-lab/xbase',
+    enabled = false,
     build = 'make install', -- or "make install && make free_space" (not recommended, longer build time)
     dependnecies = {
       'neovim/nvim-lspconfig',
