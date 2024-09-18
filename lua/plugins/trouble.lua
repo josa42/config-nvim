@@ -2,6 +2,9 @@ local signs = require('config.signs')
 return {
   {
     'folke/trouble.nvim',
+
+    events = { 'VeryLazy' },
+
     opts = {
       -- mode = 'document_diagnostics',
       -- -- signs = signs.trouble,

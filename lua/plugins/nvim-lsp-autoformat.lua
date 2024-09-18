@@ -3,6 +3,7 @@ return {
     'josa42/nvim-lsp-autoformat',
 
     event = { 'BufReadPost' },
+
     opts = {
       ['*.cjs'] = { 'null-ls' },
       ['*.mjs'] = { 'null-ls' },

@@ -6,7 +6,11 @@ vim.cmd.highlight({
 return {
   {
     'lewis6991/gitsigns.nvim',
+
     dependencies = { 'nvim-lua/plenary.nvim' },
+
+    events = { 'BufRead' },
+
     config = {
       yadm = { enable = true },
       signs = require('config.signs').gitsigns,

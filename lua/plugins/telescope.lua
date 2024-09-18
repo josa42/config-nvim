@@ -1,6 +1,6 @@
 return {
   {
-    lazy = false,
+    lazy = false, -- TODO why not lazy?
     'nvim-telescope/telescope.nvim',
 
     dependencies = {

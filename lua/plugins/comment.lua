@@ -4,7 +4,9 @@ return {
   {
     'folke/ts-comments.nvim',
     opts = {},
-    event = 'VeryLazy',
+
+    events = { 'BufRead' },
+
     enabled = enableNativeComments,
 
     init = function(opts)

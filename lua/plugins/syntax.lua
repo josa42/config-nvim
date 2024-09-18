@@ -1,4 +1,6 @@
 return {
+  -- TODO set events to load these plugins
+
   'zhaozg/vim-diagram',
   'rhysd/vim-syntax-codeowners',
   'darfink/vim-plist',

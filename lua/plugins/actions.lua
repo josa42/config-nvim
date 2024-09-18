@@ -5,5 +5,7 @@ return {
     config = function()
       require('jg.actions').setup()
     end,
+
+    events = { 'InsertEnter' },
   },
 }

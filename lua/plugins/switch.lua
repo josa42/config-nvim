@@ -1,9 +1,13 @@
 return {
   {
     'AndrewRadev/switch.vim',
+
+    events = { 'InsertEnter' },
+
     init = function()
       vim.g.switch_mapping = '-'
     end,
+
     config = function()
       local group = vim.api.nvim_create_augroup('plugins.switch', { clear = true })
 

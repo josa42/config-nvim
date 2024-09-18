@@ -1,6 +1,9 @@
 return {
   {
     'zbirenbaum/copilot.lua',
+
+    events = { 'InsertEnter' },
+
     opts = {
       suggestion = {
         enabled = true,
@@ -9,6 +12,7 @@ return {
       },
       panel = { enabled = false },
     },
+
     keys = function()
       if not pcall(require, 'cmp') then
         return {

@@ -16,6 +16,8 @@ return {
   {
     'L3MON4D3/LuaSnip',
 
+    events = { 'InsertEnter' },
+
     dependencies = {
       {
         'chrisgrieser/nvim-scissors',
@@ -47,6 +49,7 @@ return {
       update_events = 'TextChanged,TextChangedI',
       region_check_events = 'CursorMoved',
     },
+
     config = function(_, opts)
       require('luasnip').setup(opts)
       load_snippets()

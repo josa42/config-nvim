@@ -1,7 +1,11 @@
 return {
   {
     'pmizio/typescript-tools.nvim',
+
+    events = { 'VeryLazy' },
+
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+
     config = function()
       require('config.utils.mason').try_mason_install({
         'typescript-language-server',
