@@ -22,7 +22,3 @@ vim.cmd.hi({ 'link', 'DiagnosticVirtualTextError', 'Comment', bang = true })
 vim.diagnostic.config({
   float = { border = 'single' },
 })
-
-vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-vim.keymap.set('n', '<leader>jd', vim.diagnostic.goto_next, { desc = 'Next Diagnostic' })
-vim.keymap.set('n', '<leader>kd', vim.diagnostic.goto_prev, { desc = 'Prev Diagnostic' })
