@@ -48,6 +48,36 @@ return {
         Operator = '',
         TypeParameter = '',
       }
+
+      local sources = {
+        ['luasnip'] = '',
+        ['nvim_lsp'] = 'lsp',
+        ['nvim_lsp:bashls'] = '',
+        ['nvim_lsp:cssls'] = '',
+        ['nvim_lsp:dockerls'] = '',
+        ['nvim_lsp:gopls'] = '',
+        ['nvim_lsp:html'] = '',
+        ['nvim_lsp:jsonls'] = '',
+        ['nvim_lsp:lua_ls'] = '󰢱',
+        ['nvim_lsp:typescript-tools'] = '',
+        ['nvim_lsp:vimls'] = '',
+        ['nvim_lua'] = '',
+        ['path'] = '',
+      }
+
+      function formatSource(entry)
+        local name = entry.source.name
+
+        if name == 'nvim_lsp' then
+          local lsp_name = ((entry.source.source or {}).client or {}).name
+          if lsp_name then
+            name = lsp_name and string.format('%s:%s', name, lsp_name) or lsp_name
+          end
+        end
+
+        return sources[name] or name
+      end
+
       -- vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
 
       local cmp = require('cmp')
@@ -73,10 +103,13 @@ return {
         },
 
         formatting = {
-          fields = { 'abbr', 'kind' },
+          fields = { 'abbr', 'kind', 'menu' },
           format = function(entry, item)
+            local source = formatSource(entry)
+
             return vim.tbl_extend('force', item, {
               kind = kind_icons[item.kind] or item.kind,
+              menu = item.menu ~= nil and string.format('%s %s', source, item.menu) or source,
             })
           end,
         },
