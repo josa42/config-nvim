@@ -1,4 +1,4 @@
-local enableNativeComments = false and vim.fn.has('nvim-0.10.0') == 1
+local enableNativeComments = vim.fn.has('nvim-0.10.0') == 1
 
 return {
   {
