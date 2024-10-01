@@ -7,8 +7,6 @@ return {
   {
     'lewis6991/gitsigns.nvim',
 
-    dependencies = { 'nvim-lua/plenary.nvim' },
-
     events = { 'BufRead' },
 
     config = {
@@ -27,7 +25,7 @@ return {
       {
         '<leader>gb',
         function()
-          require('gitsigns').toggle_current_line_blame()
+          require('gitsigns').blame()
         end,
       },
     },
