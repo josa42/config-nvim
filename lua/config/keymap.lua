@@ -116,8 +116,16 @@ local function diagnostics_jump(count)
   end
 end
 
-vim.keymap.set('n', '<leader>d', vim.diagnostic.setqflist, { desc = 'Diagnostics' })
-vim.keymap.set('n', '<leader>bd', vim.diagnostic.setloclist, { desc = 'Buffer Diagnostics' })
+local function open(setlist)
+  return function()
+    vim.cmd.cclose()
+    vim.cmd.lclose()
+    setlist({ open = true })
+  end
+end
+
+vim.keymap.set('n', '<leader>d', open(vim.diagnostic.setqflist), { desc = 'Diagnostics' })
+vim.keymap.set('n', '<leader>bd', open(vim.diagnostic.setloclist), { desc = 'Buffer Diagnostics' })
 vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 vim.keymap.set('n', '<leader>jd', diagnostics_jump(1), { desc = 'Next Diagnostic' })
 vim.keymap.set('n', '<leader>kd', diagnostics_jump(-1), { desc = 'Prev Diagnostic' })

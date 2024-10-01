@@ -4,6 +4,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = group,
   pattern = { 'qf' },
   callback = function(evt)
+    vim.keymap.set({ 'n', 'v' }, 'q', vim.cmd.close, { buffer = true })
     vim.keymap.set('n', 'dd', function()
       local line = vim.fn.line('.')
       vim.fn.setqflist(
