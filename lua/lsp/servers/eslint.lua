@@ -28,5 +28,7 @@ return function()
         command = 'EslintFixAll',
       })
     end,
+
+    -- filetypes = { 'json' },
   }
 end
