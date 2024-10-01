@@ -1,4 +1,4 @@
-function local_plugin(name)
+local function local_plugin(name)
   return vim.fn.stdpath('config') .. '/plugins/' .. name
 end
 

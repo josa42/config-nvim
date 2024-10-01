@@ -65,7 +65,7 @@ return {
         ['path'] = '',
       }
 
-      function formatSource(entry)
+      local function formatSource(entry)
         local name = entry.source.name
 
         if name == 'nvim_lsp' then
