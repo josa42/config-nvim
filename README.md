@@ -5,7 +5,7 @@
 ## Install
 
 ```sh
-git clone git@github.com:josa42/config-nvim ~/.configim
+git clone git@github.com:josa42/config-nvim ~/.config/nvim
 ```
 
 <br>
