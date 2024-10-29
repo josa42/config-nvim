@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 
+-- undo
 vim.keymap.set('n', 'U', '<C-r>')
 
 -- Nop arrow keys
@@ -129,3 +130,10 @@ vim.keymap.set('n', '<leader>bd', open(vim.diagnostic.setloclist), { desc = 'Buf
 vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 vim.keymap.set('n', '<leader>jd', diagnostics_jump(1), { desc = 'Next Diagnostic' })
 vim.keymap.set('n', '<leader>kd', diagnostics_jump(-1), { desc = 'Prev Diagnostic' })
+
+--------------------------------------------------------------------------------
+-- Other
+
+vim.keymap.set('n', '<leader>n', function()
+  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+end, { desc = 'Toggle relative numbers' })
