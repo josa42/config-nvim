@@ -32,10 +32,10 @@ local function on_location(_, result, ctx, _)
 end
 
 function M.setup()
-  vim.lsp.handlers['textDocument/declaration'] = on_location
-  vim.lsp.handlers['textDocument/definition'] = on_location
-  vim.lsp.handlers['textDocument/typeDefinition'] = on_location
-  vim.lsp.handlers['textDocument/implementation'] = on_location
+  -- vim.lsp.handlers['textDocument/declaration'] = on_location
+  -- vim.lsp.handlers['textDocument/definition'] = on_location
+  -- vim.lsp.handlers['textDocument/typeDefinition'] = on_location
+  -- vim.lsp.handlers['textDocument/implementation'] = on_location
 
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = 'single',
