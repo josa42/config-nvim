@@ -28,6 +28,18 @@ return function()
         command = 'EslintFixAll',
       })
     end,
+    filetypes = {
+      'json',
+      'javascript',
+      'javascriptreact',
+      'javascript.jsx',
+      'typescript',
+      'typescriptreact',
+      'typescript.tsx',
+      'vue',
+      'svelte',
+      'astro',
+    },
 
     -- filetypes = { 'json' },
   }
