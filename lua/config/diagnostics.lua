@@ -20,5 +20,15 @@ vim.cmd.hi({ 'link', 'DiagnosticVirtualTextWarn', 'Comment', bang = true })
 vim.cmd.hi({ 'link', 'DiagnosticVirtualTextError', 'Comment', bang = true })
 
 vim.diagnostic.config({
+  update_in_insert = true,
+  virtual_text = false,
   float = { border = 'single' },
+})
+
+-- Disable the plugin in Lazy.nvim
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'lazy',
+  callback = function()
+    vim.diagnostic.enable(false)
+  end,
 })
