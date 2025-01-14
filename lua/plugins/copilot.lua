@@ -41,6 +41,20 @@ return {
     opts = {
       debug = false, -- Enable debugging
       -- See Configuration section for rest
+      prompts = {
+        ShowTSProps = {
+          prompt = 'convert proptypes to ts type, while keeping the comments. print only the props interface',
+          system_prompt = 'You are very good at explaining stuff',
+          -- mapping = '<leader>ccmc',
+          -- description = 'My custom prompt description',
+        },
+        RefactorTSProps = {
+          prompt = 'convert proptypes to ts type. keeping the comments, but do not write new comments. Extend the props that are spread into the PropType definitions. Use the <Component>Props do not infer parent prop types. Do not extend base props if they are not spread into the PropType definitions. remove all proptypes from the component. DO NOT EXTEND NAVIVE element props',
+          system_prompt = 'You are very good at explaining stuff',
+          mapping = '<leader>xp',
+          -- description = 'My custom prompt description',
+        }
+      }
     },
     -- See Commands section for default commands if you want to lazy load on them
   },
