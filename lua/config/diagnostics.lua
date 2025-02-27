@@ -3,6 +3,7 @@ local signs = require('config.signs')
 vim.diagnostic.config({
   underline = false,
   severity_sort = true,
+  vertual_lines = true,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = signs.diagnostic.error,
@@ -32,3 +33,8 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.diagnostic.enable(false)
   end,
 })
+
+vim.keymap.set('n', 'gK', function()
+  vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
+  vim.notify('Virtual lines: ' .. tostring(vim.diagnostic.config().virtual_lines))
+end, { desc = 'Toggle diagnostic virtual_lines' })
