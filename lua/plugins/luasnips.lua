@@ -20,6 +20,8 @@ return {
 
     dependencies = {
       {
+        enabled = false,
+
         'chrisgrieser/nvim-scissors',
         opts = {
           snippetDir = vim.fs.joinpath(vim.fn.stdpath('config'), 'snippets'),
