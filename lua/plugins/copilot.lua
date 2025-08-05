@@ -8,7 +8,6 @@ return {
       suggestion = {
         enabled = true,
         auto_trigger = true,
-        keymap = false,
       },
       panel = { enabled = false },
     },
@@ -53,8 +52,8 @@ return {
           system_prompt = 'You are very good at explaining stuff',
           mapping = '<leader>xp',
           -- description = 'My custom prompt description',
-        }
-      }
+        },
+      },
     },
     -- See Commands section for default commands if you want to lazy load on them
   },
