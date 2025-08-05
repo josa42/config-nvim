@@ -6,12 +6,11 @@ return {
 
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
+      {
+        'RubixDev/mason-update-all',
+        opts = {},
+      },
     },
-
-    opts = {},
-  },
-  {
-    'RubixDev/mason-update-all',
     opts = {},
   },
 }

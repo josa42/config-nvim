@@ -1,25 +1,3 @@
-local servers = {
-  'cssls',
-  'html',
-  'bashls',
-  'vimls',
-  'dockerls',
-  'gopls',
-  'jsonls',
-  'lua_ls',
-  'ts_ls',
-  'yamlls',
-  'stylelint_lsp',
-  'terraformls',
-  'tflint',
-  'eslint',
-  -- 'snyk_ls',
-}
-
-local ignore = {
-  'ts_ls',
-}
-
 local function try_require(module_name)
   local ok, module = pcall(require, module_name)
   return ok and module or nil
@@ -63,40 +41,18 @@ return {
     },
 
     config = function()
-      local lspconfig = require('lspconfig')
-      local cmp_nvim_lsp = try_require('cmp_nvim_lsp')
-
-      local setup_server = function(name)
-        if vim.tbl_contains(ignore, name) then
-          return
-        end
-
-        local setup = try_require('lsp.servers.' .. name)
-        local opts = setup and setup() or {}
-
-        if cmp_nvim_lsp == nil then
-          opts = vim.tbl_extend('keep', opts, {
-            capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-          })
-        end
-
-        lspconfig[name].setup(opts)
-      end
-
+      local servers = require('lsp.servers').setup()
       require('lsp.handlers').setup()
-
-      -- print(vim.inspect(servers))
 
       local mason_lspconfig = try_require('mason-lspconfig')
       if mason_lspconfig then
-        mason_lspconfig.setup_handlers({ setup_server })
+        -- mason_lspconfig.setup_handlers({ setup_server })
         mason_lspconfig.setup({
           ensure_installed = servers,
           automatic_installation = true,
+          automatic_enable = false,
         })
       end
-
-      setup_server('sourcekit')
     end,
   },
 }
