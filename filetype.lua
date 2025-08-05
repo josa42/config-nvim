@@ -12,6 +12,7 @@ vim.filetype.add({
     ['.parcelrc'] = 'json',
     ['.terserrc'] = 'json',
     ['.stylelintrc'] = 'json',
+    ['api-extractor.json'] = 'jsonc',
   },
   pattern = {
     ['~/.ssh/config.*'] = 'sshconfig',
