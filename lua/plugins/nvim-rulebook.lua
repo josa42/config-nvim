@@ -5,21 +5,21 @@ return {
 
     keys = {
       {
-        '<leader>ri',
+        '<leader>li',
         function()
           require('rulebook').ignoreRule()
         end,
         mode = 'n',
       },
       {
-        '<leader>rl',
+        '<leader>ll',
         function()
           require('rulebook').lookupRule()
         end,
         mode = 'n',
       },
       {
-        '<leader>rf',
+        '<leader>lf',
         function()
           require('rulebook').suppressFormatter()
         end,
