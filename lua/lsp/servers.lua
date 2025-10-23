@@ -44,14 +44,12 @@ function M.setup()
       })
     end
 
-    -- if vim.fn.has('nvim-0.11') == 1 then
-    if name == 'eslint' then
-      print('LSP Setup: ' .. name, vim.inspect(opts))
+    if vim.fn.has('nvim-0.11') == 1 then
+      vim.lsp.config(name, opts)
+      vim.lsp.enable(name)
+    else
+      require('lspconfig')[name].setup(opts)
     end
-    vim.lsp.config(name, opts)
-    -- else
-    --   require('lspconfig')[name].setup(opts)
-    -- end
   end
 
   for _, key in pairs(servers) do
