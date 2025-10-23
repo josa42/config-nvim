@@ -1,26 +1,16 @@
 return function()
   return {
+    cmd = { 'vscode-eslint-language-server', '--stdio' },
+    
     settings = {
       quiet = true,
+      codeActionOnSave = {
+        enable = true,
+        mode = 'all',
+      },
+      format = true,
+      workingDirectories = { mode = 'auto' },
     },
-
-    -- TODO enable running fix only if eslint is available
-
-    -- on_init = function(client)
-    --   local path = client.workspace_folders[1].name
-    --
-    --   vim.notify('eslint: ' .. path, vim.log.levels.INFO)
-    --
-    --   -- if path == '/path/to/project1' then
-    --   --   client.config.settings['rust-analyzer'].checkOnSave.overrideCommand = { 'cargo', 'check' }
-    --   -- elseif path == '/path/to/rust' then
-    --   --   client.config.settings['rust-analyzer'].checkOnSave.overrideCommand =
-    --   --     { 'python3', 'x.py', 'check', '--stage', '1' }
-    --   -- end
-    --
-    --   -- client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
-    --   return true
-    -- end,
 
     on_attach = function(client, bufnr)
       vim.api.nvim_create_autocmd('BufWritePre', {
@@ -28,8 +18,8 @@ return function()
         command = 'EslintFixAll',
       })
     end,
+
     filetypes = {
-      'json',
       'javascript',
       'javascriptreact',
       'javascript.jsx',
@@ -40,7 +30,5 @@ return function()
       'svelte',
       'astro',
     },
-
-    -- filetypes = { 'json' },
   }
 end
