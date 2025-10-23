@@ -36,7 +36,6 @@ function M.setup()
     local get_opts = try_require('lsp.servers.' .. name)
     local opts = get_opts ~= nil and get_opts() or {}
 
-    -- Add capebilities for nvim-cmp if available
     local cmp_nvim_lsp = try_require('cmp_nvim_lsp')
     if cmp_nvim_lsp ~= nil then
       opts = vim.tbl_extend('keep', opts, {
@@ -44,12 +43,8 @@ function M.setup()
       })
     end
 
-    if vim.fn.has('nvim-0.11') == 1 then
-      vim.lsp.config(name, opts)
-      vim.lsp.enable(name)
-    else
-      require('lspconfig')[name].setup(opts)
-    end
+    vim.lsp.config(name, opts)
+    vim.lsp.enable(name)
   end
 
   for _, key in pairs(servers) do

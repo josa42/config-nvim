@@ -107,13 +107,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 -- Diagnostics
 local function diagnostics_jump(count)
   return function()
-    if vim.fn.has('nvim-0.11') == 1 then
-      vim.diagnostic.jump({ count = count })
-    else
-      if count == 1 then
-        vim.diagnostic[count == 1 and 'goto_next' or 'goto_prev']()
-      end
-    end
+    vim.diagnostic.jump({ count = count })
   end
 end
 
