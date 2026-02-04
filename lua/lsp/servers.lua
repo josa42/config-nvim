@@ -15,6 +15,8 @@ local servers = {
   'terraformls',
   'tflint',
   'eslint',
+  'ruff',
+  'pyright',
   -- 'snyk_ls',
 }
 

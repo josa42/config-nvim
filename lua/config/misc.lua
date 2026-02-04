@@ -90,3 +90,6 @@ vim.opt.statuscolumn = vim.fn.join({
 vim.keymap.set('n', 'ti', function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = 'Toggle inline hints' })
+
+-- Project config
+vim.o.exrc = true
