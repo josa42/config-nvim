@@ -1,8 +1,9 @@
 return function()
   return {
     cmd = { 'vscode-eslint-language-server', '--stdio' },
-    
+
     settings = {
+      validate = 'on',
       quiet = true,
       codeActionOnSave = {
         enable = true,
