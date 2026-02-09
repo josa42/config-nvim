@@ -7,7 +7,7 @@ vim.opt.mouse = 'n'
 
 -- font
 vim.g.nerdfont = true
-vim.opt.guifont = 'DejaVuSansMono Nerd Font:h12'
+-- vim.opt.guifont = 'DejaVuSansMono Nerd Font:h12'
 
 -- Do not write .swp files
 vim.opt.backup = false
