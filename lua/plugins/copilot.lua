@@ -10,6 +10,12 @@ return {
         auto_trigger = true,
       },
       panel = { enabled = false },
+
+      server_opts_overrides = {
+        settings = {
+          telemetry = false,
+        },
+      },
     },
 
     keys = function()
