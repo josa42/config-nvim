@@ -2,21 +2,18 @@ return {
   {
     'kylechui/nvim-surround',
 
-    events = { 'InsertEnter' },
+    init = function()
+      vim.g.nvim_surround_no_mappings = true
+    end,
+
+    keys = {
+      { 'sa', '<Plug>(nvim-surround-normal)', desc = 'Surround: add (motion)' },
+      { 'sa', '<Plug>(nvim-surround-visual)', mode = 'v', desc = 'Surround: add (visual)' },
+      { 'sd', '<Plug>(nvim-surround-delete)', desc = 'Surround: delete' },
+      { 'sr', '<Plug>(nvim-surround-change)', desc = 'Surround: change' },
+    },
 
     opts = {
-      keymaps = {
-        insert = nil, -- '<C-g>s',
-        insert_line = nil, -- '<C-g>S',
-        normal = 'sa',
-        normal_cur = nil, --  'yss',
-        normal_line = nil, --  'yS',
-        normal_cur_line = nil, --  'ySS',
-        visual = 'sa',
-        visual_line = nil, --  'gS',
-        delete = 'sd',
-        change = 'sr',
-      },
       surrounds = {
         v = { add = { '${', '}' } },
       },
