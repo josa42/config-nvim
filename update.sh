@@ -45,11 +45,11 @@ echo ""
 echo "################################################################################"
 echo "# Update tools"
 
-nvim --headless -c "MasonInstallAll" -c "qall"
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
 
 echo ""
 echo "################################################################################"
 echo "# Update treesitter"
 
-nvim --headless -c "TSUpdateSync" -c "qall"
+nvim --headless -c 'lua vim.notify = function(msg, ...) io.write(msg .. "\n") end' -c "TSUpdateSync" -c "qall"
 
