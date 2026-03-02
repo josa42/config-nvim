@@ -37,34 +37,9 @@ function M.setup()
   -- vim.lsp.handlers['textDocument/typeDefinition'] = on_location
   -- vim.lsp.handlers['textDocument/implementation'] = on_location
 
-  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = 'single',
-    width = 50,
-  })
-
-  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = 'single',
-    width = 50,
-  })
-
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  vim.diagnostic.config({
     update_in_insert = true,
-    virtual_text = false and {
-      spacing = 8,
-      prefix = '',
-      severity = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN },
-      format = function(d)
-        local icon = '■'
-
-        if d.severity == vim.diagnostic.severity.ERROR then
-          icon = signs.diagnostic.error
-        elseif d.severity == vim.diagnostic.severity.WARN then
-          icon = signs.diagnostic.warning
-        end
-
-        return icon .. ' ' .. d.message
-      end,
-    },
+    virtual_text = false,
   })
 end
 

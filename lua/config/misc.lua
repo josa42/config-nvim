@@ -93,3 +93,6 @@ end, { desc = 'Toggle inline hints' })
 
 -- Project config
 vim.o.exrc = true
+
+-- window decorations
+vim.o.winborder = 'rounded'
