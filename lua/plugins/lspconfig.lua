@@ -46,7 +46,6 @@ return {
 
       local mason_lspconfig = try_require('mason-lspconfig')
       if mason_lspconfig then
-        -- mason_lspconfig.setup_handlers({ setup_server })
         mason_lspconfig.setup({
           ensure_installed = servers,
           automatic_installation = true,

@@ -5,8 +5,8 @@ function M.try_mason_install(tools)
 
   if has_mason then
     for _, tool in ipairs(tools) do
-      local pkg = mason.get_package(tool)
-      if not pkg:is_installed() then
+      local ok, pkg = pcall(mason.get_package, tool)
+      if ok and not pkg:is_installed() and not pkg:is_installing() then
         pkg:install()
       end
     end
