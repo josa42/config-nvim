@@ -49,7 +49,10 @@ return {
         ignore_install = ts_disable,
         parser_install_dir = parser_install_dir,
 
-        highlight = { enable = true, disable = ts_disable },
+        highlight = {
+          enable = true,
+          disable = ts_disable,
+        },
         indent = { enable = true, disable = ts_disable },
         autotag = { enable = false },
       })
