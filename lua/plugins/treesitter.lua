@@ -13,6 +13,10 @@ if vim.fn.has('nvim-0.13') == 1 then
         -- install_dir
       },
       config = function(opts)
+        require('config.utils.mason').try_mason_install({
+          'tree-sitter-cli',
+        })
+
         local ts = require('nvim-treesitter')
 
         ts.setup(opts)

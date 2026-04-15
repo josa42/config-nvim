@@ -55,7 +55,7 @@ echo ""
 echo "################################################################################"
 echo "# Update tools"
 
-nvim --headless -c "MasonInstallAll" -c "qall"
+nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
 
 echo ""
 echo "################################################################################"

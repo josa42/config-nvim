@@ -9,6 +9,7 @@ return {
       {
         'RubixDev/mason-update-all',
         opts = {},
+        -- Command: nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
       },
     },
     opts = {},

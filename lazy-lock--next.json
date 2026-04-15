@@ -36,7 +36,7 @@
   "nvim-telescope-workspaces": { "branch": "main", "commit": "d1eed428cf334b389b231e11dca515bbf3020c2a" },
   "nvim-templates": { "branch": "master", "commit": "694a0b6811765b58bd1d26aadd64e68901b3bba5" },
   "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
-  "nvim-ts-autotag": { "branch": "main", "commit": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595" },
+  "nvim-ts-autotag": { "branch": "main", "commit": "88c1453db4ba7dd24131086fe51fdf74e587d275" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "prom.vim": { "branch": "main", "commit": "1f7ff3e143f0bbb06305dd829a8c5a01a5ad2894" },
   "render-markdown.nvim": { "branch": "main", "commit": "0fd43fb4b1f073931c4b481f5f3b7cea3749e190" },
