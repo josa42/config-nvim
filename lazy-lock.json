@@ -17,7 +17,7 @@
   "mason-update-all": { "branch": "main", "commit": "332aa2586295f93a32643eb2b580f899458215a1" },
   "mason.nvim": { "branch": "main", "commit": "b03fb0f20bc1d43daf558cda981a2be22e73ac42" },
   "md-table-tidy.nvim": { "branch": "master", "commit": "e094d694e9ca97908fe311145b36664556e7c3c2" },
-  "mini.nvim": { "branch": "main", "commit": "efa5cf403cf8b438c8171b4234b77e40b213e117" },
+  "mini.nvim": { "branch": "main", "commit": "27a3e747a4e603b4121f5759e74020430ec7b7d5" },
   "none-ls.nvim": { "branch": "main", "commit": "899e93f9f10251d7220b188eba1b837c0ba27927" },
   "nvim-actions": { "branch": "main", "commit": "4365669c47c35dd4cd86cab8b657b9f51fa1f578" },
   "nvim-autopairs": { "branch": "master", "commit": "59bce2eef357189c3305e25bc6dd2d138c1683f5" },

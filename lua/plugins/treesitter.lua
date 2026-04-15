@@ -5,6 +5,7 @@ local ts_disable = { 'help' }
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'master',
     version = false,
     lazy = true,
     -- event = 'BufReadPre',
