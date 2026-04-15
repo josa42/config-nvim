@@ -68,7 +68,7 @@ vim.opt.foldmethod = 'marker'
 vim.opt.foldenable = true
 vim.opt.foldlevel = 0
 vim.opt.foldmarker = { '#region', '#endregion' }
-vim.opt.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
+vim.opt.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
 
 -- status column
 vim.opt.number = true
