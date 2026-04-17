@@ -12,6 +12,11 @@ return {
         -- Command: nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
       },
     },
-    opts = {},
+    opts = {
+      registries = {
+        'lua:local-mason-registry', -- your local registry
+        'github:mason-org/mason-registry', -- keep the default
+      },
+    },
   },
 }
