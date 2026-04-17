@@ -35,12 +35,24 @@ if vim.fn.has('nvim-0.13') == 1 then
             --   end
             -- end
 
-            if vim.treesitter.language.add(lang) then
-              -- vim.notify_once('Treesitter: ' .. lang .. ' parser is enabled', vim.log.levels.INFO)
+            if lang and vim.treesitter.language.add(lang) then
               vim.treesitter.start(args.buf, lang)
             end
           end,
         })
+
+        -- Apply treesitter to buffers opened before this config ran
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(buf) then
+            local ft = vim.bo[buf].filetype
+            if ft ~= '' then
+              local lang = vim.treesitter.language.get_lang(ft)
+              if lang and vim.treesitter.language.add(lang) then
+                vim.treesitter.start(buf, lang)
+              end
+            end
+          end
+        end
       end,
     },
   }
