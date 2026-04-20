@@ -126,6 +126,26 @@ vim.keymap.set('n', '<leader>jd', diagnostics_jump(1), { desc = 'Next Diagnostic
 vim.keymap.set('n', '<leader>kd', diagnostics_jump(-1), { desc = 'Prev Diagnostic' })
 
 --------------------------------------------------------------------------------
+-- LSP
+
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
+vim.keymap.set('n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', { desc = 'Go to definition in new tab' })
+vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+vim.keymap.set('n', 'gH', vim.lsp.buf.signature_help, { desc = 'Signature help' })
+vim.keymap.set('i', '<c-h>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
+vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action' })
+vim.keymap.set('v', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action' })
+vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { desc = 'Format buffer' })
+vim.keymap.set('n', '<leader>ll', vim.lsp.codelens.run, { desc = 'Run codelens' })
+vim.keymap.set('n', 'K', function()
+  if #vim.lsp.get_clients({ buffer = 0, method = 'textDocument/hover' }) > 0 then
+    vim.lsp.buf.hover()
+  else
+    vim.cmd.normal({ 'K', bang = true })
+  end
+end, { desc = 'Hover' })
+
+--------------------------------------------------------------------------------
 -- Other
 
 vim.keymap.set('n', '<leader>n', function()

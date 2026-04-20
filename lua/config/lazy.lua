@@ -13,7 +13,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local lockfile_name = vim.fn.has('nvim-0.13') == 1 and 'lazy-lock--next.json' or 'lazy-lock.json'
+local lockfile_name = vim.fn.has('nvim-0.13') == 1 and 'lazy-lock.json' or 'lazy-lock--legacy.json'
 
 require('lazy').setup({
   spec = 'plugins',

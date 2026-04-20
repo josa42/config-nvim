@@ -1,4 +1,21 @@
 return function()
+  local default_config = vim.lsp.config.eslint
+
+  local eslint_config_files = {
+    '.eslintrc',
+    '.eslintrc.js',
+    '.eslintrc.cjs',
+    '.eslintrc.yaml',
+    '.eslintrc.yml',
+    '.eslintrc.json',
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.cjs',
+    'eslint.config.ts',
+    'eslint.config.mts',
+    'eslint.config.cts',
+  }
+
   return {
     cmd = { 'vscode-eslint-language-server', '--stdio' },
 
@@ -23,6 +40,24 @@ return function()
           })
         end,
       })
+    end,
+
+    root_dir = function(bufnr, on_dir)
+      -- local callback_on_dir = function(dir)
+      --   vim.notify('===> ESLINT ROOT ===> ' .. dir, vim.log.levels.INFO)
+      --   on_dir(dir)
+      -- end
+      local callback_on_dir = on_dir
+
+      local name = vim.api.nvim_buf_get_name(bufnr)
+
+      -- TODO not sure if needed
+      local config_path = vim.fs.find(eslint_config_files, { path = name, upward = true })[1]
+      if config_path then
+        return callback_on_dir(vim.fs.dirname(config_path))
+      end
+
+      default_config.root_dir(bufnr, callback_on_dir)
     end,
 
     filetypes = {
