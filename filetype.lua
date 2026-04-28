@@ -3,6 +3,7 @@ vim.filetype.add({
     conf = 'conf',
     template = 'html',
     mc = 'monkeyc',
+    jxa = 'javascript',
   },
   filename = {
     ['Vagrantfile'] = 'ruby',
