@@ -131,6 +131,13 @@ echo "# Update plugins"
 
 nvim --headless "+Lazy! sync" -c "qall"
 
+git add lazy-lock.json
+
+if [[ ! -z "$(git status -s | grep '^M ')" ]]; then
+  git commit -m "chore: update plugins ($(date "+%Y-%m-%d %H:%M:%S"))"
+fi
+
+
 echo ""
 echo "################################################################################"
 echo "# Update tools"
