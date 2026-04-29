@@ -67,6 +67,7 @@ return {
         ['nvim_lsp:dockerls'] = '',
         ['nvim_lsp:docker_language_server'] = '',
         ['nvim_lsp:gopls'] = '',
+        ['nvim_lsp:gh_actions_ls'] = '',
         ['nvim_lsp:html'] = '',
         ['nvim_lsp:jsonls'] = '',
         ['nvim_lsp:lua_ls'] = '󰢱',

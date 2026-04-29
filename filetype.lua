@@ -27,5 +27,7 @@ vim.filetype.add({
     ['~/.direnvrc'] = 'sh',
     ['~/.config/kitty/.*.conf'] = 'kitty',
     ['docker%-compose%..*%.ya?ml'] = 'yaml.docker-compose',
+    ['.*/.github/workflows/.*%.ya?ml'] = 'yaml.github',
+    ['.*/action%.ya?ml'] = 'yaml.github',
   },
 })

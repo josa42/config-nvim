@@ -2,10 +2,17 @@ local signs = require('config.signs')
 
 local virtual_lines = {
   format = function(d)
-    if d.code then
-      return d.source .. '(' .. d.code .. '): ' .. d.message
+    local message = d.message
+
+    if d.source then
+      message = d.source .. ': ' .. d.message
     end
-    return d.source .. ': ' .. d.message
+
+    if d.code then
+      message = message .. ' [' .. d.code .. ']'
+    end
+
+    return message
   end,
 }
 

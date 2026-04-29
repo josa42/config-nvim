@@ -16,6 +16,7 @@ local servers = {
   'terraformls',
   'tflint',
   'eslint',
+  'gh_actions_ls',
   'ruff',
   'pyright',
   -- 'snyk_ls',
@@ -43,7 +44,9 @@ vim.api.nvim_create_autocmd('User', {
     local mason_lspconfig = l.try_require('mason-lspconfig')
     if mason_lspconfig then
       mason_lspconfig.setup({
-        ensure_installed = servers,
+        ensure_installed = vim.tbl_filter(function(name)
+          return not vim.tbl_contains({ 'sourcekit', 'gh_actions_ls' }, name)
+        end, servers),
         automatic_installation = true,
         automatic_enable = false,
       })
