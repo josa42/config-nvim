@@ -14,6 +14,10 @@ vim.filetype.add({
     ['.terserrc'] = 'json',
     ['.stylelintrc'] = 'json',
     ['api-extractor.json'] = 'jsonc',
+    ['docker-compose.yml'] = 'yaml.docker-compose',
+    ['docker-compose.yaml'] = 'yaml.docker-compose',
+    ['compose.yml'] = 'yaml.docker-compose',
+    ['compose.yaml'] = 'yaml.docker-compose',
   },
   pattern = {
     ['~/.ssh/config.*'] = 'sshconfig',
@@ -22,5 +26,6 @@ vim.filetype.add({
     ['~/.config/direnv/direnvrc'] = 'sh',
     ['~/.direnvrc'] = 'sh',
     ['~/.config/kitty/.*.conf'] = 'kitty',
+    ['docker%-compose%..*%.ya?ml'] = 'yaml.docker-compose',
   },
 })
