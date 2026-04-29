@@ -1,9 +1,18 @@
 local signs = require('config.signs')
 
+local virtual_lines = {
+  format = function(d)
+    if d.code then
+      return d.source .. '(' .. d.code .. '): ' .. d.message
+    end
+    return d.source .. ': ' .. d.message
+  end,
+}
+
 vim.diagnostic.config({
   underline = false,
   severity_sort = true,
-  vertual_lines = true,
+  virtual_lines = false,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = signs.diagnostic.error,
@@ -35,6 +44,5 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('n', 'gK', function()
-  vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
-  vim.notify('Virtual lines: ' .. tostring(vim.diagnostic.config().virtual_lines))
+  vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines and virtual_lines or false })
 end, { desc = 'Toggle diagnostic virtual_lines' })
