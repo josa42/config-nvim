@@ -27,7 +27,17 @@ return function()
         mode = 'all',
       },
       format = true,
-      workingDirectories = { mode = 'auto' },
+      -- Defaults the ESLint language server expects but does not guard against
+      -- being absent. Without these, resolveSettings() throws because it
+      -- accesses e.g. path.isAbsolute(undefined) or settings.experimental.useFlatConfig.
+      nodePath = vim.NIL,
+      experimental = {},
+      problems = { shortenToSingleLine = false },
+      options = {},
+      rulesCustomizations = {},
+      run = 'onType',
+      packageManager = 'npm',
+      useFlatConfig = vim.NIL,
     },
 
     on_attach = function(client, bufnr)
