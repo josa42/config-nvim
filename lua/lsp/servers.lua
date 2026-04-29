@@ -1,5 +1,6 @@
 local M = {}
 
+-- server names have to match mason-lspconfig names for automatic installation to work
 local servers = {
   'cssls',
   'html',

@@ -1,9 +1,10 @@
 return function()
   return {
+    cmd = { 'stylelint-language-server', '--stdio' },
     filetypes = { 'css', 'less', 'scss' },
     settings = {
-      stylelintplus = {
-        autoFixOnFormat = true,
+      stylelint = {
+        validate = { 'css', 'less', 'scss' },
       },
     },
   }
