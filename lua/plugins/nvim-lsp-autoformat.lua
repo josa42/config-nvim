@@ -15,7 +15,7 @@ return {
       ['*.tsx'] = { 'null-ls' },
       ['*.css'] = { 'stylelint_lsp' },
       ['*.lua'] = { 'null-ls' },
-      ['Dockerfile'] = { 'dockerls' },
+      ['Dockerfile'] = { 'docker_language_server' },
       ['*.swift'] = { 'null-ls' },
       ['*.go'] = { 'gopls' },
       ['*.tf'] = { 'null-ls' },

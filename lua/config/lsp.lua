@@ -5,6 +5,7 @@ local servers = {
   'html',
   'bashls',
   'vimls',
+  'docker_language_server',
   'dockerls',
   'gopls',
   'jsonls',
@@ -49,6 +50,39 @@ vim.api.nvim_create_autocmd('User', {
     end
   end,
 })
+
+vim.api.nvim_create_user_command('LspServers', function()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #clients == 0 then
+    vim.notify('No LSP servers attached')
+    return
+  end
+
+  if l.try_require('telescope') then
+    local pickers = require('telescope.pickers')
+    local finders = require('telescope.finders')
+    local conf = require('telescope.config').values
+
+    pickers
+      .new({}, {
+        prompt_title = 'LSP Servers (current buffer)',
+        finder = finders.new_table({
+          results = clients,
+          entry_maker = function(client)
+            return { value = client, display = client.name, ordinal = client.name }
+          end,
+        }),
+        sorter = conf.generic_sorter({}),
+        previewer = false,
+      })
+      :find()
+  else
+    print('LSP Servers (current buffer)')
+    for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+      print('-', c.name)
+    end
+  end
+end, {})
 
 function l.try_require(module_name)
   local ok, module = pcall(require, module_name)
