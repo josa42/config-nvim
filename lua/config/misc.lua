@@ -86,6 +86,10 @@ vim.opt.statuscolumn = vim.fn.join({
   '#Normal#%{&nu? " " : ""}',
 }, '')
 
+vim.keymap.set('n', 'tr', function()
+  vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = 'Toggle relative numbers' })
+
 -- vim.lsp.inlay_hint.enable(true)
 vim.keymap.set('n', 'ti', function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
