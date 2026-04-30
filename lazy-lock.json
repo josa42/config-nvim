@@ -26,7 +26,7 @@
   "nvim-gx": { "branch": "main", "commit": "6020b2dd24cb3feef278915e578b79ff0bcceab1" },
   "nvim-lsp-autoformat": { "branch": "main", "commit": "32e855c3f4cc98d9ed38efe485c75f889b78785a" },
   "nvim-lsp-codelens": { "branch": "main", "commit": "1bde131260f26fe5dc238deb136df09c0e65c472" },
-  "nvim-lspconfig": { "branch": "master", "commit": "0e25d7445ba0d7cc0ad02a39aa843cc8b9d2525e" },
+  "nvim-lspconfig": { "branch": "master", "commit": "f7e89f3d19fb436e1fbeff3bf4291eef35da94e3" },
   "nvim-quickfix": { "branch": "main", "commit": "810769e1bca99bbdc57699d91e54e3a229563601" },
   "nvim-rulebook": { "branch": "main", "commit": "083dd66b498bc142386a7c96dddab73acbf4ec20" },
   "nvim-surround": { "branch": "main", "commit": "9291040de8cd8a4439eb64c441e8d5d2bf884a5a" },
