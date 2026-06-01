@@ -36,10 +36,10 @@ if [[ -d $dir ]]; then
     i=$((i + 1))
   done
 
-  last_backup="$(ls -t "${bin_dir}"/neovim_*.tar.gz 2>/dev/null | head -n1)"
+  last_backup="$(find "${bin_dir}" -maxdepth 1 -name 'neovim_*.tar.gz' -exec stat -f '%m %N' {} + | sort -rn | head -n1 | cut -d' ' -f2-)"
 
   echo "Backing up... $backup_name"
-  (cd $bin_dir && tar -zcvf "${backup_name}" "neovim" 2>/dev/null)
+  (cd "$bin_dir" && tar -zcvf "${backup_name}" "neovim" 2>/dev/null)
 
   # Delete new backup if identical to the last one
   if [[ -n "$last_backup" && -f "${bin_dir}/${backup_name}" ]]; then
@@ -89,7 +89,6 @@ if [[ ! -z "$(git status -s)" ]]; then
   echo "################################################################################"
   echo "# Commit config"
 
-
   msg="$(git log --oneline | head -n1 | cut -d ' ' -f 2- 2>/dev/null || true)"
 
   echo "msg: '$msg'"
@@ -108,16 +107,16 @@ echo ""
 echo "################################################################################"
 echo "# Update neovim"
 
-rm -rf $dir && mkdir -p $dir
+rm -rf "$dir" && mkdir -p "$dir"
 
-curl -SsL $URL | tar zxv --strip-components=1 --directory=$dir 2>/dev/null
+curl -SsL $URL | tar zxv --strip-components=1 --directory="$dir" 2>/dev/null
 
 echo ""
 echo "################################################################################"
 echo "# Update config"
 
 checksum_before="$(md5 -q ~/.config/nvim/update.sh)"
-(cd ~/.config/nvim && git pull origin main --rebase)
+git pull origin main --rebase
 checksum_after="$(md5 -q ~/.config/nvim/update.sh)"
 
 if [[ "$checksum_before" != "$checksum_after" ]]; then
@@ -150,4 +149,8 @@ echo "# Update treesitter"
 
 nvim --headless -c 'lua vim.notify = function(msg, ...) io.write(msg .. "\n") end' -c "TSUpdate" -c "qall"
 
+echo ""
+echo "################################################################################"
+echo "# push"
+git push
 
