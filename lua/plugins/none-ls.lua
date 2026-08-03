@@ -11,7 +11,7 @@ return {
 
       require('config.utils.mason').try_mason_install({
         'actionlint',
-        'eslint_d',
+        -- 'eslint_d',
         'fixjson',
         'gitlint',
         'shellcheck',
@@ -22,7 +22,7 @@ return {
       })
 
       local root_pattern_pkg = utils.root_pattern('package.json')
-      local root_pattern_eslint = utils.root_pattern(
+      local root_pattern_prettier = utils.root_pattern(
         '.prettierrc',
         'prettierrc.json',
         '.prettierrc.cjs',
@@ -31,13 +31,19 @@ return {
         'prettierrc.yml'
       )
 
-      local root_pattern_prettier = utils.root_pattern(
+      local root_pattern_eslint = utils.root_pattern(
+        'eslint.config.js',
+        'eslint.config.mjs',
+        'eslint.config.cjs',
+        'eslint.config.ts',
+        'eslint.config.mts',
+        'eslint.config.cts',
         '.eslintrc',
-        'eslintrc.json',
-        '.eslintrc.cjs',
         '.eslintrc.js',
-        'eslintrc.yaml',
-        'eslintrc.yml'
+        '.eslintrc.cjs',
+        '.eslintrc.yaml',
+        '.eslintrc.yml',
+        '.eslintrc.json'
       )
 
       local if_not = function(fn)
@@ -60,8 +66,9 @@ return {
       end
 
       local condition_prettier = function(p)
+        return false
         -- return find.prettier_bin(p.bufname) and root_pattern_prettier(p.bufname)
-        return os.getenv('NVIMV_ENABLE_PRETTIER_JS') == '1' and find.prettier_bin(p.bufname)
+        -- return os.getenv('NVIMV_ENABLE_PRETTIER_JS') == '1' and find.prettier_bin(p.bufname)
       end
 
       local condition_prettier_markdown = function(p)
