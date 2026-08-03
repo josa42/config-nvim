@@ -51,6 +51,19 @@ vim.api.nvim_create_autocmd('User', {
         automatic_enable = false,
       })
     end
+
+    -- vim.lsp.enable() only attaches to buffers whose FileType fires *after*
+    -- enabling. When Neovim is launched directly on a file, that buffer is
+    -- already loaded by the time VeryLazy runs, so it never gets a client.
+    -- Re-fire FileType on every loaded, listed buffer to trigger attachment.
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+        vim.api.nvim_exec_autocmds('FileType', {
+          buffer = buf,
+          modeline = false,
+        })
+      end
+    end
   end,
 })
 

@@ -1,19 +1,19 @@
 return function()
-  local default_config = vim.lsp.config.eslint
-
   local eslint_config_files = {
-    '.eslintrc',
-    '.eslintrc.js',
-    '.eslintrc.cjs',
-    '.eslintrc.yaml',
-    '.eslintrc.yml',
-    '.eslintrc.json',
-    'eslint.config.js',
-    'eslint.config.mjs',
-    'eslint.config.cjs',
-    'eslint.config.ts',
-    'eslint.config.mts',
-    'eslint.config.cts',
+    {
+      'eslint.config.js',
+      'eslint.config.mjs',
+      'eslint.config.cjs',
+      'eslint.config.ts',
+      'eslint.config.mts',
+      'eslint.config.cts',
+      '.eslintrc',
+      '.eslintrc.js',
+      '.eslintrc.cjs',
+      '.eslintrc.yaml',
+      '.eslintrc.yml',
+      '.eslintrc.json',
+    },
   }
 
   return {
@@ -21,15 +21,13 @@ return function()
 
     settings = {
       validate = 'on',
-      quiet = true,
+      -- quiet = true,
+      workingDirectory = { directory = vim.fn.getcwd() },
       codeActionOnSave = {
         enable = true,
         mode = 'all',
       },
       format = true,
-      -- Defaults the ESLint language server expects but does not guard against
-      -- being absent. Without these, resolveSettings() throws because it
-      -- accesses e.g. path.isAbsolute(undefined) or settings.experimental.useFlatConfig.
       nodePath = vim.NIL,
       experimental = {},
       problems = { shortenToSingleLine = false },
@@ -52,22 +50,21 @@ return function()
       })
     end,
 
+    before_init = function(_, config)
+      -- Lock ESLint's working directory to the resolved package root so
+      -- typescript-eslint's projectService resolves tsconfig.json correctly.
+      local root = type(config.root_dir) == 'string' and config.root_dir or vim.fn.getcwd()
+      config.settings = config.settings or {}
+      config.settings.workingDirectory = { directory = root }
+    end,
+
     root_dir = function(bufnr, on_dir)
-      -- local callback_on_dir = function(dir)
-      --   vim.notify('===> ESLINT ROOT ===> ' .. dir, vim.log.levels.INFO)
-      --   on_dir(dir)
-      -- end
-      local callback_on_dir = on_dir
-
-      local name = vim.api.nvim_buf_get_name(bufnr)
-
-      -- TODO not sure if needed
-      local config_path = vim.fs.find(eslint_config_files, { path = name, upward = true })[1]
-      if config_path then
-        return callback_on_dir(vim.fs.dirname(config_path))
+      local root = vim.fs.root(bufnr, eslint_config_files)
+      if root then
+        return on_dir(root)
       end
 
-      default_config.root_dir(bufnr, callback_on_dir)
+      on_dir(vim.fn.getcwd())
     end,
 
     filetypes = {
