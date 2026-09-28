@@ -35,7 +35,7 @@ if vim.fn.has('nvim-0.13') == 1 then
             --   end
             -- end
 
-            if vim.treesitter.language.add(lang) then
+            if lang and vim.treesitter.language.add(lang) then
               -- vim.notify_once('Treesitter: ' .. lang .. ' parser is enabled', vim.log.levels.INFO)
               vim.treesitter.start(args.buf, lang)
             end
