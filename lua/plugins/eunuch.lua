@@ -1,6 +1,6 @@
 return {
   {
     'tpope/vim-eunuch',
-    events = { 'VeryLazy' },
+    event = { 'VeryLazy' },
   },
 }

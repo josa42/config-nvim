@@ -3,7 +3,7 @@ return {
     enabled = true,
     'pmizio/typescript-tools.nvim',
 
-    events = { 'VeryLazy' },
+    event = { 'VeryLazy' },
 
     dependencies = { 'nvim-lua/plenary.nvim' },
 

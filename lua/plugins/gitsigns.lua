@@ -7,7 +7,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
 
-    events = { 'BufRead' },
+    event = { 'BufRead' },
 
     config = {
       yadm = { enable = true },

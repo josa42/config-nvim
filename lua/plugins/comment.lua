@@ -3,7 +3,7 @@ return {
     'folke/ts-comments.nvim',
     opts = {},
 
-    events = { 'BufRead' },
+    event = { 'BufRead' },
 
     init = function(opts)
       local group = vim.api.nvim_create_augroup('plugins.comment.ft', { clear = true })

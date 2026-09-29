@@ -2,7 +2,7 @@ return {
   {
     'kana/vim-textobj-user',
 
-    events = { 'InsertEnter' },
+    event = { 'InsertEnter' },
 
     dependencies = {
       'kana/vim-textobj-entire', --         ae | ie

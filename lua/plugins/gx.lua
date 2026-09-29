@@ -3,7 +3,7 @@ return {
     'josa42/nvim-gx',
     branch = 'main',
 
-    events = { 'InsertEnter' },
+    event = { 'InsertEnter' },
 
     opts = {
       show_progress = true,

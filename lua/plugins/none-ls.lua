@@ -2,7 +2,7 @@ return {
   {
     'nvimtools/none-ls.nvim',
 
-    events = { 'BufRead' },
+    event = { 'BufRead' },
 
     config = function()
       local null_ls = require('null-ls')

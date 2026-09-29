@@ -2,7 +2,7 @@ return {
   {
     'AndrewRadev/switch.vim',
 
-    events = { 'InsertEnter' },
+    event = { 'InsertEnter' },
 
     init = function()
       vim.g.switch_mapping = '-'

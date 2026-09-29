@@ -2,7 +2,7 @@ return {
   {
     'zbirenbaum/copilot.lua',
 
-    events = { 'InsertEnter' },
+    event = { 'InsertEnter' },
 
     opts = {
       suggestion = {

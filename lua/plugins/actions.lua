@@ -6,6 +6,6 @@ return {
       require('jg.actions').setup()
     end,
 
-    events = { 'InsertEnter' },
+    event = { 'InsertEnter' },
   },
 }
