@@ -1,5 +1,5 @@
-if vim.fn.has('nvim-0.11') ~= 1 then
-  vim.notify('Neovim 0.11+ is required for this configuration', vim.log.levels.ERROR)
+if vim.fn.has('nvim-0.13') ~= 1 then
+  vim.notify('Neovim 0.13+ is required for this configuration', vim.log.levels.ERROR)
   return
 end
 
