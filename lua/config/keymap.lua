@@ -24,7 +24,7 @@ vim.keymap.set('n', '<leader><space>', '<c-w><c-p>', { silent = true })
 vim.keymap.set('n', '<Down>', '<C-W><C-J>', { desc = 'Focus Pane Below' })
 vim.keymap.set('n', '<Up>', '<C-W><C-K>', { desc = 'Focus Pane Above' })
 vim.keymap.set('n', '<Right>', '<C-W><C-L>', { desc = 'Focus Pane Right' })
-vim.keymap.set('', '<Left>', '<C-W><C-H>', { desc = 'Focus Pane Left' })
+vim.keymap.set('n', '<Left>', '<C-W><C-H>', { desc = 'Focus Pane Left' })
 
 -- Search
 -- vim.keymap.set('n', '/', '/\\v')
