@@ -146,6 +146,12 @@ return {
             -- every side. Index 4 (right) stays a space, which is what keeps
             -- the scrollbar gutter enabled.
             border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+
+            -- blink derives the width from the content, then clamps it to
+            -- [min_width, max_width]. Equal values pin it, so the window no
+            -- longer resizes as you move between items.
+            min_width = 80,
+            max_width = 80,
           },
         },
       },
