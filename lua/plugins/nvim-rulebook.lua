@@ -28,7 +28,7 @@ return {
       --   mode = { 'n', 'x' },
       -- },
     },
-    config = function(opts)
+    config = function(_, opts)
       require('rulebook').setup(opts)
 
       vim.diagnostic.config({
