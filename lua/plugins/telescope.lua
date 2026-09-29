@@ -13,7 +13,6 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       'nvim-telescope/telescope-ui-select.nvim',
       'josa42/nvim-telescope-mask',
-      'itchyny/vim-gitbranch',
       {
         'josa42/nvim-telescope-workspaces',
         -- dir = '~/github/josa42/nvim-telescope-workspaces',
