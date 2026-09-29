@@ -29,7 +29,7 @@ return function()
             return not d.message:match('^Unresolved tag:')
           end, result.diagnostics)
         end
-        vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+        vim.lsp.handlers['textDocument/publishDiagnostics'](err, result, ctx, config)
       end,
     },
   }
