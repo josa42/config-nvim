@@ -109,6 +109,9 @@ return {
       appearance = {
         kind_icons = kind_icons,
         nerd_font_variant = 'mono',
+        -- The colorscheme styles nvim-cmp's highlight groups; this links the
+        -- BlinkCmp* groups onto their CmpItem* equivalents.
+        use_nvim_cmp_as_default = true,
       },
 
       completion = {
