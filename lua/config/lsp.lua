@@ -10,7 +10,7 @@ local servers = {
   'gopls',
   'jsonls',
   'lua_ls',
-  'ts_ls',
+  'vtsls',
   'yamlls',
   'stylelint_lsp',
   'terraformls',
@@ -22,9 +22,7 @@ local servers = {
   -- 'snyk_ls',
 }
 
-local ignore = {
-  'ts_ls',
-}
+local ignore = {}
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',

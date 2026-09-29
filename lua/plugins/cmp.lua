@@ -71,7 +71,7 @@ return {
         ['nvim_lsp:html'] = '',
         ['nvim_lsp:jsonls'] = '',
         ['nvim_lsp:lua_ls'] = '󰢱',
-        ['nvim_lsp:typescript-tools'] = '',
+        ['nvim_lsp:vtsls'] = '',
         ['nvim_lsp:vimls'] = '',
         ['nvim_lua'] = '',
         ['path'] = '',
