@@ -1,5 +1,5 @@
 local M = {}
-local signs = require('jg.sings')
+local signs = require('config.signs')
 
 local file_icon = {
   icon = signs.fs.file,
