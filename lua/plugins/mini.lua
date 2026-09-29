@@ -1,6 +1,6 @@
 return {
   {
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
 
     dependencies = {
       'josa42/nvim-telescope-config',

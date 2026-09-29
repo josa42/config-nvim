@@ -9,7 +9,7 @@ return {
   'jxnblk/vim-mdx-js',
   'mityu/vim-applescript',
   'fladson/vim-kitty',
-  'antonk52/vim-browserslist',
+  'browserslist/vim-browserslist',
   'josa42/vim-trivyignore',
   'josa42/vim-npmrc',
   -- ejs
