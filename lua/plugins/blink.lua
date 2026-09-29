@@ -140,6 +140,13 @@ return {
         },
         documentation = {
           auto_show = true,
+          window = {
+            -- blink's 'padded' preset insets left and right only, so the text
+            -- sits against the top and bottom edges. A full space border pads
+            -- every side. Index 4 (right) stays a space, which is what keeps
+            -- the scrollbar gutter enabled.
+            border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+          },
         },
       },
 
