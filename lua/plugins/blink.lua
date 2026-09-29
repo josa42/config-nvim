@@ -117,7 +117,6 @@ return {
           selection = { preselect = false, auto_insert = false },
         },
         menu = {
-          border = 'single',
           draw = {
             columns = {
               { 'label', 'label_description', gap = 1 },
@@ -134,11 +133,10 @@ return {
         },
         documentation = {
           auto_show = true,
-          window = { border = 'single' },
         },
       },
 
-      signature = { enabled = true, window = { border = 'single' } },
+      signature = { enabled = true },
 
       keymap = {
         preset = 'none',
