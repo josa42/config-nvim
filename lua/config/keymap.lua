@@ -132,7 +132,7 @@ vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 vim.keymap.set('n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', { desc = 'Go to definition in new tab' })
 vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
 vim.keymap.set('n', 'gH', vim.lsp.buf.signature_help, { desc = 'Signature help' })
-vim.keymap.set('i', '<c-h>', vim.lsp.buf.signature_help, { desc = 'Signature help' })
+-- insert mode signature help is Neovim's built-in <c-s> default
 vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action' })
 vim.keymap.set('v', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action' })
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, { desc = 'Format buffer' })
