@@ -9,7 +9,7 @@ return {
 
     event = { 'BufRead' },
 
-    config = {
+    opts = {
       yadm = { enable = true },
       signs = require('config.signs').gitsigns,
       current_line_blame = false,
