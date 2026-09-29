@@ -106,10 +106,10 @@ function l.setup_server(name)
   local get_opts = l.try_require('lsp.servers.' .. name)
   local opts = get_opts ~= nil and get_opts() or {}
 
-  local cmp_nvim_lsp = l.try_require('cmp_nvim_lsp')
-  if cmp_nvim_lsp ~= nil then
+  local blink = l.try_require('blink.cmp')
+  if blink ~= nil then
     opts = vim.tbl_extend('keep', opts, {
-      capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      capabilities = blink.get_lsp_capabilities(nil, true),
     })
   end
 
