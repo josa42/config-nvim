@@ -108,7 +108,8 @@ return {
 
       appearance = {
         kind_icons = kind_icons,
-        nerd_font_variant = 'mono',
+        -- 'normal' puts a space after the kind icon; 'mono' renders it flush
+        nerd_font_variant = 'normal',
         -- The colorscheme styles nvim-cmp's highlight groups; this links the
         -- BlinkCmp* groups onto their CmpItem* equivalents.
         use_nvim_cmp_as_default = true,
@@ -121,10 +122,9 @@ return {
         },
         menu = {
           draw = {
-            -- No left inset, so the popup's edge and the label both start on
-            -- the typed word, the way nvim-cmp rendered it. blink folds
-            -- padding[1] into its align_to calculation.
-            padding = { 0, 1 },
+            -- Horizontal only; blink has no vertical padding, so nothing is
+            -- added above the first row.
+            padding = 1,
             columns = {
               { 'kind_icon' },
               { 'label', 'label_description', gap = 1 },
