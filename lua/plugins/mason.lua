@@ -1,11 +1,11 @@
 return {
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
 
     cmd = { 'Mason', 'MasonUpdateAll' },
 
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
+      'mason-org/mason-lspconfig.nvim',
       {
         'RubixDev/mason-update-all',
         opts = {},
