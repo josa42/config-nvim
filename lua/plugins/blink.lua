@@ -126,8 +126,8 @@ return {
             -- padding[1] into its align_to calculation.
             padding = { 0, 1 },
             columns = {
-              { 'label', 'label_description', gap = 1 },
               { 'kind_icon' },
+              { 'label', 'label_description', gap = 1 },
               { 'source' },
             },
             components = {
