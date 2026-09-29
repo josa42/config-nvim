@@ -130,13 +130,16 @@ return {
           null_ls.builtins.formatting.stylua,
 
           null_ls.builtins.formatting.shfmt.with({
-            extra_args = {
-              ('-i=%d'):format(vim.bo.shiftwidth), -- indent: 0 for tabs (default), >0 for number of spaces
-              '-bn', -- binary ops like && and | may start a line
-              '-ci', -- switch cases will be indented
-              '-sr', -- keep column alignment paddings
-              '-kp', -- function opening braces are placed on a separate line
-            },
+            extra_args = function(params)
+              return {
+                -- indent: 0 for tabs (default), >0 for number of spaces
+                ('-i=%d'):format(vim.bo[params.bufnr].shiftwidth),
+                '-bn', -- binary ops like && and | may start a line
+                '-ci', -- switch cases will be indented
+                '-sr', -- keep column alignment paddings
+                '-kp', -- function opening braces are placed on a separate line
+              }
+            end,
           }),
 
           -- yaml
