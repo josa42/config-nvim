@@ -2,8 +2,6 @@ return {
   {
     'nvim-lualine/lualine.nvim',
 
-    dependencies = { 'arkav/lualine-lsp-progress' },
-
     init = function()
       vim.cmd([[
         hi! StatusLineNC  guibg=#21252B
