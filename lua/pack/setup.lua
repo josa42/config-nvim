@@ -8,20 +8,48 @@ local M = {}
 
 local pack_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'site/pack/core/opt')
 
--- Mirrors lazy.nvim's main-module guess: gitsigns.nvim -> gitsigns,
--- nvim-autopairs -> nvim-autopairs, vim-repeat -> (nothing to require).
-local function main_module(name)
-  local candidates = {
-    name,
-    (name:gsub('%.nvim$', '')),
-    (name:gsub('%.vim$', '')),
-    (name:gsub('^nvim%-', '')),
-    (name:gsub('^vim%-', '')),
-  }
+-- Guess the module holding setup(), the way lazy.nvim does:
+-- gitsigns.nvim -> gitsigns, copilot.lua -> copilot,
+-- homeassistant-nvim -> homeassistant, markdown-preview.nvim -> markdown_preview.
+local function candidate_names(name)
+  local bases, seen, out = {}, {}, {}
 
-  for _, candidate in ipairs(candidates) do
-    if package.preload[candidate] or pcall(require, candidate) then
-      return candidate
+  local function base(n)
+    if n ~= '' and not vim.tbl_contains(bases, n) then
+      table.insert(bases, n)
+    end
+  end
+
+  base(name)
+  base((name:gsub('%.nvim$', '')))
+  base((name:gsub('%.vim$', '')))
+  base((name:gsub('%.lua$', '')))
+  base((name:gsub('%-nvim$', '')))
+  base((name:gsub('%-vim$', '')))
+  base((name:gsub('^nvim%-', '')))
+  base((name:gsub('^vim%-', '')))
+
+  -- Repos hyphenate where the module underscores.
+  for _, b in ipairs(vim.deepcopy(bases)) do
+    base((b:gsub('%-', '_')))
+  end
+
+  for _, b in ipairs(bases) do
+    if not seen[b] then
+      seen[b] = true
+      table.insert(out, b)
+    end
+  end
+
+  return out
+end
+
+-- Returns the first requireable module exposing setup().
+local function main_module(name)
+  for _, candidate in ipairs(candidate_names(name)) do
+    local ok, mod = pcall(require, candidate)
+    if ok and type(mod) == 'table' and type(mod.setup) == 'function' then
+      return mod
     end
   end
 end
@@ -109,15 +137,15 @@ local function configure(spec, errors)
       table.insert(errors, ('%s config: %s'):format(plugin.name, err))
     end
   elseif spec.opts ~= nil or type(spec.config) == 'table' then
-    local module = main_module(plugin.name)
-    local mod = module and require(module)
-    if type(mod) == 'table' and type(mod.setup) == 'function' then
+    local mod = main_module(plugin.name)
+    if mod then
       local ok, err = pcall(mod.setup, opts)
       if not ok then
         table.insert(errors, ('%s setup: %s'):format(plugin.name, err))
       end
-    else
-      table.insert(errors, ('%s: no setup() to call'):format(plugin.name))
+    elseif next(opts) ~= nil then
+      -- Only worth reporting when opts would have been lost.
+      table.insert(errors, ('%s: no setup() found for opts'):format(plugin.name))
     end
   end
 end
@@ -143,17 +171,27 @@ local function walk(spec, errors)
   configure(spec, errors)
 end
 
+-- Specs are otherwise configured in alphabetical order. These have to come
+-- first: mason prepends its bin directory to PATH, and plugins that look for a
+-- mason-installed executable during setup will not find it before that runs.
+local first = { 'mason' }
+
 function M.run()
   local errors = {}
   local dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'lua/plugins')
 
-  local names = {}
+  local rest = {}
   for name, type_ in vim.fs.dir(dir) do
     if type_ == 'file' and name:match('%.lua$') then
-      table.insert(names, (name:gsub('%.lua$', '')))
+      local mod = (name:gsub('%.lua$', ''))
+      if not vim.tbl_contains(first, mod) then
+        table.insert(rest, mod)
+      end
     end
   end
-  table.sort(names)
+  table.sort(rest)
+
+  local names = vim.list_extend(vim.deepcopy(first), rest)
 
   for _, name in ipairs(names) do
     local ok, spec = pcall(require, 'plugins.' .. name)
