@@ -95,6 +95,13 @@ vim.keymap.set('n', 'ti', function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = 'Toggle inline hints' })
 
+-- Unused providers. Nothing here is a remote plugin, so skip the host lookups
+-- at startup and the matching :checkhealth warnings.
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- Project config
 vim.o.exrc = true
 
