@@ -155,7 +155,7 @@ return {
               fallback()
             end
           end, { 'i', 's' }),
-          ['<C-p'] = cmp.mapping(function(fallback)
+          ['<C-p>'] = cmp.mapping(function(fallback)
             if has_luasnip and luasnip.jumpable(-1) then
               luasnip.jump(-1)
             elseif has_copilot and copilot.is_visible() then
