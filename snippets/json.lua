@@ -70,7 +70,7 @@ return {
 
             local clipboard = vim.fn.getreg('+', 1, true)
 
-            if vim.tbl_islist(clipboard) then
+            if vim.islist(clipboard) then
               for idx, line in ipairs(strip_prefix(clipboard)) do
                 local indent = idx == 1 and '' or '\t\t'
                 local comma = idx < #clipboard and ',' or ''
