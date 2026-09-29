@@ -44,9 +44,10 @@ vim.diagnostic.config({
 
 -- Disable the plugin in Lazy.nvim
 vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('config.diagnostics', { clear = true }),
   pattern = 'lazy',
-  callback = function()
-    vim.diagnostic.enable(false)
+  callback = function(args)
+    vim.diagnostic.enable(false, { bufnr = args.buf })
   end,
 })
 
