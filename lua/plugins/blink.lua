@@ -121,6 +121,10 @@ return {
         },
         menu = {
           draw = {
+            -- No left inset, so the popup's edge and the label both start on
+            -- the typed word, the way nvim-cmp rendered it. blink folds
+            -- padding[1] into its align_to calculation.
+            padding = { 0, 1 },
             columns = {
               { 'label', 'label_description', gap = 1 },
               { 'kind_icon' },
