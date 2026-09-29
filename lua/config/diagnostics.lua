@@ -20,6 +20,9 @@ vim.diagnostic.config({
   underline = false,
   severity_sort = true,
   virtual_lines = false,
+  virtual_text = false,
+  update_in_insert = true,
+  float = { border = 'single' },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = signs.diagnostic.error,
@@ -35,12 +38,6 @@ vim.cmd.hi({ 'link', 'DiagnosticVirtualTextHint', 'Comment', bang = true })
 vim.cmd.hi({ 'link', 'DiagnosticVirtualTextInfo', 'Comment', bang = true })
 vim.cmd.hi({ 'link', 'DiagnosticVirtualTextWarn', 'Comment', bang = true })
 vim.cmd.hi({ 'link', 'DiagnosticVirtualTextError', 'Comment', bang = true })
-
-vim.diagnostic.config({
-  update_in_insert = true,
-  virtual_text = false,
-  float = { border = 'single' },
-})
 
 -- Disable the plugin in Lazy.nvim
 vim.api.nvim_create_autocmd('FileType', {

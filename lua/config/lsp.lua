@@ -36,11 +36,6 @@ vim.api.nvim_create_autocmd('User', {
 
     l.setup_server('sourcekit')
 
-    vim.diagnostic.config({
-      update_in_insert = true,
-      virtual_text = false,
-    })
-
     local mason_lspconfig = l.try_require('mason-lspconfig')
     if mason_lspconfig then
       mason_lspconfig.setup({
