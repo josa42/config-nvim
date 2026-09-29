@@ -6,9 +6,10 @@ end
 require('config.clipboard')
 require('config.conceal')
 require('config.misc')
-require('config.diagnostics')
 require('config.keymap')
 require('config.quickfix')
 require('config.spell')
-require('config.lazy')
+require('pack')
+-- after pack: eagerly loaded plugins may otherwise clobber these settings
+require('config.diagnostics')
 require('config.lsp')
