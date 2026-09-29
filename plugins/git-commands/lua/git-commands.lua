@@ -18,7 +18,7 @@ function M.setup()
 
     local root = sh('git rev-parse --show-toplevel', abs_dir)
 
-    local rel_path = sh(('git ls-files --full-name -- %s'):format(abs_path), abs_dir)
+    local rel_path = sh(('git ls-files --full-name -- %s'):format(vim.fn.shellescape(abs_path)), abs_dir)
     if rel_path == '' then
       vim.notify('File not found')
       return
@@ -26,10 +26,10 @@ function M.setup()
 
     if opts.bang then
       local branch = sh('git symbolic-ref refs/remotes/origin/HEAD --short', root):gsub('^origin/', '')
-      sh(('gh browse %s --branch %s'):format(rel_path, branch), root)
+      sh(('gh browse %s --branch %s'):format(vim.fn.shellescape(rel_path), vim.fn.shellescape(branch)), root)
     else
       local branch = sh('git branch --show-current', root)
-      sh(('gh browse %s --branch %s'):format(rel_path, branch), root)
+      sh(('gh browse %s --branch %s'):format(vim.fn.shellescape(rel_path), vim.fn.shellescape(branch)), root)
     end
   end, { bang = true, nargs = 0 })
 
