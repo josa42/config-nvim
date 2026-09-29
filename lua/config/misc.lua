@@ -100,4 +100,4 @@ vim.o.exrc = true
 
 -- window decorations
 -- vim.o.winborder = 'rounded'
-vim.o.winborder = 'single'
+-- vim.o.winborder = 'single'
