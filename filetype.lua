@@ -3,6 +3,8 @@ vim.filetype.add({
     conf = 'conf',
     template = 'html',
     mc = 'monkeyc',
+    -- compound filetype: treesitter resolves it to markdown
+    mdx = 'markdown.mdx',
     jxa = 'javascript',
     bu = 'yaml',
   },
