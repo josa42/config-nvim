@@ -7,8 +7,11 @@ vim.filetype.add({
     mdx = 'markdown.mdx',
     jxa = 'javascript',
     bu = 'yaml',
+    caddy = 'caddy',
+    caddyfile = 'caddy',
   },
   filename = {
+    ['Caddyfile'] = 'caddy',
     ['Vagrantfile'] = 'ruby',
     ['.eslintrc'] = 'json',
     ['Brewfile'] = 'ruby',
@@ -32,5 +35,6 @@ vim.filetype.add({
     ['docker%-compose%..*%.ya?ml'] = 'yaml.docker-compose',
     ['.*/.github/workflows/.*%.ya?ml'] = 'yaml.github',
     ['.*/action%.ya?ml'] = 'yaml.github',
+    ['Caddyfile%..*'] = 'caddy',
   },
 })

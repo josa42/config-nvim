@@ -11,7 +11,7 @@ return {
       ['*.json'] = { 'null-ls' },
       ['*.jsx'] = { 'null-ls' },
       ['*.md'] = { 'null-ls' },
-      ['*.ts'] = { 'null-ls', 'tsserver' },
+      ['*.ts'] = { 'null-ls', 'vtsls' },
       ['*.tsx'] = { 'null-ls' },
       ['*.css'] = { 'stylelint_lsp' },
       ['*.lua'] = { 'null-ls' },
