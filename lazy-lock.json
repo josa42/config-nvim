@@ -31,7 +31,7 @@
   "nvim-telescope-minimal-layout": { "branch": "main", "commit": "e577506124f2852bd3b6fccbda5a00c17e82ab39" },
   "nvim-telescope-workspaces": { "branch": "main", "commit": "50a723e04b0340d8376144fd46612a56588577be" },
   "nvim-templates": { "branch": "master", "commit": "848a3ec748cb3169803bd72784d138fbc4f09b42" },
-  "nvim-treesitter": { "branch": "main", "commit": "d3e4a28b63961ba972b0945d66c73b6eec969953" },
+  "nvim-treesitter": { "branch": "main", "commit": "29212d826054bb2948fa9d3a99eca9bf6a050eb2" },
   "nvim-ts-autotag": { "branch": "main", "commit": "d7220b55e16ed3c04e88086256def5d282429493" },
   "nvim-unicorn": { "branch": "main", "commit": "b82385a0235e95e73567c8363750acbd74d66591" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
