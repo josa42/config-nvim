@@ -70,8 +70,8 @@ return {
   },
 
   {
-    'selimacerbas/markdown-preview.nvim',
-    dependencies = { 'selimacerbas/live-server.nvim' },
+    'selimacerbas/mdkite.nvim',
+    dependencies = { 'selimacerbas/kitehost.nvim' },
     opts = {},
   },
 
